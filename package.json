@@ -1,0 +1,36 @@
+{
+    "name": "grasshopper-api",
+    "description": "API to manage the grasshopper cms",
+    "main": "./lib/grasshopper-api",
+    "author": "Travis McHattie",
+    "version": "0.0.1",
+    "repository" : {
+        "type" : "git",
+        "url" : "https://git.thinksolid.com/travis.mchattie/grasshopper-api.git"
+    },
+    "bugs" : {
+        "url" : "https://git.thinksolid.com/travis.mchattie/grasshopper-api/issues"
+    },
+    "licenses" : [
+        {
+            "type" : "MIT",
+            "url" : "https://github.com/caolan/async/raw/master/LICENSE"
+        }
+    ],
+    "devDependencies": {
+        "nodeunit": ">0.0.0",
+        "uglify-js": "1.2.x",
+        "nodelint": ">0.0.0"
+    },
+    "jam": {
+        "main": "lib/grasshopper-api.js",
+        "include": [
+            "lib/grasshopper-api.js",
+            "README.md",
+            "LICENSE"
+        ]
+    },
+    "scripts": {
+        "test": "nodeunit test/test-grasshopper-api.js"
+    }
+}

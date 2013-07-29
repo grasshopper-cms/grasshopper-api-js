@@ -1,0 +1,11 @@
+{
+    "name": "grasshopper-api",
+    "repo": "solidinteractive/grasshopper-api",
+    "description": "API to manage the grasshopper cms",
+    "version": "0.0.1",
+    "keywords": [],
+    "dependencies": {},
+    "development": {},
+    "main": "lib/grasshopper-cms.js",
+    "scripts": [ "lib/grasshopper-cms.js" ]
+}

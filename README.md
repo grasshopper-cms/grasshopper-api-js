@@ -2,4 +2,4 @@
 
 # Database Schema
 
-[No-SQL Schema](docs/db.md)
+[No-SQL Schema](../blob/master/docs/db.md)

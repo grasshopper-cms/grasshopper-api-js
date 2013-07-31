@@ -17,11 +17,14 @@
             "url" : "https://github.com/caolan/async/raw/master/LICENSE"
         }
     ],
-    "devDependencies": {
-        "nodeunit": ">0.0.0",
-        "uglify-js": "1.2.x",
-        "nodelint": ">0.0.0",
+    "dependencies" : {
+        "crypto-js": "~3.1.2-1",
         "solid-logger-js" : "~0.3.1"
+    },
+    "devDependencies": {
+        "nodeunit": "~0.8.1",
+        "uglify-js": "1.2.x",
+        "nodelint": "~0.6.2"
     },
     "jam": {
         "main": "lib/grasshopper-api.js",

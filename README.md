@@ -33,7 +33,17 @@ Coming...
 
 # API Methods
 
-Coming...
+## Query
+
+## Node
+
+--------------------------------------------------------------------------------------------------------------
+
+### getChildNodes(nodeid, recurrsive = false)
+
+    * Method that will return a list of nodes from a parent
+
+## Content
 
 
 # License

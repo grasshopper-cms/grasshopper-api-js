@@ -22,6 +22,72 @@ products do not cut it. Our cms is different as it is truely more of a data mana
 This distinction makes it very appealing when creating apis or non-traditional websites that need a tool to easily edit
 data.
 
+
+# Architecture
+
+## api
+
+The ```api``` module is the MAIN module. It is the glue that the system needs to perform it's operations. The idea is
+that is has references to everything it needs but it only exposes actionable functionality externally.
+
+To use the api you would interact with it like this:
+
+```
+var api = require('grasshopper-api');
+api.init({
+     db: {
+         type: 'couchdb',
+         url: '',
+         username: '',
+         password: ''
+     },
+     logger: {
+         adapters: [{
+             type: "file",
+             path: path.resolve(__dirname, "../") + "/log/grasshopper.log",
+             application: 'grasshopper-api',
+             machine: 'dev-server'
+         }]
+     }
+});
+
+var authToken = api.auth.init({
+    username: '',
+    password: ''
+});
+
+api.nodes.<operation>(authToken, <params>);
+```
+
+## app
+
+The ```app``` module maintains references to the logger object and the db engine. Since we can have more than one db
+engine the preferred way to work with any data storage is through the ```app.db``` object.
+
+
+## entities
+
+The entities modules are all objects that the system needs. They are things like ```nodes```, ```contenttypes```, ```content```,
+```users```, ```permissions```, etc.
+
+
+## db engines
+
+The modules in the ```db``` directory are all implementations of our standard interface that define how a specific
+database engine manages data entry and access.
+
+Available engines:
+
+   * Couch DB
+
+
+## utils
+
+All helper functions should be added to the utils folder.
+
+    * Crypto: For hashing password and support for two way encryption for data stored in memory.
+
+
 # Database Schema
 
 [No-SQL Schema](../blob/master/docs/db.md)

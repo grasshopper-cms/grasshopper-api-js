@@ -38,5 +38,5 @@ module.exports = {
         test.equals(token.userId, null);
 
         test.done();
-    },
+    }
 };

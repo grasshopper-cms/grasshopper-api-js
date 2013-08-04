@@ -3,11 +3,15 @@ module.exports = {
         var path = require('path');
 
         this.config = {
+            cache: {
+                path: path.resolve(__dirname, "../") + "/cache"
+            },
             db: {
                 type: 'couchdb',
-                url: '',
-                username: '',
-                password: ''
+                host: 'https://solidinteractive.cloudant.com',
+                database: 'grasshopper',
+                username: 'solidinteractive',
+                password: '$databassic$'
             },
             logger: {
                 adapters: [{

@@ -11,7 +11,7 @@ module.exports = {
                 host: 'https://solidinteractive.cloudant.com',
                 database: 'grasshopper',
                 username: 'solidinteractive',
-                password: '$databassic$'
+                password: '1q2w3e4r'
             },
             logger: {
                 adapters: [{
@@ -32,9 +32,9 @@ module.exports = {
     },
     testInitApi: function (test) {
 
-        var api = require('../lib/grasshopper-api');
-        api.init(this.config);
+        var api = require('../lib/grasshopper-api')(this.config);
 
+        api.auth.init({});
         test.done();
     }
 };

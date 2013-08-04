@@ -35,9 +35,13 @@ To use the api you would interact with it like this:
 ```
 var api = require('grasshopper-api');
 api.init({
+     cache: {
+        path: path.resolve(__dirname, "../") + "/cache"
+     },
      db: {
          type: 'couchdb',
-         url: '',
+         database: '',
+         host: '',
          username: '',
          password: ''
      },

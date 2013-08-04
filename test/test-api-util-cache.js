@@ -16,16 +16,26 @@ module.exports = {
         callback();
     },
     testAddCachedValue: function (test) {
-
         this.cache.add(this.cacheKey, this.cacheValue, function(val){
-            console.log(val);
+            test.equals(val, true);
             test.done();
         });
     },
     testGetCachedValue: function (test) {
-
         this.cache.get(this.cacheKey, function(val){
-            console.log(val);
+            test.notEqual(val, null);
+            test.done();
+        });
+    },
+    testRemoveCachedValue: function (test) {
+        this.cache.remove(this.cacheKey, function(val){
+            test.equals(val, true);
+            test.done();
+        });
+    },
+    testValidateRemovedCachedValue: function(test){
+        this.cache.get(this.cacheKey, function(val){
+            test.equals(val, null);
             test.done();
         });
     }

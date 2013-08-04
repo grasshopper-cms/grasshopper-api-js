@@ -32,9 +32,18 @@ module.exports = {
     },
     testInitApi: function (test) {
 
-        var api = require('../lib/grasshopper-api')(this.config);
+        var api = require('../lib/grasshopper-api'),
+            Api = new api(this.config);
 
-        api.auth.init({});
-        test.done();
+
+       Api.on('ready', function(a){
+           /* api.users.create({
+                email: 'jennifer',
+                type: 'user',
+                name: 'Jennifer'
+            });*/
+           console.log(a);
+            test.done();
+        });
     }
 };

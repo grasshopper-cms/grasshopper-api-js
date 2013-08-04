@@ -13,6 +13,7 @@ The users collection is used to determine access to the system and permissions t
         password: "", //This should be hashed using the standard solid best practices
         email: "",
         role: "", // [editor, author, reader, admin, none]
+        login: "",
         permissions: [{
             nodeid: "",
             role: "", //same as above

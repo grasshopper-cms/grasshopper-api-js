@@ -21,7 +21,8 @@
         "crypto-js": "~3.1.2-1",
         "solid-logger-js" : "~0.3.1",
         "nano" : "~4.1.1",
-        "underscore": "~1.5.1"
+        "underscore": "~1.5.1",
+        "async": "~0.2.9"
     },
     "devDependencies": {
         "nodeunit": "~0.8.1",

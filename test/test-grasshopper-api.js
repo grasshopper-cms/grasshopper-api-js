@@ -1,6 +1,8 @@
 module.exports = {
     setUp: function (callback) {
-        var path = require('path');
+        var path = require('path'),
+            api = require('../lib/grasshopper-api'),
+            self = this;
 
         this.config = {
             cache: {
@@ -23,27 +25,48 @@ module.exports = {
             }
         };
 
+        var _api = new api(this.config);
 
-        callback();
+
+        _api.on('ready', function(grasshopper){
+            self.grasshopper = grasshopper;
+            callback();
+        });
+
     },
     tearDown: function (callback) {
         // clean up
         callback();
     },
-    testInitApi: function (test) {
+    testCreateNewUser: function(test){
 
-        var api = require('../lib/grasshopper-api'),
-            Api = new api(this.config);
+        var newUser = {
+            name: "Test User",
+            password: "Test Password",
+            email: "test@test.com",
+        //    role: "admin",
+            login: "testuser"
+        };
 
-
-       Api.on('ready', function(a){
-           /* api.users.create({
-                email: 'jennifer',
-                type: 'user',
-                name: 'Jennifer'
-            });*/
-           console.log(a);
+        this.grasshopper.users.create(newUser, function(){
             test.done();
         });
+
+    },
+    testCreateNewUserWithMissingProps: function(test){
+
+        var newUser = {
+
+        };
+
+        test.done();
+    },
+    testInitApi: function (test) {
+
+       console.log('Test API');
+
+
+       test.done();
+
     }
 };

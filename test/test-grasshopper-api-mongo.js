@@ -164,7 +164,28 @@ module.exports = {
 
         var newUser = {
             name: "My name",
-            password: "Test Password",
+            password: null,
+            email: "test@test.com",
+            role: "admin",
+            login: "login"
+        };
+
+        this.grasshopper.users.create(newUser, function(err, user){
+            if(!err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+
+            test.done();
+        });
+    },
+    testCreateNewUserWithShortPassword: function(test){
+
+        var newUser = {
+            name: "My name",
+            password: "12345",
             email: "test@test.com",
             role: "admin",
             login: "login"
@@ -211,6 +232,116 @@ module.exports = {
             email: "test@test.com",
             role: "admin",
             login: "testuser"
+        };
+
+        this.grasshopper.users.update(updateUser, function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
+    testUpdateUserWithoutShortLogin: function(test){
+
+        var updateUser = {
+            _id: this.testUserId,
+            name: 'aaaaaaaaaaa',
+            password: "Test Password",
+            email: "test@test.com",
+            role: "admin",
+            login: "tes"
+        };
+
+        this.grasshopper.users.update(updateUser, function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
+    testUpdateUserWithoutNullLogin: function(test){
+
+        var updateUser = {
+            _id: this.testUserId,
+            name: 'aaaaaaaaaaa',
+            password: "Test Password",
+            email: "test@test.com",
+            role: "admin",
+            login: null
+        };
+
+        this.grasshopper.users.update(updateUser, function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
+    testUpdateUserWithoutEmptyLogin: function(test){
+
+        var updateUser = {
+            _id: this.testUserId,
+            name: 'aaaaaaaaaaa',
+            password: "Test Password",
+            email: "test@test.com",
+            role: "admin",
+            login: ""
+        };
+
+        this.grasshopper.users.update(updateUser, function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
+    testUpdateUserWithoutEmptyPassword: function(test){
+
+        var updateUser = {
+            _id: this.testUserId,
+            name: 'aaaaaaaaaaa',
+            password: "",
+            email: "test@test.com",
+            role: "admin",
+            login: "testtest"
+        };
+
+        this.grasshopper.users.update(updateUser, function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
+    testUpdateUserWithoutNullLPassword: function(test){
+
+        var updateUser = {
+            _id: this.testUserId,
+            name: 'aaaaaaaaaaa',
+            password: null,
+            email: "test@test.com",
+            role: "admin",
+            login: ""
         };
 
         this.grasshopper.users.update(updateUser, function(err){

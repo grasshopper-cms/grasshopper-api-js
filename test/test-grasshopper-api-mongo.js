@@ -4,6 +4,8 @@ module.exports = {
             api = require('../lib/grasshopper-api'),
             self = this;
 
+        this.testUserId = "autocreatedtestuser";
+
         this.config = {
             cache: {
                 path: path.resolve(__dirname, "../") + "/cache"
@@ -45,13 +47,13 @@ module.exports = {
     testCreateNewUser: function(test){
 
         var newUser = {
+            _id: this.testUserId,
             name: "Test User",
             password: "Test Password",
             email: "test@test.com",
             role: "admin",
             login: "testuser"
-        },
-        self = this;
+        };
 
         this.grasshopper.users.create(newUser, function(err, user){
             if(err){
@@ -68,11 +70,9 @@ module.exports = {
                     test.ok(false, "User ID is a 0 length string, something went wrong.");
                 }
                 else {
-                    self.validUserId = user._id;
                     test.ok(true, "User created without an error.");
                 }
             }
-
             test.done();
         });
 
@@ -84,8 +84,7 @@ module.exports = {
                 email: "test@test.com",
                 role: "admin",
                 login: "testuser"
-            },
-            self = this;
+            };
 
         this.grasshopper.users.create(newUser, function(err, user){
             if(!err){
@@ -98,10 +97,62 @@ module.exports = {
             test.done();
         });
     },
-    testInitApi: function (test) {
+    testUpdateUser: function(test){
 
-        console.log('Test API');
+        var updateUser = {
+            _id: this.testUserId,
+            name: 'aaaaaaaaaaa',
+            password: "Test Password",
+            email: "test@test.com",
+            role: "admin",
+            login: "testuser"
+        };
 
+        this.grasshopper.users.update(updateUser, function(err){
+            if(err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+
+            test.done();
+        });
+    },
+    testUpdateUserWithoutIdSet: function(test){
+
+        var updateUser = {
+            name: 'aaaaaaaaaaa',
+            password: "Test Password",
+            email: "test@test.com",
+            role: "admin",
+            login: "testuser"
+        };
+
+        this.grasshopper.users.update(updateUser, function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
+    testGetCreatedUser: function (test) {
+
+        console.log(this.testUserId);
+        this.grasshopper.users.getById(this.testUserId, function(err, result){
+            console.log(result);
+            if(err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+            test.done();
+        });
 
         test.done();
 

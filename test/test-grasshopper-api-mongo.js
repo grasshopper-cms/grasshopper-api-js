@@ -397,6 +397,29 @@ module.exports = {
             test.done();
         });
     },
+    testUpdateUserWithInvalidPermissions: function(test){
+
+        var updateUser = {
+            _id: this.testUserId,
+            name: 'aaaaaaaaaaa',
+            password: "123456fds",
+            email: "test@test.com",
+            role: "admin",
+            login: "testtest",
+            permissions: [{"nodeid" : "fdasfsad","role" : "fadsfas"}]
+        };
+
+        this.grasshopper.users.update(updateUser, function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
     testDisableUser: function(test){
         this.grasshopper.users.disable(this.testUserId, function(err){
             if(err){

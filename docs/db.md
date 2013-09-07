@@ -18,6 +18,7 @@ The users collection is used to determine access to the system and permissions t
             nodeid: "",
             role: "", //same as above
         }],
+        enabled: true
         ...
     }
 

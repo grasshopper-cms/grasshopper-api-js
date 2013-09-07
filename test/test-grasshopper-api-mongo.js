@@ -58,8 +58,19 @@ module.exports = {
                 test.ok(false, err);
             }
             else {
-                self.validUserId = user._id;
-                test.ok(true, "User created without an error.");
+                if(user == null){
+                    test.ok(false, "User object is null, something went wrong.");
+                }
+                else if(user._id == null){
+                    test.ok(false, "User ID is null, something went wrong.");
+                }
+                else if(user._id.length == 0){
+                    test.ok(false, "User ID is a 0 length string, something went wrong.");
+                }
+                else {
+                    self.validUserId = user._id;
+                    test.ok(true, "User created without an error.");
+                }
             }
 
             test.done();

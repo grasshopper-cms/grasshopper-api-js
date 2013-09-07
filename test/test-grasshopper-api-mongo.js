@@ -140,8 +140,68 @@ module.exports = {
             test.done();
         });
     },
-    testDeleteUser: function(test){
-        this.grasshopper.users.deleteUserById(this.testUserId, function(err){
+    testDisableUser: function(test){
+        this.grasshopper.users.disable(this.testUserId, function(err){
+            if(err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+
+            test.done();
+        });
+    },
+    testDisableUserEmptyId: function(test){
+        this.grasshopper.users.disable('fdafdasfdasf', function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
+    testDisableUserBadId: function(test){
+        this.grasshopper.users.disable(null, function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
+    testEnableUser: function(test){
+        this.grasshopper.users.enable(this.testUserId, function(err){
+            if(err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+
+            test.done();
+        });
+    },
+    testEnableUserEmptyId: function(test){
+        this.grasshopper.users.enable('fdafdasfdasf', function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
+    testEnableUserBadId: function(test){
+        this.grasshopper.users.enable(null, function(err){
             if(err){
                 test.ok(true, err);
             }
@@ -154,9 +214,7 @@ module.exports = {
     },
     testGetCreatedUser: function (test) {
 
-        console.log(this.testUserId);
         this.grasshopper.users.getById(this.testUserId, function(err, result){
-            console.log(result);
             if(err){
                 test.ok(false, err);
             }
@@ -165,8 +223,29 @@ module.exports = {
             }
             test.done();
         });
+    },
+    testGetCreatedUserBadId: function (test) {
 
-        test.done();
+        this.grasshopper.users.getById("fdsafjdsaklfjdsaklj", function(err, result){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+            test.done();
+        });
+    },
+    testGetCreatedUserEmptyId: function (test) {
 
+        this.grasshopper.users.getById(null, function(err, result){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+            test.done();
+        });
     }
 };

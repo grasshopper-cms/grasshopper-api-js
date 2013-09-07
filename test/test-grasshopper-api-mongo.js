@@ -140,6 +140,18 @@ module.exports = {
             test.done();
         });
     },
+    testDeleteUser: function(test){
+        this.grasshopper.users.deleteUserById(this.testUserId, function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
     testGetCreatedUser: function (test) {
 
         console.log(this.testUserId);

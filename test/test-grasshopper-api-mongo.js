@@ -41,7 +41,6 @@ module.exports = {
 
     },
     tearDown: function (callback) {
-        // clean up
         callback();
     },
     testCreateNewUser: function(test){
@@ -181,6 +180,27 @@ module.exports = {
             test.done();
         });
     },
+    testCreateNewUserWithBadRole: function(test){
+
+        var newUser = {
+            name: "My name",
+            password: "123456",
+            email: "test@test.com",
+            role: "",
+            login: "login"
+        };
+
+        this.grasshopper.users.create(newUser, function(err, user){
+            if(!err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+
+            test.done();
+        });
+    },
     testCreateNewUserWithShortPassword: function(test){
 
         var newUser = {
@@ -254,6 +274,28 @@ module.exports = {
             email: "test@test.com",
             role: "admin",
             login: "tes"
+        };
+
+        this.grasshopper.users.update(updateUser, function(err){
+            if(err){
+                test.ok(true, err);
+            }
+            else {
+                test.ok(false);
+            }
+
+            test.done();
+        });
+    },
+    testUpdateUserWithoutBadRole: function(test){
+
+        var updateUser = {
+            _id: this.testUserId,
+            name: 'aaaaaaaaaaa',
+            password: "Test Password",
+            email: "test@test.com",
+            role: "",
+            login: "testest"
         };
 
         this.grasshopper.users.update(updateUser, function(err){
@@ -459,6 +501,18 @@ module.exports = {
             }
             else {
                 test.ok(false);
+            }
+            test.done();
+        });
+    },
+    testDeleteUser: function (test) {
+
+        this.grasshopper.users.delete(this.testUserId, function(err){
+            if(err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
             }
             test.done();
         });

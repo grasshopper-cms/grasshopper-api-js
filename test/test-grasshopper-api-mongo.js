@@ -33,6 +33,10 @@ module.exports = {
             callback();
         });
 
+        _api.on('failed', function(err){
+            callback();
+        });
+
     },
     tearDown: function (callback) {
         // clean up
@@ -46,9 +50,18 @@ module.exports = {
             email: "test@test.com",
             role: "admin",
             login: "testuser"
-        };
+        },
+        self = this;
 
-        this.grasshopper.users.create(newUser, function(){
+        this.grasshopper.users.create(newUser, function(err, user){
+            if(err){
+                test.ok(false, err);
+            }
+            else {
+                self.validUserId = user._id;
+                test.ok(true, "User created without an error.");
+            }
+
             test.done();
         });
 
@@ -56,10 +69,23 @@ module.exports = {
     testCreateNewUserWithMissingProps: function(test){
 
         var newUser = {
+                password: "Test Password",
+                email: "test@test.com",
+                role: "admin",
+                login: "testuser"
+            },
+            self = this;
 
-        };
+        this.grasshopper.users.create(newUser, function(err, user){
+            if(!err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
 
-        test.done();
+            test.done();
+        });
     },
     testInitApi: function (test) {
 

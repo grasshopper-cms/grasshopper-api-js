@@ -139,6 +139,48 @@ module.exports = {
             test.done();
         });
     },
+    testCreateNewUserWithTooShortLogin: function(test){
+
+        var newUser = {
+            name: "My name",
+            password: "Test Password",
+            email: "test@test.com",
+            role: "admin",
+            login: "sho"
+        };
+
+        this.grasshopper.users.create(newUser, function(err, user){
+            if(!err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+
+            test.done();
+        });
+    },
+    testCreateNewUserWithNullPassword: function(test){
+
+        var newUser = {
+            name: "My name",
+            password: "Test Password",
+            email: "test@test.com",
+            role: "admin",
+            login: "login"
+        };
+
+        this.grasshopper.users.create(newUser, function(err, user){
+            if(!err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+
+            test.done();
+        });
+    },
     testUpdateUser: function(test){
 
         var updateUser = {

@@ -78,6 +78,28 @@ module.exports = {
         });
 
     },
+    testCreateNewUserDuplicate: function(test){
+
+        var newUser = {
+            _id: this.testUserId,
+            name: "Test User",
+            password: "Test Password",
+            email: this.testUserEmail,
+            role: "admin",
+            login: this.testUserLogin
+        };
+
+        this.grasshopper.users.create(newUser, function(err, user){
+            if(err){
+                test.ok(true);
+            }
+            else {
+                test.ok(false, "User should have already been created, this was a duplicate.");
+            }
+            test.done();
+        });
+
+    },
     testCreateNewUserWithMissingProps: function(test){
 
         var newUser = {

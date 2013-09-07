@@ -5,6 +5,8 @@ module.exports = {
             self = this;
 
         this.testUserId = "autocreatedtestuser";
+        this.testUserEmail = "autocreated@thinksolid.com";
+        this.testUserLogin = "autocreatedtestusername";
 
         this.config = {
             cache: {
@@ -49,9 +51,9 @@ module.exports = {
             _id: this.testUserId,
             name: "Test User",
             password: "Test Password",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
-            login: "testuser"
+            login: this.testUserLogin
         };
 
         this.grasshopper.users.create(newUser, function(err, user){
@@ -80,9 +82,9 @@ module.exports = {
 
         var newUser = {
                 password: "Test Password",
-                email: "test@test.com",
+                email: this.testUserEmail,
                 role: "admin",
-                login: "testuser"
+                login: this.testUserLogin
             };
 
         this.grasshopper.users.create(newUser, function(err, user){
@@ -101,7 +103,7 @@ module.exports = {
         var newUser = {
             name: "My name",
             password: "Test Password",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
             login: ""
         };
@@ -122,7 +124,7 @@ module.exports = {
         var newUser = {
             name: "My name",
             password: "Test Password",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
             login: null
         };
@@ -143,7 +145,7 @@ module.exports = {
         var newUser = {
             name: "My name",
             password: "Test Password",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
             login: "sho"
         };
@@ -164,9 +166,9 @@ module.exports = {
         var newUser = {
             name: "My name",
             password: null,
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
-            login: "login"
+            login: this.testUserLogin
         };
 
         this.grasshopper.users.create(newUser, function(err, user){
@@ -185,9 +187,9 @@ module.exports = {
         var newUser = {
             name: "My name",
             password: "123456",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "",
-            login: "login"
+            login: this.testUserLogin
         };
 
         this.grasshopper.users.create(newUser, function(err, user){
@@ -206,9 +208,9 @@ module.exports = {
         var newUser = {
             name: "My name",
             password: "12345",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
-            login: "login"
+            login: this.testUserLogin
         };
 
         this.grasshopper.users.create(newUser, function(err, user){
@@ -228,9 +230,9 @@ module.exports = {
             _id: this.testUserId,
             name: 'aaaaaaaaaaa',
             password: "Test Password",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
-            login: "testuser"
+            login: this.testUserLogin
         };
 
         this.grasshopper.users.update(updateUser, function(err){
@@ -249,9 +251,9 @@ module.exports = {
         var updateUser = {
             name: 'aaaaaaaaaaa',
             password: "Test Password",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
-            login: "testuser"
+            login: this.testUserLogin
         };
 
         this.grasshopper.users.update(updateUser, function(err){
@@ -271,7 +273,7 @@ module.exports = {
             _id: this.testUserId,
             name: 'aaaaaaaaaaa',
             password: "Test Password",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
             login: "tes"
         };
@@ -293,9 +295,9 @@ module.exports = {
             _id: this.testUserId,
             name: 'aaaaaaaaaaa',
             password: "Test Password",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "",
-            login: "testest"
+            login: this.testUserLogin
         };
 
         this.grasshopper.users.update(updateUser, function(err){
@@ -315,7 +317,7 @@ module.exports = {
             _id: this.testUserId,
             name: 'aaaaaaaaaaa',
             password: "Test Password",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
             login: null
         };
@@ -337,7 +339,7 @@ module.exports = {
             _id: this.testUserId,
             name: 'aaaaaaaaaaa',
             password: "Test Password",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
             login: ""
         };
@@ -359,9 +361,9 @@ module.exports = {
             _id: this.testUserId,
             name: 'aaaaaaaaaaa',
             password: "",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
-            login: "testtest"
+            login: this.testUserLogin
         };
 
         this.grasshopper.users.update(updateUser, function(err){
@@ -381,9 +383,9 @@ module.exports = {
             _id: this.testUserId,
             name: 'aaaaaaaaaaa',
             password: null,
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
-            login: ""
+            login: this.testUserLogin
         };
 
         this.grasshopper.users.update(updateUser, function(err){
@@ -403,9 +405,9 @@ module.exports = {
             _id: this.testUserId,
             name: 'aaaaaaaaaaa',
             password: "123456fds",
-            email: "test@test.com",
+            email: this.testUserEmail,
             role: "admin",
-            login: "testtest",
+            login: this.testUserLogin,
             permissions: [{"nodeid" : "fdasfsad","role" : "fadsfas"}]
         };
 
@@ -524,6 +526,50 @@ module.exports = {
             }
             else {
                 test.ok(false);
+            }
+            test.done();
+        });
+    },
+    testGetCreatedUserLogin: function (test) {
+        this.grasshopper.users.getByLogin(this.testUserLogin, function(err, result){
+            if(err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+            test.done();
+        });
+    },
+    testGetCreatedUserEmptyLogin: function (test) {
+        this.grasshopper.users.getByLogin("", function(err, result){
+            if(!err){
+                test.ok(false);
+            }
+            else {
+                test.ok(true);
+            }
+            test.done();
+        });
+    },
+    testGetCreatedUserEmail: function (test) {
+        this.grasshopper.users.getByEmail(this.testUserEmail, function(err, result){
+            if(err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+            test.done();
+        });
+    },
+    testGetCreatedUserEmptyEmail: function (test) {
+        this.grasshopper.users.getByEmail("", function(err, result){
+            if(!err){
+                test.ok(false);
+            }
+            else {
+                test.ok(true);
             }
             test.done();
         });

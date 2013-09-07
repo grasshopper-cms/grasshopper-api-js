@@ -97,6 +97,48 @@ module.exports = {
             test.done();
         });
     },
+    testCreateNewUserWithEmptyLogin: function(test){
+
+        var newUser = {
+            name: "My name",
+            password: "Test Password",
+            email: "test@test.com",
+            role: "admin",
+            login: ""
+        };
+
+        this.grasshopper.users.create(newUser, function(err, user){
+            if(!err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+
+            test.done();
+        });
+    },
+    testCreateNewUserWithNullLogin: function(test){
+
+        var newUser = {
+            name: "My name",
+            password: "Test Password",
+            email: "test@test.com",
+            role: "admin",
+            login: null
+        };
+
+        this.grasshopper.users.create(newUser, function(err, user){
+            if(!err){
+                test.ok(false, err);
+            }
+            else {
+                test.ok(true);
+            }
+
+            test.done();
+        });
+    },
     testUpdateUser: function(test){
 
         var updateUser = {

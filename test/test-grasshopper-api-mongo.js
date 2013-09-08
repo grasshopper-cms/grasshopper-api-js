@@ -597,7 +597,6 @@ module.exports = {
         });
     },
     testDeleteUser: function (test) {
-
         this.grasshopper.users.delete(this.testUserId, function(err){
             if(err){
                 test.ok(false, err);

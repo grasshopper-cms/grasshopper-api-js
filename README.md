@@ -116,5 +116,14 @@ Coming...
 ## Content
 
 
+# Running Tests
+
+There are a couple of ways to run our unit tests.
+
+* $: make test
+* $: npm test
+
+
+
 # License
 Grasshopper API JS is released under a [MIT license](../blob/master/LICENSE).

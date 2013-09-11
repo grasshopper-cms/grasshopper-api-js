@@ -3,3 +3,4 @@
 /dist
 /cache
 /log
+/lib/config/configuration.json

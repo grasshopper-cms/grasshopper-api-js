@@ -7,7 +7,7 @@ var assert = require('chai').assert,
 
 describe('entities.user', function(){
     var path = require('path'),
-        api = require('../lib/grasshopper-api'),
+        sdk = require('../lib/grasshopper-sdk'),
         testUserId = "autocreatedtestuser",
         testUserEmail = "autocreated@thinksolid.com",
         testUserLogin = "autocreatedtestusername",
@@ -39,16 +39,16 @@ describe('entities.user', function(){
                 }]
             }
         },
-        _api = new api(config),
+        internalSdk = new sdk(config),
         grasshopper = null;
 
     before(function(done){
-        _api.on('ready', function(val){
+        internalSdk.on('ready', function(val){
             grasshopper = val;
             done();
         });
 
-        _api.on('failed', function(err){
+        internalSdk.on('failed', function(err){
             done(err);
         });
     });

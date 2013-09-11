@@ -123,6 +123,34 @@ There are a couple of ways to run our unit tests.
 * $: make test
 * $: npm test
 
+# Using the API
+
+## Authentication & Headers
+
+With each API call, you'll need to set up your request headers, including an OAuth 2.0 access token. Get an access token by using the OAuth 2.0 'client-credentials' token grant type with your client_id:secret as your Basic Auth credentials.
+
+### Necessary Headers
+
+* Authorization: When requesting an access token, send the value as the HTTP Basic Authentication credentials using your client_id and secret. You can specify them as -u "client_id:secret" they should be base64 encoded in your application but if you are using curl for testing you can leave it in plain text. When calling APIs, send the value as the OAuth 2.0 access token with the authentication type set as Token (Example: Authorization: Token {AccessToken}).
+* Accept: Set to application/json.
+* (optional) X-HTTP-Method-Override: If you do not want to use actual HTTP methods like "put" or "delete" then you can use this header to override the methods.
+
+
+## Example Curl Requests
+
+### Request an access token
+
+    curl https://{url}/token \
+     -H "Accept: application/json" \
+     -H "Accept-Language: en_US" \
+     -u "{client_id}:{secret}"
+
+### Example Response
+
+    {
+        "access_token":"9c55f367-557b-4ddb-ad90-3957fbec474d",
+        "token_type":"Token"
+    }
 
 
 # License

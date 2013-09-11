@@ -1,7 +1,4 @@
-var assert = require('chai').assert,
-    expect = require('chai').expect,
-    should = require('chai').should(),
-    _ = require('underscore');
+var should = require('chai').should();
 
 describe('util.cache', function(){
     var path = require('path'),
@@ -15,7 +12,7 @@ describe('util.cache', function(){
         it('should create a cached item.', function(done){
             cache.add(cacheKey, cacheValue, function(err, val){
                 should.not.exist(err);
-                assert.equal(val, true, "response is true");
+                val.should.be.true;
                 done();
             });
         });
@@ -43,15 +40,15 @@ describe('util.cache', function(){
         it('should remove a cached item.', function(done){
             cache.remove(cacheKey, function(err, val){
                 should.not.exist(err);
-                assert.equal(val, true, "response is true");
+                val.should.be.true;
                 done();
             });
         });
 
         it('should return error if a cached key is invalid.', function(done){
-            cache.return("badcachekey", function(err, val){
+            cache.remove("badcachekey", function(err, val){
                 should.exist(err);
-                assert.equal(val, false, "response is false.")
+                val.should.be.false;
                 done();
             });
         });

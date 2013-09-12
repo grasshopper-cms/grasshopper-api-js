@@ -29,6 +29,47 @@ Our default box uses node js 10.x and Mongo for a databse.
 
 ### Configuration Options
 
+If you are deploying on a server then you will want to customize the available options. 
+
+Open the ```lib/config/configuration``` file
+
+        {
+            "cache": {
+                "path": "./cache"
+            },
+            "crypto": {
+                "secret_passphrase" : ""
+            },
+            "db": {
+                "type": "mongodb",
+                "host": "mongodb://{dbuser}:{dbpassword}@localhost:27017/grasshopper",
+                "database": "grasshopper",
+                "username": "",
+                "password": ""
+            },
+            "logger": {
+                "adapters": [{
+                    "type": "file",
+                    "path": "./log/grasshopper.log",
+                    "application": "grasshopper-api",
+                    "machine": "dev-server"
+                }]
+            }
+        }
+
+* cache: Set path the cached files/data are going to live. (Default is cache directoy in root of project).
+* crypto: Set a unique secret_passphrase that can be used to encrypt data.
+* DB settings
+    * type: mongodb/couch
+    * host: URL to database
+    * database: Name of the database
+    * username: User name of the database
+    * password: password for the database
+* logger: Module used to capture logs from the API/SDK 
+    * type: file
+    * path: Location that the file will be saved to
+    * application: Name of your application
+    * machine: Identifyable name of your server
 
 
 ## Making your first API call
@@ -65,95 +106,6 @@ With each API call, you'll need to set up your request headers, including an OAu
     }
 
 NOTE: If your credentials are not accepted you will receive a ```401``` Unauthorized error.
-
-
-# Architecture
-
-## api
-
-The ```api``` module is the MAIN module. It is the glue that the system needs to perform it's operations. The idea is that is has references to everything it needs but it only exposes actionable functionality externally.
-
-To use the api you would interact with it like this:
-
-```
-var api = require('grasshopper-api');
-api.init({
-     cache: {
-        path: path.resolve(__dirname, "../") + "/cache"
-     },
-     db: {
-         type: 'couchdb',
-         database: '',
-         host: '',
-         username: '',
-         password: ''
-     },
-     logger: {
-         adapters: [{
-             type: "file",
-             path: path.resolve(__dirname, "../") + "/log/grasshopper.log",
-             application: 'grasshopper-api',
-             machine: 'dev-server'
-         }]
-     }
-});
-
-var authToken = api.auth.init({
-    username: '',
-    password: ''
-});
-
-api.nodes.<operation>(authToken, <params>);
-```
-
-## app
-
-The ```app``` module maintains references to the logger object and the db engine. Since we can have more than one db engine the preferred way to work with any data storage is through the ```app.db``` object.
-
-
-## entities
-
-The entities modules are all objects that the system needs. They are things like ```nodes```, ```contenttypes```, ```content```, ```users```, ```permissions```, etc.
-
-
-## db engines
-
-The modules in the ```db``` directory are all implementations of our standard interface that define how a specific database engine manages data entry and access.
-
-Available engines:
-
-   * Couch DB
-
-
-## utils
-
-All helper functions should be added to the utils folder.
-
-    * Crypto: For hashing password and support for two way encryption for data stored in memory.
-
-
-# Database Schema
-
-[No-SQL Schema](../blob/master/docs/db.md)
-
-# API Concepts
-
-Coming...
-
-
-# API Methods
-
-## Query
-
-## Node
-
---------------------------------------------------------------------------------------------------------------
-
-### getChildNodes(nodeid, recurrsive = false)
-
-    * Method that will return a list of nodes from a parent
-
-## Content
 
 
 # Running Tests

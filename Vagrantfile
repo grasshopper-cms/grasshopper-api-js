@@ -15,14 +15,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
     config.vm.box = "precise64"
-    config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+    config.vm.box_url = "https://s3.amazonaws.com/SolidInteractive/vagrant/grasshopper-ubuntu64-v1.box"
 
-    config.vm.provision "puppet" do |puppet|
-            puppet.module_path = "modules"
-    end
+    #config.vm.provision "shell", inline: "/home/vagrant/webserver.sh"
+    config.vm.provision "shell", inline: "/home/vagrant/genghis.sh"
 
     config.vm.network :forwarded_port, guest: 80, host: 8080, auto_correct: true
-    config.vm.network :forwarded_port, guest: 3306, host: 8306, auto_correct: true
-
-
+    config.vm.network :forwarded_port, guest: 28017, host: 8082, auto_correct: true
+    config.vm.network :forwarded_port, guest: 27017, host: 8070, auto_correct: true
+    config.vm.network :forwarded_port, guest: 5678, host: 8081
 end

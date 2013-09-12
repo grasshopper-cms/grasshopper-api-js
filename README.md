@@ -11,13 +11,13 @@ The Grasshopper API is the foundation of the Grasshopper CMS. It provides all of
 
 ## Why would you want to use me?
 
-Common CMS products do not cut it for real apps. When you push Word Press beyond it's intended use you are constantly at war with it.  Our CMS is different, it is simply a data management tool not a website creator. This distinction makes it very appealing when creating apis, apps or non-traditional websites.
+Common CMS products do not cut it for real apps. When you push Word Press beyond it's intended use you are constantly at war with it.  Our CMS is different, it is simply a data management tool not a website creator. This distinction makes it very appealing when creating APIs, apps or non-traditional websites.
 
 
 
 ## How would you use me? 
 
-Simple rest API. All operations of the API are done via a rest like api. This project has no user interface, anyone could create an interface and put it on top of the APIs. For deployment, you have a couple options. We have supplied a vagrant box to get you up and running with little/no configuration required. Or you can deploy the code to a server and use the configuration options to customize your experience. 
+All operations of the API are done via a rest like api. This project has no user interface, anyone could create an interface and put it on top of the APIs. For deployment, you have a couple options. We have supplied a vagrant box to get you up and running with little/no configuration required. Or you can deploy the code to a server and use the configuration options to customize your experience. 
 
 Our default box uses node js 10.x and Mongo for a databse.
 

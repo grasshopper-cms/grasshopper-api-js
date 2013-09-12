@@ -23,9 +23,12 @@ describe('entities.user', function(){
             cache: {
                 path: path.resolve(__dirname, "../") + "/cache"
             },
+            crypto: {
+                secret_passphrase : "2804c9ad-ffc8-4acb-9c9d-16337824af8c"
+            },
             db: {
                 type: 'mongodb',
-                host: 'mongodb://{dbuser}:{dbpassword}@ds043348.mongolab.com:43348/grasshopper',
+                host: 'mongodb://{dbuser}:{dbpassword}@localhost:8070/grasshopper',
                 database: 'grasshopper',
                 username: 'grasshopper-user',
                 password: '1q2w3e4r'

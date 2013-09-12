@@ -6,7 +6,7 @@ module.exports = function(grunt) {
             dev: {
                 options: {
                     file: 'lib/grasshopper-api.js',
-                    ignoredFiles: ['README.md', 'node_modules/**', 'Gruntfile.js'],
+                    ignoredFiles: ['README.md', 'node_modules/**', 'Gruntfile.js','*.log'],
                     legacyWatch: true,
                     env: {
                         PORT: '3000'

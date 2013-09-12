@@ -8,14 +8,11 @@ The Grasshopper API is the foundation of the Grasshopper CMS. It provides all of
 
 # Why would you want to use me?
 
-Common CMS products do not cut it for real apps. When you push Word Press beyond it's intended use you are constantly at war with it.  
-Our cms is different, our CMS is simple, it is simply a data management tool not a website creator.
-This distinction makes it very appealing when creating apis, apps or non-traditional websites.
+Common CMS products do not cut it for real apps. When you push Word Press beyond it's intended use you are constantly at war with it.  Our cms is different, our CMS is simple, it is simply a data management tool not a website creator. This distinction makes it very appealing when creating apis, apps or non-traditional websites.
 
 # How would you use me? 
 
-Simple rest API. All operations of the API are done via a rest like api. This project has no user interface, anyone could create an interface 
-and put it on top of the APIs.
+Simple rest API. All operations of the API are done via a rest like api. This project has no user interface, anyone could create an interface and put it on top of the APIs.
 
 # Making your first API call
 
@@ -52,8 +49,7 @@ NOTE: If your credentials are not accepted you will receive a ```401``` Unauthor
 
 ## api
 
-The ```api``` module is the MAIN module. It is the glue that the system needs to perform it's operations. The idea is
-that is has references to everything it needs but it only exposes actionable functionality externally.
+The ```api``` module is the MAIN module. It is the glue that the system needs to perform it's operations. The idea is that is has references to everything it needs but it only exposes actionable functionality externally.
 
 To use the api you would interact with it like this:
 
@@ -90,20 +86,17 @@ api.nodes.<operation>(authToken, <params>);
 
 ## app
 
-The ```app``` module maintains references to the logger object and the db engine. Since we can have more than one db
-engine the preferred way to work with any data storage is through the ```app.db``` object.
+The ```app``` module maintains references to the logger object and the db engine. Since we can have more than one db engine the preferred way to work with any data storage is through the ```app.db``` object.
 
 
 ## entities
 
-The entities modules are all objects that the system needs. They are things like ```nodes```, ```contenttypes```, ```content```,
-```users```, ```permissions```, etc.
+The entities modules are all objects that the system needs. They are things like ```nodes```, ```contenttypes```, ```content```, ```users```, ```permissions```, etc.
 
 
 ## db engines
 
-The modules in the ```db``` directory are all implementations of our standard interface that define how a specific
-database engine manages data entry and access.
+The modules in the ```db``` directory are all implementations of our standard interface that define how a specific database engine manages data entry and access.
 
 Available engines:
 

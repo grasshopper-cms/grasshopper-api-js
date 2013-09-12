@@ -4,14 +4,14 @@
 
 ## What am I?
 
-The Grasshopper API is the foundation of the Grasshopper CMS. It provides all of the mechanisms necessary create content in the cloud. The API can be written in any language and it can fully support any document based database (NoSQL). Their is no user interface supplied in this project, this is on purpose so that developers have complete freedom to creatively use the CMS in whichever way they want.
+The Grasshopper API is the foundation of the Grasshopper CMS. It provides all of the mechanisms necessary to create content in the cloud. The API can be written in any language and it can fully support any document based database (NoSQL). Their is no user interface supplied in this project, this is on purpose so that developers have complete freedom to creatively use the CMS in whichever way they want.
 
 ![Grasshopper Ecosystem](https://s3.amazonaws.com/SolidInteractive/images/grasshopper/GrasshopperEcosystemOverview.png)
 
 
 ## Why would you want to use me?
 
-Common CMS products do not cut it for real apps. When you push Word Press beyond it's intended use you are constantly at war with it.  Our cms is different, our CMS is simple, it is simply a data management tool not a website creator. This distinction makes it very appealing when creating apis, apps or non-traditional websites.
+Common CMS products do not cut it for real apps. When you push Word Press beyond it's intended use you are constantly at war with it.  Our CMS is different, it is simply a data management tool not a website creator. This distinction makes it very appealing when creating apis, apps or non-traditional websites.
 
 
 

@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provider "virtualbox" do |v|
         v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
     end
-    config.vm.box = "precise64"
+    config.vm.box = "grasshopper"
     config.vm.box_url = "https://s3.amazonaws.com/SolidInteractive/vagrant/grasshopper-ubuntu64-v1.box"
 
     #config.vm.provision "shell", inline: "/home/vagrant/webserver.sh"

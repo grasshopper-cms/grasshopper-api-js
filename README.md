@@ -92,14 +92,19 @@ Open the ```lib/config/configuration``` file
  
  
  
-### API Specs
+### API Documentation
 
 -------------------------------------------------------
 
-For full documentation on the grasshopper API [click here](api)
+For full documentation on the grasshopper API [click here](../wikis/api)
  
  
-_
+### Internal SDK Documentation
+
+-------------------------------------------------------
+
+For full documentation on the grasshopper SDK [click here](../wikis/sdk)
+
 
 ### Running Tests
 

@@ -72,40 +72,9 @@ Open the ```lib/config/configuration``` file
     * machine: Identifyable name of your server
 
 
-## Making your first API call
+## API Specs
 
-To do anything useful in the system, you will have to identify yourself and create an access token. This token is then used to make subsiquent requests. 
-
-
-
-### Authentication & Headers
-
-With each API call, you'll need to set up your request headers, including an OAuth 2.0 access token. Get an access token by using the OAuth 2.0 'client-credentials' token grant type with your client_id:secret as your Basic Auth credentials.
-
-
-#### Request an access token
-
-    curl https://{url}/token \
-     -H "Accept: application/json" \
-     -H "Accept-Language: en_US" \
-     -u "{client_id}:{secret}"
-
-
-#### Necessary Headers
-
-* Authorization: When requesting an access token, send the value as the HTTP Basic Authentication credentials using your client_id and secret. You can specify them as -u "client_id:secret" they should be base64 encoded in your application but if you are using curl for testing you can leave it in plain text. When calling APIs, send the value as the OAuth 2.0 access token with the authentication type set as Token (Example: Authorization: Token {AccessToken}).
-* Accept: Set to application/json.
-* (optional) X-HTTP-Method-Override: If you do not want to use actual HTTP methods like "put" or "delete" then you can use this header to override the methods.
-
-
-#### Your successful access token response
-
-    {
-        "access_token":"9c55f367-557b-4ddb-ad90-3957fbec474d",
-        "token_type":"Token"
-    }
-
-NOTE: If your credentials are not accepted you will receive a ```401``` Unauthorized error.
+For full documentation on the grasshopper API [click here](api)
 
 
 # Running Tests

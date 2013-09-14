@@ -29,8 +29,7 @@
     "underscore": "~1.5.1",
     "async": "~0.2.9",
     "express": "~3.4.0",
-    "node-uuid": "~1.4.1",
-    "q": "~0.9.7"
+    "node-uuid": "~1.4.1"
   },
   "devDependencies": {
     "uglify-js": "1.2.x",
@@ -41,7 +40,8 @@
     "grunt": "~0.4.1",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-jshint": "~0.6.4",
-    "grunt-nodemon": "~0.1.1"
+    "grunt-nodemon": "~0.1.1",
+    "supertest": "~0.7.1"
   },
   "jam": {
     "main": "lib/grasshopper-api.js",

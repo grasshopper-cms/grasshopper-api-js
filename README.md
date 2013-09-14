@@ -2,7 +2,7 @@
 
 ---------------------------------------------------------------
 
-## What am I?
+### What am I?
 
 ------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ The Grasshopper API is the foundation of the Grasshopper CMS. It provides all of
 ![Grasshopper Ecosystem](https://s3.amazonaws.com/SolidInteractive/images/grasshopper/GrasshopperEcosystemOverview.png)
 
 
-## Why would you want to use me?
+### Why would you want to use me?
 
 ------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ Common CMS products do not cut it for real apps. When you push Word Press beyond
 
  
  
-## How would you use me? 
+### How would you use me? 
 
 ------------------------------------------------------------------
 
@@ -92,26 +92,27 @@ Open the ```lib/config/configuration``` file
  
  
  
-# API Specs
+### API Specs
 
 -------------------------------------------------------
 
 For full documentation on the grasshopper API [click here](api)
  
  
-  
-# Running Tests
+_
+
+### Running Tests
 
 -------------------------------------------------------
 
 There are a couple of ways to run our unit tests.
 
-* $: make test
-* $: npm test
+* $: ```make test```
+* $: ```npm test```
  
  
  
-# License
+## License
 
 -------------------------------------------------------
 

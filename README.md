@@ -96,14 +96,14 @@ Open the ```lib/config/configuration``` file
 
 -------------------------------------------------------
 
-For full documentation on the grasshopper API [click here](../wikis/api)
+For full documentation on the grasshopper API [click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/api)
  
  
 ### Internal SDK Documentation
 
 -------------------------------------------------------
 
-For full documentation on the grasshopper SDK [click here](../wikis/sdk)
+For full documentation on the grasshopper SDK [click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/sdk)
 
 
 ### Running Tests

@@ -23,18 +23,12 @@ Common CMS products do not cut it for real apps. When you push Word Press beyond
 
 ------------------------------------------------------------------
 
-All operations of the API are done via a rest like api. This project has no user interface, anyone could create an interface and put it on top of the APIs. For deployment, you have a couple options. We have supplied a vagrant box to get you up and running with little/no configuration required. Or you can deploy the code to a server and use the configuration options to customize your experience. 
+All operations are performed via a rest like api. If you are developing your project locally we have provided a vagrant box that can be used to create a local API (see developer setup instructions). To use the project in production you would need to:
 
-Our default box uses node js 10.x and Mongo for a databse.
+* Publish the code for the api to a hosting provider of your choice
+* Create your NoSQL database (currently only supporting mongo) 
+* Update the configuration file to match your environment settings
 
- 
-  
-### Developer Setup
-
------------------------------------------------------------------------------
-
-[Click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/development-environment) to read how to get setup as a developer. 
- 
  
   
   
@@ -42,7 +36,7 @@ Our default box uses node js 10.x and Mongo for a databse.
 
 ------------------------------------------------------------------
 
-If you are deploying on a server then you will want to customize the available options. 
+Below is an example configuration file. You should edit the parameters below to suit your needs.
 
 Open the ```lib/config/configuration``` file
 
@@ -89,6 +83,14 @@ Open the ```lib/config/configuration``` file
     * path: Location that the file will be saved to
     * application: Name of your application
     * machine: Identifyable name of your server
+ 
+
+### Developer Setup
+
+-----------------------------------------------------------------------------
+
+[Click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/development-environment) to read how to get setup as a developer. 
+ 
  
  
  

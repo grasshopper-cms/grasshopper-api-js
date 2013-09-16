@@ -111,22 +111,59 @@ describe('api.users', function(){
 
     describe("GET: " + url + '/users', function() {
         it('should return a list of users with the default page size', function(done) {
+            request(url)
+                .get('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    console.log(res.body);
+                    res.status.should.equal(200);
 
+
+                    done();
+                });
         });
         it('should a list of users with the specified page size', function(done) {
+            request(url)
+                .get('/users?limit=1&skip=0')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    console.log(res.body);
+                    res.status.should.equal(200);
 
+                    done();
+                });
         });
         it('should return a 403 because user does not have permissions to access users', function(done) {
-
+            request(url)
+                .get('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
         });
         it('should return an empty list if the page size and current requested items are out of bounds.', function(done) {
 
         });
         it('should return a 401 because user is not authenticated', function(done) {
-
-        });
-        it('should return a 401 because user\'s token has expired or been revoked', function(done) {
-
+            request(url)
+                .get('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
         });
     });
 

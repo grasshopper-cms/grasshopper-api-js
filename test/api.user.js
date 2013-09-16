@@ -2,16 +2,39 @@ var should = require('chai').should();
 var request = require('supertest');
 
 describe('api.users', function(){
-    var url = 'http://localhost:8080';
+    var url = 'http://localhost:8080',
+        testUserId  = "523213da56c02c0674000001",
+        readerToken = "",
+        adminToken  = "";
 
-    /*
-     1) Test that you can auth with
-     */
-    describe("GET:" + url + '/users/:id', function() {
+    beforeEach(function(done){
+        request(url)
+            .get('/token')
+            .set('Accept', 'application/json')
+            .set('Accept-Language', 'en_US')
+            .set('authorization', new Buffer('apitestuseradmin:TestPassword').toString('base64'))
+            .end(function(err, res) {
+                if (err) { throw err; }
+                adminToken = res.body.access_token;
+
+                request(url)
+                    .get('/token')
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        readerToken = res.body.access_token;
+                        done();
+                    });
+            });
+    });
+
+    describe("GET: " + url + '/users/:id', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
 
             request(url)
-                .get('/users/')
+                .get('/users/' + testUserId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .end(function(err, res) {
@@ -21,32 +44,72 @@ describe('api.users', function(){
                 });
         });
         it('should return a 403 because user does not have permissions to access users', function(done) {
-
+            request(url)
+                .get('/users/' + testUserId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
         });
         it('should return an existing user', function(done) {
-
+            request(url)
+                .get('/users/' + testUserId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.login.should.equal("apitestuser");
+                    done();
+                });
         });
         it('should return 404 because test user id does not exist', function(done) {
-
-        });
-        it('should return a 401 because valid token was revoked after the original auth', function(done) {
-
+            request(url)
+                .get('/users/fakeuserid')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(404);
+                    done();
+                });
         });
     });
 
-    describe("GET" + url + '/user', function() {
+    describe("GET: " + url + '/user', function() {
         it('should return the current logged in user', function(done) {
-
+            request(url)
+                .get('/user')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.login.should.equal("apitestuserreader");
+                    done();
+                });
         });
         it('should return a 401 because user is not authenticated', function(done) {
-
-        });
-        it('should return a 401 because user\'s token has expired or been revoked', function(done) {
-
+            request(url)
+                .get('/user')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
         });
     });
 
-    describe("GET" + url + '/users', function() {
+    describe("GET: " + url + '/users', function() {
         it('should return a list of users with the default page size', function(done) {
 
         });
@@ -67,7 +130,7 @@ describe('api.users', function(){
         });
     });
 
-    describe("POST" + url + '/users', function() {
+    describe("POST: " + url + '/users', function() {
         it('should create a user without an error using correct verb.', function(done){
 
         });
@@ -113,7 +176,7 @@ describe('api.users', function(){
         });
     });
 
-    describe("PUT" + url + '/users', function() {
+    describe("PUT: " + url + '/users', function() {
         it('should return a 403 because user does not have permissions to access users', function(done) {
 
         });
@@ -136,7 +199,7 @@ describe('api.users', function(){
 
     });
 
-    describe("DELETE" + url + '/users', function() {
+    describe("DELETE: " + url + '/users', function() {
         it('should return a 403 because user does not have permissions to access users', function(done) {
 
         });

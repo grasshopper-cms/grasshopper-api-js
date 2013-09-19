@@ -3,7 +3,7 @@ var request = require('supertest');
 
 describe('api.users', function(){
     var url = 'http://localhost:8080',
-        testUserId  = "523213da56c02c0674000001",
+        testUserId  = "523b76ac9dab8eea41000001",
         readerToken = "",
         adminToken  = "";
 
@@ -175,90 +175,294 @@ describe('api.users', function(){
                     done();
                 });
         });
+        it('should return a subset of users based off of a query', function(done) {
+            false.should.equal(true);
+            done();
+        });
+
     });
 
     describe("POST: " + url + '/users', function() {
         it('should create a user without an error using correct verb.', function(done){
-
-        });
-
-        it('should create a user using the method override', function(done) {
-
+            var newUser = {
+                login: "newtestuser1",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Test User",
+                password: "TestPassword"
+            };
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.property('_id');
+                    done();
+                });
         });
 
         it('should return error if a user id is sent with the request (maybe verb error).', function(done){
-
+            var newUser = {
+                _id: "ISHOULDNOTBEHERE",
+                login: "newtestuser1",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser2@thinksolid.com",
+                name: "Test User",
+                password: "TestPassword"
+            };
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
         });
 
         it('should return error if a duplicate is created.', function(done){
-
+            var newUser = {
+                login: "newtestuser1",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Test User",
+                password: "TestPassword"
+            };
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
         });
 
         it('should validate and return error if a mandatory property is missing.',function(done){
-
+            var newUser = {
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Test User",
+                password: "TestPassword"
+            };
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
         });
 
         it('should return error if an empty login is provided.', function(done){
-
+            var newUser = {
+                login: "",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Test User",
+                password: "TestPassword"
+            };
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
         });
 
         it('should return error if an null login is provided.', function(done){
-
+            var newUser = {
+                login: null,
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Test User",
+                password: "TestPassword"
+            };
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
         });
 
         it('should return error if a login is too short.', function(done){
-
+            var newUser = {
+                login: "sho",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Test User",
+                password: "TestPassword"
+            };
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
         });
 
         it('should return error if a password is null.', function(done){
-
+            var newUser = {
+                login: "newtestuserunique",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Test User",
+                password: null
+            };
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
         });
 
         it('should return error if a password is too short.', function(done){
-
+            var newUser = {
+                login: "newtestuserunique",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Test User",
+                password: "sho"
+            };
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
         });
 
         it('should return error if a user has a role that is not allowed.', function(done){
-
+            var newUser = {
+                login: "newtestuserunique",
+                role: "fake role",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Test User",
+                password: "TestPassword"
+            };
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
         });
     });
 
     describe("PUT: " + url + '/users', function() {
         it('should return a 403 because user does not have permissions to access users', function(done) {
-
+            false.should.equal(true);
+            done();
         });
         it('should update a user using the correct verb', function(done) {
-
+            false.should.equal(true);
+            done();
         });
         it('should update a user using the method override', function(done) {
-
+            false.should.equal(true);
+            done();
         });
         it('should return error is user is updated without a set "ID"', function(done){
-
+            false.should.equal(true);
+            done();
         });
-        it('should return error if login is too short.', function(done){});
-        it('should return error if user role is invalid.', function(done){});
-        it('should return error if user login is null.', function(done){});
-        it('should return error if user login is empty.', function(done){});
-        it('should return error if user password is empty string.', function(done){});
-        it('should return error if user password is null.', function(done){});
-        it('should return error if user has invalid permissions object sent to db.', function(done){});
+        it('should return error if login is too short.', function(done){false.should.equal(true);done();});
+        it('should return error if user role is invalid.', function(done){false.should.equal(true);done();});
+        it('should return error if user login is null.', function(done){false.should.equal(true);done();});
+        it('should return error if user login is empty.', function(done){false.should.equal(true);done();});
+        it('should return error if user password is empty string.', function(done){false.should.equal(true);done();});
+        it('should return error if user password is null.', function(done){false.should.equal(true);done();});
+        it('should return error if user has invalid permissions object sent to db.', function(done){false.should.equal(true);done();});
 
     });
 
     describe("DELETE: " + url + '/users', function() {
         it('should return a 403 because user does not have permissions to access users', function(done) {
-
+            false.should.equal(true);done();
         });
         it('should delete a user using the correct verb', function(done) {
-
+            false.should.equal(true);done();
         });
         it('should delete a user using the method override', function(done) {
-
+            false.should.equal(true);done();
         });
 
         it('should return 200 when we try to delete a user that doesn\'t exist', function(done) {
-
+            false.should.equal(true);done();
         });
     });
 });

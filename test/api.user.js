@@ -118,10 +118,9 @@ describe('api.users', function(){
                 .set('authorization', 'Token ' + adminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    console.log(res.body);
                     res.status.should.equal(200);
-
-
+                    res.body.should.have.property('total');
+                    res.body.should.have.property('results');
                     done();
                 });
         });
@@ -133,9 +132,9 @@ describe('api.users', function(){
                 .set('authorization', 'Token ' + adminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    console.log(res.body);
                     res.status.should.equal(200);
-
+                    res.body.should.have.property('total');
+                    res.body.should.have.property('results');
                     done();
                 });
         });
@@ -152,7 +151,18 @@ describe('api.users', function(){
                 });
         });
         it('should return an empty list if the page size and current requested items are out of bounds.', function(done) {
-
+            request(url)
+                .get('/users?limit=1&skip=100000')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.property('total');
+                    res.body.should.have.property('results');
+                    done();
+                });
         });
         it('should return a 401 because user is not authenticated', function(done) {
             request(url)

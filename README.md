@@ -2,34 +2,41 @@
 
 ---------------------------------------------------------------
 
-## What am I?
+### What am I?
+
+------------------------------------------------------------------
 
 The Grasshopper API is the foundation of the Grasshopper CMS. It provides all of the mechanisms necessary to create content in the cloud. The API can be written in any language and it can fully support any document based database (NoSQL). Their is no user interface supplied in this project, this is on purpose so that developers have complete freedom to creatively use the CMS in whichever way they want.
 
 ![Grasshopper Ecosystem](https://s3.amazonaws.com/SolidInteractive/images/grasshopper/GrasshopperEcosystemOverview.png)
 
 
-## Why would you want to use me?
+### Why would you want to use me?
+
+------------------------------------------------------------------
 
 Common CMS products do not cut it for real apps. When you push Word Press beyond it's intended use you are constantly at war with it.  Our CMS is different, it is simply a data management tool not a website creator. This distinction makes it very appealing when creating APIs, apps or non-traditional websites.
 
+ 
+ 
+### How would you use me? 
 
+------------------------------------------------------------------
 
-## How would you use me? 
+All operations are performed via a rest like api. If you are developing your project locally we have provided a vagrant box that can be used to create a local API (see developer setup instructions). To use the project in production you would need to:
 
-All operations of the API are done via a rest like api. This project has no user interface, anyone could create an interface and put it on top of the APIs. For deployment, you have a couple options. We have supplied a vagrant box to get you up and running with little/no configuration required. Or you can deploy the code to a server and use the configuration options to customize your experience. 
+* Publish the code for the api to a hosting provider of your choice
+* Create your NoSQL database (currently only supporting mongo) 
+* Update the configuration file to match your environment settings
 
-Our default box uses node js 10.x and Mongo for a databse.
-
-
-### Developer Setup
-
-[Click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/development-environment) to read how to get setup as a developer. 
-
-
+ 
+  
+  
 ### Configuration Options
 
-If you are deploying on a server then you will want to customize the available options. 
+------------------------------------------------------------------
+
+Below is an example configuration file. You should edit the parameters below to suit your needs.
 
 Open the ```lib/config/configuration``` file
 
@@ -56,6 +63,12 @@ Open the ```lib/config/configuration``` file
                 }]
             }
         }
+ 
+ 
+ 
+#### Configuration Definitions
+
+------------------------------------------------------------------
 
 * cache: Set path the cached files/data are going to live. (Default is cache directoy in root of project).
 * crypto: Set a unique secret_passphrase that can be used to encrypt data.
@@ -70,53 +83,44 @@ Open the ```lib/config/configuration``` file
     * path: Location that the file will be saved to
     * application: Name of your application
     * machine: Identifyable name of your server
+ 
+
+### Developer Setup
+
+-----------------------------------------------------------------------------
+
+[Click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/development-environment) to read how to get setup as a developer. 
+ 
+ 
+ 
+ 
+### API Documentation
+
+-------------------------------------------------------
+
+For full documentation on the grasshopper API [click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/api)
+ 
+ 
+### Internal SDK Documentation
+
+-------------------------------------------------------
+
+For full documentation on the grasshopper SDK [click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/sdk)
 
 
-## Making your first API call
+### Running Tests
 
-To do anything useful in the system, you will have to identify yourself and create an access token. This token is then used to make subsiquent requests. 
-
-
-
-### Authentication & Headers
-
-With each API call, you'll need to set up your request headers, including an OAuth 2.0 access token. Get an access token by using the OAuth 2.0 'client-credentials' token grant type with your client_id:secret as your Basic Auth credentials.
-
-
-#### Request an access token
-
-    curl https://{url}/token \
-     -H "Accept: application/json" \
-     -H "Accept-Language: en_US" \
-     -u "{client_id}:{secret}"
-
-
-#### Necessary Headers
-
-* Authorization: When requesting an access token, send the value as the HTTP Basic Authentication credentials using your client_id and secret. You can specify them as -u "client_id:secret" they should be base64 encoded in your application but if you are using curl for testing you can leave it in plain text. When calling APIs, send the value as the OAuth 2.0 access token with the authentication type set as Token (Example: Authorization: Token {AccessToken}).
-* Accept: Set to application/json.
-* (optional) X-HTTP-Method-Override: If you do not want to use actual HTTP methods like "put" or "delete" then you can use this header to override the methods.
-
-
-#### Your successful access token response
-
-    {
-        "access_token":"9c55f367-557b-4ddb-ad90-3957fbec474d",
-        "token_type":"Token"
-    }
-
-NOTE: If your credentials are not accepted you will receive a ```401``` Unauthorized error.
-
-
-# Running Tests
+-------------------------------------------------------
 
 There are a couple of ways to run our unit tests.
 
-* $: make test
-* $: npm test
+* $: ```make test```
+* $: ```npm test```
+ 
+ 
+ 
+## License
 
+-------------------------------------------------------
 
-
-
-# License
 Grasshopper API JS is released under a [MIT license](../blob/master/LICENSE).

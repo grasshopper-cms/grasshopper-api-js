@@ -99,12 +99,12 @@ So we have users, then content types, then places to put our content, the last t
         lastModifiedBy: "",
         validTo: "",
         validFrom: "",
-        content: [{
-            key: "",
-            value: ""
-        }],
-        meta: [{
-            key: "",
-            value: ""
-        }]
+        content: {
+            <field_name>: "",
+            <field_name>: ""
+        },
+        meta: {
+            <field_name>: "",
+            <field_name>: ""
+        }
     }

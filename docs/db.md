@@ -66,10 +66,12 @@ Nodes are like directories on a hard drive. They group content based off of a lo
         slug: "",
         parentId: "",
         allowedTypes: [""], //array of type ids
-        meta: [{
-            name: "",
-            value: "",
-        }],
+        meta: {
+            <field_name>: "",
+            <field_name>: 0,
+            <field_name>: {}
+            
+        },
         subNodes: [{
             id: fk,
             slug: "",
@@ -101,10 +103,12 @@ So we have users, then content types, then places to put our content, the last t
         validFrom: "",
         content: {
             <field_name>: "",
-            <field_name>: ""
+            <field_name>: 0,
+            <field_name>: {}
         },
         meta: {
             <field_name>: "",
-            <field_name>: ""
+            <field_name>: 0,
+            <field_name>: {}
         }
     }

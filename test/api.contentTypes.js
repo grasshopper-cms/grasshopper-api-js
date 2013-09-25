@@ -1,7 +1,7 @@
 var should = require('chai').should();
 var request = require('supertest');
 
-describe('api.users', function(){
+describe('api.contentTypes', function(){
     var url = 'http://localhost:8080',
         testContentTypeId  = "523b76ac9dab8eea41000001",
         readerToken = "",

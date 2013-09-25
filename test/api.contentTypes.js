@@ -3,7 +3,7 @@ var request = require('supertest');
 
 describe('api.contentTypes', function(){
     var url = 'http://localhost:8080',
-        testContentTypeId  = "523b76ac9dab8eea41000001",
+        testContentTypeId  = "524362aa56c02c0703000001",
         readerToken = "",
         adminToken  = "";
 
@@ -32,7 +32,6 @@ describe('api.contentTypes', function(){
 
     describe("GET: " + url + '/contentTypes/:id', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
-
             request(url)
                 .get('/contentTypes/' + testContentTypeId)
                 .set('Accept', 'application/json')
@@ -64,7 +63,7 @@ describe('api.contentTypes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
-                    res.body.login.should.equal("apitestuser");
+                    res.body.label.should.equal("This is my test content type");
                     done();
                 });
         });

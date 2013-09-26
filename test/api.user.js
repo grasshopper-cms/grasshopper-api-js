@@ -5,7 +5,9 @@ describe('api.users', function(){
     var url = 'http://localhost:8080',
         testUserId  = "523b76ac9dab8eea41000001",
         readerToken = "",
-        adminToken  = "";
+        adminToken  = "",
+        testCreatedUserId = "",
+        testCreatedUserIdCustomVerb = "";
 
     beforeEach(function(done){
         request(url)
@@ -202,6 +204,32 @@ describe('api.users', function(){
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.should.have.property('_id');
+                    testCreatedUserId = res.body._id;
+                    done();
+                });
+        });
+
+        it('should create a user without an error using correct verb with additional custom params.', function(done){
+            var newUser = {
+                login: "newtestuser2",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Test User",
+                password: "TestPassword",
+                linkedid: "tjmchattie"
+            };
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.property('_id');
+                    testCreatedUserIdCustomVerb = res.body._id;
                     done();
                 });
         });
@@ -452,17 +480,54 @@ describe('api.users', function(){
 
     describe("DELETE: " + url + '/users', function() {
         it('should return a 403 because user does not have permissions to access users', function(done) {
-            false.should.equal(true);done();
+            request(url)
+                .del('/users/' + testCreatedUserId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
         });
         it('should delete a user using the correct verb', function(done) {
-            false.should.equal(true);done();
+            request(url)
+                .del('/users/' + testCreatedUserId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
         });
         it('should delete a user using the method override', function(done) {
-            false.should.equal(true);done();
+            request(url)
+                .post('/users/' + testCreatedUserIdCustomVerb)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('X-HTTP-Method-Override', 'DELETE')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
         });
 
         it('should return 200 when we try to delete a user that doesn\'t exist', function(done) {
-            false.should.equal(true);done();
+            request(url)
+                .del('/users/IDONTEXIST')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
         });
     });
 });

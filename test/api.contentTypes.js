@@ -5,7 +5,9 @@ describe('api.contentTypes', function(){
     var url = 'http://localhost:8080',
         testContentTypeId  = "524362aa56c02c0703000001",
         readerToken = "",
-        adminToken  = "";
+        adminToken  = "",
+        testCreatedContentTypeId = "",
+        testCreatedContentTypeCustomVerb = "";
 
     beforeEach(function(done){
         request(url)
@@ -177,6 +179,44 @@ describe('api.contentTypes', function(){
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.should.have.property('_id');
+                    testCreatedContentTypeId = res.body._id;
+                    done();
+                });
+        });
+
+        it('should create a content type without an error using correct verb. supplying fields and meta info', function(done){
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "testfield",
+                        required: true,
+                        label: "Title",
+                        instancing: 1,
+                        type: "textbox"
+                    }
+                ],
+                helpText: "",
+                meta: [{
+                    id: "testfield",
+                    required: true,
+                    label: "Title",
+                    instancing: 1,
+                    type: "textbox"
+                }],
+                description: ""
+            };
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.property('_id');
+                    testCreatedContentTypeCustomVerb = res.body._id;
                     done();
                 });
         });
@@ -612,17 +652,54 @@ describe('api.contentTypes', function(){
 
     describe("DELETE: " + url + '/contentTypes', function() {
         it('should return a 403 because user does not have permissions to access content types', function(done) {
-            false.should.equal(true);done();
+            request(url)
+                .del('/contentTypes/' + testCreatedContentTypeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
         });
         it('should delete a content type using the correct verb', function(done) {
-            false.should.equal(true);done();
+            request(url)
+                .del('/contentTypes/' + testCreatedContentTypeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
         });
         it('should delete a content type using the method override', function(done) {
-            false.should.equal(true);done();
+            request(url)
+                .post('/contentTypes/' + testCreatedContentTypeCustomVerb)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('X-HTTP-Method-Override', 'DELETE')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
         });
 
         it('should return 200 when we try to delete a content type that doesn\'t exist', function(done) {
-            false.should.equal(true);done();
+            request(url)
+                .del('/contentTypes/IDONTEXIST')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
         });
     });
 });

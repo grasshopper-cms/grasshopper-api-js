@@ -151,26 +151,32 @@ describe('api.contentTypes', function(){
 
     describe("POST: " + url + '/contentTypes', function() {
         it('should create a content type without an error using correct verb.', function(done){
-            /*var newUser = {
-                login: "newtestuser1",
-                role: "reader",
-                enabled: true,
-                email: "newtestuser1@thinksolid.com",
-                name: "Test User",
-                password: "TestPassword"
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        required: true,
+                        label: "Title",
+                        instancing: 1,
+                        type: "textbox"
+                    }
+                ],
+                helpText: "",
+                meta: [],
+                description: ""
             };
             request(url)
-                .post('/users')
+                .post('/contentTypes')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)
-                .send(newUser)
+                .send(newContentType)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.should.have.property('_id');
                     done();
-                });*/
+                });
         });
 
         it('should return error if a content type id is sent with the request (maybe verb error).', function(done){

@@ -150,11 +150,13 @@ describe('api.contentTypes', function(){
     });
 
     describe("POST: " + url + '/contentTypes', function() {
+        /*@@ VERIFIED */
         it('should create a content type without an error using correct verb.', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
                 fields: [
                     {
+                        id: "testfield",
                         required: true,
                         label: "Title",
                         instancing: 1,
@@ -179,80 +181,429 @@ describe('api.contentTypes', function(){
                 });
         });
 
+        /*@@ VERIFIED */
+        it('should return an error because we are missing a "label" field.', function(done){
+            var newContentType = {
+                fields: [
+                    {
+                        id: "testid",
+                        required: true,
+                        label: "Title",
+                        instancing: 1,
+                        type: "textbox"
+                    }
+                ],
+                helpText: "",
+                meta: [],
+                description: ""
+            };
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
+        });
+
+        /*@@ VERIFIED */
         it('should return error if a content type id is sent with the request (maybe verb error).', function(done){
-            var newUser = {
+            var newContentType = {
                 _id: "ISHOULDNOTBEHERE",
-                login: "newtestuser1",
-                role: "reader",
-                enabled: true,
-                email: "newtestuser2@thinksolid.com",
-                name: "Test User",
-                password: "TestPassword"
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "testid",
+                        required: true,
+                        label: "Title",
+                        instancing: 1,
+                        type: "textbox"
+                    }
+                ],
+                helpText: "",
+                meta: [],
+                description: ""
             };
-            /*
+
             request(url)
-                .post('/users')
+                .post('/contentTypes')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)
-                .send(newUser)
+                .send(newContentType)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(500);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
-                });*/
+                });
         });
 
-        it('should return error if a duplicate is created.', function(done){
-            var newUser = {
-                login: "newtestuser1",
-                role: "reader",
-                enabled: true,
-                email: "newtestuser1@thinksolid.com",
-                name: "Test User",
-                password: "TestPassword"
-            };/*
-            request(url)
-                .post('/users')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newUser)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });*/
-        });
-
-        it('should validate and return error if a mandatory property is missing.',function(done){
-            var newUser = {
-                role: "reader",
-                enabled: true,
-                email: "newtestuser1@thinksolid.com",
-                name: "Test User",
-                password: "TestPassword"
+        /*@@ VERIFIED */
+        it('should return error when a malformed field id is passed in (id has a space).', function(done){
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "test id",
+                        label: "This is a test label",
+                        required: true,
+                        instancing: 1,
+                        type: "textbox"
+                    }
+                ],
+                helpText: "",
+                meta: [],
+                description: ""
             };
-            /*
             request(url)
-                .post('/users')
+                .post('/contentTypes')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)
-                .send(newUser)
+                .send(newContentType)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(500);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
-                });*/
+                });
         });
 
+        /*@@ VERIFIED */
+        it('should return error when a field has a duplicate id', function(done){
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "testfield",
+                        label: "This is a test label",
+                        required: true,
+                        instancing: 1,
+                        type: "textbox"
+                    },
+                    {
+                        id: "testfield",
+                        label: "This is a test label",
+                        required: true,
+                        instancing: 1,
+                        type: "textbox"
+                    }
+                ],
+                helpText: "",
+                meta: [],
+                description: ""
+            };
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
+        });
+
+        /*@@ VERIFIED */
+        it('should return error when a malformed field is passed in (missing label).', function(done){
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "testid",
+                        required: true,
+                        instancing: 1,
+                        type: "textbox"
+                    }
+                ],
+                helpText: "",
+                meta: [],
+                description: ""
+            };
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
+        });
+
+        /*@@ VERIFIED */
+        it('should return error when a malformed field is passed in (missing type).', function(done){
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "testid",
+                        label: "Test Field Label",
+                        required: true,
+                        instancing: 1
+                    }
+                ],
+                helpText: "",
+                meta: [],
+                description: ""
+            };
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
+        });
+
+        /*@@ VERIFIED */
+        it('should return error when a malformed field is passed in (invalid type).', function(done){
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "testid",
+                        label: "Test Field Label",
+                        type: "I DONT EXIST",
+                        required: true,
+                        instancing: 1
+                    }
+                ],
+                helpText: "",
+                meta: [],
+                description: ""
+            };
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
+        });
+
+        /*@@ VERIFIED */
+        it('should return error when a malformed meta id is passed in (id has a space).', function(done){
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "testid",
+                        label: "This is a test label",
+                        required: true,
+                        instancing: 1,
+                        type: "textbox"
+                    }
+                ],
+                helpText: "",
+                meta: [{
+                    id: "testmeta id",
+                    label: "Test Field Label",
+                    type: "textbox",
+                    required: true,
+                    instancing: 1
+                }],
+                description: ""
+            };
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
+        });
+
+        /*@@ VERIFIED */
+        it('should return error when a meta has a duplicate id', function(done){
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "testfield",
+                        label: "This is a test label",
+                        required: true,
+                        instancing: 1,
+                        type: "textbox"
+                    }
+                ],
+                helpText: "",
+                meta: [{
+                    id: "testmetaid",
+                    label: "Test Field Label",
+                    type: "textbox",
+                    required: true,
+                    instancing: 1
+                },{
+                        id: "testmetaid",
+                        label: "This is a test label",
+                        required: true,
+                        instancing: 1,
+                        type: "textbox"
+                }],
+                description: ""
+            };
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
+        });
+
+        /*@@ VERIFIED */
+        it('should return error when a malformed meta is passed in (missing label).', function(done){
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "testid",
+                        label: "My Label",
+                        required: true,
+                        instancing: 1,
+                        type: "textbox"
+                    }
+                ],
+                helpText: "",
+                meta: [{
+                    id: "testmetaid",
+                    type: "I DO NOT EXIST",
+                    required: true,
+                    instancing: 1
+                }],
+                description: ""
+            };
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
+        });
+
+        /*@@ VERIFIED */
+        it('should return error when a malformed meta is passed in (missing type).', function(done){
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "testid",
+                        label: "Test Field Label",
+                        required: true,
+                        type: "textbox",
+                        instancing: 1
+                    }
+                ],
+                helpText: "",
+                meta: [{
+                    id: "testmetaid",
+                    label: "Test Field Label",
+                    required: true,
+                    instancing: 1
+                }],
+                description: ""
+            };
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
+        });
+
+        /*@@ VERIFIED */
+        it('should return error when a malformed meta is passed in (invalid type).', function(done){
+            var newContentType = {
+                label: "newtestsuitecontent",
+                fields: [
+                    {
+                        id: "testid",
+                        label: "Test Field Label",
+                        type: "textbox",
+                        required: true,
+                        instancing: 1
+                    }
+                ],
+                helpText: "",
+                meta: [{
+                    id: "testmetaid",
+                    label: "Test Field Label",
+                    type: "I DO NOT EXIST",
+                    required: true,
+                    instancing: 1
+                }],
+                description: ""
+            };
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
+        });
     });
 
     describe("PUT: " + url + '/contentTypes', function() {

@@ -5,3 +5,5 @@
 /log
 .vagrant/*
 #/lib/config/configuration.json
+atlassian-ide-plugin.xml
+Vagrantfile

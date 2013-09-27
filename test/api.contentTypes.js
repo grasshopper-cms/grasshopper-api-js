@@ -9,7 +9,7 @@ describe('api.contentTypes', function(){
         testCreatedContentTypeId = "",
         testCreatedContentTypeCustomVerb = "";
 
-    beforeEach(function(done){
+    before(function(done){
         request(url)
             .get('/token')
             .set('Accept', 'application/json')

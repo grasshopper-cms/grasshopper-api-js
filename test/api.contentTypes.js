@@ -647,6 +647,154 @@ describe('api.contentTypes', function(){
     });
 
     describe("PUT: " + url + '/contentTypes', function() {
+        it('should return a 403 because user does not have permissions to access users', function(done) {
+            var newContentType = {
+                _id: testCreatedContentTypeId,
+                label: "updatedlabel",
+                fields: [
+                    {
+                        id: "testid",
+                        label: "Test Field Label",
+                        type: "textbox",
+                        required: true,
+                        instancing: 1
+                    }
+                ],
+                helpText: "",
+                meta: [{
+                    id: "testmetaid",
+                    label: "Test Field Label",
+                    type: "textbox",
+                    required: true,
+                    instancing: 1
+                }],
+                description: ""
+            };
+
+            request(url)
+                .put('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
+        it('should update a content type using the correct verb', function(done) {
+            var newContentType = {
+                _id: testCreatedContentTypeId,
+                label: "updatedlabel",
+                fields: [
+                    {
+                        id: "testid",
+                        label: "Test Field Label",
+                        type: "textbox",
+                        required: true,
+                        instancing: 1
+                    }
+                ],
+                helpText: "",
+                meta: [{
+                    id: "testmetaid",
+                    label: "Test Field Label",
+                    type: "textbox",
+                    required: true,
+                    instancing: 1
+                }],
+                description: ""
+            };
+
+            request(url)
+                .put('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('should update a content type using the method override', function(done) {
+            var newContentType = {
+                _id: testCreatedContentTypeCustomVerb,
+                label: "updatedlabel custom verb",
+                fields: [
+                    {
+                        id: "testid",
+                        label: "Test Field Label",
+                        type: "textbox",
+                        required: true,
+                        instancing: 1
+                    }
+                ],
+                helpText: "",
+                meta: [{
+                    id: "testmetaid",
+                    label: "Test Field Label",
+                    type: "textbox",
+                    required: true,
+                    instancing: 1
+                }],
+                description: ""
+            };
+
+            request(url)
+                .post('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .set('X-HTTP-Method-Override', 'PUT')
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('should return error if content type is updated without a set "ID"', function(done){
+            var newContentType = {
+                label: "updatedlabel",
+                fields: [
+                    {
+                        id: "testid",
+                        label: "Test Field Label",
+                        type: "textbox",
+                        required: true,
+                        instancing: 1
+                    }
+                ],
+                helpText: "",
+                meta: [{
+                    id: "testmetaid",
+                    label: "Test Field Label",
+                    type: "textbox",
+                    required: true,
+                    instancing: 1
+                }],
+                description: ""
+            };
+
+            request(url)
+                .put('/contentTypes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    res.body.should.have.property('message');
+                    res.body.message.should.have.length.above(0);
+                    done();
+                });
+        });
 
     });
 

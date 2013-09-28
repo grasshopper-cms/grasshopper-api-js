@@ -745,4 +745,90 @@ describe('api.users', function(){
                 });
         });
     });
+
+    describe("Test creating a user, logging in with the new user then revoking the token and confirming that they are locked out", function() {
+        it('auth token of user should be revoked if user is disabled.', function(done) {
+            var newUser = {
+                login: "futurerevokee",
+                role: "admin",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                password: "TestPassword",
+                name: "Test User"
+            },
+            mytoken = "";
+
+            //Create User
+            request(url)
+                .post('/users')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.property('_id');
+                    res.body.should.not.have.property('password');
+                    newUser._id = res.body._id;
+
+                    //Get token for user
+                    request(url)
+                        .get('/token')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', new Buffer('futurerevokee:TestPassword').toString('base64'))
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            mytoken = res.body.access_token;
+
+                            //Query service with user
+                            request(url)
+                                .get('/user')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Token ' + mytoken)
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    res.status.should.equal(200);
+
+                                    //Deactivate user
+                                    newUser.enabled = false;
+                                    delete newUser.password;
+
+                                    console.log(newUser);
+                                    request(url)
+                                        .put('/users')
+                                        .set('Accept', 'application/json')
+                                        .set('Accept-Language', 'en_US')
+                                        .set('authorization', 'Token ' + adminToken)
+                                        .send(newUser)
+                                        .end(function(err, res) {
+                                            console.log(err);
+                                            console.log(res);
+                                            if (err) { throw err; }
+                                            res.status.should.equal(200);
+
+                                            //Retry to access API
+                                            request(url)
+                                                .get('/user')
+                                                .set('Accept', 'application/json')
+                                                .set('Accept-Language', 'en_US')
+                                                .set('authorization', 'Token ' + mytoken)
+                                                .end(function(err, res) {
+                                                    if (err) { throw err; }
+                                                    res.status.should.equal(401);
+
+                                                    done();
+                                                });
+                                        });
+
+                                });
+
+                        });
+
+
+                });
+        });
+    });
 });

@@ -13,6 +13,18 @@ module.exports = function(grunt) {
                     },
                     cwd: __dirname
                 }
+            },
+            test: {
+                options: {
+                    file: 'lib/grasshopper-api.js',
+                    args: ['test'],
+                    ignoredFiles: ['README.md', 'node_modules/**', 'Gruntfile.js','*.log', '*.xml'],
+                    legacyWatch: true,
+                    env: {
+                        PORT: '3000'
+                    },
+                    cwd: __dirname
+                }
             }
         },
         jshint: {
@@ -37,8 +49,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
 
-    grunt.registerTask('dev',['nodemon']);
-    grunt.registerTask('test', ['jshint', 'mocha']);
+    grunt.registerTask('dev',['nodemon:dev']);
+    grunt.registerTask('test', ['nodemon:test']);
 
 
 

@@ -41,7 +41,9 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-nodemon": "~0.1.1",
-    "supertest": "~0.7.1"
+    "supertest": "~0.7.1",
+    "grunt-shell": "~0.4.0",
+    "grunt-concurrent": "~0.4.0"
   },
   "jam": {
     "main": "lib/grasshopper-api.js",

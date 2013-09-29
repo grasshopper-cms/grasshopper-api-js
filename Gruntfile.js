@@ -2,6 +2,46 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        mongodb : {
+            test: {
+                host: 'localhost',
+                port: 27017,
+                db: 'test',
+                user: 'grasshopper-user',
+                pass: '1q2w3e4r'
+            }
+        },
+        concurrent: {
+            test: {
+                tasks: ['mongodb:test', 'shell:stopTestServer', 'shell:startTestServer', 'shell:mocha','shell:stopTestServer'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
+        },
+        shell : {
+            mocha : {
+                command : "./node_modules/.bin/mocha --reporter spec --timeout 1000",
+                options : {
+                    stdout : true,
+                    stderr : true
+                }
+            },
+            startTestServer: {
+                command: "node lib/grasshopper-api test",
+                options : {
+                    stdout : true,
+                    stderr : true
+                }
+            },
+            stopTestServer: {
+                command: "tasks/killserver.sh lib/grasshopper-api",
+                options : {
+                    stdout : true,
+                    stderr : true
+                }
+            }
+        },
         nodemon: {
             dev: {
                 options: {
@@ -45,14 +85,16 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadTasks('tasks');
+
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-concurrent');
 
     grunt.registerTask('dev',['nodemon:dev']);
-    grunt.registerTask('test', ['nodemon:test']);
-
-
+    grunt.registerTask('test', ['concurrent:test']);
 
     grunt.registerTask('default', ['jshint']);
 

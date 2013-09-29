@@ -1,4 +1,4 @@
 test:
-	@./node_modules/.bin/mocha --reporter spec --timeout 1000
+	@grunt test
 
 .PHONY: test

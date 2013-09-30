@@ -4,29 +4,19 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         mongodb : {
             test: {
-                host: 'localhost',
-                port: 27017,
-                db: 'test',
-                user: 'grasshopper-user',
-                pass: '1q2w3e4r'
+                host: 'mongodb://localhost:27017/test',
+                collections: ['users','contentTypes','nodes','content']
             }
         },
         concurrent: {
             test: {
-                tasks: ['mongodb:test', 'shell:stopTestServer', 'shell:startTestServer', 'shell:mocha','shell:stopTestServer'],
+                tasks: ['mongodb:test', 'shell:stopTestServer', 'shell:startTestServer'],
                 options: {
                     logConcurrentOutput: true
                 }
             }
         },
         shell : {
-            mocha : {
-                command : "./node_modules/.bin/mocha --reporter spec --timeout 1000",
-                options : {
-                    stdout : true,
-                    stderr : true
-                }
-            },
             startTestServer: {
                 command: "node lib/grasshopper-api test",
                 options : {

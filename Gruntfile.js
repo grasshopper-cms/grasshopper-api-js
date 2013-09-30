@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         mongodb : {
             test: {
                 host: 'mongodb://localhost:27017/test',
-                collections: ['users','contentTypes','nodes','content']
+                collections: ['users','contentTypes','nodes','content', 'tokens']
             }
         },
         concurrent: {

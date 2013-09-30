@@ -796,7 +796,6 @@ describe('api.users', function(){
                                     newUser.enabled = false;
                                     delete newUser.password;
 
-                                    console.log(newUser);
                                     request(url)
                                         .put('/users')
                                         .set('Accept', 'application/json')
@@ -804,8 +803,12 @@ describe('api.users', function(){
                                         .set('authorization', 'Token ' + adminToken)
                                         .send(newUser)
                                         .end(function(err, res) {
-                                            console.log(err);
-                                            console.log(res);
+
+                                            if(err){
+                                                console.log(err);
+                                            }
+
+
                                             if (err) { throw err; }
                                             res.status.should.equal(200);
 

@@ -4,6 +4,7 @@ var request = require('supertest');
 describe('api.users', function(){
     var url = 'http://localhost:8080',
         testUserId  = "5245ce1d56c02c066b000001",
+        testReaderUserId = "5246e80c56c02c0744000002",
         readerToken = "",
         adminToken  = "",
         testCreatedUserId = "",
@@ -555,7 +556,7 @@ describe('api.users', function(){
                 password: "TestPassword"
             };
             request(url)
-                .post('/users')
+                .put('/users')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)
@@ -579,7 +580,7 @@ describe('api.users', function(){
                 password: "TestPassword"
             };
             request(url)
-                .post('/users')
+                .put('/users')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)
@@ -603,7 +604,7 @@ describe('api.users', function(){
                 password: "TestPassword"
             };
             request(url)
-                .post('/users')
+                .put('/users')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)
@@ -627,7 +628,7 @@ describe('api.users', function(){
                 password: "TestPassword"
             };
             request(url)
-                .post('/users')
+                .put('/users')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)
@@ -653,7 +654,7 @@ describe('api.users', function(){
                 permissions: "bad"
             };
             request(url)
-                .post('/users')
+                .put('/users')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)
@@ -677,7 +678,7 @@ describe('api.users', function(){
                 password: "TestPassword"
             };
             request(url)
-                .post('/users')
+                .put('/users')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)
@@ -687,7 +688,144 @@ describe('api.users', function(){
                     res.status.should.equal(500);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
-                    res.body.message.should.equal("User with the same login already exists.");
+                    res.body.message.should.equal("Different user with the same login already exists.");
+                    done();
+                });
+        });
+
+        it('should a user to update themselves even if they do not have permission. at /user', function(done){
+            var newUser = {
+                _id: testReaderUserId,
+                login: "apitestuserreader",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Updated test reader name with :id",
+                password: "TestPassword"
+            };
+            request(url)
+                .put('/user')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('should error if putting to /user with an different ID than your own.', function(done){
+            var newUser = {
+                _id: testUserId,
+                login: "apitestuserreader",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Updated test reader name with :id",
+                password: "TestPassword"
+            };
+            request(url)
+                .put('/user')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
+
+        it('should a user to update themselves even if they do not have permission. at /user/:id', function(done){
+            var newUser = {
+                _id: testReaderUserId,
+                login: "apitestuserreader",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Updated test reader name with :id",
+                password: "TestPassword"
+            };
+            request(url)
+                .put('/users/' + testReaderUserId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('should error if putting to /users/:id with an different ID than your own.', function(done){
+            var newUser = {
+                _id: testUserId,
+                login: "apitestuserreader",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Updated test reader name with :id",
+                password: "TestPassword"
+            };
+            request(url)
+                .put('/users/' + testReaderUserId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
+        it('should error if putting to /users/:id with an different ID than your own. [variation 2]', function(done){
+            var newUser = {
+                _id: testReaderUserId,
+                login: "apitestuserreader",
+                role: "reader",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Updated test reader name with :id",
+                password: "TestPassword"
+            };
+            request(url)
+                .put('/users/' + testUserId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('should error if putting to /users/:id with an different ID than your own. [variation 2]', function(done){
+            var newUser = {
+                _id: testReaderUserId,
+                login: "apitestuserreader",
+                role: "admin",
+                enabled: true,
+                email: "newtestuser1@thinksolid.com",
+                name: "Updated test reader name with :id",
+                password: "TestPassword"
+            };
+            request(url)
+                .put('/user')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .send(newUser)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
                     done();
                 });
         });

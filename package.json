@@ -3,7 +3,7 @@
   "description": "API to manage the grasshopper cms",
   "main": "./lib/grasshopper-api",
   "author": "Travis McHattie",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://git.thinksolid.com/travis.mchattie/grasshopper-api.git"
@@ -41,7 +41,9 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-nodemon": "~0.1.1",
-    "supertest": "~0.7.1"
+    "supertest": "~0.7.1",
+    "grunt-shell": "~0.4.0",
+    "grunt-concurrent": "~0.4.0"
   },
   "jam": {
     "main": "lib/grasshopper-api.js",

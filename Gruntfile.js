@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                 }
             },
             startServer: {
-                command : "pm2 start lib/grasshopper-api.js -i max -e ../log/grasshopper.err.log -o grasshopper.out.log",
+                command : "pm2 start lib/grasshopper-api.js -i max -e log/grasshopper.err.log -o log/grasshopper.out.log",
                 options: {
                     stout: true,
                     stderr: true

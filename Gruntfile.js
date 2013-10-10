@@ -46,7 +46,7 @@ module.exports = function(grunt) {
                 }
             },
             restartServer : {
-                command : "pm2 reload all",
+                command : "pm2 restart all",
                 options: {
                     stout: true,
                     stderr: true

@@ -30,6 +30,27 @@ module.exports = function(grunt) {
                     stdout : true,
                     stderr : true
                 }
+            },
+            startServer: {
+                command : "pm2 start lib/grasshopper-api.js -i max -e ../log/grasshopper.err.log -o grasshopper.out.log",
+                options: {
+                    stout: true,
+                    stderr: true
+                }
+            },
+            stopServer : {
+                command : "pm2 stop all",
+                options: {
+                    stout: true,
+                    stderr: true
+                }
+            },
+            restartServer : {
+                command : "pm2 reload all",
+                options: {
+                    stout: true,
+                    stderr: true
+                }
             }
         },
         nodemon: {
@@ -85,6 +106,10 @@ module.exports = function(grunt) {
 
     grunt.registerTask('dev',['nodemon:dev']);
     grunt.registerTask('test', ['concurrent:test']);
+
+    grunt.registerTask('server:start', ['shell:startServer']);
+    grunt.registerTask('server:stop', ['shell:stopServer']);
+    grunt.registerTask('server:restart', ['shell:restartServer']);
 
     grunt.registerTask('default', ['jshint']);
 

@@ -6,9 +6,9 @@ module.exports = function (grunt) {
         client = require('mongodb').MongoClient,
         ObjectID = require('mongodb').ObjectID,
         users = [
-            { _id: ObjectID("5246e73d56c02c0744000001"), role: "admin",enabled: true, name: "Test User", login: "apitestuseradmin", password: "TestPassword", email: "apitestuser@thinksolid.com" },
-            { _id: ObjectID("5246e80c56c02c0744000002"), role: "reader", enabled: true, name: "Test User", login: "apitestuserreader", password: "TestPassword", email: "apitestuser@thinksolid.com" },
-            { _id: ObjectID("5245ce1d56c02c066b000001"), email: "apitestuser@thinksolid.com", login: "apitestuser", password: "TestPassword", enabled: true, role: "reader", name: "Test User" }
+            { _id: ObjectID("5246e73d56c02c0744000001"), role: "admin",enabled: true, name: "Test User", login: "apitestuseradmin", salt: "225384010328", pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestuser@thinksolid.com" },
+            { _id: ObjectID("5246e80c56c02c0744000002"), role: "reader", enabled: true, name: "Test User", login: "apitestuserreader", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestuser@thinksolid.com" },
+            { _id: ObjectID("5245ce1d56c02c066b000001"), email: "apitestuser@thinksolid.com", login: "apitestuser", salt: "225384010328", pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", enabled: true, role: "reader", name: "Test User" }
         ],
         contentTypes = [
             { _id: ObjectID("524362aa56c02c0703000001"), label: "This is my test content type", helpText: "", meta: [], description: "", fields: [{id: "testfield", required: true, instancing: 1, type: "textbox", label: "Title" } ]},

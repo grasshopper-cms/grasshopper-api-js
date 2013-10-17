@@ -73,7 +73,7 @@ describe('api.users', function(){
         });
         it('should return 404 because test user id does not exist', function(done) {
             request(url)
-                .get('/users/fakeuserid')
+                .get('/users/52314ae429ae439a6e49695d')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)
@@ -872,7 +872,7 @@ describe('api.users', function(){
 
         it('should return 200 when we try to delete a user that doesn\'t exist', function(done) {
             request(url)
-                .del('/users/IDONTEXIST')
+                .del('/users/' + testCreatedUserIdCustomVerb)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)

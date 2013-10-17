@@ -67,6 +67,9 @@ describe('api.users', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
+                    res.body.should.not.have.property('password');
+                    res.body.should.not.have.property('salt');
+                    res.body.should.not.have.property('pass_hash');
                     res.body.login.should.equal("apitestuser");
                     done();
                 });
@@ -95,6 +98,9 @@ describe('api.users', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
+                    res.body.should.not.have.property('password');
+                    res.body.should.not.have.property('salt');
+                    res.body.should.not.have.property('pass_hash');
                     res.body.login.should.equal("apitestuserreader");
                     done();
                 });

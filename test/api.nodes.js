@@ -331,6 +331,7 @@ describe('api.nodes', function(){
 
     });
 
+    /*
     describe("PUT: " + url + '/contentTypes', function() {
         it('should return a 403 because user does not have permissions to access users', function(done) {
             var newContentType = {
@@ -534,5 +535,5 @@ describe('api.nodes', function(){
                     done();
                 });
         });
-    });
+    });*/
 });

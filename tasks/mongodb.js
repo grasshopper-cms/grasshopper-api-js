@@ -104,7 +104,7 @@ module.exports = function (grunt) {
     }
 
     function importContentTypes(col, callback){
-        importData('contentTypes', col, callback);
+        importData('contenttypes', col, callback);
     }
 
     function importContent(col, callback){

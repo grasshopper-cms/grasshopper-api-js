@@ -737,7 +737,7 @@ describe('api.contentTypes', function(){
 
         it('should return 200 when we try to delete a content type that doesn\'t exist', function(done) {
             request(url)
-                .del('/contentTypes/IDONTEXIST')
+                .del('/contentTypes/52607c5f5b7500ea65000008')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)

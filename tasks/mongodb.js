@@ -8,7 +8,13 @@ module.exports = function (grunt) {
         users = [
             { _id: ObjectID("5246e73d56c02c0744000001"), role: "admin",enabled: true, name: "Test User", login: "apitestuseradmin", salt: "225384010328", pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestuser@thinksolid.com" },
             { _id: ObjectID("5246e80c56c02c0744000002"), role: "reader", enabled: true, name: "Test User", login: "apitestuserreader", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestuser@thinksolid.com" },
+            { _id: ObjectID("52619b3dabc0ca310d000003"), role: "reader", enabled: true, name: "Test User With Editing permisions on a node", login: "apitestuserreader_1", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestuser_1@thinksolid.com", permissions: [{nodeid : ObjectID("5261781556c02c072a000007"), role: "editor" }] },
+            { _id: ObjectID("5261777656c02c072a000001"), role: "editor", enabled: true, name: "Test User", login: "apitestusereditor", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestusereditor@thinksolid.com" },
+            { _id: ObjectID("5261b811a94c1a971f000003"), role: "editor", enabled: true, name: "Test User", login: "apitestusereditor_restricted", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestusereditor_1@thinksolid.com", permissions: [{nodeid : ObjectID("5261781556c02c072a000007"), role: "reader" }] },
             { _id: ObjectID("5245ce1d56c02c066b000001"), email: "apitestuser@thinksolid.com", login: "apitestuser", salt: "225384010328", pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", enabled: true, role: "reader", name: "Test User" }
+        ],
+        nodes = [
+            { _id: ObjectID("5261781556c02c072a000007"), label: "Sample Node", slug: "sample_node", parent: null }
         ],
         contentTypes = [
             { _id: ObjectID("524362aa56c02c0703000001"), label: "This is my test content type", helpText: "", meta: [], description: "", fields: [{id: "testfield", required: true, instancing: 1, type: "textbox", label: "Title" } ]},

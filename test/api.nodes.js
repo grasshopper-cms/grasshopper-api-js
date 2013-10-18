@@ -3,25 +3,254 @@ var request = require('supertest');
 
 describe('api.nodes', function(){
     var url = 'http://localhost:8080',
-
+        async = require('async'),
         globalAdminToken  = "",
         globalReaderToken = "",
-        nodeReaderToken = "",
         globalEditorToken = "",
         nodeEditorToken = "",
-        restrictedEditorToken = "";
+        restrictedEditorToken = "",
+        testNodeId = "5261781556c02c072a000007",
+        testNodeIdRoot_generated = "",
+        testNodeIdSubNode_generated = "";
+
 
     before(function(done){
-        //[TODO] Load All tokens
-        done();
+        async.parallel(
+            [
+                function(cb){
+                    request(url)
+                        .get('/token')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', new Buffer('apitestuseradmin:TestPassword').toString('base64'))
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            globalAdminToken = res.body.access_token;
+                            cb();
+                        });
+                },
+                function(cb){
+                    request(url)
+                        .get('/token')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            globalReaderToken = res.body.access_token;
+                            cb();
+                        });
+                },
+                function(cb){
+                    request(url)
+                        .get('/token')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', new Buffer('apitestusereditor:TestPassword').toString('base64'))
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            globalEditorToken = res.body.access_token;
+                            cb();
+                        });
+                },
+                function(cb){
+                    request(url)
+                        .get('/token')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', new Buffer('apitestuserreader_1:TestPassword').toString('base64'))
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            nodeEditorToken = res.body.access_token;
+                            cb();
+                        });
+                },
+                function(cb){
+                    request(url)
+                        .get('/token')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', new Buffer('apitestusereditor_restricted:TestPassword').toString('base64'))
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            restrictedEditorToken = res.body.access_token;
+                            cb();
+                        });
+                }
+            ],function(){
+                done();
+            }
+        );
+    });
+
+    describe("POST: " + url + '/nodes', function() {
+
+        it('should create a node without an error using correct verb.', function(done){
+            request(url)
+                .post('/nodes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    label : "My Test Node",
+                    slug : "my_test_node",
+                    parent: null
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.property('_id');
+                    testNodeIdRoot_generated = res.body._id;
+                    done();
+                });
+        });
+
+        it('should create a node without an error using correct verb. (sub node of root)', function(done){
+            request(url)
+                .post('/nodes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    label : "My Test Sub-Node",
+                    slug : "my_test_sub_node",
+                    parent: testNodeIdRoot_generated
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.property('_id');
+                    testNodeIdSubNode_generated = res.body._id;
+                    done();
+                });
+        });
+
+         it('should return an error because we are missing a "label" field.', function(done){
+             request(url)
+                 .post('/nodes')
+                 .set('Accept', 'application/json')
+                 .set('Accept-Language', 'en_US')
+                 .set('authorization', 'Token ' + globalEditorToken)
+                 .send({
+                     slug : "my_test_sub_node",
+                     parent: testNodeIdRoot_generated
+                 })
+                 .end(function(err, res) {
+                     if (err) { throw err; }
+                     res.status.should.equal(500);
+                     done();
+                 });
+         });
+
+
+         it('should return error when a malformed slug is passed in (id has a space).', function(done){
+             request(url)
+                 .post('/nodes')
+                 .set('Accept', 'application/json')
+                 .set('Accept-Language', 'en_US')
+                 .set('authorization', 'Token ' + globalEditorToken)
+                 .send({
+                     label: "My Test Sub Node Label",
+                     slug : "my_test_sub_node_123jf dfa-32423",
+                     parent: null
+                 })
+                 .end(function(err, res) {
+                     if (err) { throw err; }
+                     res.status.should.equal(500);
+                     res.body.should.have.property("message");
+                     done();
+                 });
+         });
+
+
+         it('should return error when a field has a duplicate slug', function(done){
+             request(url)
+                 .post('/nodes')
+                 .set('Accept', 'application/json')
+                 .set('Accept-Language', 'en_US')
+                 .set('authorization', 'Token ' + globalEditorToken)
+                 .send({
+                     label: "My Test Sub Node Label",
+                     slug : "my_test_sub_node",
+                     parent: testNodeIdRoot_generated
+                 })
+                 .end(function(err, res) {
+                     if (err) { throw err; }
+                     res.status.should.equal(500);
+                     res.body.should.have.property("message");
+                     res.body.message.should.equal("Duplicate key already exists.");
+                     done();
+                 });
+         });
+
+        it('should create a node when a reader with editor permissions creates a node', function(done){
+            request(url)
+                .post('/nodes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + nodeEditorToken)
+                .send({
+                    label: "Reader Created Node",
+                    slug : "my_test_sub_node_2",
+                    parent: testNodeId
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('should return error when a reader tries to create a node', function(done){
+            request(url)
+                .post('/nodes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .send({
+                    label: "Reader Created Node",
+                    slug : "my_test_sub_node_3",
+                    parent: testNodeId
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
+
+        it('should return error when a reader tries to create a node', function(done){
+            request(url)
+                .post('/nodes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + restrictedEditorToken)
+                .send({
+                    label: "Editor Created Node",
+                    slug : "my_test_sub_node_4",
+                    parent: testNodeId
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
     });
 
     describe("GET: " + url + '/node/:id', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
         });
-        it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
+        /*     it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
             false.should.equal(true);
             done();
         });
@@ -44,9 +273,9 @@ describe('api.nodes', function(){
         it('should return 404 because test node id does not exist', function(done) {
             false.should.equal(true);
             done();
-        });
+        });*/
     });
-
+/*
     describe("GET: " + url + '/nodes', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             false.should.equal(true);
@@ -280,58 +509,6 @@ describe('api.nodes', function(){
     });
 
 
-
-    describe("POST: " + url + '/nodes', function() {
-
-        it('should create a node without an error using correct verb.', function(done){
-            false.should.equal(true);
-            done();
-        });
-
-        it('should create a node without an error using correct verb. ', function(done){
-            false.should.equal(true);
-            done();
-        });
-
-        it('should return an error because we are missing a "label" field.', function(done){
-            false.should.equal(true);
-            done();
-        });
-
-        it('should return error if a node id is sent with the request (maybe verb error).', function(done){
-            false.should.equal(true);
-            done();
-        });
-
-        it('should return error when a malformed slug is passed in (id has a space).', function(done){
-            false.should.equal(true);
-            done();
-        });
-
-
-        it('should return error when a field has a duplicate slug', function(done){
-            false.should.equal(true);
-            done();
-        });
-
-        it('should return error when a malformed node object is sent in (should validate against content type) -- NEED MORE SPECIFIC CASES', function(done){
-            false.should.equal(true);
-            done();
-        });
-
-        it('should return error when a reader tries to create a node', function(done){
-            false.should.equal(true);
-            done();
-        });
-
-        it('should return error when a editor does not have rights to a node and tries to create a node.', function(done){
-            false.should.equal(true);
-            done();
-        });
-
-    });
-
-    /*
     describe("PUT: " + url + '/contentTypes', function() {
         it('should return a 403 because user does not have permissions to access users', function(done) {
             var newContentType = {

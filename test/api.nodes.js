@@ -13,6 +13,7 @@ describe('api.nodes', function(){
 
     before(function(done){
         //[TODO] Load All tokens
+        done();
     });
 
     describe("GET: " + url + '/node/:id', function() {

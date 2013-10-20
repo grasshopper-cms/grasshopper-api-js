@@ -8,7 +8,10 @@ describe('api.users', function(){
         readerToken = "",
         adminToken  = "",
         testCreatedUserId = "",
-        testCreatedUserIdCustomVerb = "";
+        testCreatedUserIdCustomVerb = "",
+        testNodeForPermissions = "5261781556c02c072a000007",
+        testSubNodeForPermissions = "526417710658fc1f0a00000b";
+
 
     before(function(done){
         request(url)
@@ -128,6 +131,7 @@ describe('api.users', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
+                    console.log(res.body);
                     res.body.should.have.property('total');
                     res.body.should.have.property('results');
                     done();
@@ -975,6 +979,92 @@ describe('api.users', function(){
                         });
 
 
+                });
+        });
+    });
+
+    describe("POST: " + url + '/users/:id/permissions', function() {
+        it('add permission to edit a node with an empty permissions collection.', function(done) {
+            request(url)
+                .post('/users/' + testReaderUserId + "/permissions")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send({
+                    nodeid: testNodeForPermissions,
+                    role: "editor"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('update a permission that a user already has set to another value.', function(done) {
+            request(url)
+                .post('/users/' + testReaderUserId + "/permissions")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send({
+                    nodeid: testNodeForPermissions,
+                    role: "none"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('add a permission that already has a permissions collection.', function(done) {
+            request(url)
+                .post('/users/' + testReaderUserId + "/permissions")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send({
+                    nodeid: testSubNodeForPermissions,
+                    role: "editor"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('try to add permissions unathenticated should result in a 401.', function(done) {
+            request(url)
+                .post('/users/' + testReaderUserId + "/permissions")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .send({
+                    nodeid: testSubNodeForPermissions,
+                    role: "editor"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
+        });
+
+        it('try to add permissions without the correct permissions. Should result in a 403.', function(done) {
+            request(url)
+                .post('/users/' + testReaderUserId + "/permissions")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + readerToken)
+                .send({
+                    nodeid: testSubNodeForPermissions,
+                    role: "editor"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
                 });
         });
     });

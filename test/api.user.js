@@ -131,7 +131,6 @@ describe('api.users', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
-                    console.log(res.body);
                     res.body.should.have.property('total');
                     res.body.should.have.property('results');
                     done();
@@ -230,7 +229,9 @@ describe('api.users', function(){
                 email: "newtestuser1@thinksolid.com",
                 name: "Test User",
                 password: "TestPassword",
-                linkedid: "tjmchattie"
+                profile: {
+                    linkedid: "tjmchattie"
+                }
             };
             request(url)
                 .post('/users')

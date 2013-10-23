@@ -86,6 +86,8 @@ So we have users, then content types, then places to put our content, the last t
     {
         _id: pk,
         type: fk, //Relationship to content type
+        nonce: "",
+        slug: "",
         label: "",
         environments: [""], //Array of available environments, you could use this for migrations
         language: "",
@@ -98,6 +100,7 @@ So we have users, then content types, then places to put our content, the last t
         },
         dateCreated: "",
         dateModified: "",
+        author: { id: "", name: ""},
         lastModifiedBy: "",
         validTo: "",
         validFrom: "",
@@ -110,5 +113,8 @@ So we have users, then content types, then places to put our content, the last t
             <field_name>: "",
             <field_name>: 0,
             <field_name>: {}
-        }
+        },
+        changeLog: [{
+           id: "", name: "", action: "", date: ""
+        }]
     }

@@ -11,8 +11,10 @@ describe('api.nodes', function(){
         restrictedEditorToken = "",
         testNodeId = "5261781556c02c072a000007",
         testNodeIdRoot_generated = "",
-        testNodeIdSubNode_generated = "";
-
+        testNodeIdSubNode_generated = "",
+        testContentTypeID = "524362aa56c02c0703000001",
+        testContentTypeID_Users = "5254908d56c02c076e000001",
+        badTestContentTypeID = "52698a0033e248a360000006";
 
     before(function(done){
         async.parallel(
@@ -233,6 +235,100 @@ describe('api.nodes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(403);
+                    done();
+                });
+        });
+    });
+
+    describe("POST: " + url + '/node/:id/contenttype', function() {
+
+        it('should add a content type to an existing node sent as a single value.', function(done){
+            request(url)
+                .post('/node/' + testNodeId + '/contenttype')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    id: testContentTypeID
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('should add a collection of content types to an existing node sent as an array.', function(done){
+            request(url)
+                .post('/node/' + testNodeId + '/contenttype')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send([{id: testContentTypeID }, {id: testContentTypeID_Users }])
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+
+
+        });
+
+        it('should fail with 401 if the user is unauthenticated.', function(done){
+            request(url)
+                .post('/node/' + testNodeId + '/contenttype')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .send({
+                    id: testContentTypeID
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
+        });
+
+        it('Should fail with a 403 if a user does not have editor permissions to the parent node.', function(done){
+            request(url)
+                .post('/node/' + testNodeId + '/contenttype')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .send({
+                    id: testContentTypeID
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
+
+        it('should fail with 500 if trying to save a content type to a node that doesn\'t exist.', function(done){
+            request(url)
+                .post('/node/' + testNodeId + '/contenttype')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({id: badTestContentTypeID})
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    done();
+                });
+        });
+
+        it('should fail if the payload to the node types is not a correct format.', function(done){
+            request(url)
+                .post('/node/' + testNodeId + '/contenttype')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({contenttypeid: testContentTypeID})
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
                     done();
                 });
         });

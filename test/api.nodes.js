@@ -10,6 +10,8 @@ describe('api.nodes', function(){
         nodeEditorToken = "",
         restrictedEditorToken = "",
         testNodeId = "5261781556c02c072a000007",
+        testNodeSlug = "/this/is/my/path",
+        testNodeSlugWithoutSlashes = "sample_sub_node",
         testNodeIdRoot_generated = "",
         testNodeIdSubNode_generated = "",
         testContentTypeID = "524362aa56c02c0703000001",
@@ -345,6 +347,54 @@ describe('api.nodes', function(){
                     res.status.should.equal(401);
                     done();
                 });
+        });
+
+        describe("GET: " + url + '/node/:id', function() {
+            it('should return a node when using a id', function(done) {
+                request(url)
+                    .get('/node/' + testNodeId)
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Token ' + globalEditorToken)
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        res.status.should.equal(200);
+                        console.log(res.body);
+                        done();
+                    });
+            });
+        });
+
+        describe("GET: " + url + '/node/:slug', function() {
+            it('should return a node when using a slug that includes slashes', function(done) {
+                request(url)
+                    .get('/node' + testNodeSlug)
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Token ' + globalEditorToken)
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        res.status.should.equal(200);
+                        console.log(res.body);
+                        done();
+                    });
+            });
+        });
+
+        describe("GET: " + url + '/node/:slug', function() {
+            it('should return a node when using a slug without slashes.', function(done) {
+                request(url)
+                    .get('/node/' + testNodeSlugWithoutSlashes)
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Token ' + globalEditorToken)
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        res.status.should.equal(200);
+                        console.log(res.body);
+                        done();
+                    });
+            });
         });
         /*     it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
             false.should.equal(true);

@@ -14,7 +14,7 @@ module.exports = function (grunt) {
             { _id: ObjectID("5245ce1d56c02c066b000001"), email: "apitestuser@thinksolid.com", login: "apitestuser", salt: "225384010328", pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", enabled: true, role: "reader", name: "Test User" }
         ],
         nodes = [
-            { _id: ObjectID("5261781556c02c072a000007"), label: "Sample Node", slug: "sample_node", parent: null },
+            { _id: ObjectID("5261781556c02c072a000007"), label: "Sample Node", slug: "/this/is/my/path", parent: null },
             { _id: ObjectID("526417710658fc1f0a00000b"), label: "Sample  Sub-Node", slug: "sample_sub_node", parent: ObjectID("5261781556c02c072a000007") }
         ],
         contentTypes = [

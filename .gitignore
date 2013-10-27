@@ -3,6 +3,7 @@
 /dist
 /cache
 /log
+/tmp
 .vagrant/*
 configuration.json
 atlassian-ide-plugin.xml

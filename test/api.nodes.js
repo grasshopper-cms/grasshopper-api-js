@@ -10,13 +10,15 @@ describe('api.nodes', function(){
         nodeEditorToken = "",
         restrictedEditorToken = "",
         testNodeId = "5261781556c02c072a000007",
+        testLockedDownNodeId = "526d5179966a883540000006",
         testNodeSlug = "/this/is/my/path",
         testNodeSlugWithoutSlashes = "sample_sub_node",
         testNodeIdRoot_generated = "",
         testNodeIdSubNode_generated = "",
         testContentTypeID = "524362aa56c02c0703000001",
         testContentTypeID_Users = "5254908d56c02c076e000001",
-        badTestContentTypeID = "52698a0033e248a360000006";
+        badTestContentTypeID = "52698a0033e248a360000006",
+        badTestNodeId = "526d545623c0ff9442000006";
 
     before(function(done){
         async.parallel(
@@ -375,7 +377,6 @@ describe('api.nodes', function(){
                     .end(function(err, res) {
                         if (err) { throw err; }
                         res.status.should.equal(200);
-                        console.log(res.body);
                         done();
                     });
             });
@@ -391,7 +392,6 @@ describe('api.nodes', function(){
                     .end(function(err, res) {
                         if (err) { throw err; }
                         res.status.should.equal(200);
-                        console.log(res.body);
                         done();
                     });
             });
@@ -528,39 +528,75 @@ describe('api.nodes', function(){
             false.should.equal(true);
             done();
         });
-    });
+    });*/
 
-    describe("GET: " + url + '/nodes/:parentNodeId/files', function() {
+    describe("GET: " + url + '/nodes/:nodeid/files', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
         });
+
         it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testLockedDownNodeId + "/files")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + nodeEditorToken)//This is an editor token for a specific node but a "none" for the locked down node.
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
         });
+
         it('an editor with rights restricted to a specific node should return a 403 error', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testLockedDownNodeId + "/files")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + restrictedEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
         });
-        it('an admin with rights restricted to a specific node should not return a 403 error, this would have been an error should return 200', function(done) {
-            false.should.equal(true);
-            done();
-        });
+
         it('an editor should return a list of files in a node', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testNodeId + "/files")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.be.an('array');
+                    done();
+                });
         });
         it('a reader should return a list of files in a node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return 404 because test node id does not exist', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testNodeId + "/files")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.be.an('array');
+                    done();
+                });
         });
     });
-
+/*
     describe("GET: " + url + '/nodes/:parentNodeId/files/deep', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             false.should.equal(true);

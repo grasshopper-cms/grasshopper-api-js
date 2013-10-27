@@ -361,7 +361,6 @@ describe('api.nodes', function(){
                     .end(function(err, res) {
                         if (err) { throw err; }
                         res.status.should.equal(200);
-                        console.log(res.body);
                         done();
                     });
             });

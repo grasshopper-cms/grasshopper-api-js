@@ -8,13 +8,14 @@ module.exports = function (grunt) {
         users = [
             { _id: ObjectID("5246e73d56c02c0744000001"), role: "admin",enabled: true, name: "Test User", login: "apitestuseradmin", salt: "225384010328", pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestuser@thinksolid.com" },
             { _id: ObjectID("5246e80c56c02c0744000002"), role: "reader", enabled: true, name: "Test User", login: "apitestuserreader", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestuser@thinksolid.com" },
-            { _id: ObjectID("52619b3dabc0ca310d000003"), role: "reader", enabled: true, name: "Test User With Editing permisions on a node", login: "apitestuserreader_1", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestuser_1@thinksolid.com", permissions: [{nodeid : ObjectID("5261781556c02c072a000007"), role: "editor" }] },
+            { _id: ObjectID("52619b3dabc0ca310d000003"), role: "reader", enabled: true, name: "Test User With Editing permisions on a node", login: "apitestuserreader_1", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestuser_1@thinksolid.com", permissions: [{nodeid : ObjectID("5261781556c02c072a000007"), role: "editor" },{nodeid : ObjectID("526d5179966a883540000006"), role: "none" }] },
             { _id: ObjectID("5261777656c02c072a000001"), role: "editor", enabled: true, name: "Test User", login: "apitestusereditor", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestusereditor@thinksolid.com" },
-            { _id: ObjectID("5261b811a94c1a971f000003"), role: "editor", enabled: true, name: "Test User", login: "apitestusereditor_restricted", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestusereditor_1@thinksolid.com", permissions: [{nodeid : ObjectID("5261781556c02c072a000007"), role: "reader" }] },
+            { _id: ObjectID("5261b811a94c1a971f000003"), role: "editor", enabled: true, name: "Test User", login: "apitestusereditor_restricted", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestusereditor_1@thinksolid.com", permissions: [{nodeid : ObjectID("5261781556c02c072a000007"), role: "reader" },{nodeid : ObjectID("526d5179966a883540000006"), role: "none" }] },
             { _id: ObjectID("5245ce1d56c02c066b000001"), email: "apitestuser@thinksolid.com", login: "apitestuser", salt: "225384010328", pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", enabled: true, role: "reader", name: "Test User" }
         ],
         nodes = [
             { _id: ObjectID("5261781556c02c072a000007"), label: "Sample Node", slug: "/this/is/my/path", parent: null },
+            { _id: ObjectID("526d5179966a883540000006"), label: "Locked Down Node", slug: "/this/is/my/restricted/path", parent: null },
             { _id: ObjectID("526417710658fc1f0a00000b"), label: "Sample  Sub-Node", slug: "sample_sub_node", parent: ObjectID("5261781556c02c072a000007") }
         ],
         contentTypes = [

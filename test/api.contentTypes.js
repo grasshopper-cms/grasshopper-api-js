@@ -71,7 +71,7 @@ describe('api.contentTypes', function(){
         });
         it('should return 404 because test user id does not exist', function(done) {
             request(url)
-                .get('/contentTypes/faketypeid')
+                .get('/contentTypes/52607c5f5b7500ea65000008')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)
@@ -156,15 +156,14 @@ describe('api.contentTypes', function(){
         it('should create a content type without an error using correct verb.', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "testfield",
+                fields: {
+                    testfield: {
                         required: true,
                         label: "Title",
                         instancing: 1,
                         type: "textbox"
                     }
-                ],
+                },
                 helpText: "",
                 meta: [],
                 description: ""
@@ -187,15 +186,15 @@ describe('api.contentTypes', function(){
         it('should create a content type without an error using correct verb. supplying fields and meta info', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
-                fields: [
-                    {
+                fields: {
+                    testfield: {
                         id: "testfield",
                         required: true,
                         label: "Title",
                         instancing: 1,
                         type: "textbox"
                     }
-                ],
+                },
                 helpText: "",
                 meta: [{
                     id: "testfield",
@@ -224,15 +223,14 @@ describe('api.contentTypes', function(){
         /*@@ VERIFIED */
         it('should return an error because we are missing a "label" field.', function(done){
             var newContentType = {
-                fields: [
-                    {
-                        id: "testid",
+                fields: {
+                    testid: {
                         required: true,
                         label: "Title",
                         instancing: 1,
                         type: "textbox"
                     }
-                ],
+                },
                 helpText: "",
                 meta: [],
                 description: ""
@@ -257,15 +255,14 @@ describe('api.contentTypes', function(){
             var newContentType = {
                 _id: "ISHOULDNOTBEHERE",
                 label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "testid",
+                fields: {
+                    testid: {
                         required: true,
                         label: "Title",
                         instancing: 1,
                         type: "textbox"
                     }
-                ],
+                },
                 helpText: "",
                 meta: [],
                 description: ""
@@ -290,15 +287,14 @@ describe('api.contentTypes', function(){
         it('should return error when a malformed field id is passed in (id has a space).', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "test id",
+                fields: {
+                    "test id" :{
                         label: "This is a test label",
                         required: true,
                         instancing: 1,
                         type: "textbox"
                     }
-                ],
+                },
                 helpText: "",
                 meta: [],
                 description: ""
@@ -318,57 +314,18 @@ describe('api.contentTypes', function(){
                 });
         });
 
-        /*@@ VERIFIED */
-        it('should return error when a field has a duplicate id', function(done){
-            var newContentType = {
-                label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "testfield",
-                        label: "This is a test label",
-                        required: true,
-                        instancing: 1,
-                        type: "textbox"
-                    },
-                    {
-                        id: "testfield",
-                        label: "This is a test label",
-                        required: true,
-                        instancing: 1,
-                        type: "textbox"
-                    }
-                ],
-                helpText: "",
-                meta: [],
-                description: ""
-            };
-            request(url)
-                .post('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
 
         /*@@ VERIFIED */
         it('should return error when a malformed field is passed in (missing label).', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "testid",
+                fields: {
+                    testid: {
                         required: true,
                         instancing: 1,
                         type: "textbox"
                     }
-                ],
+                },
                 helpText: "",
                 meta: [],
                 description: ""
@@ -392,14 +349,13 @@ describe('api.contentTypes', function(){
         it('should return error when a malformed field is passed in (missing type).', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "testid",
+                fields: {
+                    testid: {
                         label: "Test Field Label",
                         required: true,
                         instancing: 1
                     }
-                ],
+                },
                 helpText: "",
                 meta: [],
                 description: ""
@@ -423,15 +379,14 @@ describe('api.contentTypes', function(){
         it('should return error when a malformed field is passed in (invalid type).', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "testid",
+                fields: {
+                    testid: {
                         label: "Test Field Label",
                         type: "I DONT EXIST",
                         required: true,
                         instancing: 1
                     }
-                ],
+                },
                 helpText: "",
                 meta: [],
                 description: ""
@@ -455,23 +410,23 @@ describe('api.contentTypes', function(){
         it('should return error when a malformed meta id is passed in (id has a space).', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "testid",
+                fields: {
+                    testid: {
                         label: "This is a test label",
                         required: true,
                         instancing: 1,
                         type: "textbox"
                     }
-                ],
+                },
                 helpText: "",
-                meta: [{
-                    id: "testmeta id",
-                    label: "Test Field Label",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
-                }],
+                meta: {
+                    "testmeta id" : {
+                        label: "Test Field Label",
+                        type: "textbox",
+                        required: true,
+                        instancing: 1
+                    }
+                },
                 description: ""
             };
             request(url)
@@ -489,70 +444,27 @@ describe('api.contentTypes', function(){
                 });
         });
 
-        /*@@ VERIFIED */
-        it('should return error when a meta has a duplicate id', function(done){
-            var newContentType = {
-                label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "testfield",
-                        label: "This is a test label",
-                        required: true,
-                        instancing: 1,
-                        type: "textbox"
-                    }
-                ],
-                helpText: "",
-                meta: [{
-                    id: "testmetaid",
-                    label: "Test Field Label",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
-                },{
-                        id: "testmetaid",
-                        label: "This is a test label",
-                        required: true,
-                        instancing: 1,
-                        type: "textbox"
-                }],
-                description: ""
-            };
-            request(url)
-                .post('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
 
         /*@@ VERIFIED */
         it('should return error when a malformed meta is passed in (missing label).', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "testid",
+                fields: {
+                    testid: {
                         label: "My Label",
                         required: true,
                         instancing: 1,
                         type: "textbox"
                     }
-                ],
+                },
                 helpText: "",
-                meta: [{
+                meta: {
+                    testmetaid: {
                     id: "testmetaid",
                     type: "I DO NOT EXIST",
                     required: true,
                     instancing: 1
-                }],
+                }},
                 description: ""
             };
             request(url)
@@ -574,22 +486,20 @@ describe('api.contentTypes', function(){
         it('should return error when a malformed meta is passed in (missing type).', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "testid",
+                fields: {
+                    testid: {
                         label: "Test Field Label",
                         required: true,
                         type: "textbox",
                         instancing: 1
                     }
-                ],
+                },
                 helpText: "",
-                meta: [{
-                    id: "testmetaid",
+                meta: {testmetaid: {
                     label: "Test Field Label",
                     required: true,
                     instancing: 1
-                }],
+                }},
                 description: ""
             };
             request(url)
@@ -611,23 +521,21 @@ describe('api.contentTypes', function(){
         it('should return error when a malformed meta is passed in (invalid type).', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
-                fields: [
-                    {
-                        id: "testid",
+                fields: {
+                    testid: {
                         label: "Test Field Label",
                         type: "textbox",
                         required: true,
                         instancing: 1
                     }
-                ],
+                },
                 helpText: "",
-                meta: [{
-                    id: "testmetaid",
+                meta: {testmetaid:{
                     label: "Test Field Label",
                     type: "I DO NOT EXIST",
                     required: true,
                     instancing: 1
-                }],
+                }},
                 description: ""
             };
             request(url)
@@ -651,23 +559,16 @@ describe('api.contentTypes', function(){
             var newContentType = {
                 _id: testCreatedContentTypeId,
                 label: "updatedlabel",
-                fields: [
-                    {
-                        id: "testid",
-                        label: "Test Field Label",
-                        type: "textbox",
+                fields: {
+                    testfield: {
                         required: true,
-                        instancing: 1
+                        label: "Title",
+                        instancing: 1,
+                        type: "textbox"
                     }
-                ],
+                },
                 helpText: "",
-                meta: [{
-                    id: "testmetaid",
-                    label: "Test Field Label",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
-                }],
+                meta: [],
                 description: ""
             };
 
@@ -687,23 +588,22 @@ describe('api.contentTypes', function(){
             var newContentType = {
                 _id: testCreatedContentTypeId,
                 label: "updatedlabel",
-                fields: [
-                    {
+                fields: {
+                    testid : {
                         id: "testid",
                         label: "Test Field Label",
                         type: "textbox",
                         required: true,
                         instancing: 1
                     }
-                ],
+                },
                 helpText: "",
-                meta: [{
-                    id: "testmetaid",
+                meta: {testmetaid:{
                     label: "Test Field Label",
                     type: "textbox",
                     required: true,
                     instancing: 1
-                }],
+                }},
                 description: ""
             };
 
@@ -724,23 +624,22 @@ describe('api.contentTypes', function(){
             var newContentType = {
                 _id: testCreatedContentTypeCustomVerb,
                 label: "updatedlabel custom verb",
-                fields: [
-                    {
-                        id: "testid",
-                        label: "Test Field Label",
-                        type: "textbox",
-                        required: true,
-                        instancing: 1
-                    }
-                ],
+                    fields: {
+                        testid : {
+                            id: "testid",
+                            label: "Test Field Label",
+                            type: "textbox",
+                            required: true,
+                            instancing: 1
+                        }
+                },
                 helpText: "",
-                meta: [{
-                    id: "testmetaid",
+                meta: {testmetaid:{
                     label: "Test Field Label",
                     type: "textbox",
                     required: true,
                     instancing: 1
-                }],
+                }},
                 description: ""
             };
 
@@ -761,23 +660,22 @@ describe('api.contentTypes', function(){
         it('should return error if content type is updated without a set "ID"', function(done){
             var newContentType = {
                 label: "updatedlabel",
-                fields: [
-                    {
+                fields: {
+                    testid : {
                         id: "testid",
                         label: "Test Field Label",
                         type: "textbox",
                         required: true,
                         instancing: 1
                     }
-                ],
+                },
                 helpText: "",
-                meta: [{
-                    id: "testmetaid",
+                meta: {testmetaid:{
                     label: "Test Field Label",
                     type: "textbox",
                     required: true,
                     instancing: 1
-                }],
+                }},
                 description: ""
             };
 
@@ -839,7 +737,7 @@ describe('api.contentTypes', function(){
 
         it('should return 200 when we try to delete a content type that doesn\'t exist', function(done) {
             request(url)
-                .del('/contentTypes/IDONTEXIST')
+                .del('/contentTypes/52607c5f5b7500ea65000008')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + adminToken)

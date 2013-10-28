@@ -504,6 +504,18 @@ describe('api.nodes', function(){
     });*/
 
     describe("GET: " + url + '/nodes/:id/children', function() {
+        it('should return a 401 because user is not authenticated', function(done) {
+            request(url)
+                .get('/node/' + testNodeId + "/children")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
+        });
+
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/children")
@@ -514,6 +526,19 @@ describe('api.nodes', function(){
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.length.should.equal(10);
+                    done();
+                });
+        });
+
+        it('should return a 403 because user does not have permissions to access this node', function(done) {
+            request(url)
+                .get('/node/' + testLockedDownNodeId + "/children")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + nodeEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
                     done();
                 });
         });
@@ -533,30 +558,12 @@ describe('api.nodes', function(){
         });
 
 
-
-
-
-
-
-
-
-
-        /*it('a global reader with with a restriction on a child node of a child node should get a node object back with a filtered collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 403 because user does not have permissions to access this node', function(done) {
-            false.should.equal(true);
-            done();
-        });
+        /*
         it('should return a 403 because user does not have permissions to access a parent of this node', function(done) {
             false.should.equal(true);
             done();
         });
-        it('should return a 401 because user is not authenticated', function(done) {
-            false.should.equal(true);
-            done();
-        });*/
+        */
     });
 /*
     describe("GET: " + url + '/nodes/:parentNodeId', function() {

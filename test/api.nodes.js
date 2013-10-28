@@ -88,7 +88,7 @@ describe('api.nodes', function(){
             }
         );
     });
-
+/*
     describe("POST: " + url + '/nodes', function() {
 
         it('should create a node without an error using correct verb.', function(done){
@@ -351,19 +351,17 @@ describe('api.nodes', function(){
                 });
         });
 
-        describe("GET: " + url + '/node/:id', function() {
-            it('should return a node when using a id', function(done) {
-                request(url)
-                    .get('/node/' + testNodeId)
-                    .set('Accept', 'application/json')
-                    .set('Accept-Language', 'en_US')
-                    .set('authorization', 'Token ' + globalEditorToken)
-                    .end(function(err, res) {
-                        if (err) { throw err; }
-                        res.status.should.equal(200);
-                        done();
-                    });
-            });
+        it('should return a node when using a id', function(done) {
+            request(url)
+                .get('/node/' + testNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
         });
 
         describe("GET: " + url + '/node/:slug', function() {
@@ -379,9 +377,7 @@ describe('api.nodes', function(){
                         done();
                     });
             });
-        });
 
-        describe("GET: " + url + '/node/:slug', function() {
             it('should return a node when using a slug without slashes.', function(done) {
                 request(url)
                     .get('/node/' + testNodeSlugWithoutSlashes)
@@ -395,31 +391,76 @@ describe('api.nodes', function(){
                     });
             });
         });
-        /*     it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
-            false.should.equal(true);
-            done();
+
+        it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
+            request(url)
+                .get('/node/' + testLockedDownNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + nodeEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
         });
+
         it('an editor with rights restricted to a specific node should return a 403 error', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testLockedDownNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + restrictedEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
         });
-        it('an admin with rights restricted to a specific node should not return a 403 error, this would have been an error should return 200', function(done) {
-            false.should.equal(true);
-            done();
-        });
+
+
         it('an editor should return an existing node object', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
         });
         it('a reader should return an existing node object', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
         });
-        it('should return 404 because test node id does not exist', function(done) {
-            false.should.equal(true);
-            done();
-        });*/
     });
+
+   */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
     describe("GET: " + url + '/nodes', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
@@ -477,14 +518,23 @@ describe('api.nodes', function(){
             false.should.equal(true);
             done();
         });
-    });
+    });*/
 
-    describe("GET: " + url + '/nodes/:parentNodeId/deep', function() {
+    describe("GET: " + url + '/nodes/:id/children', function() {
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testNodeId + "/children")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + restrictedEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    console.log(res.body);
+                    done();
+                });
         });
-        it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
+        /*it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
             false.should.equal(true);
             done();
         });
@@ -503,9 +553,9 @@ describe('api.nodes', function(){
         it('should return a 401 because user is not authenticated', function(done) {
             false.should.equal(true);
             done();
-        });
+        });*/
     });
-
+/*
     describe("GET: " + url + '/nodes/:parentNodeId', function() {
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
             false.should.equal(true);
@@ -529,7 +579,18 @@ describe('api.nodes', function(){
         });
     });*/
 
-    describe("GET: " + url + '/nodes/:nodeid/files', function() {
+
+
+
+
+
+
+
+
+
+
+    /*
+    describe("GET: " + url + '/nodes/:nodeid/assets', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .get('/node/' + testNodeId)
@@ -544,7 +605,7 @@ describe('api.nodes', function(){
 
         it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
             request(url)
-                .get('/node/' + testLockedDownNodeId + "/files")
+                .get('/node/' + testLockedDownNodeId + "/assets")
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + nodeEditorToken)//This is an editor token for a specific node but a "none" for the locked down node.
@@ -557,7 +618,7 @@ describe('api.nodes', function(){
 
         it('an editor with rights restricted to a specific node should return a 403 error', function(done) {
             request(url)
-                .get('/node/' + testLockedDownNodeId + "/files")
+                .get('/node/' + testLockedDownNodeId + "/assets")
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + restrictedEditorToken)
@@ -570,7 +631,7 @@ describe('api.nodes', function(){
 
         it('an editor should return a list of files in a node', function(done) {
             request(url)
-                .get('/node/' + testNodeId + "/files")
+                .get('/node/' + testNodeId + "/assets")
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalEditorToken)
@@ -583,7 +644,7 @@ describe('api.nodes', function(){
         });
         it('a reader should return a list of files in a node', function(done) {
             request(url)
-                .get('/node/' + testNodeId + "/files")
+                .get('/node/' + testNodeId + "/assets")
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalReaderToken)
@@ -594,9 +655,23 @@ describe('api.nodes', function(){
                     done();
                 });
         });
-    });
+    });*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
-    describe("GET: " + url + '/nodes/:parentNodeId/files/deep', function() {
+    describe("GET: " + url + '/nodes/:parentNodeId/assets/deep', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             false.should.equal(true);
             done();
@@ -627,7 +702,7 @@ describe('api.nodes', function(){
         });
     });
 
-    describe("GET: " + url + '/nodes/files', function() {
+    describe("GET: " + url + '/nodes/assets', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             false.should.equal(true);
             done();
@@ -658,7 +733,7 @@ describe('api.nodes', function(){
         });
     });
 
-    describe("GET: " + url + '/nodes/files/deep', function() {
+    describe("GET: " + url + '/nodes/assets/deep', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             false.should.equal(true);
             done();

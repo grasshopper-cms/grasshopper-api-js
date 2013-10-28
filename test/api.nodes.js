@@ -88,7 +88,7 @@ describe('api.nodes', function(){
             }
         );
     });
-/*
+
     describe("POST: " + url + '/nodes', function() {
 
         it('should create a node without an error using correct verb.', function(done){
@@ -418,7 +418,6 @@ describe('api.nodes', function(){
                 });
         });
 
-
         it('an editor should return an existing node object', function(done) {
             request(url)
                 .get('/node/' + testNodeId)
@@ -444,22 +443,6 @@ describe('api.nodes', function(){
                 });
         });
     });
-
-   */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
     describe("GET: " + url + '/nodes', function() {
@@ -526,19 +509,39 @@ describe('api.nodes', function(){
                 .get('/node/' + testNodeId + "/children")
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.length.should.equal(10);
+                    done();
+                });
+        });
+
+        it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
+            request(url)
+                .get('/node/' + testNodeId + "/children")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + restrictedEditorToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
-                    console.log(res.body);
+                    res.body.length.should.equal(9);
                     done();
                 });
         });
-        /*it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a global reader with with a restriction on a child node of a child node should get a node object back with a filtered collection of child nodes', function(done) {
+
+
+
+
+
+
+
+
+
+
+        /*it('a global reader with with a restriction on a child node of a child node should get a node object back with a filtered collection of child nodes', function(done) {
             false.should.equal(true);
             done();
         });
@@ -589,7 +592,7 @@ describe('api.nodes', function(){
 
 
 
-    /*
+
     describe("GET: " + url + '/nodes/:nodeid/assets', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
@@ -655,7 +658,7 @@ describe('api.nodes', function(){
                     done();
                 });
         });
-    });*/
+    });
 
 
 

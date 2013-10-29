@@ -2,9 +2,7 @@ var should = require('chai').should();
 
 describe('util.cache', function(){
     var path = require('path'),
-        cache = require('../lib/utils/cache')({
-            "path" : path.resolve(__dirname, "../") + "/cache"
-        }),
+        cache = require('../lib/utils/cache'),
         cacheKey = "test",
         cacheValue = "{test:tefdsafsafdsast}";
 

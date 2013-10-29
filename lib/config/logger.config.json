@@ -1,0 +1,8 @@
+{
+    "adapters": [{
+        "type": "file",
+        "path": "../log/grasshopper.log",
+        "application": "grasshopper-api",
+        "machine": "dev-server"
+    }]
+}

@@ -11,13 +11,5 @@
         "database": "grasshopper",
         "username": "grasshopper-user",
         "password": "1q2w3e4r"
-    },
-    "logger": {
-        "adapters": [{
-            "type": "file",
-            "path": "../log/grasshopper.log",
-            "application": "grasshopper-api",
-            "machine": "dev-server"
-        }]
     }
 }

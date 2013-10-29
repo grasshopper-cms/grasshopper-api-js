@@ -11,6 +11,7 @@ describe('api.nodes', function(){
         restrictedEditorToken = "",
         testNodeId = "5261781556c02c072a000007",
         testLockedDownNodeId = "526d5179966a883540000006",
+        testNodeWithNoSubNodes = "5246e73d56c02c0744000001",
         testNodeSlug = "/this/is/my/path",
         testNodeSlugWithoutSlashes = "sample_sub_node",
         testNodeIdRoot_generated = "",
@@ -658,6 +659,48 @@ describe('api.nodes', function(){
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.be.an('array');
+                    done();
+                });
+        });
+
+        it('an editor should return a DEEP list of files in a node and it\'s children', function(done) {
+            request(url)
+                .get('/node/' + testNodeId + "/assets/deep")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.be.an('array');
+                    done();
+                });
+        });
+
+        it('an editor should return a DEEP list of files in a node and it\'s children (even when there are no children) And node is empty.', function(done) {
+            request(url)
+                .get('/node/' + testNodeIdRoot_generated + "/assets/deep")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.be.an('array');
+                    done();
+                });
+        });
+
+        it('an editor should return a DEEP list of files in a node and it\'s children (even when there are no children) And node is NOT empty.', function(done) {
+            request(url)
+                .get('/node/' + testNodeWithNoSubNodes + "/assets/deep")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);

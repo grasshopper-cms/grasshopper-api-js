@@ -24,7 +24,10 @@ module.exports = function (grunt) {
             { _id: ObjectID("5261b811a94c1a971f000003"), label: "Sample  Sub-Node 6", slug: "sample_sub_node6", parent: ObjectID("5261781556c02c072a000007") },
             { _id: ObjectID("5245ce1d56c02c066b000001"), label: "Sample  Sub-Node 7", slug: "sample_sub_node7", parent: ObjectID("5261781556c02c072a000007") },
             { _id: ObjectID("524362aa56c02c0703000001"), label: "Sample  Sub-Node 8", slug: "sample_sub_node8", parent: ObjectID("5261781556c02c072a000007") },
-            { _id: ObjectID("5254908d56c02c076e000001"), label: "Sample  Sub-Node 9", slug: "sample_sub_node9", parent: ObjectID("5261781556c02c072a000007") }
+            { _id: ObjectID("5254908d56c02c076e000001"), label: "Sample  Sub-Node 9", slug: "sample_sub_node9", parent: ObjectID("5261781556c02c072a000007") },
+            { _id: ObjectID("52712a3e2eacd5a714000002"), label: "Sample Sub Sub-Node 1", slug: "sample_sub_sub_node1", parent: ObjectID("5254908d56c02c076e000001") },
+            { _id: ObjectID("52712a3e2eacd5a714000001"), label: "Sample Sub Sub-Node 2", slug: "sample_sub_sub_node2", parent: ObjectID("524362aa56c02c0703000001") },
+            { _id: ObjectID("52712a3e2eacd5a714000006"), label: "Sample Sub Sub-Node 3", slug: "sample_sub_sub_node3", parent: ObjectID("524362aa56c02c0703000001") }
         ],
         contentTypes = [
             { _id: ObjectID("524362aa56c02c0703000001"), label: "This is my test content type", helpText: "", meta: [], description: "", fields: [{id: "testfield", required: true, instancing: 1, type: "textbox", label: "Title" } ]},

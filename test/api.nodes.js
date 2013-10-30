@@ -475,34 +475,50 @@ describe('api.nodes', function(){
             false.should.equal(true);
             done();
         });
-    });
+    });*/
 
-    describe("GET: " + url + '/nodes/deep', function() {
+    describe("GET: " + url + '/nodes/:id/deep', function() {
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testNodeId + "/children/deep")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.length.should.equal(13);
+                    done();
+                });
+        });
+
+        it('a reader with all valid permissions should get a node object back with a full collection of child nodes including the parent node.', function(done) {
+            request(url)
+                .get('/node/' + testNodeId + "/deep")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.length.should.equal(14);
+                    done();
+                });
         });
         it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testNodeId + "/children")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + restrictedEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.length.should.equal(9);
+                    done();
+                });
         });
-        it('a global reader with with a restriction on a child node of a child node should get a node object back with a filtered collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 403 because user does not have permissions to access this node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 403 because user does not have permissions to access a parent of this node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 401 because user is not authenticated', function(done) {
-            false.should.equal(true);
-            done();
-        });
-    });*/
+    });
 
     describe("GET: " + url + '/nodes/:id/children', function() {
         it('should return a 401 because user is not authenticated', function(done) {

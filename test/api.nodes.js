@@ -567,28 +567,146 @@ describe('api.nodes', function(){
                     done();
                 });
         });
-        /*it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 403 because user does not have permissions to access this node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 403 because user does not have permissions to access a parent of this node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 401 because user is not authenticated', function(done) {
-            false.should.equal(true);
-            done();
-        });*/
     });
 
+    ///////////////////////////////////////////////////////
+    describe("POST: " + url + '/node/:id*/assets/copy', function() {
+        it('should copy an asset from one node to another.', function(done) {
+
+            request(url)
+                .post('/node/' + testNodeId + "/assets/copy")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    newnodeid: "",
+                    filename: ""
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+        it('should fail because the user does not have permissions on the new node id.', function(done) {
+           done();
+        });
+
+        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
+            done();
+        });
+    });
+
+    describe("POST: " + url + '/node/:id*/assets/move', function() {
+        it('should move one asset to another node.', function(done) {
+
+            request(url)
+                .post('/node/' + testNodeId + "/assets/move")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    newnodeid: "",
+                    filename: ""
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+        it('should fail because the user does not have permissions on the new node id.', function(done) {
+            done();
+        });
+
+        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
+            done();
+        });
+    });
+
+    describe("POST: " + url + '/node/:id*/assets/rename', function() {
+        it('should rename an asset to a new name in the same node.', function(done) {
+
+            request(url)
+                .post('/node/' + testNodeId + "/assets/rename")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    original: "",
+                    updated: ""
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+        it('should fail because the user does not have permissions.', function(done) {
+            done();
+        });
+
+        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
+            done();
+        });
+    });
+
+    describe("DELETE: " + url + '/node/:id*/assets/:name', function() {
+        it('should delete an asset with a specific name', function(done) {
+
+            request(url)
+                .del('/node/' + testNodeId + "/assets/" + testNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+        it('should fail because the user does not have permissions.', function(done) {
+            done();
+        });
+
+        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
+            done();
+        });
+    });
+
+    describe("DELETE: " + url + '/node/:id*/assets', function() {
+        it('should delete all files in a node.', function(done) {
+
+            request(url)
+                .del('/node/' + testNodeId + "/assets")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+        it('should fail because the user does not have permissions.', function(done) {
+            done();
+        });
+
+        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
+            done();
+        });
+    });
+////////////////////////////////////////////////////////
     describe("GET: " + url + '/nodes/:nodeid/assets', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             request(url)

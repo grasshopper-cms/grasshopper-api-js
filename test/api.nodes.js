@@ -445,38 +445,6 @@ describe('api.nodes', function(){
         });
     });
 
-/*
-    describe("GET: " + url + '/nodes', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a reader should return a 403 because user does not have permissions to access the ROOT node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an editor with rights restricted to the ROOT node should return a 403 error', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an admin with rights restricted to the ROOT node should not return a 403 error, this would have been an error should return 200', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an editor should return a the ROOT node object', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a reader should return a the ROOT node object', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return 404 because ROOT node does not exist', function(done) {
-            false.should.equal(true);
-            done();
-        });
-    });*/
-
     describe("GET: " + url + '/nodes/:id/deep', function() {
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
             request(url)
@@ -582,9 +550,24 @@ describe('api.nodes', function(){
         });
         */
     });
-/*
-    describe("GET: " + url + '/nodes/:parentNodeId', function() {
-        it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
+
+    describe("POST: " + url + '/node/:id/assets', function() {
+        it('an editory with all valid permissions should be able to post an attachment to a node.', function(done) {
+
+            request(url)
+                .post('/node/' + testNodeId + "/assets")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .attach("file", "./test/fixtures/artwork.png")
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+        /*it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
             false.should.equal(true);
             done();
         });
@@ -603,19 +586,8 @@ describe('api.nodes', function(){
         it('should return a 401 because user is not authenticated', function(done) {
             false.should.equal(true);
             done();
-        });
-    });*/
-
-
-
-
-
-
-
-
-
-
-
+        });*/
+    });
 
     describe("GET: " + url + '/nodes/:nodeid/assets', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {

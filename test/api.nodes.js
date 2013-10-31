@@ -570,7 +570,67 @@ describe('api.nodes', function(){
     });
 
     ///////////////////////////////////////////////////////
-    describe("POST: " + url + '/node/:id*/assets/copy', function() {
+    describe("POST: " + url + '/node/:id/assets/rename', function() {
+        it('should rename an asset to a new name in the same node.', function(done) {
+            request(url)
+                .post('/node/' + testNodeId + "/assets/rename")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    original: "artwork.png",
+                    updated: "testimage.png"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+        it('should fail because asset does not exist.', function(done) {
+            request(url)
+                .post('/node/' + testNodeId + "/assets/rename")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    original: "artwork_doesntexist.png",
+                    updated: "testimage.png"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    console.log(res.body);
+                    done();
+                });
+        });
+
+        it('should fail because the user does not have permissions.', function(done) {
+            request(url)
+                .post('/node/' + testNodeId + "/assets/rename")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .send({
+                    original: "artwork.png",
+                    updated: "testimage.png"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
+
+        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
+            done();
+        });
+    });
+
+    /*
+    describe("POST: " + url + '/node/:id/assets/copy', function() {
         it('should copy an asset from one node to another.', function(done) {
 
             request(url)
@@ -599,7 +659,7 @@ describe('api.nodes', function(){
         });
     });
 
-    describe("POST: " + url + '/node/:id*/assets/move', function() {
+    describe("POST: " + url + '/node/:id/assets/move', function() {
         it('should move one asset to another node.', function(done) {
 
             request(url)
@@ -627,37 +687,10 @@ describe('api.nodes', function(){
             done();
         });
     });
+*/
 
-    describe("POST: " + url + '/node/:id*/assets/rename', function() {
-        it('should rename an asset to a new name in the same node.', function(done) {
 
-            request(url)
-                .post('/node/' + testNodeId + "/assets/rename")
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalEditorToken)
-                .send({
-                    original: "",
-                    updated: ""
-                })
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(200);
-                    res.body.message.should.equal("Success");
-                    done();
-                });
-        });
-
-        it('should fail because the user does not have permissions.', function(done) {
-            done();
-        });
-
-        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
-            done();
-        });
-    });
-
-    describe("DELETE: " + url + '/node/:id*/assets/:name', function() {
+   /* describe("DELETE: " + url + '/node/:id/assets/:name', function() {
         it('should delete an asset with a specific name', function(done) {
 
             request(url)
@@ -682,7 +715,7 @@ describe('api.nodes', function(){
         });
     });
 
-    describe("DELETE: " + url + '/node/:id*/assets', function() {
+    describe("DELETE: " + url + '/node/:id/assets', function() {
         it('should delete all files in a node.', function(done) {
 
             request(url)
@@ -705,7 +738,7 @@ describe('api.nodes', function(){
         it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
             done();
         });
-    });
+    });*/
 ////////////////////////////////////////////////////////
     describe("GET: " + url + '/nodes/:nodeid/assets', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {

@@ -1167,4 +1167,21 @@ describe('api.nodes', function(){
                 });
         });
     });*/
+
+
+    describe("DELETE: " + url + '/node/:id', function() {
+        it('Should delete an node.', function(done) {
+            request(url)
+                .del('/node/' + testNodeIdRoot_generated)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+    });
+
 });

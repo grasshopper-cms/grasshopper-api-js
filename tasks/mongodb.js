@@ -5,6 +5,18 @@ module.exports = function (grunt) {
         async  = require('async'),
         client = require('mongodb').MongoClient,
         ObjectID = require('mongodb').ObjectID,
+        hookEvents = [
+            { _id: ObjectID("5261781556c02c072a000007"), name: "ContentCreated", description: "Hook gets fired after a piece of content gets created." },
+            { _id: ObjectID("526d5179966a883540000006"), name: "ContentDeleted", description: "Hook gets fired after a piece of content gets deleted." },
+            { _id: ObjectID("526417710658fc1f0a00000b"), name: "ContentUpdated", description: "Hook gets fired after a piece of content gets updated." },
+            { _id: ObjectID("5246e73d56c02c0744000001"), name: "NodeCreated", description: "Hook gets fired after a node gets created." },
+            { _id: ObjectID("5246e80c56c02c0744000002"), name: "NodeDeleted", description: "Hook gets fired after a node gets deleted." },
+            { _id: ObjectID("52619b3dabc0ca310d000003"), name: "NodeUpdated", description: "Hook gets fired after a node gets updated." },
+            { _id: ObjectID("5261777656c02c072a000001"), name: "BeforeAuthentication", description: "Hook gets fired before a user gets authenticated in the system." },
+            { _id: ObjectID("52712a3e2eacd5a714000002"), name: "AfterAuthentication", description: "Hook gets fired after a user gets authenticated." },
+            { _id: ObjectID("52712a3e2eacd5a714000001"), name: "RetrieveIdentity", description: "Hook for working around the default user authentication. A 3rd party system could be added as a proxy to verify the identities of users." },
+            { _id: ObjectID("52712a3e2eacd5a714000006"), name: "ContentLoaded", description: "Hook gets fired when a piece of content gets loaded." }
+        ],
         users = [
             { _id: ObjectID("5246e73d56c02c0744000001"), role: "admin",enabled: true, firstname: "Test", lastname: "User", login: "apitestuseradmin", salt: "225384010328", pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestuser@thinksolid.com" },
             { _id: ObjectID("5246e80c56c02c0744000002"), role: "reader", enabled: true, firstname: "Test", lastname: "User", login: "apitestuserreader", salt: "225384010328",pass_hash: "885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03", email: "apitestuser@thinksolid.com" },
@@ -129,6 +141,10 @@ module.exports = function (grunt) {
         importData('content', col, callback);
     }
 
+    function importHookEvents(col, callback){
+        importData('hookevents', col, callback);
+    }
+
     grunt.registerMultiTask('mongodb', 'Runs a nodemon monitor of your node.js server.', function () {
         var done = this.async(),
             collections = this.data.collections;
@@ -177,7 +193,16 @@ module.exports = function (grunt) {
                     grunt.log.writeln("Test `content` imported.");
                     callback();
                 });
+            },
+            function(callback){
+                async.each(hookEvents, importContent, function(err){
+                    if(err){ grunt.log.error(err); }
+
+                    grunt.log.writeln("Test `hookevents` imported.");
+                    callback();
+                });
             }
+
         ],function(err){
             if(err){
                 grunt.log.error(err);

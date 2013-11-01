@@ -132,6 +132,25 @@ describe('api.nodes', function(){
                 });
         });
 
+        it('should create a node without an error using correct verb. (sub sub node of root)', function(done){
+            request(url)
+                .post('/nodes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    label : "My Test Sub Sub-Node",
+                    slug : "my_test_sub_sub_node",
+                    parent: testNodeIdSubNode_generated
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.property('_id');
+                    done();
+                });
+        });
+
          it('should return an error because we are missing a "label" field.', function(done){
              request(url)
                  .post('/nodes')

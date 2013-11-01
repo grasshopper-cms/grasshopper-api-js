@@ -623,13 +623,8 @@ describe('api.nodes', function(){
                     done();
                 });
         });
-
-        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
-            done();
-        });
     });
 
-    /*
     describe("POST: " + url + '/node/:id/assets/copy', function() {
         it('should copy an asset from one node to another.', function(done) {
 
@@ -639,8 +634,8 @@ describe('api.nodes', function(){
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalEditorToken)
                 .send({
-                    newnodeid: "",
-                    filename: ""
+                    newnodeid: "5246e73d56c02c0744000001",
+                    filename: "testimage.png"
                 })
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -649,16 +644,8 @@ describe('api.nodes', function(){
                     done();
                 });
         });
-
-        it('should fail because the user does not have permissions on the new node id.', function(done) {
-           done();
-        });
-
-        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
-            done();
-        });
     });
-
+/*
     describe("POST: " + url + '/node/:id/assets/move', function() {
         it('should move one asset to another node.', function(done) {
 

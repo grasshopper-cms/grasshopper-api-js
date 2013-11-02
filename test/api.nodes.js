@@ -385,19 +385,6 @@ describe('api.nodes', function(){
         });
 
         describe("GET: " + url + '/node/:slug', function() {
-            it('should return a node when using a slug that includes slashes', function(done) {
-                request(url)
-                    .get('/node' + testNodeSlug)
-                    .set('Accept', 'application/json')
-                    .set('Accept-Language', 'en_US')
-                    .set('authorization', 'Token ' + globalEditorToken)
-                    .end(function(err, res) {
-                        if (err) { throw err; }
-                        res.status.should.equal(200);
-                        done();
-                    });
-            });
-
             it('should return a node when using a slug without slashes.', function(done) {
                 request(url)
                     .get('/node/' + testNodeSlugWithoutSlashes)
@@ -604,7 +591,6 @@ describe('api.nodes', function(){
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.message.should.equal("Success");
-                    done();
                 });
         });
 
@@ -621,7 +607,6 @@ describe('api.nodes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(500);
-                    console.log(res.body);
                     done();
                 });
         });
@@ -663,8 +648,27 @@ describe('api.nodes', function(){
                     done();
                 });
         });
+
+        it('should MOVE an asset from one node to another.', function(done) {
+
+            request(url)
+                .post('/node/' + testNodeId + "/assets/move")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    newnodeid: "52619b3dabc0ca310d000003",
+                    filename: "testimage.png"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
     });
-/*
+    /*
     describe("POST: " + url + '/node/:id/assets/move', function() {
         it('should move one asset to another node.', function(done) {
 
@@ -720,21 +724,33 @@ describe('api.nodes', function(){
             done();
         });
     });
-
+    */
     describe("DELETE: " + url + '/node/:id/assets', function() {
         it('should delete all files in a node.', function(done) {
 
             request(url)
-                .del('/node/' + testNodeId + "/assets")
+                .post('/node/' + testNodeId + "/assets")
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalEditorToken)
+                .attach("file", "./test/fixtures/assetfordeletion.png")
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(200);
-                    res.body.message.should.equal("Success");
-                    done();
+
+                    request(url)
+                        .del('/node/' + testNodeId + "/assets/assetfordeletion.png")
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', 'Token ' + globalEditorToken)
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            res.status.should.equal(200);
+                            res.body.message.should.equal("Success");
+                            done();
+                        });
                 });
+
+
         });
 
         it('should fail because the user does not have permissions.', function(done) {
@@ -744,7 +760,7 @@ describe('api.nodes', function(){
         it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
             done();
         });
-    });*/
+    });
 ////////////////////////////////////////////////////////
     describe("GET: " + url + '/nodes/:nodeid/assets', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {

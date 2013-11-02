@@ -18,7 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "grasshopper.0.0.2"
     config.vm.box_url = "https://s3.amazonaws.com/SolidInteractive/vagrant/grasshopper-ubuntu64-v1.box"
 
-    config.vm.provision "shell", inline: "/home/vagrant/webserver.sh"
+    #config.vm.provision "shell", inline: "/home/vagrant/webserver.sh"
     config.vm.provision "shell", inline: "/home/vagrant/genghis.sh"
 
     config.vm.network :forwarded_port, guest: 80, host: 8080, auto_correct: true

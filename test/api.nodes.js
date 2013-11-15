@@ -1,5 +1,6 @@
-var should = require('chai').should();
-var request = require('supertest');
+var should = require('chai').should(),
+    request = require('supertest'),
+    async = require('async');
 
 describe('api.nodes', function(){
     var url = 'http://localhost:8080',
@@ -558,7 +559,7 @@ describe('api.nodes', function(){
     });
 
     describe("POST: " + url + '/node/:id/assets', function() {
-        it('an editory with all valid permissions should be able to post an attachment to a node.', function(done) {
+        it('an editor with all valid permissions should be able to post an attachment to a node.', function(done) {
 
             request(url)
                 .post('/node/' + testNodeId + "/assets")
@@ -572,6 +573,30 @@ describe('api.nodes', function(){
                     res.body.message.should.equal("Success");
                     done();
                 });
+        });
+
+        it('post test fixtures', function(done) {
+            function upload(file, next){
+                request(url)
+                    .post('/node/' + testNodeIdRoot_generated + "/assets")
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Token ' + globalEditorToken)
+                    .attach("file", file)
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        next();
+                    });
+            }
+
+            async.each([
+                "./test/fixtures/artwork.png",
+                "./test/fixtures/36.png",
+                "./test/fixtures/48.png",
+                "./test/fixtures/72.png",
+                "./test/fixtures/96.png"
+            ], upload, function(){done()});
+
         });
     });
 
@@ -1186,6 +1211,7 @@ describe('api.nodes', function(){
 
 
     describe("DELETE: " + url + '/node/:id', function() {
+
         it('Should delete an node.', function(done) {
             request(url)
                 .del('/node/' + testNodeIdRoot_generated)
@@ -1195,6 +1221,20 @@ describe('api.nodes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('Should delete a generated node.', function(done) {
+            request(url)
+                .del('/node/' + testNodeIdSubNode_generated)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    console.log(res.body);
                     done();
                 });
         });

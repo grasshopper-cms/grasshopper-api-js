@@ -17,6 +17,7 @@ describe('api.nodes', function(){
         testNodeSlugWithoutSlashes = "sample_sub_node",
         testNodeIdRoot_generated = "",
         testNodeIdSubNode_generated = "",
+        testNodeIdSubSub_generated = "",
         testContentTypeID = "524362aa56c02c0703000001",
         testContentTypeID_Users = "5254908d56c02c076e000001",
         badTestContentTypeID = "52698a0033e248a360000006",
@@ -224,6 +225,7 @@ describe('api.nodes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
+                    testNodeIdSubSub_generated = res.body._id;
                     done();
                 });
         });
@@ -616,6 +618,7 @@ describe('api.nodes', function(){
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.message.should.equal("Success");
+                    done();
                 });
         });
 
@@ -1227,14 +1230,14 @@ describe('api.nodes', function(){
 
         it('Should delete a generated node.', function(done) {
             request(url)
-                .del('/node/' + testNodeIdSubNode_generated)
+                .del('/node/' + testNodeIdSubSub_generated)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalEditorToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
-                    console.log(res.body);
+
                     done();
                 });
         });

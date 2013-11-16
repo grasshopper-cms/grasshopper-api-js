@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         mongodb : {
             test: {
                 host: 'mongodb://localhost:27017/test',
-                collections: ['users','contentTypes','nodes','content', 'tokens']
+                collections: ['users','contenttypes','nodes','content', 'tokens']
             }
         },
         concurrent: {
@@ -29,6 +29,27 @@ module.exports = function(grunt) {
                 options : {
                     stdout : true,
                     stderr : true
+                }
+            },
+            startServer: {
+                command : "pm2 start lib/grasshopper-api.js -i max -e log/grasshopper.err.log -o log/grasshopper.out.log",
+                options: {
+                    stout: true,
+                    stderr: true
+                }
+            },
+            stopServer : {
+                command : "pm2 stop all",
+                options: {
+                    stout: true,
+                    stderr: true
+                }
+            },
+            restartServer : {
+                command : "pm2 restart all",
+                options: {
+                    stout: true,
+                    stderr: true
                 }
             }
         },
@@ -85,6 +106,10 @@ module.exports = function(grunt) {
 
     grunt.registerTask('dev',['nodemon:dev']);
     grunt.registerTask('test', ['concurrent:test']);
+
+    grunt.registerTask('server:start', ['shell:startServer']);
+    grunt.registerTask('server:stop', ['shell:stopServer']);
+    grunt.registerTask('server:restart', ['shell:restartServer']);
 
     grunt.registerTask('default', ['jshint']);
 

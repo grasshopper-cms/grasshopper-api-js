@@ -93,7 +93,36 @@ Open the ```lib/config/configuration``` file
  
  
  
- 
+### Managing Grasshopper API on production
+
+By Default we have added a `grunt server:start` command that will load a server cluster using `PM2`.
+
+
+Available commands
+
+[https://github.com/Unitech/pm2](https://github.com/Unitech/pm2)
+
+```
+$ npm install pm2 -g     # Install pm2 command line globally
+$ pm2 start app.js -i 4  # Daemonize pm2 and Start 4 clustered instances of app.js
+                         # You can also pass the 'max' params to start
+                         # the right numbers of processes depending of CPUs
+$ pm2 list               # Display all processes status
+$ pm2 monit              # Monitor all processes
+$ pm2 logs               # Display all processes logs in streaming
+$ pm2 dump               # Dump the states of all processes
+$ pm2 stop pm2_id        # Stop specific process id
+$ pm2 stopAll            # Stop all processes
+$ pm2 resurrect          # Put online previously dumped processes
+$ pm2 reload all         # Hot Reload all processes with 0s downtime (only for HTTP)
+$ pm2 restart pm2_id     # Restart specific process
+$ pm2 restart all        # Hard Restart all proccesses
+$ pm2 stop all           # Stop all processes
+$ pm2 generate app       # Generate a JSON process configuration
+$ pm2 startup            # Generate init script to keep processes alive
+$ pm2 web                # Health computer API endpoint (http://localhost:9615)
+```
+
 ### API Documentation
 
 -------------------------------------------------------

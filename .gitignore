@@ -4,6 +4,6 @@
 /cache
 /log
 .vagrant/*
-#/lib/config/configuration.json
+configuration.json
 atlassian-ide-plugin.xml
 Vagrantfile

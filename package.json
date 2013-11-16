@@ -26,10 +26,14 @@
     "solid-logger-js": "~0.3.1",
     "nano": "~4.1.1",
     "mongodb": "~1.3.19",
-    "underscore": "~1.5.1",
+    "underscore": "~1.5.2",
     "async": "~0.2.9",
     "express": "~3.4.0",
-    "node-uuid": "~1.4.1"
+    "node-uuid": "~1.4.1",
+    "mongoose": "~3.6.20",
+    "mongoose-validator": "~0.2.2",
+    "aws-sdk": "~1.10.0",
+    "multiparty": "~3.0.0"
   },
   "devDependencies": {
     "uglify-js": "1.2.x",

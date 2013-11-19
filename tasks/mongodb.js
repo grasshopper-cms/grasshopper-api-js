@@ -193,7 +193,7 @@ module.exports = function (grunt) {
             function(callback){
                 async.each(content, importContent, function(err){
                     if(err){ grunt.log.error(err); }
-console.log(content);
+
                     grunt.log.writeln("Test `content` imported.");
                     callback();
                 });

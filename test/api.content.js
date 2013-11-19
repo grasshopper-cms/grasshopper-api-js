@@ -125,6 +125,81 @@ describe('api.contentTypes', function(){
         });
     });
 
+    describe("POST: " + url + '/content', function() {
+        it('should return 401 because trying to access unauthenticated', function(done) {
+            var obj = {
+                label:"Generated title", slug: 'generated_title', type: "524362aa56c02c0703000001", nonce:"1234fdsdfsa565", status: "Live", node : {_id: "526d5179966a883540000006", displayOrder: 1}, fields: {testfield: "test value"}, author: {_id: "5246e73d56c02c0744000001", name: "Test User"}
+            };
+
+            request(url)
+                .post('/content')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .send(obj)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
+        });
+
+        it('should return 403 because I am am only a reader of content.', function(done) {
+            var obj = {
+                label:"Generated title", slug: 'generated_title', type: "524362aa56c02c0703000001", nonce:"1234fdsdfsa565", status: "Live", node : {_id: "526d5179966a883540000006", displayOrder: 1}, fields: {testfield: "test value"}, author: {_id: "5246e73d56c02c0744000001", name: "Test User"}
+            };
+
+            request(url)
+                .post('/content')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .send(obj)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
+
+        it('should return 200 because I have the correct permissions.', function(done) {
+            var obj = {
+                label:"Generated title", slug: 'generated_title', type: "524362aa56c02c0703000001", nonce:"1234fdsdfsa565", status: "Live", node : {_id: "526d5179966a883540000006", displayOrder: 1}, fields: {testfield: "test value"}, author: {_id: "5246e73d56c02c0744000001", name: "Test User"}
+            };
+
+
+            request(url)
+                .post('/content')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalAdminToken)
+                .send(obj)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+
+        it('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
+            var obj = {
+                label:"Generated title", slug: 'generated_title', type: "524362aa56c02c0703000001", nonce:"1234fdsdfsa565", status: "Live", node : {_id: "526d5179966a883540000006", displayOrder: 1}, fields: {testfield: "test value"}, author: {_id: "5246e73d56c02c0744000001", name: "Test User"}
+            };
+
+            request(url)
+                .post('/content')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + restrictedEditorToken)
+                .send(obj)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
+    });
+
     describe("PUT: " + url + '/content/:id', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             var obj = {};
@@ -169,7 +244,6 @@ describe('api.contentTypes', function(){
 
             obj.fields.newColumn = "newValue";
 
-            console.log(obj);
             request(url)
                 .put('/content/' + testContentId)
                 .set('Accept', 'application/json')

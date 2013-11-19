@@ -5,6 +5,7 @@ describe('api.contentTypes', function(){
     var url = 'http://localhost:8080',
         async = require('async'),
         testContentId  = "5261781556c02c072a000007",
+        restrictedContentId = "5254908d56c02c076e000001",
         globalAdminToken  = "",
         globalReaderToken = "",
         globalEditorToken = "",
@@ -106,5 +107,73 @@ describe('api.contentTypes', function(){
                 });
         });
 
+
+        it('should return 403 because getting content from a node that is restricted to me.', function(done) {
+            request(url)
+                .get('/content/' + restrictedContentId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + restrictedEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    console.log(res.body);
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
+    });
+
+    describe("DELETE: " + url + '/content/:id', function() {
+        it('should return 401 because trying to access unauthenticated', function(done) {
+            request(url)
+                .del('/content/' + testContentId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
+        });
+
+        it('should return 403 because I am am only a reader of content.', function(done) {
+            request(url)
+                .del('/content/' + testContentId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
+
+        it('should return 200 because I have the correct permissions.', function(done) {
+            request(url)
+                .del('/content/' + testContentId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalAdminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+
+        it('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
+            request(url)
+                .del('/content/' + restrictedContentId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + restrictedEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
     });
 });

@@ -387,21 +387,6 @@ describe('api.nodes', function(){
                 });
         });
 
-        describe("GET: " + url + '/node/:slug', function() {
-            it('should return a node when using a slug without slashes.', function(done) {
-                request(url)
-                    .get('/node/' + testNodeSlugWithoutSlashes)
-                    .set('Accept', 'application/json')
-                    .set('Accept-Language', 'en_US')
-                    .set('authorization', 'Token ' + globalEditorToken)
-                    .end(function(err, res) {
-                        if (err) { throw err; }
-                        res.status.should.equal(200);
-                        done();
-                    });
-            });
-        });
-
         it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
             request(url)
                 .get('/node/' + testLockedDownNodeId)
@@ -677,24 +662,6 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should MOVE an asset from one node to another.', function(done) {
-
-            request(url)
-                .post('/node/' + testNodeId + "/assets/move")
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalEditorToken)
-                .send({
-                    newnodeid: "52619b3dabc0ca310d000003",
-                    filename: "testimage.png"
-                })
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(200);
-                    res.body.message.should.equal("Success");
-                    done();
-                });
-        });
     });
     /*
     describe("POST: " + url + '/node/:id/assets/move', function() {

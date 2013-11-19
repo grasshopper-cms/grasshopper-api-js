@@ -131,7 +131,6 @@ describe('api.users', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
-                    console.log(res.body);
                     res.body.should.have.property('total');
                     res.body.should.have.property('results');
                     done();
@@ -837,31 +836,7 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(200);
-                    done();
-                });
-        });
-
-        it('should error if putting to /users/:id with an different ID than your own. [variation 2]', function(done){
-            var newUser = {
-                _id: testReaderUserId,
-                login: "apitestuserreader",
-                role: "admin",
-                enabled: true,
-                email: "newtestuser1@thinksolid.com",
-                firstname: "Updated test reader name with :id",
-                lastname: "something",
-                password: "TestPassword"
-            };
-            request(url)
-                .put('/user')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
-                .send(newUser)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(403);
                     done();
                 });
         });
@@ -966,10 +941,8 @@ describe('api.users', function(){
                                 .end(function(err, res) {
                                     if (err) { throw err; }
                                     res.status.should.equal(200);
-
                                     //Deactivate user
                                     newUser.enabled = false;
-                                    delete newUser.password;
 
                                     request(url)
                                         .put('/users')
@@ -996,7 +969,6 @@ describe('api.users', function(){
                                                 .end(function(err, res) {
                                                     if (err) { throw err; }
                                                     res.status.should.equal(401);
-
                                                     done();
                                                 });
                                         });

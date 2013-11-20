@@ -202,7 +202,8 @@ describe('api.users', function(){
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
                 password: "TestPassword",
-                name: "Test User"
+                firstname: "Test",
+                lastname: "User"
             };
             request(url)
                 .post('/users')
@@ -227,7 +228,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword",
                 profile: {
                     linkedid: "tjmchattie"
@@ -256,7 +258,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser2@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -280,7 +283,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -303,7 +307,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -327,7 +332,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -351,7 +357,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -375,7 +382,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -399,7 +407,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: null
             };
             request(url)
@@ -423,7 +432,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "sho"
             };
             request(url)
@@ -447,7 +457,8 @@ describe('api.users', function(){
                 role: "fake role",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -474,7 +485,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -496,7 +508,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User"
+                firstname: "Test",
+                lastname: "User"
             };
             request(url)
                 .put('/users')
@@ -518,7 +531,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser2@thinksolid.com",
-                name: "Test User"
+                firstname: "Test",
+                lastname: "User"
             };
             request(url)
                 .post('/users')
@@ -540,7 +554,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -563,7 +578,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -587,7 +603,8 @@ describe('api.users', function(){
                 role: "reader_bad",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -611,7 +628,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -635,7 +653,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -660,7 +679,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword",
                 permissions: "bad"
             };
@@ -685,7 +705,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Test User",
+                firstname: "Test",
+                lastname: "User",
                 password: "TestPassword"
             };
             request(url)
@@ -734,7 +755,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Updated test reader name with :id",
+                firstname: "Updated test reader name with :id",
+                lastname: "Last",
                 password: "TestPassword"
             };
             request(url)
@@ -780,7 +802,8 @@ describe('api.users', function(){
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                name: "Updated test reader name with :id",
+                firstname: "Updated test reader name with :id",
+                lastname: "something",
                 password: "TestPassword"
             };
             request(url)
@@ -813,30 +836,7 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(200);
-                    done();
-                });
-        });
-
-        it('should error if putting to /users/:id with an different ID than your own. [variation 2]', function(done){
-            var newUser = {
-                _id: testReaderUserId,
-                login: "apitestuserreader",
-                role: "admin",
-                enabled: true,
-                email: "newtestuser1@thinksolid.com",
-                name: "Updated test reader name with :id",
-                password: "TestPassword"
-            };
-            request(url)
-                .put('/user')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
-                .send(newUser)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(403);
                     done();
                 });
         });
@@ -903,7 +903,8 @@ describe('api.users', function(){
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
                 password: "TestPassword",
-                name: "Test User"
+                firstname: "Test",
+                lastname: "User"
             },
             mytoken = "";
 
@@ -940,10 +941,8 @@ describe('api.users', function(){
                                 .end(function(err, res) {
                                     if (err) { throw err; }
                                     res.status.should.equal(200);
-
                                     //Deactivate user
                                     newUser.enabled = false;
-                                    delete newUser.password;
 
                                     request(url)
                                         .put('/users')
@@ -970,7 +969,6 @@ describe('api.users', function(){
                                                 .end(function(err, res) {
                                                     if (err) { throw err; }
                                                     res.status.should.equal(401);
-
                                                     done();
                                                 });
                                         });

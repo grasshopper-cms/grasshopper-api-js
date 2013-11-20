@@ -2,6 +2,9 @@
 
 ---------------------------------------------------------------
 
+### ALPHA - TO BE RELEASED OFFICIALLY EARLY 2014
+
+
 ### What am I?
 
 ------------------------------------------------------------------
@@ -45,21 +48,39 @@ Open the ```lib/config/configuration``` file
                 "path": "./cache"
             },
             "crypto": {
-                "secret_passphrase" : ""
+                "secret_passphrase" : "{Create guid}"
             },
             "db": {
                 "type": "mongodb",
-                "host": "mongodb://{dbuser}:{dbpassword}@localhost:27017/grasshopper",
-                "database": "grasshopper",
-                "username": "",
-                "password": ""
+                "host": "mongodb://localhost:27017/{your info here}",
+                "database": "{your info here}",
+                "username": "{your info here}",
+                "password": "{your info here}",
+                "debug": false
             },
-            "logger": {
+            "assets": {
+                "default" : "amazon",
+                "tmpdir" : "{absolute path to your tmp folder}",
+                "engines": {
+                    "amazon" : {
+                        "accessKeyId": "{your info here}",
+                        "secretAccessKey": "{your info here}",
+                        "region" : "us-east-1",
+                        "bucket" : "{your info here}",
+                        "urlbase" : "{your info here}"
+                    },
+                    "local" : {
+                        "path" : "{absolute path to your local assets}",
+                        "urlbase" : "{fully qualified url base to your assets}"
+                    }
+                }
+            },
+            "logger" : {
                 "adapters": [{
                     "type": "file",
-                    "path": "./log/grasshopper.log",
-                    "application": "grasshopper-api",
-                    "machine": "dev-server"
+                    "path": "{absolute path to your log file}",
+                    "application": "{name your application}",
+                    "machine": "{name your machine}"
                 }]
             }
         }
@@ -73,16 +94,21 @@ Open the ```lib/config/configuration``` file
 * cache: Set path the cached files/data are going to live. (Default is cache directoy in root of project).
 * crypto: Set a unique secret_passphrase that can be used to encrypt data.
 * DB settings
-    * type: mongodb/couch
+    * type: mongodb (right now only backend supported)
     * host: URL to database
     * database: Name of the database
     * username: User name of the database
     * password: password for the database
+    * degug: bool (do you want output into the console)
 * logger: Module used to capture logs from the API/SDK 
     * type: file
     * path: Location that the file will be saved to
     * application: Name of your application
     * machine: Identifyable name of your server
+* assets: Where are your file attachments going to get stored
+    * default: which provider are you going to use (local or amazon)
+    * tmpdir: temp file directory
+    * engines: collections of engines that will be used. NOTE: all engines get files saved to them, only the default returns results
  
 
 ### Developer Setup
@@ -145,8 +171,32 @@ There are a couple of ways to run our unit tests.
 
 * $: ```make test```
 * $: ```npm test```
- 
- 
+
+
+### Upcoming Features
+
+-------------------------------------------------------
+
+* Hooks are not yet supported
+* Full node permissions for search criteria
+* Cascading permissions for child nodes
+* Specifiying fields to include/exlude from the GET requests
+* Deleting content when deleting a content type
+* Deleting content when deleting a node
+* Registering new collections
+* Tin Can API integration
+* More verbose response codes
+* Security enhancements
+* Publish content to other environments
+* Content localization
+* Content history
+* Document merges
+* Dynamic content model validation
+* Plug in custom roles for advanced proxy implementations
+* Document concurrency protection
+* 3rd party authentication schemes
+* more more more
+
  
 ## License
 

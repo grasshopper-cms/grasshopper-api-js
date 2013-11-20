@@ -1,23 +1,41 @@
 {
     "cache": {
-        "path": "../cache"
+        "path": "./cache"
     },
     "crypto": {
-        "secret_passphrase" : "UNIQUE PASSPHRASE FOR YOUR APPLICATION"
+        "secret_passphrase" : "{Create guid}"
     },
     "db": {
         "type": "mongodb",
-        "host": "mongodb://{dbuser}:{dbpassword}@ds043348.mongolab.com:43348/grasshopper",
-        "database": "grasshopper",
-        "username": "grasshopper-user",
-        "password": "1q2w3e4r"
+        "host": "mongodb://localhost:27017/{your info here}",
+        "database": "{your info here}",
+        "username": "{your info here}",
+        "password": "{your info here}",
+        "debug": false
     },
-    "logger": {
+    "assets": {
+        "default" : "amazon",
+        "tmpdir" : "{absolute path to your tmp folder}",
+        "engines": {
+            "amazon" : {
+                "accessKeyId": "{your info here}",
+                "secretAccessKey": "{your info here}",
+                "region" : "us-east-1",
+                "bucket" : "{your info here}",
+                "urlbase" : "{your info here}"
+            },
+            "local" : {
+                "path" : "{absolute path to your local assets}",
+                "urlbase" : "{fully qualified url base to your assets}"
+            }
+        }
+    },
+    "logger" : {
         "adapters": [{
             "type": "file",
-            "path": "../log/grasshopper.log",
-            "application": "grasshopper-api",
-            "machine": "dev-server"
+            "path": "{absolute path to your log file}",
+            "application": "{name your application}",
+            "machine": "{name your machine}"
         }]
     }
 }

@@ -1,5 +1,6 @@
-var should = require('chai').should();
-var request = require('supertest');
+var should = require('chai').should(),
+    request = require('supertest'),
+    async = require('async');
 
 describe('api.nodes', function(){
     var url = 'http://localhost:8080',
@@ -11,10 +12,12 @@ describe('api.nodes', function(){
         restrictedEditorToken = "",
         testNodeId = "5261781556c02c072a000007",
         testLockedDownNodeId = "526d5179966a883540000006",
+        testNodeWithNoSubNodes = "5246e73d56c02c0744000001",
         testNodeSlug = "/this/is/my/path",
         testNodeSlugWithoutSlashes = "sample_sub_node",
         testNodeIdRoot_generated = "",
         testNodeIdSubNode_generated = "",
+        testNodeIdSubSub_generated = "",
         testContentTypeID = "524362aa56c02c0703000001",
         testContentTypeID_Users = "5254908d56c02c076e000001",
         badTestContentTypeID = "52698a0033e248a360000006",
@@ -88,7 +91,7 @@ describe('api.nodes', function(){
             }
         );
     });
-/*
+
     describe("POST: " + url + '/nodes', function() {
 
         it('should create a node without an error using correct verb.', function(done){
@@ -127,6 +130,25 @@ describe('api.nodes', function(){
                     res.status.should.equal(200);
                     res.body.should.have.property('_id');
                     testNodeIdSubNode_generated = res.body._id;
+                    done();
+                });
+        });
+
+        it('should create a node without an error using correct verb. (sub sub node of root)', function(done){
+            request(url)
+                .post('/nodes')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    label : "My Test Sub Sub-Node",
+                    slug : "my_test_sub_sub_node",
+                    parent: testNodeIdSubNode_generated
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.property('_id');
                     done();
                 });
         });
@@ -203,6 +225,7 @@ describe('api.nodes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
+                    testNodeIdSubSub_generated = res.body._id;
                     done();
                 });
         });
@@ -364,34 +387,6 @@ describe('api.nodes', function(){
                 });
         });
 
-        describe("GET: " + url + '/node/:slug', function() {
-            it('should return a node when using a slug that includes slashes', function(done) {
-                request(url)
-                    .get('/node' + testNodeSlug)
-                    .set('Accept', 'application/json')
-                    .set('Accept-Language', 'en_US')
-                    .set('authorization', 'Token ' + globalEditorToken)
-                    .end(function(err, res) {
-                        if (err) { throw err; }
-                        res.status.should.equal(200);
-                        done();
-                    });
-            });
-
-            it('should return a node when using a slug without slashes.', function(done) {
-                request(url)
-                    .get('/node/' + testNodeSlugWithoutSlashes)
-                    .set('Accept', 'application/json')
-                    .set('Accept-Language', 'en_US')
-                    .set('authorization', 'Token ' + globalEditorToken)
-                    .end(function(err, res) {
-                        if (err) { throw err; }
-                        res.status.should.equal(200);
-                        done();
-                    });
-            });
-        });
-
         it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
             request(url)
                 .get('/node/' + testLockedDownNodeId)
@@ -417,7 +412,6 @@ describe('api.nodes', function(){
                     done();
                 });
         });
-
 
         it('an editor should return an existing node object', function(done) {
             request(url)
@@ -445,83 +439,35 @@ describe('api.nodes', function(){
         });
     });
 
-   */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    describe("GET: " + url + '/nodes', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a reader should return a 403 because user does not have permissions to access the ROOT node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an editor with rights restricted to the ROOT node should return a 403 error', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an admin with rights restricted to the ROOT node should not return a 403 error, this would have been an error should return 200', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an editor should return a the ROOT node object', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a reader should return a the ROOT node object', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return 404 because ROOT node does not exist', function(done) {
-            false.should.equal(true);
-            done();
-        });
-    });
-
-    describe("GET: " + url + '/nodes/deep', function() {
+    describe("GET: " + url + '/nodes/:id/deep', function() {
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testNodeId + "/children/deep")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.length.should.equal(13);
+                    done();
+                });
+        });
+
+        it('a reader with all valid permissions should get a node object back with a full collection of child nodes including the parent node.', function(done) {
+            request(url)
+                .get('/node/' + testNodeId + "/deep")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.length.should.equal(14);
+                    done();
+                });
         });
         it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a global reader with with a restriction on a child node of a child node should get a node object back with a filtered collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 403 because user does not have permissions to access this node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 403 because user does not have permissions to access a parent of this node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 401 because user is not authenticated', function(done) {
-            false.should.equal(true);
-            done();
-        });
-    });*/
-
-    describe("GET: " + url + '/nodes/:id/children', function() {
-        it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/children")
                 .set('Accept', 'application/json')
@@ -530,66 +476,287 @@ describe('api.nodes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
-                    console.log(res.body);
+                    res.body.length.should.equal(9);
                     done();
                 });
         });
-        /*it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a global reader with with a restriction on a child node of a child node should get a node object back with a filtered collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 403 because user does not have permissions to access this node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 403 because user does not have permissions to access a parent of this node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return a 401 because user is not authenticated', function(done) {
-            false.should.equal(true);
-            done();
-        });*/
     });
-/*
-    describe("GET: " + url + '/nodes/:parentNodeId', function() {
+
+    describe("GET: " + url + '/nodes/:id/children', function() {
+        it('should return a 401 because user is not authenticated', function(done) {
+            request(url)
+                .get('/node/' + testNodeId + "/children")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
+        });
+
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testNodeId + "/children")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.length.should.equal(10);
+                    done();
+                });
         });
-        it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
-            false.should.equal(true);
-            done();
-        });
+
         it('should return a 403 because user does not have permissions to access this node', function(done) {
-            false.should.equal(true);
-            done();
+            request(url)
+                .get('/node/' + testLockedDownNodeId + "/children")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + nodeEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
         });
+
+        it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
+            request(url)
+                .get('/node/' + testNodeId + "/children")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + restrictedEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.length.should.equal(9);
+                    done();
+                });
+        });
+
+
+        /*
         it('should return a 403 because user does not have permissions to access a parent of this node', function(done) {
             false.should.equal(true);
             done();
         });
-        it('should return a 401 because user is not authenticated', function(done) {
-            false.should.equal(true);
+        */
+    });
+
+    describe("POST: " + url + '/node/:id/assets', function() {
+        it('an editor with all valid permissions should be able to post an attachment to a node.', function(done) {
+
+            request(url)
+                .post('/node/' + testNodeId + "/assets")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .attach("file", "./test/fixtures/artwork.png")
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+        it('post test fixtures', function(done) {
+            function upload(file, next){
+                request(url)
+                    .post('/node/' + testNodeIdRoot_generated + "/assets")
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Token ' + globalEditorToken)
+                    .attach("file", file)
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        next();
+                    });
+            }
+
+            async.each([
+                "./test/fixtures/artwork.png",
+                "./test/fixtures/36.png",
+                "./test/fixtures/48.png",
+                "./test/fixtures/72.png",
+                "./test/fixtures/96.png"
+            ], upload, function(){done()});
+
+        });
+    });
+
+    ///////////////////////////////////////////////////////
+    describe("POST: " + url + '/node/:id/assets/rename', function() {
+        it('should rename an asset to a new name in the same node.', function(done) {
+            request(url)
+                .post('/node/' + testNodeId + "/assets/rename")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    original: "artwork.png",
+                    updated: "testimage.png"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+        it('should fail because asset does not exist.', function(done) {
+            request(url)
+                .post('/node/' + testNodeId + "/assets/rename")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    original: "artwork_doesntexist.png",
+                    updated: "testimage.png"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(500);
+                    done();
+                });
+        });
+
+        it('should fail because the user does not have permissions.', function(done) {
+            request(url)
+                .post('/node/' + testNodeId + "/assets/rename")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .send({
+                    original: "artwork.png",
+                    updated: "testimage.png"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    done();
+                });
+        });
+    });
+
+    describe("POST: " + url + '/node/:id/assets/copy', function() {
+        it('should copy an asset from one node to another.', function(done) {
+
+            request(url)
+                .post('/node/' + testNodeId + "/assets/copy")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    newnodeid: "5246e73d56c02c0744000001",
+                    filename: "testimage.png"
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+    });
+    /*
+    describe("POST: " + url + '/node/:id/assets/move', function() {
+        it('should move one asset to another node.', function(done) {
+
+            request(url)
+                .post('/node/' + testNodeId + "/assets/move")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    newnodeid: "",
+                    filename: ""
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+        it('should fail because the user does not have permissions on the new node id.', function(done) {
             done();
         });
-    });*/
+
+        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
+            done();
+        });
+    });
+*/
 
 
+   /* describe("DELETE: " + url + '/node/:id/assets/:name', function() {
+        it('should delete an asset with a specific name', function(done) {
+
+            request(url)
+                .del('/node/' + testNodeId + "/assets/" + testNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+        it('should fail because the user does not have permissions.', function(done) {
+            done();
+        });
+
+        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
+            done();
+        });
+    });
+    */
+    describe("DELETE: " + url + '/node/:id/assets', function() {
+        it('should delete all files in a node.', function(done) {
+
+            request(url)
+                .post('/node/' + testNodeId + "/assets")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .attach("file", "./test/fixtures/assetfordeletion.png")
+                .end(function(err, res) {
+                    if (err) { throw err; }
+
+                    request(url)
+                        .del('/node/' + testNodeId + "/assets/assetfordeletion.png")
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', 'Token ' + globalEditorToken)
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            res.status.should.equal(200);
+                            res.body.message.should.equal("Success");
+                            done();
+                        });
+                });
 
 
+        });
 
+        it('should fail because the user does not have permissions.', function(done) {
+            done();
+        });
 
-
-
-
-
-
-    /*
+        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
+            done();
+        });
+    });
+////////////////////////////////////////////////////////
     describe("GET: " + url + '/nodes/:nodeid/assets', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
@@ -655,7 +822,49 @@ describe('api.nodes', function(){
                     done();
                 });
         });
-    });*/
+
+        it('an editor should return a DEEP list of files in a node and it\'s children', function(done) {
+            request(url)
+                .get('/node/' + testNodeId + "/assets/deep")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.be.an('array');
+                    done();
+                });
+        });
+
+        it('an editor should return a DEEP list of files in a node and it\'s children (even when there are no children) And node is empty.', function(done) {
+            request(url)
+                .get('/node/' + testNodeIdRoot_generated + "/assets/deep")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.be.an('array');
+                    done();
+                });
+        });
+
+        it('an editor should return a DEEP list of files in a node and it\'s children (even when there are no children) And node is NOT empty.', function(done) {
+            request(url)
+                .get('/node/' + testNodeWithNoSubNodes + "/assets/deep")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.be.an('array');
+                    done();
+                });
+        });
+    });
 
 
 
@@ -969,4 +1178,36 @@ describe('api.nodes', function(){
                 });
         });
     });*/
+
+
+    describe("DELETE: " + url + '/node/:id', function() {
+
+        it('Should delete an node.', function(done) {
+            request(url)
+                .del('/node/' + testNodeIdRoot_generated)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('Should delete a generated node.', function(done) {
+            request(url)
+                .del('/node/' + testNodeIdSubSub_generated)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+
+                    done();
+                });
+        });
+    });
+
 });

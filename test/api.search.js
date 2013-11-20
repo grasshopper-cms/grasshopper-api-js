@@ -30,9 +30,13 @@ describe('api.search', function(){
 
     describe("POST: " + url + '/search', function() {
         var query = {
-            nodes: "526d5179966a883540000006",
-            types: [],
-            filters: [],
+            nodes: "",
+            types: ["524362aa56c02c0703000001"],
+            filters: [{
+                key: "slug",
+                cmp: "=",
+                value: "sample_confdstent_title"
+            }],
             options: {}
         };
 
@@ -59,7 +63,7 @@ describe('api.search', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
-                    //console.log(res.body);
+                    console.log(res.body);
                     done();
                 });
         });

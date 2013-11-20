@@ -30,7 +30,7 @@ describe('api.search', function(){
 
     describe("POST: " + url + '/search', function() {
         var query = {
-            nodes: [],
+            nodes: "526d5179966a883540000006",
             types: [],
             filters: [],
             options: {}
@@ -59,6 +59,7 @@ describe('api.search', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
+                    //console.log(res.body);
                     done();
                 });
         });

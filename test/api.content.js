@@ -1,7 +1,7 @@
 var should = require('chai').should();
 var request = require('supertest');
 
-describe('api.contentTypes', function(){
+describe('api.content', function(){
     var url = 'http://localhost:8080',
         async = require('async'),
         _ = require('underscore'),

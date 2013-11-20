@@ -9,7 +9,7 @@
 
 ------------------------------------------------------------------
 
-The Grasshopper API is the foundation of the Grasshopper CMS. It provides all of the mechanisms necessary to create content in the cloud. The API can be written in any language and it can fully support any document based database (NoSQL). Their is no user interface supplied in this project, this is on purpose so that developers have complete freedom to creatively use the CMS in whichever way they want.
+The Grasshopper API is the foundation of the Grasshopper CMS. It provides all of the mechanisms necessary to create content in the cloud. The API can be written in any language and it can fully support any document based database (NoSQL). There is no user interface supplied in this project, this is on purpose so that developers have complete freedom to creatively use the CMS in whichever way they want.
 
 ![Grasshopper Ecosystem](https://s3.amazonaws.com/SolidInteractive/images/grasshopper/GrasshopperEcosystemOverview.png)
 
@@ -155,12 +155,6 @@ $ pm2 web                # Health computer API endpoint (http://localhost:9615)
 
 For full documentation on the grasshopper API [click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/api)
  
- 
-### Internal SDK Documentation
-
--------------------------------------------------------
-
-For full documentation on the grasshopper SDK [click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/sdk)
 
 
 ### Running Tests

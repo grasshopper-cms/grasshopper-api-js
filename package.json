@@ -3,7 +3,7 @@
   "description": "API to manage the grasshopper cms",
   "main": "./lib/grasshopper-api",
   "author": "Travis McHattie",
-  "version": "0.0.2",
+  "version": "0.7.0",
   "repository": {
     "type": "git",
     "url": "https://git.thinksolid.com/travis.mchattie/grasshopper-api.git"

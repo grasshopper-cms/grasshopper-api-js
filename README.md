@@ -109,15 +109,7 @@ Open the ```lib/config/configuration``` file
     * default: which provider are you going to use (local or amazon)
     * tmpdir: temp file directory
     * engines: collections of engines that will be used. NOTE: all engines get files saved to them, only the default returns results
- 
 
-### Developer Setup
-
------------------------------------------------------------------------------
-
-[Click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/development-environment) to read how to get setup as a developer. 
- 
- 
  
 ### Managing Grasshopper API on production
 
@@ -153,7 +145,7 @@ $ pm2 web                # Health computer API endpoint (http://localhost:9615)
 
 -------------------------------------------------------
 
-For full documentation on the grasshopper API [click here](https://git.thinksolid.com/opensource/grasshopper-api-js/wikis/api)
+For full documentation on the grasshopper API [click here](https://github.com/Solid-Interactive/grasshopper-api-js/wiki)
  
 
 

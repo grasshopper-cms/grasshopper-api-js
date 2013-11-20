@@ -6,6 +6,10 @@ module.exports = function(grunt) {
             test: {
                 host: 'mongodb://localhost:27017/test',
                 collections: ['users','contenttypes','nodes','content', 'tokens']
+            },
+            dev : {
+                host: 'mongodb://localhost:27017/grasshopper',
+                collections: ['users','contenttypes','nodes','content', 'tokens']
             }
         },
         concurrent: {
@@ -106,6 +110,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('dev',['nodemon:dev']);
     grunt.registerTask('test', ['concurrent:test']);
+
+    grunt.registerTask('seedDev', ['mongodb:dev']);
 
     grunt.registerTask('server:start', ['shell:startServer']);
     grunt.registerTask('server:stop', ['shell:stopServer']);

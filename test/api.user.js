@@ -187,11 +187,6 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return a subset of users based off of a query', function(done) {
-            false.should.equal(true);
-            done();
-        });
-
     });
 
     describe("POST: " + url + '/users', function() {
@@ -840,6 +835,44 @@ describe('api.users', function(){
                     done();
                 });
         });
+    });
+
+    describe("POST: " + url + '/users/query', function() {
+        var query = {
+            filters: [{key: "role", cmp: "=", value: "editor"}],
+            options: {
+                //include: ["node","fields.testfield"]
+            }
+        };
+
+        it('should return 401 because trying to access unauthenticated', function(done) {
+            request(url)
+                .post('/users/query')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .send(query)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
+        });
+
+        it('should user search results', function(done) {
+            request(url)
+                .post('/users/query')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(query)
+                .end(function(err, res) {
+                    if (err) { console.log(err);throw err; }
+
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
     });
 
     describe("DELETE: " + url + '/users', function() {

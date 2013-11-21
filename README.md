@@ -166,7 +166,6 @@ There are a couple of ways to run our unit tests.
 * Hooks are not yet supported
 * Full node permissions for search criteria
 * Cascading permissions for child nodes
-* Specifiying fields to include/exlude from the GET requests
 * Deleting content when deleting a content type
 * Deleting content when deleting a node
 * Registering new collections

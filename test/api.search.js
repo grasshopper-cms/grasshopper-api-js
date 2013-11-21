@@ -30,14 +30,12 @@ describe('api.search', function(){
 
     describe("POST: " + url + '/search', function() {
         var query = {
-            nodes: "",
-            types: ["524362aa56c02c0703000001"],
-            filters: [{
-                key: "slug",
-                cmp: "=",
-                value: "sample_confdstent_title"
-            }],
-            options: {}
+            nodes: [],
+            types: [],
+            filters: [{key: "slug", cmp: "%", value: "sample_content"}],
+            options: {
+                include: ["node","fields.testfield"]
+            }
         };
 
         it('should return 401 because trying to access unauthenticated', function(done) {
@@ -61,9 +59,9 @@ describe('api.search', function(){
                 .set('authorization', 'Token ' + globalReaderToken)
                 .send(query)
                 .end(function(err, res) {
-                    if (err) { throw err; }
+                    if (err) { console.log(err);throw err; }
+                    //console.log(res.body);
                     res.status.should.equal(200);
-                    console.log(res.body);
                     done();
                 });
         });

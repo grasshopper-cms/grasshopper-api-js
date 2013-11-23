@@ -536,13 +536,19 @@ describe('api.nodes', function(){
                 });
         });
 
-
-        /*
-        it('should return a 403 because user does not have permissions to access a parent of this node', function(done) {
-            false.should.equal(true);
-            done();
+        it('should return list of root level child nodes', function(done) {
+            request(url)
+                .get('/node/0/children')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.length.should.equal(3);
+                    done();
+                });
         });
-        */
     });
 
     describe("POST: " + url + '/node/:id/assets', function() {

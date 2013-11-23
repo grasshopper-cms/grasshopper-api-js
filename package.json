@@ -33,7 +33,8 @@
     "mongoose": "~3.6.20",
     "mongoose-validator": "~0.2.2",
     "aws-sdk": "~1.10.0",
-    "multiparty": "~3.0.0"
+    "multiparty": "~3.0.0",
+    "q": "~0.9.7"
   },
   "devDependencies": {
     "uglify-js": "1.2.x",

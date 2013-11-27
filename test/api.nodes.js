@@ -13,8 +13,6 @@ describe('api.nodes', function(){
         testNodeId = "5261781556c02c072a000007",
         testLockedDownNodeId = "526d5179966a883540000006",
         testNodeWithNoSubNodes = "5246e73d56c02c0744000001",
-        testNodeSlug = "/this/is/my/path",
-        testNodeSlugWithoutSlashes = "sample_sub_node",
         testNodeIdRoot_generated = "",
         testNodeIdSubNode_generated = "",
         testNodeIdSubSub_generated = "",
@@ -102,7 +100,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + globalEditorToken)
                 .send({
                     label : "My Test Node",
-                    slug : "my_test_node",
                     parent: null
                 })
                 .end(function(err, res) {
@@ -122,7 +119,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + globalEditorToken)
                 .send({
                     label : "My Test Sub-Node",
-                    slug : "my_test_sub_node",
                     parent: testNodeIdRoot_generated
                 })
                 .end(function(err, res) {
@@ -142,7 +138,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + globalEditorToken)
                 .send({
                     label : "My Test Sub Sub-Node",
-                    slug : "my_test_sub_sub_node",
                     parent: testNodeIdSubNode_generated
                 })
                 .end(function(err, res) {
@@ -160,53 +155,11 @@ describe('api.nodes', function(){
                  .set('Accept-Language', 'en_US')
                  .set('authorization', 'Token ' + globalEditorToken)
                  .send({
-                     slug : "my_test_sub_node",
                      parent: testNodeIdRoot_generated
                  })
                  .end(function(err, res) {
                      if (err) { throw err; }
                      res.status.should.equal(500);
-                     done();
-                 });
-         });
-
-
-         it('should return error when a malformed slug is passed in (id has a space).', function(done){
-             request(url)
-                 .post('/nodes')
-                 .set('Accept', 'application/json')
-                 .set('Accept-Language', 'en_US')
-                 .set('authorization', 'Token ' + globalEditorToken)
-                 .send({
-                     label: "My Test Sub Node Label",
-                     slug : "my_test_sub_node_123jf dfa-32423",
-                     parent: null
-                 })
-                 .end(function(err, res) {
-                     if (err) { throw err; }
-                     res.status.should.equal(500);
-                     res.body.should.have.property("message");
-                     done();
-                 });
-         });
-
-
-         it('should return error when a field has a duplicate slug', function(done){
-             request(url)
-                 .post('/nodes')
-                 .set('Accept', 'application/json')
-                 .set('Accept-Language', 'en_US')
-                 .set('authorization', 'Token ' + globalEditorToken)
-                 .send({
-                     label: "My Test Sub Node Label",
-                     slug : "my_test_sub_node",
-                     parent: testNodeIdRoot_generated
-                 })
-                 .end(function(err, res) {
-                     if (err) { throw err; }
-                     res.status.should.equal(500);
-                     res.body.should.have.property("message");
-                     res.body.message.should.equal("Duplicate key already exists.");
                      done();
                  });
          });
@@ -219,7 +172,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + nodeEditorToken)
                 .send({
                     label: "Reader Created Node",
-                    slug : "my_test_sub_node_2",
                     parent: testNodeId
                 })
                 .end(function(err, res) {
@@ -238,7 +190,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + globalReaderToken)
                 .send({
                     label: "Reader Created Node",
-                    slug : "my_test_sub_node_3",
                     parent: testNodeId
                 })
                 .end(function(err, res) {
@@ -256,7 +207,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + restrictedEditorToken)
                 .send({
                     label: "Editor Created Node",
-                    slug : "my_test_sub_node_4",
                     parent: testNodeId
                 })
                 .end(function(err, res) {

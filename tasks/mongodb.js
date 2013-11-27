@@ -50,7 +50,6 @@ module.exports = function (grunt) {
     }
 
     grunt.registerMultiTask('mongodb', 'Runs a nodemon monitor of your node.js server.', function () {
-        console.log(__dirname);
         var done = this.async(),
             collections = this.data.collections,
             data = require(this.data.data);

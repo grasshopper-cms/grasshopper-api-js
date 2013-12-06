@@ -389,6 +389,22 @@ describe('api.nodes', function(){
         });
     });
 
+    describe("GET: " + url + '/nodes/:id/hydrate', function() {
+        it('a reader with all valid permissions should get a node object back with a full collection of child nodes and its content', function(done) {
+            request(url)
+                .get('/node/' + testNodeId + "/hydrate")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.length.should.equal(11);
+                    done();
+                });
+        });
+    });
+
     describe("GET: " + url + '/nodes/:id/deep', function() {
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
             request(url)

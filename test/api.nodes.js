@@ -13,8 +13,6 @@ describe('api.nodes', function(){
         testNodeId = "5261781556c02c072a000007",
         testLockedDownNodeId = "526d5179966a883540000006",
         testNodeWithNoSubNodes = "5246e73d56c02c0744000001",
-        testNodeSlug = "/this/is/my/path",
-        testNodeSlugWithoutSlashes = "sample_sub_node",
         testNodeIdRoot_generated = "",
         testNodeIdSubNode_generated = "",
         testNodeIdSubSub_generated = "",
@@ -102,7 +100,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + globalEditorToken)
                 .send({
                     label : "My Test Node",
-                    slug : "my_test_node",
                     parent: null
                 })
                 .end(function(err, res) {
@@ -122,7 +119,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + globalEditorToken)
                 .send({
                     label : "My Test Sub-Node",
-                    slug : "my_test_sub_node",
                     parent: testNodeIdRoot_generated
                 })
                 .end(function(err, res) {
@@ -142,7 +138,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + globalEditorToken)
                 .send({
                     label : "My Test Sub Sub-Node",
-                    slug : "my_test_sub_sub_node",
                     parent: testNodeIdSubNode_generated
                 })
                 .end(function(err, res) {
@@ -160,53 +155,11 @@ describe('api.nodes', function(){
                  .set('Accept-Language', 'en_US')
                  .set('authorization', 'Token ' + globalEditorToken)
                  .send({
-                     slug : "my_test_sub_node",
                      parent: testNodeIdRoot_generated
                  })
                  .end(function(err, res) {
                      if (err) { throw err; }
                      res.status.should.equal(500);
-                     done();
-                 });
-         });
-
-
-         it('should return error when a malformed slug is passed in (id has a space).', function(done){
-             request(url)
-                 .post('/nodes')
-                 .set('Accept', 'application/json')
-                 .set('Accept-Language', 'en_US')
-                 .set('authorization', 'Token ' + globalEditorToken)
-                 .send({
-                     label: "My Test Sub Node Label",
-                     slug : "my_test_sub_node_123jf dfa-32423",
-                     parent: null
-                 })
-                 .end(function(err, res) {
-                     if (err) { throw err; }
-                     res.status.should.equal(500);
-                     res.body.should.have.property("message");
-                     done();
-                 });
-         });
-
-
-         it('should return error when a field has a duplicate slug', function(done){
-             request(url)
-                 .post('/nodes')
-                 .set('Accept', 'application/json')
-                 .set('Accept-Language', 'en_US')
-                 .set('authorization', 'Token ' + globalEditorToken)
-                 .send({
-                     label: "My Test Sub Node Label",
-                     slug : "my_test_sub_node",
-                     parent: testNodeIdRoot_generated
-                 })
-                 .end(function(err, res) {
-                     if (err) { throw err; }
-                     res.status.should.equal(500);
-                     res.body.should.have.property("message");
-                     res.body.message.should.equal("Duplicate key already exists.");
                      done();
                  });
          });
@@ -219,7 +172,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + nodeEditorToken)
                 .send({
                     label: "Reader Created Node",
-                    slug : "my_test_sub_node_2",
                     parent: testNodeId
                 })
                 .end(function(err, res) {
@@ -238,7 +190,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + globalReaderToken)
                 .send({
                     label: "Reader Created Node",
-                    slug : "my_test_sub_node_3",
                     parent: testNodeId
                 })
                 .end(function(err, res) {
@@ -256,7 +207,6 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + restrictedEditorToken)
                 .send({
                     label: "Editor Created Node",
-                    slug : "my_test_sub_node_4",
                     parent: testNodeId
                 })
                 .end(function(err, res) {
@@ -434,6 +384,22 @@ describe('api.nodes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
+                    done();
+                });
+        });
+    });
+
+    describe("GET: " + url + '/nodes/:id/hydrate', function() {
+        it('a reader with all valid permissions should get a node object back with a full collection of child nodes and its content', function(done) {
+            request(url)
+                .get('/node/' + testNodeId + "/hydrate")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.length.should.equal(11);
                     done();
                 });
         });
@@ -871,320 +837,6 @@ describe('api.nodes', function(){
                 });
         });
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    describe("GET: " + url + '/nodes/:parentNodeId/assets/deep', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an editor with rights restricted to a specific node should return a 403 error', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an admin with rights restricted to a specific node should not return a 403 error, this would have been an error should return 200', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an editor should return a list of files in a node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a reader should return a list of files in a node and all of it\'s children', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return 404 because test node id does not exist', function(done) {
-            false.should.equal(true);
-            done();
-        });
-    });
-
-    describe("GET: " + url + '/nodes/assets', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an editor with rights restricted to a specific node should return a 403 error', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an admin with rights restricted to a specific node should not return a 403 error, this would have been an error should return 200', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an editor should return a list of files in a node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a reader should return a list of files in a node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return 404 because test node id does not exist', function(done) {
-            false.should.equal(true);
-            done();
-        });
-    });
-
-    describe("GET: " + url + '/nodes/assets/deep', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an editor with rights restricted to a specific node should return a 403 error', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an admin with rights restricted to a specific node should not return a 403 error, this would have been an error should return 200', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('an editor should return a list of files in a node', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('a reader should return a list of files in a node and all of it\'s children', function(done) {
-            false.should.equal(true);
-            done();
-        });
-        it('should return 404 because test node id does not exist', function(done) {
-            false.should.equal(true);
-            done();
-        });
-    });
-
-
-    describe("PUT: " + url + '/contentTypes', function() {
-        it('should return a 403 because user does not have permissions to access users', function(done) {
-            var newContentType = {
-                _id: testCreatedContentTypeId,
-                label: "updatedlabel",
-                fields: [
-                    {
-                        id: "testid",
-                        label: "Test Field Label",
-                        type: "textbox",
-                        required: true,
-                        instancing: 1
-                    }
-                ],
-                helpText: "",
-                meta: [{
-                    id: "testmetaid",
-                    label: "Test Field Label",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
-                }],
-                description: ""
-            };
-
-            request(url)
-                .put('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(403);
-                    done();
-                });
-        });
-        it('should update a content type using the correct verb', function(done) {
-            var newContentType = {
-                _id: testCreatedContentTypeId,
-                label: "updatedlabel",
-                fields: [
-                    {
-                        id: "testid",
-                        label: "Test Field Label",
-                        type: "textbox",
-                        required: true,
-                        instancing: 1
-                    }
-                ],
-                helpText: "",
-                meta: [{
-                    id: "testmetaid",
-                    label: "Test Field Label",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
-                }],
-                description: ""
-            };
-
-            request(url)
-                .put('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(200);
-                    done();
-                });
-        });
-
-        it('should update a content type using the method override', function(done) {
-            var newContentType = {
-                _id: testCreatedContentTypeCustomVerb,
-                label: "updatedlabel custom verb",
-                fields: [
-                    {
-                        id: "testid",
-                        label: "Test Field Label",
-                        type: "textbox",
-                        required: true,
-                        instancing: 1
-                    }
-                ],
-                helpText: "",
-                meta: [{
-                    id: "testmetaid",
-                    label: "Test Field Label",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
-                }],
-                description: ""
-            };
-
-            request(url)
-                .post('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .set('X-HTTP-Method-Override', 'PUT')
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(200);
-                    done();
-                });
-        });
-
-        it('should return error if content type is updated without a set "ID"', function(done){
-            var newContentType = {
-                label: "updatedlabel",
-                fields: [
-                    {
-                        id: "testid",
-                        label: "Test Field Label",
-                        type: "textbox",
-                        required: true,
-                        instancing: 1
-                    }
-                ],
-                helpText: "",
-                meta: [{
-                    id: "testmetaid",
-                    label: "Test Field Label",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
-                }],
-                description: ""
-            };
-
-            request(url)
-                .put('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
-
-    });
-
-    describe("DELETE: " + url + '/contentTypes', function() {
-        it('should return a 403 because user does not have permissions to access content types', function(done) {
-            request(url)
-                .del('/contentTypes/' + testCreatedContentTypeId)
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(403);
-                    done();
-                });
-        });
-        it('should delete a content type using the correct verb', function(done) {
-            request(url)
-                .del('/contentTypes/' + testCreatedContentTypeId)
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(200);
-                    done();
-                });
-        });
-        it('should delete a content type using the method override', function(done) {
-            request(url)
-                .post('/contentTypes/' + testCreatedContentTypeCustomVerb)
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('X-HTTP-Method-Override', 'DELETE')
-                .set('authorization', 'Token ' + adminToken)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(200);
-                    done();
-                });
-        });
-
-        it('should return 200 when we try to delete a content type that doesn\'t exist', function(done) {
-            request(url)
-                .del('/contentTypes/IDONTEXIST')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(200);
-                    done();
-                });
-        });
-    });*/
-
 
     describe("DELETE: " + url + '/node/:id', function() {
 

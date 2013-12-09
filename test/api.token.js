@@ -1,8 +1,31 @@
-var should = require('chai').should();
-var request = require('supertest');
+var should = require('chai').should(),
+    request = require('supertest'),
+    async = require('async');
 
 describe('api.token', function(){
-    var url = 'http://localhost:8080';
+    var url = 'http://localhost:8080',
+        globalReaderToken = "";
+
+    before(function(done){
+        async.parallel(
+            [
+                function(cb){
+                    request(url)
+                        .get('/token')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            globalReaderToken = res.body.access_token;
+                            cb();
+                        });
+                }
+            ],function(){
+                done();
+            }
+        );
+    });
 
     /*
     1) Test that you can auth with
@@ -69,6 +92,22 @@ describe('api.token', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(401);
+                    done();
+                });
+        });
+    });
+
+    describe(url + '/token/new', function() {
+        it('should return a valid access token', function(done) {
+
+            request(url)
+                .get('/token/new')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
                     done();
                 });
         });

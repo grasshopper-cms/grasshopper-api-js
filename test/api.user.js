@@ -2,7 +2,7 @@ var should = require('chai').should();
 var request = require('supertest');
 
 describe('api.users', function(){
-    var url = 'http://localhost:8080',
+    var url = url = require('./config/test').url,
         testUserId  = "5245ce1d56c02c066b000001",
         testReaderUserId = "5246e80c56c02c0744000002",
         readerToken = "",

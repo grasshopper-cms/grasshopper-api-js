@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                 tasks : ['generatePublicTest', 'mongodb:test', 'shell:stopTestServer'],
             },
             test: {
-                tasks : ['shell:startTestServer', 'startTestWithDelay:1000'],
+                tasks : ['shell:startTestServer', 'startTestWithDelay:1500'],
             }
         },
         shell : {
@@ -34,8 +34,7 @@ module.exports = function(grunt) {
                 command : "make test",
                 options : {
                     callback : function(err, stdout, stderr, cb) {
-                        grunt.task.run(['deletePublicTest','shell:stopTestServer']);
-                        grunt.fail.fatal("Shutting down... tests are done.")
+                        grunt.task.run(['deletePublicTest','shell:stopTestServer', 'exitTests']);
                         cb();
                     }
                 }
@@ -105,6 +104,10 @@ module.exports = function(grunt) {
             grunt.task.run(['shell:makeTest']);
             done();
         }, delay);
+    });
+
+    grunt.registerTask('exitTests', function() {
+        grunt.fail.fatal("Shutting down... tests are done.");
     });
 
     grunt.loadTasks('tasks');

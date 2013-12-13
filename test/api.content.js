@@ -8,80 +8,23 @@ describe('api.content', function(){
         testContentId  = "5261781556c02c072a000007",
         restrictedContentId = "5254908d56c02c076e000001",
         sampleContentObject = null,
-        globalAdminToken  = "",
-        globalReaderToken = "",
-        globalEditorToken = "",
-        nodeEditorToken = "",
-        restrictedEditorToken = "";
+        tokens = {},
+        tokenRequests = [
+            ['apitestuseradmin:TestPassword', 'globalAdminToken'],
+            ['apitestuserreader:TestPassword', 'globalReaderToken'],
+            ['apitestusereditor_restricted:TestPassword', 'restrictedEditorToken'],
 
+            // There are no tests for the following:
+            ['apitestusereditor:TestPassword', 'globalEditorToken'],
+            ['apitestuserreader_1:TestPassword', 'nodeEditorToken']
+        ],
+        parallelTokenRequests = [];
 
     before(function(done){
-        async.parallel(
-            [
-                function(cb){
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', new Buffer('apitestuseradmin:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            globalAdminToken = res.body.access_token;
-                            cb();
-                        });
-                },
-                function(cb){
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', new Buffer('apitestuserreader:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            globalReaderToken = res.body.access_token;
-                            cb();
-                        });
-                },
-                function(cb){
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', new Buffer('apitestusereditor:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            globalEditorToken = res.body.access_token;
-                            cb();
-                        });
-                },
-                function(cb){
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', new Buffer('apitestuserreader_1:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            nodeEditorToken = res.body.access_token;
-                            cb();
-                        });
-                },
-                function(cb){
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', new Buffer('apitestusereditor_restricted:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            restrictedEditorToken = res.body.access_token;
-                            cb();
-                        });
-                }
-            ],function(){
-                done();
-            }
-        );
+        _.each(tokenRequests, function(theRequest) {
+            parallelTokenRequests.push(createGetToken(theRequest[0], theRequest[1]).closure);
+        });
+        async.parallel(parallelTokenRequests, done);
     });
 
     describe("GET: " + url + '/content/:id', function() {
@@ -102,7 +45,7 @@ describe('api.content', function(){
                 .get('/content/' + testContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalAdminToken)
+                .set('authorization', 'Token ' + tokens.globalAdminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
@@ -117,7 +60,7 @@ describe('api.content', function(){
                 .get('/content/' + restrictedContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + restrictedEditorToken)
+                .set('authorization', 'Token ' + tokens.restrictedEditorToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(403);
@@ -153,7 +96,7 @@ describe('api.content', function(){
                 .post('/content')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalReaderToken)
+                .set('authorization', 'Token ' + tokens.globalReaderToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -172,7 +115,7 @@ describe('api.content', function(){
                 .post('/content')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalAdminToken)
+                .set('authorization', 'Token ' + tokens.globalAdminToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -191,7 +134,7 @@ describe('api.content', function(){
                 .post('/content')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + restrictedEditorToken)
+                .set('authorization', 'Token ' + tokens.restrictedEditorToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -230,7 +173,7 @@ describe('api.content', function(){
                 .put('/content/' + testContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalReaderToken)
+                .set('authorization', 'Token ' + tokens.globalReaderToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -249,7 +192,7 @@ describe('api.content', function(){
                 .put('/content/' + testContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalAdminToken)
+                .set('authorization', 'Token ' + tokens.globalAdminToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -269,7 +212,7 @@ describe('api.content', function(){
                 .put('/content/' + restrictedContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + restrictedEditorToken)
+                .set('authorization', 'Token ' + tokens.restrictedEditorToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -297,7 +240,7 @@ describe('api.content', function(){
                 .del('/content/' + testContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalReaderToken)
+                .set('authorization', 'Token ' + tokens.globalReaderToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(403);
@@ -310,7 +253,7 @@ describe('api.content', function(){
                 .del('/content/' + restrictedContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + restrictedEditorToken)
+                .set('authorization', 'Token ' + tokens.restrictedEditorToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(403);
@@ -323,7 +266,7 @@ describe('api.content', function(){
                 .del('/content/' + restrictedContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalAdminToken)
+                .set('authorization', 'Token ' + tokens.globalAdminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
@@ -331,4 +274,21 @@ describe('api.content', function(){
                 });
         });
     });
+
+    function createGetToken(creds, storage) {
+        return {
+            closure : function getToken(cb){
+                request(url)
+                    .get('/token')
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', new Buffer(creds).toString('base64'))
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        tokens[storage] = res.body.access_token;
+                        cb();
+                    });
+            }
+        }
+    }
 });

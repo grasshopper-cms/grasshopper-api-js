@@ -153,23 +153,17 @@ For full documentation on the grasshopper API [click here](https://github.com/So
 
 -------------------------------------------------------
 
-There are two ways to run the unit tests depending on whether you want to run them from outside vagrant or directly.
-Running the tests directly means you are either inside Vagrant or sshed into a server.
-
-To run the tests directly:
+To run the tests:
 
 ```shell
 grunt test
 ```
 
-To run the tests from outside Vagrant
-
-```shell
-vagrant exec grunt test
-```
+If you are working with a Vagrant box you must first `vagrant ssh`, then in Vagrant, you have to `cd /vagrant` before
+running the command above.
 
 The url used by the tests is in a module located at: `test/config/test.js`. The port should be `80` when running the
-tests directly and `8080` if running it from outside vagrant.
+tests. The url can be quickly updated to test remove locations too.
 
 ### Upcoming Features
 

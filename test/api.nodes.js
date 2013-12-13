@@ -649,46 +649,10 @@ describe('api.nodes', function(){
                 .send()
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    path.basename(res.body[0].url).should.equal('testimage.png');
+                    path.basename(res.body.url).should.equal('testimage.png');
                     done();
                 });
         });
-
-        it('should only return one file.', function(done) {
-
-            request(url)
-                .get('/node/' + testNodeId + '/assets/testimage.png')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalEditorToken)
-                .send()
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.body.length.should.equal(1);
-                    done();
-                });
-        });
-
-//        it('should return 404 error if the file could not be found.', function(done) {
-//
-//            request(url)
-//                .get('/node/' + testNodeId + '/assets/artwork.png')
-//                .set('Accept', 'application/json')
-//                .set('Accept-Language', 'en_US')
-//                .set('authorization', 'Token ' + globalEditorToken)
-//                .send()
-//                .end(function(err, res) {
-//                    if (err) { throw err; }
-//                    console.log('---------------------------------------------------------------------------------');
-//                    console.log(res.status);
-//                    console.log('---------------------------------------------------------------------------------');
-//                    res.status.should.equal(404);
-//                    done();
-//                });
-//        });
-
-        // should fail when user does not have permissions
-
     });
 
 

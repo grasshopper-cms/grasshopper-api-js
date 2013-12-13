@@ -2,7 +2,7 @@ var should = require('chai').should();
 var request = require('supertest');
 
 describe('api.content', function(){
-    var url = 'http://localhost:8080',
+    var url = require('./config/test').url,
         async = require('async'),
         _ = require('underscore'),
         testContentId  = "5261781556c02c072a000007",
@@ -13,6 +13,7 @@ describe('api.content', function(){
         globalEditorToken = "",
         nodeEditorToken = "",
         restrictedEditorToken = "";
+
 
     before(function(done){
         async.parallel(

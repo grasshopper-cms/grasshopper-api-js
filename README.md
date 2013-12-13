@@ -153,11 +153,17 @@ For full documentation on the grasshopper API [click here](https://github.com/So
 
 -------------------------------------------------------
 
-There are a couple of ways to run our unit tests.
+To run the tests:
 
-* $: ```make test```
-* $: ```npm test```
+```shell
+grunt test
+```
 
+If you are working with a Vagrant box you must first `vagrant ssh`, then in Vagrant, you have to `cd /vagrant` before
+running the command above.
+
+The url used by the tests is in a module located at: `test/config/test.js`. The port should be `80` when running the
+tests. The url can be quickly updated to test remove locations too.
 
 ### Upcoming Features
 

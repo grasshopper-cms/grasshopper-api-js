@@ -15,48 +15,45 @@ module.exports = function(grunt) {
             }
         },
         concurrent: {
+            options: {
+                logConcurrentOutput: true
+            },
+            setup: {
+                tasks : ['generatePublicTest', 'mongodb:test', 'shell:stopTestServer'],
+            },
             test: {
-                tasks: ['mongodb:test', 'shell:stopTestServer', 'shell:startTestServer'],
-                options: {
-                    logConcurrentOutput: true
-                }
+                tasks : ['shell:startTestServer', 'startTestWithDelay:1000'],
             }
         },
         shell : {
+            options : {
+                stdout : true,
+                stderr : true
+            },
+            makeTest : {
+                command : "make test",
+                options : {
+                    callback : function(err, stdout, stderr, cb) {
+                        grunt.task.run(['deletePublicTest','shell:stopTestServer']);
+                        grunt.fail.fatal("Shutting down... tests are done.")
+                        cb();
+                    }
+                }
+            },
             startTestServer: {
                 command: "node lib/grasshopper-api test",
-                options : {
-                    stdout : true,
-                    stderr : true
-                }
             },
             stopTestServer: {
                 command: "tasks/killserver.sh lib/grasshopper-api",
-                options : {
-                    stdout : true,
-                    stderr : true
-                }
             },
             startServer: {
                 command : "pm2 start lib/grasshopper-api.js -i max -e log/grasshopper.err.log -o log/grasshopper.out.log",
-                options: {
-                    stout: true,
-                    stderr: true
-                }
             },
             stopServer : {
                 command : "pm2 stop all",
-                options: {
-                    stout: true,
-                    stderr: true
-                }
             },
             restartServer : {
                 command : "pm2 restart all",
-                options: {
-                    stout: true,
-                    stderr: true
-                }
             }
         },
         nodemon: {
@@ -102,11 +99,19 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.registerTask('startTestWithDelay', function(delay) {
+        var done = this.async();
+        setTimeout(function() {
+            grunt.task.run(['shell:makeTest']);
+            done();
+        }, delay);
+    });
+
     grunt.loadTasks('tasks');
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('dev',['nodemon:dev']);
-    grunt.registerTask('test', ['generatePublicTest', 'concurrent:test']);
+    grunt.registerTask('test', ['concurrent:setup', 'concurrent:test']);
 
     grunt.registerTask('seedDev', ['mongodb:dev']);
 

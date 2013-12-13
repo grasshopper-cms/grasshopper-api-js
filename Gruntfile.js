@@ -103,15 +103,10 @@ module.exports = function(grunt) {
     });
 
     grunt.loadTasks('tasks');
-
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-nodemon');
-    grunt.loadNpmTasks('grunt-shell');
-    grunt.loadNpmTasks('grunt-concurrent');
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('dev',['nodemon:dev']);
-    grunt.registerTask('test', ['concurrent:test']);
+    grunt.registerTask('test', ['generatePublicTest', 'concurrent:test']);
 
     grunt.registerTask('seedDev', ['mongodb:dev']);
 

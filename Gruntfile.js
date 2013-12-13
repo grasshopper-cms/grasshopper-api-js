@@ -36,7 +36,7 @@ module.exports = function(grunt) {
                 stderr : true
             },
             findPm2 : {
-                command : 'lsof -i:<%= portToUse %>',
+                command : 'sudo lsof -i:<%= portToUse %>',
                 options : {
                     callback : function(err, stdout, stderr, cb) {
                         var pid = /pm2:\s+\b(\d+)\b/,
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
                 }
             },
             killPm2 : {
-                command : 'kill -9 <%= pm2pid %>',
+                command : 'sudo kill -9 <%= pm2pid %>',
             },
             makeTest : {
                 command : "make test",

@@ -1,6 +1,7 @@
 var should = require('chai').should(),
     request = require('supertest'),
-    async = require('async');
+    async = require('async'),
+    path = require('path');
 
 describe('api.nodes', function(){
     var url = url = require('./config/test').url,
@@ -635,6 +636,62 @@ describe('api.nodes', function(){
         });
 
     });
+
+    //TODO: Travis Please Review
+    describe("GET: " + url + '/node/:nodeid/assets/:filename', function() {
+        it('should get a file from a node specified by the filename.', function(done) {
+
+            request(url)
+                .get('/node/' + testNodeId + '/assets/testimage.png')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send()
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    path.basename(res.body[0].url).should.equal('testimage.png');
+                    done();
+                });
+        });
+
+        it('should only return one file.', function(done) {
+
+            request(url)
+                .get('/node/' + testNodeId + '/assets/testimage.png')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send()
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.body.length.should.equal(1);
+                    done();
+                });
+        });
+
+//        it('should return 404 error if the file could not be found.', function(done) {
+//
+//            request(url)
+//                .get('/node/' + testNodeId + '/assets/artwork.png')
+//                .set('Accept', 'application/json')
+//                .set('Accept-Language', 'en_US')
+//                .set('authorization', 'Token ' + globalEditorToken)
+//                .send()
+//                .end(function(err, res) {
+//                    if (err) { throw err; }
+//                    console.log('---------------------------------------------------------------------------------');
+//                    console.log(res.status);
+//                    console.log('---------------------------------------------------------------------------------');
+//                    res.status.should.equal(404);
+//                    done();
+//                });
+//        });
+
+        // should fail when user does not have permissions
+
+    });
+
+
     /*
     describe("POST: " + url + '/node/:id/assets/move', function() {
         it('should move one asset to another node.', function(done) {
@@ -665,7 +722,6 @@ describe('api.nodes', function(){
         });
     });
 */
-
 
    /* describe("DELETE: " + url + '/node/:id/assets/:name', function() {
         it('should delete an asset with a specific name', function(done) {

@@ -1,6 +1,8 @@
 module.exports = function(grunt) {
 
     grunt.initConfig({
+        portToUse : 3000,
+        pm2pid : 0,
         pkg: grunt.file.readJSON('package.json'),
         mongodb : {
             test: {
@@ -19,7 +21,10 @@ module.exports = function(grunt) {
                 logConcurrentOutput: true
             },
             setup: {
-                tasks : ['generatePublicTest', 'mongodb:test', 'shell:stopTestServer'],
+                tasks : ['shell:stopServer', 'generatePublicTest', 'mongodb:test', 'shell:stopTestServer'],
+            },
+            clean : {
+                tasks : ['shell:findPm2']
             },
             test: {
                 tasks : ['shell:startTestServer', 'startTestWithDelay:1500'],
@@ -29,6 +34,24 @@ module.exports = function(grunt) {
             options : {
                 stdout : true,
                 stderr : true
+            },
+            findPm2 : {
+                command : 'lsof -i:<%= portToUse %>',
+                options : {
+                    callback : function(err, stdout, stderr, cb) {
+                        var pid = /pm2:\s+\b(\d+)\b/,
+                            matches = stdout.match(pid);
+                        if (matches) {
+                            pid = matches[1];
+                            grunt.config.set('pm2pid', pid);
+                            grunt.task.run(['shell:killPm2']);
+                        }
+                        cb();
+                    }
+                }
+            },
+            killPm2 : {
+                command : 'kill -9 <%= pm2pid %>',
             },
             makeTest : {
                 command : "make test",
@@ -114,7 +137,7 @@ module.exports = function(grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('dev',['nodemon:dev']);
-    grunt.registerTask('test', ['concurrent:setup', 'concurrent:test']);
+    grunt.registerTask('test', ['concurrent:setup', 'concurrent:clean', 'concurrent:test']);
 
     grunt.registerTask('seedDev', ['mongodb:dev']);
 

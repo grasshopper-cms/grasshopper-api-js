@@ -114,7 +114,7 @@ module.exports = function(grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('dev',['nodemon:dev']);
-    grunt.registerTask('test', ['concurrent:setup', 'concurrent:test']);
+    grunt.registerTask('test', ['stopServer', 'concurrent:setup', 'concurrent:test']);
 
     grunt.registerTask('seedDev', ['mongodb:dev']);
 

@@ -3,7 +3,7 @@ var should = require('chai').should(),
     async = require('async');
 
 describe('api.token', function(){
-    var url = 'http://localhost:8080',
+    var url = url = require('./config/test').url,
         globalReaderToken = "";
 
     before(function(done){

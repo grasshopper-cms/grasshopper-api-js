@@ -2,7 +2,7 @@ var should = require('chai').should();
 var request = require('supertest');
 
 describe('api.contentTypes', function(){
-    var url = 'http://localhost:8080',
+    var url = url = require('./config/test').url,
         testContentTypeId  = "524362aa56c02c0703000001",
         readerToken = "",
         adminToken  = "",

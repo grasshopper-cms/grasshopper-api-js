@@ -123,6 +123,7 @@ module.exports = function(grunt) {
     grunt.registerTask('server:start', ['shell:startServer']);
     grunt.registerTask('server:stop', ['shell:stopServer']);
     grunt.registerTask('server:restart', ['shell:restartServer']);
+    grunt.registerTask('testServer', ['shell:stopServer', 'mongodb:test', 'shell:startTestServer']);
 
     grunt.registerTask('default', ['jshint']);
 

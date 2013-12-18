@@ -112,4 +112,31 @@ describe('api.token', function(){
                 });
         });
     });
+
+    describe(url + '/token/logout', function() {
+        it('should delete a token of the currently logged in user.', function(done) {
+
+            request(url)
+                .get('/token/logout')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+
+                    request(url)
+                        .get('/token/new')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', 'Token ' + globalReaderToken)
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            res.status.should.equal(401);
+                            done();
+                        });
+
+                });
+        });
+    });
 });

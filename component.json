@@ -2,7 +2,7 @@
     "name": "grasshopper-api",
     "repo": "solidinteractive/grasshopper-api",
     "description": "API to manage the grasshopper cms",
-    "version": "0.7.1",
+    "version": "0.7.3",
     "keywords": [],
     "dependencies": {},
     "development": {},

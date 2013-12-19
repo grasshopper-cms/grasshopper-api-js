@@ -637,7 +637,6 @@ describe('api.nodes', function(){
 
     });
 
-    //TODO: Travis Please Review
     describe("GET: " + url + '/node/:nodeid/assets/:filename', function() {
         it('should get a file from a node specified by the filename.', function(done) {
 
@@ -650,6 +649,21 @@ describe('api.nodes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     path.basename(res.body.url).should.equal('testimage.png');
+                    done();
+                });
+        });
+
+        it('should return a 404 when it could not find the file.', function(done) {
+
+            request(url)
+                .get('/node/' + testNodeId + '/assets/gobledigook.png')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send()
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(404);
                     done();
                 });
         });

@@ -231,12 +231,40 @@ describe('api.nodes', function(){
                 })
                 .end(function(err, res) {
                     if (err) { throw err; }
+                    request(url)
+                        .get('/node/' + testNodeId)
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', 'Token ' + globalEditorToken)
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            res.body.allowedTypes[0].should.deep.equal(
+                                {
+                                    _id: '524362aa56c02c0703000001',
+                                    label: 'This is my test content type'
+                                });
+                            done();
+                        });
+                });
+        });
+
+        it('should respond with a 200 when adding a content type to an existing node sent as a single value.', function(done){
+            request(url)
+                .post('/node/' + testNodeId + '/contenttype')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    id: testContentTypeID
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
                     res.status.should.equal(200);
                     done();
                 });
         });
 
-        it('should add a collection of content types to an existing node sent as an array.', function(done){
+        it('should respond with a 200 when adding a collection of content types to an existing node sent as an array.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')

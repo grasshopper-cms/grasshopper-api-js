@@ -220,7 +220,7 @@ describe('api.nodes', function(){
 
     describe("POST: " + url + '/node/:id/contenttype', function() {
 
-        it('should add a content type to an existing node sent as a single value.', function(done){
+        it('should add a content type to an existing node as the property allowedTypes sent as a single value.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')

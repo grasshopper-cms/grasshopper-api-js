@@ -241,7 +241,8 @@ describe('api.nodes', function(){
                             res.body.allowedTypes[0].should.deep.equal(
                                 {
                                     _id: '524362aa56c02c0703000001',
-                                    label: 'This is my test content type'
+                                    label: 'This is my test content type',
+                                    helpText: ''
                                 });
                             done();
                         });
@@ -362,6 +363,32 @@ describe('api.nodes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('should return a nodes allowedTypes when using a id', function(done) {
+            request(url)
+                .get('/node/' + testNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.body.should.include.keys('allowedTypes');
+                    done();
+                });
+        });
+
+        it('should return a nodes allowedTypes with the fields (id, label, helptext) when using a id', function(done) {
+            request(url)
+                .get('/node/' + testNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.body.allowedTypes[0].should.have.keys(['_id', 'label', 'helpText']);
                     done();
                 });
         });

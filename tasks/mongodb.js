@@ -75,6 +75,7 @@ module.exports = function (grunt) {
 
     function cleanCollection(col, callback){
         client.connect(host, function(err, db) {
+            if (err) grunt.log.errorlns(err);
             db.collection(col, function(err, collection){
                 collection.remove({}, function(err, numRemovedDocs){
                     grunt.log.writeln(numRemovedDocs + " documents removed from " + col + " collection.");
@@ -87,6 +88,7 @@ module.exports = function (grunt) {
 
     function importData(col, obj, callback){
         client.connect(host, function(err, db) {
+            if (err) grunt.log.errorlns(err);
             db.collection(col, function(err, collection){
                 collection.insert(obj, function(err){
                     db.close();

@@ -1,6 +1,7 @@
 var should = require('chai').should(),
     request = require('supertest'),
-    async = require('async');
+    async = require('async'),
+    path = require('path');
 
 describe('api.nodes', function(){
     var url = url = require('./config/test').url,
@@ -219,7 +220,36 @@ describe('api.nodes', function(){
 
     describe("POST: " + url + '/node/:id/contenttype', function() {
 
-        it('should add a content type to an existing node sent as a single value.', function(done){
+        it('should add a content type to an existing node as the property allowedTypes sent as a single value.', function(done){
+            request(url)
+                .post('/node/' + testNodeId + '/contenttype')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send({
+                    id: testContentTypeID
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    request(url)
+                        .get('/node/' + testNodeId)
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', 'Token ' + globalEditorToken)
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            res.body.allowedTypes[0].should.deep.equal(
+                                {
+                                    _id: '524362aa56c02c0703000001',
+                                    label: 'This is my test content type',
+                                    helpText: ''
+                                });
+                            done();
+                        });
+                });
+        });
+
+        it('should respond with a 200 when adding a content type to an existing node sent as a single value.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -235,7 +265,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should add a collection of content types to an existing node sent as an array.', function(done){
+        it('should respond with a 200 when adding a collection of content types to an existing node sent as an array.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -333,6 +363,32 @@ describe('api.nodes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('should return a nodes allowedTypes when using a id', function(done) {
+            request(url)
+                .get('/node/' + testNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.body.should.include.keys('allowedTypes');
+                    done();
+                });
+        });
+
+        it('should return a nodes allowedTypes with the fields (id, label, helptext) when using a id', function(done) {
+            request(url)
+                .get('/node/' + testNodeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.body.allowedTypes[0].should.have.keys(['_id', 'label', 'helpText']);
                     done();
                 });
         });
@@ -635,6 +691,40 @@ describe('api.nodes', function(){
         });
 
     });
+
+    describe("GET: " + url + '/node/:nodeid/assets/:filename', function() {
+        it('should get a file from a node specified by the filename.', function(done) {
+
+            request(url)
+                .get('/node/' + testNodeId + '/assets/testimage.png')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send()
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    path.basename(res.body.url).should.equal('testimage.png');
+                    done();
+                });
+        });
+
+        it('should return a 404 when it could not find the file.', function(done) {
+
+            request(url)
+                .get('/node/' + testNodeId + '/assets/gobledigook.png')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send()
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(404);
+                    done();
+                });
+        });
+    });
+
+
     /*
     describe("POST: " + url + '/node/:id/assets/move', function() {
         it('should move one asset to another node.', function(done) {
@@ -665,7 +755,6 @@ describe('api.nodes', function(){
         });
     });
 */
-
 
    /* describe("DELETE: " + url + '/node/:id/assets/:name', function() {
         it('should delete an asset with a specific name', function(done) {

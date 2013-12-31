@@ -278,15 +278,61 @@ describe('api.nodes', function(){
                                 .set('authorization', 'Token ' + globalEditorToken)
                                 .end(function(err, res) {
                                     if (err) { throw err; }
-                                    console.log('-------------------------------------------------------------');
-                                    console.log(res.body.allowedTypes);
-                                    console.log('-------------------------------------------------------------');
                                     res.body.allowedTypes[0].should.deep.equal(
                                         {
                                             _id: '5254908d56c02c076e000001',
                                             label: 'Users',
                                             helpText: 'These fields are the minimum required to create a user in the system. See more about extending users through plugins.'
                                         });
+                                    done();
+                                });
+                        });
+                });
+        });
+
+        it('should replace multiple contenttypes in an existing node with a single contenttype.', function(done){
+            request(url)
+                .post('/node/' + testNodeId + '/contenttype')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .send(
+                    [
+                        {
+                            id: testContentTypeID
+                        },
+                        {
+                            id: testContentTypeID_Users
+                        }
+                    ]
+                )
+                .end(function(err, res) {
+                    if (err) { throw err; }
+
+                    request(url)
+                        .post('/node/' + testNodeId + '/contenttype')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', 'Token ' + globalEditorToken)
+                        .send({
+                            id: testContentTypeID_Users
+                        })
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            request(url)
+                                .get('/node/' + testNodeId)
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Token ' + globalEditorToken)
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    res.body.allowedTypes[0].should.deep.equal(
+                                        {
+                                            _id: '5254908d56c02c076e000001',
+                                            label: 'Users',
+                                            helpText: 'These fields are the minimum required to create a user in the system. See more about extending users through plugins.'
+                                        });
+                                    res.body.allowedTypes.length.should.equal(1);
                                     done();
                                 });
                         });

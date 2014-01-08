@@ -33,36 +33,53 @@
         { _id: ObjectID("5245ce1d56c02c066b000001"), label: "Legal", parent: ObjectID("5261777656c02c072a000001"),ancestors: [ObjectID("5261777656c02c072a000001")] },
         { _id: ObjectID("524362aa56c02c0703000001"), label: "Admin", parent: ObjectID("5261777656c02c072a000001"),ancestors: [ObjectID("5261777656c02c072a000001"), ObjectID("5261b811a94c1a971f000003")] },
         { _id: ObjectID("5254908d56c02c076e000001"), label: "User", parent: ObjectID("5261777656c02c072a000001"),ancestors: [ObjectID("5261777656c02c072a000001"), ObjectID("5261b811a94c1a971f000003")] },
-        { _id: ObjectID("52712a3e2eacd5a714000002"), label: "Developer",  parent: ObjectID("5261777656c02c072a000001"),ancestors: [ObjectID("5261777656c02c072a000001"), ObjectID("5261b811a94c1a971f000003")] }
+        { _id: ObjectID("52712a3e2eacd5a714000002"), label: "Developer",  parent: ObjectID("5261777656c02c072a000001"),ancestors: [ObjectID("5261777656c02c072a000001"), ObjectID("5261b811a94c1a971f000003")] },
+        { _id: ObjectID("52cc627f69c89d8b1a000001"), allowedTypes: [ ObjectID("52cc57c556c02c14b1000001") ], ancestors: [], label: "Films", parent: null },
+        { _id: ObjectID("52cc62b369c89d8b1a000002"), allowedTypes: [ ObjectID("524362aa56c02c0703000001") ], ancestors: [], label: "Static Content", parent: null }
     ];
 
     data.contentTypes = [
-        { _id: ObjectID("524362aa56c02c0703000001"), label: "This is my test content type", helpText: "", meta: [], description: "", fields: [{id: "testfield", required: true, instancing: 1, type: "textbox", label: "Title" } ]},
+        {
+            _id: ObjectID("524362aa56c02c0703000001"),
+            label: "This is my test content type",
+            helpText: "",
+            meta: [],
+            description: "",
+            fields: [
+                {
+                    id: "testfield",
+                    required: true,
+                    instancing: 1,
+                    type: "textbox",
+                    label: "Title"
+                }
+            ]
+        },
         {
             _id: ObjectID("5254908d56c02c076e000001"),
             label: "Users",
             description: "Protected content type that defines users in the system.",
             helpText: "These fields are the minimum required to create a user in the system. See more about extending users through plugins.",
-            fields: {
-                login: {
+            fields: [
+                {
                     label: "Login",
                     type: "textbox",
                     required: true,
                     instancing: 1
                 },
-                name: {
+                {
                     label: "Name",
                     type: "textbox",
                     required: true,
                     instancing: 1
                 },
-                email: {
+                {
                     label: "Email",
                     type: "textbox",
                     required: true,
                     instancing: 1
                 },
-                role: {
+                {
                     label: "Role",
                     type: "dropdown",
                     required: true,
@@ -77,21 +94,281 @@
                     },
                     instancing: 1
                 },
-                password: {
+                {
                     label: "Email",
                     type: "password",
                     required: true,
                     instancing: 1
                 },
-                enabled: {
+                {
                     label: "Enabled",
                     type: "checkbox",
                     required: true,
                     instancing: 1
                 }
-            },
+            ],
             meta: [],
             protected: true
+        },
+        {
+            label: "Film",
+            fields: [
+                {
+                    type: "textbox",
+                    _id: "title",
+                    required: true,
+                    label: "Title"
+                },
+                {
+                    type: "textarea",
+                    _id: "shortsummary",
+                    required: false,
+                    label: "Short Summary"
+                },
+                {
+                    type: "textarea",
+                    _id: "fullsummary",
+                    required: false,
+                    label: "Full Summary"
+                },
+                {
+                    type: "dropdown",
+                    multi: true,
+                    _id: "categories",
+                    label: "Categories"
+                },
+                {
+                    type: "readonly",
+                    _id: "partnerid",
+                    required: false,
+                    label: "Partner ID"
+                },
+                {
+                    type: "textbox",
+                    multi: true,
+                    _id: "badges",
+                    label: "Badges"
+                },
+                {
+                    type: "textbox",
+                    multi: true,
+                    _id: "genres",
+                    label: "Genres"
+                },
+                {
+                    type: "textbox",
+                    multi: true,
+                    _id: "tags",
+                    label: "Tags"
+                },
+                {
+                    type: "readonly",
+                    _id: "region",
+                    label: "Region"
+                },
+                {
+                    type: "readonly",
+                    _id: "worktype",
+                    label: "Work Type"
+                },
+                {
+                    type: "readonly",
+                    _id: "releaseyear",
+                    label: "Release Year"
+                },
+                {
+                    type: "readonly",
+                    _id: "runlength",
+                    label: "Run Length"
+                },
+                {
+                    type: "ref",
+                    ref: ObjectID("52cc5d2756c02c14b1000002"),
+                    _id: "ratings",
+                    label: "Ratings"
+                },
+                {
+                    type: "readonly",
+                    _id: "countryoforigin",
+                    label: "Country of Origin"
+                },
+                {
+                    type: "readonly",
+                    multi: true,
+                    _id: "actors",
+                    label: "Actors"
+                },
+                {
+                    type: "readonly",
+                    multi: true,
+                    _id: "directors",
+                    label: "Directors"
+                },
+                {
+                    type: "readonly",
+                    multi: true,
+                    _id: "producers",
+                    label: "Producers"
+                },
+                {
+                    type: "readonly",
+                    _id: "studio",
+                    label: "Studio"
+                },
+                {
+                    type: "ref",
+                    ref: ObjectID("52cc5eb856c02c14b1000003"),
+                    _id: "availability",
+                    label: "Availability"
+                },
+                {
+                    type: "ref",
+                    ref: ObjectID("52cc602156c02c14b1000004"),
+                    _id: "trailers",
+                    label: "Trailers"
+                },
+                {
+                    type: "ref",
+                    ref: ObjectID("52cc602156c02c14b1000004"),
+                    _id: "digitalassets",
+                    label: "Digital Assets"
+                },
+                {
+                    type: "ref",
+                    ref: ObjectID("52cc621956c02c14b1000005"),
+                    _id: "images",
+                    label: "Images"
+                }
+            ],
+            _id: ObjectID("52cc57c556c02c14b1000001"),
+            description: "",
+            helpText: ""
+        },
+        {
+            label: "Ratings",
+            _id: ObjectID("52cc5d2756c02c14b1000002"),
+            fields: [
+                {
+                    type: "textbox",
+                    _id: "title",
+                    label: "Title"
+                },
+                {
+                    type: "textbox",
+                    _id: "region",
+                    label: "Region"
+                },
+                {
+                    type: "textbox",
+                    _id: "system",
+                    label: "System"
+                }
+            ],
+            "protected": false,
+            description: "",
+            helpText: ""
+        },
+        {
+            label: "Availability",
+            _id: ObjectID("52cc5eb856c02c14b1000003"),
+            fields: [
+                {
+                    type: "readonly",
+                    _id: "licensetype",
+                    label: "License Type"
+                },
+                {
+                    type: "readonly",
+                    _id: "start",
+                    label: "Start"
+                },
+                {
+                    type: "readonly",
+                    _id: "end",
+                    label: "End"
+                }
+            ],
+            "protected": false,
+            description: "",
+            helpText: ""
+        },
+        {
+            label: "Digital Assets",
+            _id: ObjectID("52cc602156c02c14b1000004"),
+            fields: [
+                {
+                    type: "readonly",
+                    _id: "assetid",
+                    label: "Asset ID"
+                },
+                {
+                    type: "readonly",
+                    _id: "url",
+                    label: "URL"
+                },
+                {
+                    type: "readonly",
+                    _id: "height",
+                    label: "Height"
+                },
+                {
+                    type: "readonly",
+                    _id: "width",
+                    label: "Width"
+                },
+                {
+                    type: "readonly",
+                    _id: "aspectratio",
+                    label: "Aspect Ratio"
+                },
+                {
+                    type: "readonly",
+                    _id: "drmtype",
+                    label: "DRM Type"
+                },
+                {
+                    type: "readonly",
+                    _id: "audioprofile",
+                    label: "Audio Profile"
+                },
+                {
+                    type: "readonly",
+                    _id: "encodingprofile",
+                    label: "Encoding Profile"
+                }
+            ],
+            "protected": false,
+            description: "",
+            helpText: ""
+        },
+        {
+            label: "Image Assets",
+            _id: ObjectID("52cc621956c02c14b1000005"),
+            fields: [
+                {
+                    type: "readonly",
+                    _id: "url",
+                    label: "URL"
+                },
+                {
+                    type: "readonly",
+                    _id: "size",
+                    label: "Size"
+                },
+                {
+                    type: "readonly",
+                    _id: "height",
+                    label: "Height"
+                },
+                {
+                    type: "readonly",
+                    _id: "width",
+                    label: "Width"
+                }
+            ],
+            "protected": false,
+            description: "",
+            helpText: ""
         }
 
     ];

@@ -222,6 +222,42 @@ describe('api.content', function(){
         });
     });
 
+    describe("POST: " + url + '/content/query', function() {
+        var query = {
+            filters: [{key: "slug", cmp: "=", value: "sample_content_title"}],
+            options: {
+                //include: ["node","fields.testfield"]
+            }
+        };
+
+        it('should return a 401 because trying to access unauthenticated', function(done) {
+            request(url)
+                .post('/content/query')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .send(query)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(401);
+                    done();
+                });
+        });
+
+        it('should return a 200', function(done) {
+            request(url)
+                .post('/content/query')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + tokens.globalReaderToken)
+                .send(query)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+    });
+
     describe("DELETE: " + url + '/content/:id', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             request(url)

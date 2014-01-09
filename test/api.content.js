@@ -228,6 +228,11 @@ describe('api.content', function(){
             options: {
                 //include: ["node","fields.testfield"]
             }
+        }, query2 = {
+            filters: [{key: "nonsense", cmp: "=", value: "XXXNEVERSHOULDMATCHANTYHINGXXX"}],
+            options: {
+                //include: ["node","fields.testfield"]
+            }
         };
 
         it('should return a 401 because trying to access unauthenticated', function(done) {
@@ -256,6 +261,23 @@ describe('api.content', function(){
                     done();
                 });
         });
+
+        it('should return a 200 even if it finds nothing', function(done) {
+            request(url)
+                .post('/content/query')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + tokens.globalReaderToken)
+                .send(query2)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.length(0);
+                    done();
+                });
+        });
+
+
     });
 
     describe("DELETE: " + url + '/content/:id', function() {

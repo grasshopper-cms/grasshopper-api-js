@@ -839,9 +839,15 @@ describe('api.users', function(){
 
     describe("POST: " + url + '/users/query', function() {
         var query = {
-            filters: [{key: "role", cmp: "=", value: "editor"}],
-            options: {
-                //include: ["node","fields.testfield"]
+                filters: [{key: "role", cmp: "=", value: "editor"}],
+                options: {
+                    //include: ["node","fields.testfield"]
+                }
+            },
+            query2 = {
+                filters: [{key: "role", cmp: "=", value: "thisisnotarealrole"}],
+                options: {
+                    //include: ["node","fields.testfield"]
             }
         };
 
@@ -858,7 +864,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should user search results', function(done) {
+        it('should return user search results', function(done) {
             request(url)
                 .post('/users/query')
                 .set('Accept', 'application/json')
@@ -867,8 +873,22 @@ describe('api.users', function(){
                 .send(query)
                 .end(function(err, res) {
                     if (err) { console.log(err);throw err; }
-
                     res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('should not return user search results', function(done) {
+            request(url)
+                .post('/users/query')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(query2)
+                .end(function(err, res) {
+                    if (err) { console.log(err);throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.length(0);
                     done();
                 });
         });

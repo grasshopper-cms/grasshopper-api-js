@@ -10,6 +10,11 @@ module.exports = function(grunt) {
                 collections: ['users','contenttypes','nodes','content', 'tokens'],
                 data: './fixtures/mongodb/test.js'
             },
+            seed: {
+                host: 'mongodb://localhost:27017/grasshopper',
+                collections: ['users','contenttypes','tokens'],
+                data: './fixtures/mongodb/test.js'
+            },
             dev : {
                 host: 'mongodb://localhost:27017/grasshopper',
                 collections: ['users','contenttypes','nodes','content', 'tokens'],
@@ -43,6 +48,9 @@ module.exports = function(grunt) {
             },
             startTestServer: {
                 command: "node lib/grasshopper-api test"
+            },
+            startSeedServer: {
+                command: "node lib/grasshopper-api grasshopper"
             },
             stopTestServer: {
                 command: "tasks/killserver.sh lib/grasshopper-api"
@@ -123,7 +131,7 @@ module.exports = function(grunt) {
     grunt.registerTask('server:start', ['shell:startServer']);
     grunt.registerTask('server:stop', ['shell:stopServer']);
     grunt.registerTask('server:restart', ['shell:restartServer']);
-    grunt.registerTask('testServer', ['shell:stopServer', 'mongodb:test', 'shell:startTestServer']);
+    grunt.registerTask('seedServer', ['shell:stopServer', 'mongodb:seed', 'shell:startSeedServer']);
 
     grunt.registerTask('default', ['jshint']);
 

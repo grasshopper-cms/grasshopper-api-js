@@ -36,7 +36,7 @@
     "multiparty": "~3.0.0",
     "q": "~0.9.7",
     "pm2": "~0.6.12",
-    "bridgetown-api": "0.0.4"
+    "bridgetown-api": "0.0.5"
   },
   "devDependencies": {
     "matchdep": "~0.1.2",

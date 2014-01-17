@@ -44,18 +44,7 @@ describe('api.contentTypes', function(){
                     done();
                 });
         });
-        it('should return a 403 because user does not have permissions to access content types', function(done) {
-            request(url)
-                .get('/contentTypes/' + testContentTypeId)
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(403);
-                    done();
-                });
-        });
+
         it('should return an existing content type', function(done) {
             request(url)
                 .get('/contentTypes/' + testContentTypeId)
@@ -112,18 +101,7 @@ describe('api.contentTypes', function(){
                     done();
                 });
         });
-        it('should return a 403 because user does not have permissions to access content types', function(done) {
-            request(url)
-                .get('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(403);
-                    done();
-                });
-        });
+
         it('should return an empty list if the page size and current requested items are out of bounds.', function(done) {
             request(url)
                 .get('/contentTypes?limit=1&skip=100000')

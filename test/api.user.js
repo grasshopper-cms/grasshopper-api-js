@@ -5,8 +5,10 @@ describe('api.users', function(){
     var url = url = require('./config/test').url,
         testUserId  = "5245ce1d56c02c066b000001",
         testReaderUserId = "5246e80c56c02c0744000002",
+        admin2UserId = "5246e73d56c02c0744000004",
         readerToken = "",
         adminToken  = "",
+        adminToken2 = "",
         testCreatedUserId = "",
         testCreatedUserIdCustomVerb = "",
         testNodeForPermissions = "5261781556c02c072a000007",
@@ -31,7 +33,17 @@ describe('api.users', function(){
                     .end(function(err, res) {
                         if (err) { throw err; }
                         readerToken = res.body.access_token;
-                        done();
+
+                        request(url)
+                            .get('/token')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', new Buffer('admin:TestPassword').toString('base64'))
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                adminToken2 = res.body.access_token;
+                                done();
+                            });
                     });
             });
     });
@@ -519,6 +531,34 @@ describe('api.users', function(){
                     done();
                 });
         });
+
+        it('one admin should be able to change the role of another admin.', function(done) {
+            request(url)
+                .get('/users/' + admin2UserId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    var u = res.body;
+                    u.role = "reader";
+
+                    request(url)
+                        .put('/users')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', 'Token ' + adminToken)
+                        .send(u)
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+
+                            res.status.should.equal(200);
+                            res.body.should.have.property('_id');
+                            done();
+                        });
+                });
+
+        });
+
         it('should update a user using the method override', function(done) {
             var newUser = {
                 _id: testCreatedUserIdCustomVerb,

@@ -667,32 +667,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return error if user has invalid permissions object sent to db.', function(done){
-            var newUser = {
-                _id: testCreatedUserId,
-                login: "tmpupdateuser",
-                role: "reader",
-                enabled: true,
-                email: "newtestuser1@thinksolid.com",
-                firstname: "Test",
-                lastname: "User",
-                password: "TestPassword",
-                permissions: "bad"
-            };
-            request(url)
-                .put('/users')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newUser)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
+
         it('should return error if the user login changed and is now a duplicate.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
@@ -970,6 +945,7 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
+
                     res.status.should.equal(200);
                     res.body.should.have.property('_id');
                     res.body.should.not.have.property('password');

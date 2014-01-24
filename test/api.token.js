@@ -3,7 +3,7 @@ var should = require('chai').should(),
     async = require('async');
 
 describe('api.token', function(){
-    var url = 'http://localhost:8080',
+    var url = url = require('./config/test').url,
         globalReaderToken = "";
 
     before(function(done){
@@ -109,6 +109,33 @@ describe('api.token', function(){
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     done();
+                });
+        });
+    });
+
+    describe(url + '/token/logout', function() {
+        it('should delete a token of the currently logged in user.', function(done) {
+
+            request(url)
+                .get('/token/logout')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+
+                    request(url)
+                        .get('/token/new')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', 'Token ' + globalReaderToken)
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            res.status.should.equal(401);
+                            done();
+                        });
+
                 });
         });
     });

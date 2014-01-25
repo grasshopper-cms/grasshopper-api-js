@@ -111,149 +111,152 @@
             protected: true
         },
         {
+            _id: ObjectID("52cc57c556c02c14b1000001"),
             label: "Film",
+            description: "",
+            helpText: "",
             fields: [
                 {
+                    _id: "title",
                     type: "textbox",
                     required: true,
-                    label: "Title",
-                    _id: "title"
+                    label: "Title"
                 },
                 {
+                    _id: "shortsummary",
                     type: "textarea",
                     required: false,
-                    label: "Short Summary",
-                    _id: "shortsummary"
+                    label: "Short Summary"
                 },
                 {
+                    _id: "fullsummary",
                     type: "textarea",
                     required: false,
-                    label: "Full Summary",
-                    _id: "fullsummary"
+                    label: "Full Summary"
                 },
                 {
-                    multi: true,
+                    _id: "categories",
                     options: [
                         {
-                            kids: "Kids"
+                            _id: "kids",
+                            label: "Kids"
                         },
                         {
-                            indie: "Inide"
+                            _id: "indie",
+                            label: "Inide"
                         },
                         {
-                            explosions: "Stuff With Explosions"
+                            _id: "stuffWithExplosions",
+                            label: "Stuff With Explosions"
                         }
                     ],
                     type: "dropdown",
-                    label: "Categories",
-                    _id: "categories"
+                    multi: true,
+                    label: "Categories"
                 },
                 {
+                    _id: "partnerid",
                     type: "readonly",
                     required: false,
-                    label: "Partner ID",
-                    _id: "partnerid"
+                    label: "Partner ID"
                 },
                 {
-                    multi: true,
+                    _id: "badges",
                     type: "textbox",
-                    label: "Badges",
-                    _id: "badges"
-                },
-                {
                     multi: true,
-                    type: "textbox",
-                    label: "Genres",
-                    _id: "genres"
+                    label: "Badges"
                 },
                 {
+                    _id: "genres",
+                    type: "textbox",
                     multi: true,
+                    label: "Genres"
+                },
+                {
+                    _id: "tags",
                     type: "textbox",
-                    label: "Tags",
-                    _id: "tags"
+                    multi: true,
+                    label: "Tags"
                 },
                 {
+                    _id: "region",
                     type: "readonly",
-                    label: "Region",
-                    _id: "region"
+                    label: "Region"
                 },
                 {
+                    _id: "worktype",
                     type: "readonly",
-                    label: "Work Type",
-                    _id: "worktype"
+                    label: "Work Type"
                 },
                 {
+                    _id: "releaseyear",
                     type: "readonly",
-                    label: "Release Year",
-                    _id: "releaseyear"
+                    label: "Release Year"
                 },
                 {
+                    _id: "runlength",
                     type: "readonly",
-                    label: "Run Length",
-                    _id: "runlength"
+                    label: "Run Length"
                 },
                 {
+                    _id: "ratings",
                     type: "ref",
-                    label: "Ratings",
                     ref: ObjectID("52cc5d2756c02c14b1000002"),
-                    _id: "ratings"
+                    label: "Ratings"
                 },
                 {
+                    _id: "countryoforigin",
                     type: "readonly",
-                    label: "Country of Origin",
-                    _id: "countryoforigin"
+                    label: "Country of Origin"
                 },
                 {
+                    _id: "actors",
+                    type: "readonly",
                     multi: true,
-                    type: "readonly",
-                    label: "Actors",
-                    _id: "actors"
+                    label: "Actors"
                 },
                 {
+                    _id: "directors",
+                    type: "readonly",
                     multi: true,
-                    type: "readonly",
-                    label: "Directors",
-                    _id: "directors"
+                    label: "Directors"
                 },
                 {
+                    _id: "producers",
+                    type: "readonly",
                     multi: true,
-                    type: "readonly",
-                    label: "Producers",
-                    _id: "producers"
+                    label: "Producers"
                 },
                 {
+                    _id: "studio",
                     type: "readonly",
-                    label: "Studio",
-                    _id: "studio"
+                    label: "Studio"
                 },
                 {
+                    _id: "availability",
                     type: "ref",
-                    label: "Availability",
                     ref: ObjectID("52cc5eb856c02c14b1000003"),
-                    _id: "availability"
+                    label: "Availability"
                 },
                 {
+                    _id: "trailers",
                     type: "ref",
-                    label: "Trailers",
                     ref: ObjectID("52cc602156c02c14b1000004"),
-                    _id: "trailers"
+                    label: "Trailers"
                 },
                 {
+                    _id: "digitalassets",
                     type: "ref",
-                    label: "Digital Assets",
                     ref: ObjectID("52cc602156c02c14b1000004"),
-                    _id: "digitalassets"
+                    label: "Digital Assets"
                 },
                 {
+                    _id: "images",
                     type: "ref",
-                    label: "Images",
                     ref: ObjectID("52cc621956c02c14b1000005"),
-                    _id: "images"
+                    label: "Images"
                 }
-            ],
-            _id: ObjectID("52cc57c556c02c14b1000001"),
-            description: "",
-            helpText: ""
+            ]
         },
         {
             label: "Ratings",
@@ -425,12 +428,14 @@
         {
             _id: ObjectID("52cf349456c02c0722000001"),
             node: {
-                displayOrder: 1,
-                _id: ObjectID("52cc627f69c89d8b1a000001")
+                _id: ObjectID("52cc627f69c89d8b1a000001"),
+                displayOrder: 1
             },
             author: {
-                name: "Test User",
-                _id: ObjectID("5246e73d56c02c0744000001")
+                _id: ObjectID("5246e73d56c02c0744000001"),
+                firstname: "Test",
+                fullname: "Test User",
+                lastname: "User"
             },
             type: ObjectID("52cc57c556c02c14b1000001"),
             status: "Live",
@@ -438,37 +443,37 @@
             nonce: "1234fdsdfsa565",
             slug: "generated_title",
             fields: {
-                badges: [
-                    "test badges",
-                    "test badges"
-                ],
-                digitalassets: "test digitalassets",
-                fullsummary: "text fullsummary",
                 runlength: "test runlength",
-                studio: "test studio",
-                actors: [
-                    "test actors",
-                    "test actors"
-                ],
-                producers: "test producers",
-                images: "images",
-                trailers: "test trailers",
-                genres: "test genres",
-                directors: "test directors",
+                region: "test region",
                 partnerid: "test partnerid",
-                availability: "test availability",
-                worktype: "test worktype",
+                trailers: "test trailers",
                 releaseyear: "test releaseyear",
+                badges: [
+                    "test badge 1",
+                    "test badge 2"
+                ],
+                studio: "test studio",
+                availability: "test availability",
+                fullsummary: "text fullsummary",
                 ratings: "ratings",
                 categories: [
                     "kids",
                     "indie"
                 ],
                 shortsummary: "test shortsummary",
-                tags: "test tags",
                 countryoforigin: "test countryoforigin",
+                directors: "test directors",
+                digitalassets: "test digitalassets",
+                worktype: "test worktype",
+                actors: [
+                    "test actor 1",
+                    "test actor 2"
+                ],
                 title: "test title",
-                region: "test region"
+                images: "images",
+                genres: "test genres",
+                producers: "test producers",
+                tags: "test tags"
             }
         }
     ];

@@ -62,53 +62,66 @@
             helpText: "These fields are the minimum required to create a user in the system. See more about extending users through plugins.",
             fields: [
                 {
+                    required: true,
+                    instancing: 1,
                     label: "Login",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
+                    type: "textbox"
                 },
                 {
+                    required: true,
+                    instancing: 1,
                     label: "Name",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
+                    type: "textbox"
                 },
                 {
+                    required: true,
+                    instancing: 1,
                     label: "Email",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
+                    type: "textbox"
                 },
                 {
+                    required: true,
+                    instancing: 1,
                     label: "Role",
                     type: "dropdown",
-                    required: true,
-                    options: {
-                        items: [
-                            { id: "reader", val: "Reader" },
-                            { id: "author", val: "Author" },
-                            { id: "editor", val: "Editor" },
-                            { id: "admin", val: "Admin" },
-                            { id: "none", val: "None" }
-                        ]
-                    },
-                    instancing: 1
+                    options: [
+                        {
+                            label: "Reader",
+                            _id: "reader"
+                        },
+                        {
+                            label: "Author",
+                            _id: "author"
+                        },
+                        {
+                            label: "Editor",
+                            _id: "editor"
+                        },
+                        {
+                            label: "Admin",
+                            _id: "admin"
+                        },
+                        {
+                            label: "None",
+                            _id: "none"
+                        }
+                    ]
                 },
                 {
+                    required: true,
+                    instancing: 1,
                     label: "Email",
-                    type: "password",
-                    required: true,
-                    instancing: 1
+                    type: "password"
                 },
                 {
-                    label: "Enabled",
-                    type: "checkbox",
                     required: true,
-                    instancing: 1
+                    instancing: 1,
+                    label: "Enabled",
+                    type: "radio"
                 }
             ],
             meta: [],
-            protected: true
+            "protected": true
         },
         {
             _id: ObjectID("52cc57c556c02c14b1000001"),

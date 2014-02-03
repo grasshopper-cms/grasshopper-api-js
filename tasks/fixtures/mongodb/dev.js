@@ -110,7 +110,7 @@
                 {
                     required: true,
                     instancing: 1,
-                    label: "Email",
+                    label: "Password",
                     type: "password"
                 },
                 {

@@ -49,8 +49,8 @@
                 {
                     id: "testfield",
                     required: true,
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     type: "textbox",
                     label: "Title"
                 }
@@ -60,33 +60,33 @@
             _id: ObjectID("5254908d56c02c076e000001"),
             label: "Users",
             description: "Protected content type that defines users in the system.",
-            helpText: "These fields are the minimum required to create a user in the system. See more about extending users through plugins.",
+            helpText: "These fields are the min required to create a user in the system. See more about extending users through plugins.",
             fields: [
                 {
                     required: true,
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Login",
                     type: "textbox"
                 },
                 {
                     required: true,
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Name",
                     type: "textbox"
                 },
                 {
                     required: true,
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Email",
                     type: "textbox"
                 },
                 {
                     required: true,
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Role",
                     type: "dropdown",
                     options: [
@@ -114,15 +114,15 @@
                 },
                 {
                     required: true,
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Password",
                     type: "password"
                 },
                 {
                     required: true,
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Enabled",
                     type: "radio"
                 }
@@ -141,21 +141,21 @@
                     type: "textbox",
                     required: true,
                     label: "Title",
-                    minimum: "1",
-                    maximum: "1"
+                    min: 1,
+                    max: 1
                 },
                 {
                     _id: "shortsummary",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     type: "textarea",
                     required: false,
                     label: "Short Summary"
                 },
                 {
                     _id: "fullsummary",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     type: "textarea",
                     required: false,
                     label: "Full Summary"
@@ -177,139 +177,139 @@
                         }
                     ],
                     type: "dropdown",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Categories"
                 },
                 {
                     _id: "partnerid",
                     type: "readonly",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     required: false,
                     label: "Partner ID"
                 },
                 {
                     _id: "badges",
                     type: "textbox",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Badges"
                 },
                 {
                     _id: "genres",
                     type: "textbox",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Genres"
                 },
                 {
                     _id: "tags",
                     type: "textbox",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Tags"
                 },
                 {
                     _id: "region",
                     type: "readonly",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Region"
                 },
                 {
                     _id: "worktype",
                     type: "readonly",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Work Type"
                 },
                 {
                     _id: "releaseyear",
                     type: "readonly",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Release Year"
                 },
                 {
                     _id: "runlength",
                     type: "readonly",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Run Length"
                 },
                 {
                     _id: "ratings",
                     type: "ref",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     ref: ObjectID("52cc5d2756c02c14b1000002"),
                     label: "Ratings"
                 },
                 {
                     _id: "countryoforigin",
                     type: "readonly",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Country of Origin"
                 },
                 {
                     _id: "actors",
                     type: "readonly",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Actors"
                 },
                 {
                     _id: "directors",
                     type: "readonly",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Directors"
                 },
                 {
                     _id: "producers",
                     type: "readonly",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Producers"
                 },
                 {
                     _id: "studio",
                     type: "readonly",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Studio"
                 },
                 {
                     _id: "availability",
                     type: "ref",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     ref: ObjectID("52cc5eb856c02c14b1000003"),
                     label: "Availability"
                 },
                 {
                     _id: "trailers",
                     type: "ref",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     ref: ObjectID("52cc602156c02c14b1000004"),
                     label: "Trailers"
                 },
                 {
                     _id: "digitalassets",
                     type: "ref",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     ref: ObjectID("52cc602156c02c14b1000004"),
                     label: "Digital Assets"
                 },
                 {
                     _id: "images",
                     type: "ref",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     ref: ObjectID("52cc621956c02c14b1000005"),
                     label: "Images"
                 }
@@ -322,22 +322,22 @@
                 {
                     type: "textbox",
                     _id: "title",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Title"
                 },
                 {
                     type: "textbox",
                     _id: "region",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Region"
                 },
                 {
                     type: "textbox",
                     _id: "system",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "System"
                 }
             ],
@@ -352,22 +352,22 @@
                 {
                     type: "readonly",
                     _id: "licensetype",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "License Type"
                 },
                 {
                     type: "readonly",
                     _id: "start",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Start"
                 },
                 {
                     type: "readonly",
                     _id: "end",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "End"
                 }
             ],
@@ -382,56 +382,56 @@
                 {
                     type: "readonly",
                     _id: "assetid",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Asset ID"
                 },
                 {
                     type: "readonly",
                     _id: "url",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "URL"
                 },
                 {
                     type: "readonly",
                     _id: "height",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Height"
                 },
                 {
                     type: "readonly",
                     _id: "width",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Width"
                 },
                 {
                     type: "readonly",
                     _id: "aspectratio",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Aspect Ratio"
                 },
                 {
                     type: "readonly",
                     _id: "drmtype",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "DRM Type"
                 },
                 {
                     type: "readonly",
                     _id: "audioprofile",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Audio Profile"
                 },
                 {
                     type: "readonly",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     _id: "encodingprofile",
                     label: "Encoding Profile"
                 }
@@ -447,29 +447,29 @@
                 {
                     type: "readonly",
                     _id: "url",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "URL"
                 },
                 {
                     type: "readonly",
                     _id: "size",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Size"
                 },
                 {
                     type: "readonly",
                     _id: "height",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Height"
                 },
                 {
                     type: "readonly",
                     _id: "width",
-                    minimum: "1",
-                    maximum: "1",
+                    min: 1,
+                    max: 1,
                     label: "Width"
                 }
             ],

@@ -178,7 +178,7 @@
                     ],
                     type: "dropdown",
                     min: 1,
-                    max: 1,
+                    max: 3,
                     label: "Categories"
                 },
                 {
@@ -193,21 +193,21 @@
                     _id: "badges",
                     type: "textbox",
                     min: 1,
-                    max: 1,
+                    max: 10,
                     label: "Badges"
                 },
                 {
                     _id: "genres",
                     type: "textbox",
                     min: 1,
-                    max: 1,
+                    max: 3,
                     label: "Genres"
                 },
                 {
                     _id: "tags",
                     type: "textbox",
                     min: 1,
-                    max: 1,
+                    max: 10,
                     label: "Tags"
                 },
                 {

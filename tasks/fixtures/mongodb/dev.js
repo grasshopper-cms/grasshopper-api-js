@@ -35,7 +35,15 @@
         { _id: ObjectID("5254908d56c02c076e000001"), label: "User", parent: ObjectID("5261777656c02c072a000001"),ancestors: [ObjectID("5261777656c02c072a000001"), ObjectID("5261b811a94c1a971f000003")] },
         { _id: ObjectID("52712a3e2eacd5a714000002"), label: "Developer",  parent: ObjectID("5261777656c02c072a000001"),ancestors: [ObjectID("5261777656c02c072a000001"), ObjectID("5261b811a94c1a971f000003")] },
         { _id: ObjectID("52cc627f69c89d8b1a000001"), allowedTypes: [ ObjectID("52cc57c556c02c14b1000001") ], ancestors: [], label: "Films", parent: null },
-        { _id: ObjectID("52cc62b369c89d8b1a000002"), allowedTypes: [ ObjectID("524362aa56c02c0703000001") ], ancestors: [], label: "Static Content", parent: null }
+        { _id: ObjectID("52cc62b369c89d8b1a000002"), allowedTypes: [ ObjectID("524362aa56c02c0703000001") ], ancestors: [], label: "Static Content", parent: null },
+        {
+            label: "Nested Film",
+            _id: ObjectID("52f979d3357ff70507000005"),
+            allowedTypes: [ ObjectID("52cc57c556c02c14b1000001") ],
+            parent: ObjectID("52cc627f69c89d8b1a000001"),
+            ancestors: [ ObjectID("52cc627f69c89d8b1a000001") ],
+            __v: 0
+        }
     ];
 
     data.contentTypes = [

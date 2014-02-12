@@ -267,7 +267,7 @@
                 },
                 {
                     _id: "ratings",
-                    type: "ref",
+                    type: "embeddedtype",
                     min: 1,
                     max: 1,
                     ref: ObjectID("52cc5d2756c02c14b1000002"),
@@ -316,7 +316,7 @@
                 },
                 {
                     _id: "availability",
-                    type: "ref",
+                    type: "embeddedtype",
                     min: 1,
                     max: 1,
                     ref: ObjectID("52cc5eb856c02c14b1000003"),
@@ -325,7 +325,7 @@
                 },
                 {
                     _id: "trailers",
-                    type: "ref",
+                    type: "embeddedtype",
                     min: 1,
                     max: 1,
                     ref: ObjectID("52cc602156c02c14b1000004"),
@@ -334,7 +334,7 @@
                 },
                 {
                     _id: "digitalassets",
-                    type: "ref",
+                    type: "embeddedtype",
                     min: 1,
                     max: 1,
                     ref: ObjectID("52cc602156c02c14b1000004"),
@@ -343,7 +343,7 @@
                 },
                 {
                     _id: "images",
-                    type: "ref",
+                    type: "embeddedtype",
                     min: 1,
                     max: 1,
                     ref: ObjectID("52cc621956c02c14b1000005"),

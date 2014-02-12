@@ -270,7 +270,7 @@
                     type: "embeddedtype",
                     min: 1,
                     max: 1,
-                    ref: ObjectID("52cc5d2756c02c14b1000002"),
+                    options: "52cc5d2756c02c14b1000002",
                     label: "Ratings",
                     useAsLabel : false
                 },
@@ -319,7 +319,7 @@
                     type: "embeddedtype",
                     min: 1,
                     max: 1,
-                    ref: ObjectID("52cc5eb856c02c14b1000003"),
+                    options: "52cc5eb856c02c14b1000003",
                     label: "Availability",
                     useAsLabel : false
                 },
@@ -328,7 +328,7 @@
                     type: "embeddedtype",
                     min: 1,
                     max: 1,
-                    ref: ObjectID("52cc602156c02c14b1000004"),
+                    options: "52cc602156c02c14b1000004",
                     label: "Trailers",
                     useAsLabel : false
                 },
@@ -337,7 +337,7 @@
                     type: "embeddedtype",
                     min: 1,
                     max: 1,
-                    ref: ObjectID("52cc602156c02c14b1000004"),
+                    options: "52cc602156c02c14b1000004",
                     label: "Digital Assets",
                     useAsLabel : false
                 },
@@ -346,7 +346,7 @@
                     type: "embeddedtype",
                     min: 1,
                     max: 1,
-                    ref: ObjectID("52cc621956c02c14b1000005"),
+                    options: "52cc621956c02c14b1000005",
                     label: "Images",
                     useAsLabel : false
                 }

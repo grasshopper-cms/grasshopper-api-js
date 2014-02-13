@@ -55,7 +55,7 @@
             description: "",
             fields: [
                 {
-                    id: "testfield",
+                    _id: "testfield",
                     required: true,
                     min: 1,
                     max: 1,
@@ -72,6 +72,7 @@
             helpText: "These fields are the min required to create a user in the system. See more about extending users through plugins.",
             fields: [
                 {
+                    _id : "login",
                     required: true,
                     min: 1,
                     max: 1,
@@ -80,6 +81,7 @@
                     useAsLabel : true
                 },
                 {
+                    _id : "name",
                     required: true,
                     min: 1,
                     max: 1,
@@ -88,6 +90,7 @@
                     useAsLabel : false
                 },
                 {
+                    _id : "email",
                     required: true,
                     min: 1,
                     max: 1,
@@ -96,6 +99,7 @@
                     useAsLabel : false
                 },
                 {
+                    _id : "role",
                     required: true,
                     min: 1,
                     max: 1,
@@ -126,6 +130,7 @@
                     useAsLabel : false
                 },
                 {
+                    _id : "password",
                     required: true,
                     min: 1,
                     max: 1,
@@ -134,6 +139,7 @@
                     useAsLabel : false
                 },
                 {
+                    _id : "enabled",
                     required: true,
                     min: 1,
                     max: 1,

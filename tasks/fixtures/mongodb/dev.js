@@ -603,7 +603,23 @@
                 studio: "test studio",
                 availability: "test availability",
                 fullsummary: "text fullsummary",
-                ratings: "ratings",
+                ratings: [
+                    {
+                        title: "RATED R",
+                        system: "AMERICAN",
+                        region: "Regions apon regions"
+                    },
+                    {
+                        title: "RATED Z",
+                        system: "EUROPEAN",
+                        region: "Regions apon regions"
+                    },
+                    {
+                        title: "RATED Q",
+                        system: "SOLID RATINGS",
+                        region: "Regions apon regions"
+                    }
+                ],
                 categories: [
                     "kids",
                     "indie"

@@ -598,6 +598,43 @@ describe('api.contentTypes', function(){
                 });
         });
 
+        it('should update a content type when the ID is in the route', function(done) {
+            var newContentType = {
+                _id: testCreatedContentTypeId,
+                label: "updatedlabel",
+                fields: {
+                    testid : {
+                        id: "testid",
+                        label: "Test Field Label",
+                        type: "textbox",
+                        required: true,
+                        instancing: 1
+                    }
+                },
+                helpText: "",
+                meta: {testmetaid:{
+                    label: "Test Field Label",
+                    type: "textbox",
+                    required: true,
+                    instancing: 1
+                }},
+                description: ""
+            };
+
+            request(url)
+                .put('/contentTypes/' + testCreatedContentTypeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+
         it('should update a content type using the method override', function(done) {
             var newContentType = {
                 _id: testCreatedContentTypeCustomVerb,

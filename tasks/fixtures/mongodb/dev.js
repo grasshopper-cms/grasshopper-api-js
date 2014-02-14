@@ -314,7 +314,7 @@
                     _id: "ratings",
                     type: "embeddedtype",
                     min: 1,
-                    max: 1,
+                    max: 10,
                     options: "52cc5d2756c02c14b1000002",
                     label: "Ratings",
                     useAsLabel : false

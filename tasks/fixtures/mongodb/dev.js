@@ -43,6 +43,16 @@
             parent: ObjectID("52cc627f69c89d8b1a000001"),
             ancestors: [ ObjectID("52cc627f69c89d8b1a000001") ],
             __v: 0
+        },
+        {
+            __v: 1,
+            _id: ObjectID("52fd76523d793e5b1b000001"),
+            allowedTypes: [
+                ObjectID("52fd7680f29d12721b000001")
+            ],
+            ancestors: [],
+            label: "Nested Embedded Ref's",
+            parent: null
         }
     ];
 
@@ -55,7 +65,7 @@
             description: "",
             fields: [
                 {
-                    id: "testfield",
+                    _id: "testfield",
                     required: true,
                     min: 1,
                     max: 1,
@@ -66,12 +76,42 @@
             ]
         },
         {
+            label: "Embedded Refs",
+            fields: [
+                {
+                    useAsLabel: true,
+                    _id: "embeddedref",
+                    validation: false,
+                    type: "textbox",
+                    options: false,
+                    min: 1,
+                    max: 1,
+                    label: "Embedded Ref",
+                    required: true
+                },
+                {
+                    useAsLabel: false,
+                    _id: "embeddedtype",
+                    validation: false,
+                    type: "embeddedtype",
+                    options: true,
+                    min: 1,
+                    max: 1,
+                    label: "Embedded Type",
+                    required: false
+                }
+            ],
+            _id: ObjectID("52fd7680f29d12721b000001"),
+            __v: 0
+        },
+        {
             _id: ObjectID("5254908d56c02c076e000001"),
             label: "Users",
             description: "Protected content type that defines users in the system.",
             helpText: "These fields are the min required to create a user in the system. See more about extending users through plugins.",
             fields: [
                 {
+                    _id : "login",
                     required: true,
                     min: 1,
                     max: 1,
@@ -80,6 +120,7 @@
                     useAsLabel : true
                 },
                 {
+                    _id : "name",
                     required: true,
                     min: 1,
                     max: 1,
@@ -88,6 +129,7 @@
                     useAsLabel : false
                 },
                 {
+                    _id : "email",
                     required: true,
                     min: 1,
                     max: 1,
@@ -96,6 +138,7 @@
                     useAsLabel : false
                 },
                 {
+                    _id : "role",
                     required: true,
                     min: 1,
                     max: 1,
@@ -126,6 +169,7 @@
                     useAsLabel : false
                 },
                 {
+                    _id : "password",
                     required: true,
                     min: 1,
                     max: 1,
@@ -134,6 +178,7 @@
                     useAsLabel : false
                 },
                 {
+                    _id : "enabled",
                     required: true,
                     min: 1,
                     max: 1,
@@ -269,7 +314,7 @@
                     _id: "ratings",
                     type: "embeddedtype",
                     min: 1,
-                    max: 1,
+                    max: 10,
                     options: "52cc5d2756c02c14b1000002",
                     label: "Ratings",
                     useAsLabel : false

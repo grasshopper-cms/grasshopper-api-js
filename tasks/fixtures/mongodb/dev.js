@@ -64,7 +64,7 @@
                     useAsLabel : true
                 }
             ]
-        }
+        },
         {
             _id: ObjectID("5254908d56c02c076e000001"),
             label: "Users",

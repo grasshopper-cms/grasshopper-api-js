@@ -15,14 +15,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
         v.customize ["modifyvm", :id, "--memory", 2048]
     end
-    config.vm.box = "grasshopper.0.0.3"
-    config.vm.box_url = "https://s3.amazonaws.com/SolidInteractive/vagrant/grasshopper-ubuntu64-v3.box"
 
-    config.vm.provision "shell", inline: "/home/vagrant/webserver.sh"
-    config.vm.provision "shell", inline: "/home/vagrant/genghis.sh"
+    config.vm.box = "nodejsGrasshopper_v0.1.0"
+    config.vm.box_url = "https://s3.amazonaws.com/SolidInteractive/vagrant/grasshopper_nodejs_default_v0.1.0.box"
+
+    config.vm.provision "shell", path: "startup.sh", privileged: false
 
     config.vm.network :forwarded_port, guest: 80, host: 8080, auto_correct: true
-    config.vm.network :forwarded_port, guest: 28017, host: 8082, auto_correct: true
-    config.vm.network :forwarded_port, guest: 27017, host: 8070, auto_correct: true
-    config.vm.network :forwarded_port, guest: 5678, host: 8081
+    config.vm.network :forwarded_port, guest: 5678, host: 8081, auto_correct: true
 end

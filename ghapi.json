@@ -1,0 +1,34 @@
+{
+    "cache": {
+        "path": "./cache"
+    },
+    "crypto": {
+        "secret_passphrase" : "223fdsaad-ffc8-4acb-9c9d-1fdaf824af8c"
+    },
+    "db": {
+        "type": "mongodb",
+        "host": "mongodb://localhost:27017/grasshopper",
+        "database": "grasshopper",
+        "username": "",
+        "password": "",
+        "debug": false
+    },
+    "assets": {
+        "default" : "local",
+        "tmpdir" : "/vagrant/tmp",
+        "engines": {
+            "local" : {
+                "path" : "/vagrant/lib/public",
+                "urlbase" : "http://localhost:8080/"
+            }
+        }
+    },
+    "logger" : {
+        "adapters": [{
+            "type": "file",
+            "path": "/vagrant/log/grasshopper.test.log",
+            "application": "grasshopper-api",
+            "machine": "dev-server"
+        }]
+    }
+}

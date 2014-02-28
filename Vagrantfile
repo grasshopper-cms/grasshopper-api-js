@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     config.vm.box = "nodejsGrasshopper_v0.1.0"
-    config.vm.box_url = "https://s3.amazonaws.com/SolidInteractive/vagrant/grasshopper_nodejs_default_v0.1.0.box"
+    config.vm.box_url = "https://s3.amazonaws.com/SolidInteractive/vagrant/grasshopper_nodejs_default_v0.1.1.box"
 
     config.vm.provision "shell", path: "startup.sh", privileged: false
 

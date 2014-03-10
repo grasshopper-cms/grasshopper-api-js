@@ -2,7 +2,7 @@ var should = require('chai').should();
 var request = require('supertest');
 
 describe('api.contentTypes', function(){
-    var url = 'http://localhost:8080',
+    var url = url = require('./config/test').url,
         testContentTypeId  = "524362aa56c02c0703000001",
         readerToken = "",
         adminToken  = "",
@@ -44,18 +44,7 @@ describe('api.contentTypes', function(){
                     done();
                 });
         });
-        it('should return a 403 because user does not have permissions to access content types', function(done) {
-            request(url)
-                .get('/contentTypes/' + testContentTypeId)
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(403);
-                    done();
-                });
-        });
+
         it('should return an existing content type', function(done) {
             request(url)
                 .get('/contentTypes/' + testContentTypeId)
@@ -112,18 +101,7 @@ describe('api.contentTypes', function(){
                     done();
                 });
         });
-        it('should return a 403 because user does not have permissions to access content types', function(done) {
-            request(url)
-                .get('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(403);
-                    done();
-                });
-        });
+
         it('should return an empty list if the page size and current requested items are out of bounds.', function(done) {
             request(url)
                 .get('/contentTypes?limit=1&skip=100000')
@@ -619,6 +597,43 @@ describe('api.contentTypes', function(){
                     done();
                 });
         });
+
+        it('should update a content type when the ID is in the route', function(done) {
+            var newContentType = {
+                _id: testCreatedContentTypeId,
+                label: "updatedlabel",
+                fields: {
+                    testid : {
+                        id: "testid",
+                        label: "Test Field Label",
+                        type: "textbox",
+                        required: true,
+                        instancing: 1
+                    }
+                },
+                helpText: "",
+                meta: {testmetaid:{
+                    label: "Test Field Label",
+                    type: "textbox",
+                    required: true,
+                    instancing: 1
+                }},
+                description: ""
+            };
+
+            request(url)
+                .put('/contentTypes/' + testCreatedContentTypeId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(newContentType)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
 
         it('should update a content type using the method override', function(done) {
             var newContentType = {

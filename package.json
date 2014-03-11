@@ -16,7 +16,7 @@
       "name": "Greg Larrenaga"
     }
   ],
-  "version": "0.8.0",
+  "version": "0.8.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/Solid-Interactive/grasshopper-api-js.git"
@@ -67,7 +67,8 @@
     "supertest": "~0.7.1",
     "grunt-shell": "~0.4.0",
     "grunt-concurrent": "~0.4.0",
-    "pm2": "~0.6.12"
+    "pm2": "~0.6.12",
+    "grunt-release-notes": "^0.1.1"
   },
   "jam": {
     "main": "lib/grasshopper-api.js",

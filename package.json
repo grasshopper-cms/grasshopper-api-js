@@ -2,7 +2,20 @@
   "name": "grasshopper-api",
   "description": "API to manage the grasshopper cms",
   "main": "./lib/grasshopper-api",
-  "author": "Travis McHattie",
+  "author": {
+    "name": "Travis McHattie"
+  },
+  "contributors": [
+    {
+      "name": "Travis McHattie"
+    },
+    {
+      "name": "Peter Ajtai"
+    },
+    {
+      "name": "Greg Larrenaga"
+    }
+  ],
   "version": "0.8.0",
   "repository": {
     "type": "git",

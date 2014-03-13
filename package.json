@@ -2,8 +2,21 @@
   "name": "grasshopper-api",
   "description": "API to manage the grasshopper cms",
   "main": "./lib/grasshopper-api",
-  "author": "Travis McHattie",
-  "version": "0.8.0",
+  "author": {
+    "name": "Travis McHattie"
+  },
+  "contributors": [
+    {
+      "name": "Travis McHattie"
+    },
+    {
+      "name": "Peter Ajtai"
+    },
+    {
+      "name": "Greg Larrenaga"
+    }
+  ],
+  "version": "0.8.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/Solid-Interactive/grasshopper-api-js.git"
@@ -54,7 +67,8 @@
     "supertest": "~0.7.1",
     "grunt-shell": "~0.4.0",
     "grunt-concurrent": "~0.4.0",
-    "pm2": "~0.6.12"
+    "pm2": "~0.6.12",
+    "grunt-release-notes": "^0.1.1"
   },
   "jam": {
     "main": "lib/grasshopper-api.js",

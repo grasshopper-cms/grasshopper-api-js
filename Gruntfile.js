@@ -1,5 +1,10 @@
 module.exports = function(grunt) {
 
+    'use strict';
+
+    var lineEnding = '\n',
+        _ = require('underscore');
+
     grunt.initConfig({
         portToUse : 3000,
         pm2pid : 0,
@@ -63,6 +68,22 @@ module.exports = function(grunt) {
             },
             restartServer : {
                 command : "pm2 restart all"
+            },
+            'shortlog' : {
+                options : {
+                    stderr : true,
+                    stdout : false,
+                    failOnError : true,
+                    callback : function(err, stdout, stderr, cb) {
+                        stdout = stdout.split(lineEnding);
+                        _.each(stdout, function(line, index) {
+                            stdout[index] = line.replace(/^\s*\d+\s+([^\s])/,'* $1');
+                        });
+                        grunt.config.set('contributors', stdout.join(lineEnding));
+                        cb();
+                    }
+                },
+                command : 'git --no-pager shortlog -ns HEAD'
             }
         },
         nodemon: {
@@ -105,6 +126,13 @@ module.exports = function(grunt) {
         watch: {
             files: ['<%= jshint.files %>'],
             tasks: ['jshint']
+        },
+        releaseNotes : {
+            main : {
+                src : 'templates/README.template.md',
+                dest : 'README.md',
+                baseLinkPath : 'https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/'
+            }
         }
     });
 
@@ -135,4 +163,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['jshint']);
 
+    grunt.config.set('warning', 'Compiled file. Do not modify directly.');
+    grunt.registerTask('readme', ['shell:shortlog', 'releaseNotes']);
 };

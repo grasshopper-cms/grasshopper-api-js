@@ -155,7 +155,7 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['concurrent:setup', 'concurrent:test']);
 
     grunt.registerTask('seedDev', ['mongodb:dev']);
-    grunt.registerTask('heroku:install', ['mongodb:dev']);
+    grunt.registerTask('heroku:mongo', ['mongodb:dev']);
 
     grunt.registerTask('server:start', ['shell:startServer']);
     grunt.registerTask('server:stop', ['shell:stopServer']);

@@ -1,7 +1,7 @@
 {
   "name": "grasshopper-api",
   "description": "API to manage the grasshopper cms",
-  "main": "./lib/grasshopper-api",
+  "main": "./bin/grasshopper-api",
   "author": {
     "name": "Travis McHattie"
   },
@@ -80,6 +80,6 @@
   },
   "scripts": {
     "test": "mocha --reporter spec",
-    "start" : "node ./lib/grasshopper-api"
+    "start" : "node ./bin/grasshopper-api"
   }
 }

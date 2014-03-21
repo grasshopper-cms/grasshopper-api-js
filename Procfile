@@ -1,1 +1,1 @@
-web: node ./lib/grasshopper-api.js
+web: node ./bin/grasshopper-api.js

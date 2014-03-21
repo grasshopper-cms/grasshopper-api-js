@@ -60,16 +60,16 @@ module.exports = function(grunt) {
                 }
             },
             startTestServer: {
-                command: "node lib/grasshopper-api test"
+                command: "node bin/grasshopper-api test"
             },
             startSeedServer: {
-                command: "node lib/grasshopper-api grasshopper"
+                command: "node bin/grasshopper-api grasshopper"
             },
             stopTestServer: {
-                command: "tasks/killserver.sh lib/grasshopper-api"
+                command: "tasks/killserver.sh bin/grasshopper-api"
             },
             startServer: {
-                command : "pm2 start lib/grasshopper-api.js -i max -e log/grasshopper.err.log -o log/grasshopper.out.log"
+                command : "pm2 start bin/grasshopper-api.js -i max -e log/grasshopper.err.log -o log/grasshopper.out.log"
             },
             stopServer : {
                 command : "pm2 kill all"
@@ -113,7 +113,7 @@ module.exports = function(grunt) {
         nodemon: {
             dev: {
                 options: {
-                    file: 'lib/grasshopper-api.js',
+                    file: 'bin/grasshopper-api.js',
                     ignoredFiles: ['README.md', 'node_modules/**', 'Gruntfile.js','*.log', '*.xml'],
                     legacyWatch: true,
                     env: {
@@ -124,7 +124,7 @@ module.exports = function(grunt) {
             },
             test: {
                 options: {
-                    file: 'lib/grasshopper-api.js',
+                    file: 'bin/grasshopper-api.js',
                     args: ['test'],
                     ignoredFiles: ['README.md', 'node_modules/**', 'Gruntfile.js','*.log', '*.xml'],
                     legacyWatch: true,

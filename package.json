@@ -48,9 +48,12 @@
     "aws-sdk": "~1.10.0",
     "multiparty": "~3.0.0",
     "q": "~0.9.7",
+    "pm2": "~0.6.12",
     "bridgetown-api": "0.0.5",
     "findup-sync": "~0.1.2",
-    "resolve": "~0.6.1",
+    "resolve": "~0.6.1"
+  },
+  "devDependencies": {
     "matchdep": "~0.1.2",
     "uglify-js": "1.2.x",
     "nodelint": "~0.6.2",

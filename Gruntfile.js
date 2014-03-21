@@ -9,6 +9,9 @@ module.exports = function(grunt) {
         portToUse : 3000,
         pm2pid : 0,
         pkg: grunt.file.readJSON('package.json'),
+        heroku: {
+            options:{}
+        },
         mongodb : {
             test: {
                 host: 'mongodb://localhost:27017/test',
@@ -24,6 +27,11 @@ module.exports = function(grunt) {
                 host: 'mongodb://localhost:27017/grasshopper',
                 collections: ['users','contenttypes','nodes','content', 'tokens'],
                 data: './fixtures/mongodb/dev.js'
+            },
+            heroku: {
+                host: '',
+                collections: ['users','contenttypes','nodes','content', 'tokens'],
+                data: './fixtures/mongodb/test.js'
             }
         },
         concurrent: {
@@ -68,6 +76,19 @@ module.exports = function(grunt) {
             },
             restartServer : {
                 command : "pm2 restart all"
+            },
+            'getHerokuDbConnection' : {
+                options : {
+                    stderr : true,
+                    stdout : false,
+                    failOnError : true,
+                    callback : function(err, stdout, stderr, cb) {
+                        grunt.config.data.mongodb.heroku.host = stdout.split(lineEnding)[0];
+                        grunt.task.run("mongodb:heroku");
+                        cb();
+                    }
+                },
+                command : 'heroku config:get MONGOLAB_URI'
             },
             'shortlog' : {
                 options : {
@@ -155,7 +176,9 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['concurrent:setup', 'concurrent:test']);
 
     grunt.registerTask('seedDev', ['mongodb:dev']);
-    grunt.registerTask('heroku:development', ['mongodb:dev']);
+    grunt.registerTask('heroku:db:seed', 'Task that will seed the heroku test database.', function () {
+        grunt.task.run("shell:getHerokuDbConnection");
+    });
 
     grunt.registerTask('server:start', ['shell:startServer']);
     grunt.registerTask('server:stop', ['shell:stopServer']);

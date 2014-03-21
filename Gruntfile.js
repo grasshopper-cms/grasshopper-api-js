@@ -85,7 +85,10 @@ module.exports = function(grunt) {
                     callback : function(err, stdout, stderr, cb) {
                         grunt.config.data.mongodb.heroku.host = stdout.split(lineEnding)[0];
                         grunt.task.run("mongodb:heroku");
-                        cb();
+                        setTimeout(function(){
+                            cb();
+                        },1);
+
                     }
                 },
                 command : 'heroku config:get MONGOLAB_URI'
@@ -184,7 +187,6 @@ module.exports = function(grunt) {
     grunt.registerTask('server:stop', ['shell:stopServer']);
     grunt.registerTask('server:restart', ['shell:restartServer']);
     grunt.registerTask('seedServer', ['shell:stopServer', 'mongodb:seed', 'shell:startSeedServer']);
-
     grunt.registerTask('default', ['jshint']);
 
     grunt.config.set('warning', 'Compiled file. Do not modify directly.');

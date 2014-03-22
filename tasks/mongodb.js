@@ -5,50 +5,6 @@ module.exports = function (grunt) {
         async  = require('async'),
         client = require('mongodb').MongoClient;
 
-
-    function cleanCollection(col, callback){
-        client.connect(host, function(err, db) {
-            db.collection(col, function(err, collection){
-                collection.remove({}, function(err, numRemovedDocs){
-                    grunt.log.writeln(numRemovedDocs + " documents removed from " + col + " collection.");
-                    db.close();
-                    callback();
-                });
-            });
-        });
-    }
-
-    function importData(col, obj, callback){
-        client.connect(host, function(err, db) {
-            db.collection(col, function(err, collection){
-                collection.insert(obj, function(err){
-                    db.close();
-                    callback();
-                });
-            });
-        });
-    }
-
-    function importUsers(col, callback){
-        importData('users', col, callback);
-    }
-
-    function importNodes(col, callback){
-        importData('nodes', col, callback);
-    }
-
-    function importContentTypes(col, callback){
-        importData('contenttypes', col, callback);
-    }
-
-    function importContent(col, callback){
-        importData('content', col, callback);
-    }
-
-    function importHookEvents(col, callback){
-        importData('hookevents', col, callback);
-    }
-
     grunt.registerMultiTask('mongodb', 'Runs a nodemon monitor of your node.js server.', function () {
         var done = this.async(),
             collections = this.data.collections,
@@ -115,4 +71,50 @@ module.exports = function (grunt) {
             done();
         });
     });
+
+
+    function cleanCollection(col, callback){
+        client.connect(host, function(err, db) {
+            if (err) grunt.log.errorlns(err);
+            db.collection(col, function(err, collection){
+                collection.remove({}, function(err, numRemovedDocs){
+                    grunt.log.writeln(numRemovedDocs + " documents removed from " + col + " collection.");
+                    db.close();
+                    callback();
+                });
+            });
+        });
+    }
+
+    function importData(col, obj, callback){
+        client.connect(host, function(err, db) {
+            if (err) grunt.log.errorlns(err);
+            db.collection(col, function(err, collection){
+                collection.insert(obj, function(err){
+                    db.close();
+                    callback();
+                });
+            });
+        });
+    }
+
+    function importUsers(col, callback){
+        importData('users', col, callback);
+    }
+
+    function importNodes(col, callback){
+        importData('nodes', col, callback);
+    }
+
+    function importContentTypes(col, callback){
+        importData('contenttypes', col, callback);
+    }
+
+    function importContent(col, callback){
+        importData('content', col, callback);
+    }
+
+    function importHookEvents(col, callback){
+        importData('hookevents', col, callback);
+    }
 };

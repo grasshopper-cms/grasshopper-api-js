@@ -1,9 +1,22 @@
 {
   "name": "grasshopper-api",
   "description": "API to manage the grasshopper cms",
-  "main": "./lib/grasshopper-api",
-  "author": "Travis McHattie",
-  "version": "0.7.1",
+  "main": "./bin/grasshopper-api",
+  "author": {
+    "name": "Travis McHattie"
+  },
+  "contributors": [
+    {
+      "name": "Travis McHattie"
+    },
+    {
+      "name": "Peter Ajtai"
+    },
+    {
+      "name": "Greg Larrenaga"
+    }
+  ],
+  "version": "0.8.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/Solid-Interactive/grasshopper-api-js.git"
@@ -34,9 +47,14 @@
     "mongoose-validator": "~0.2.2",
     "aws-sdk": "~1.10.0",
     "multiparty": "~3.0.0",
-    "q": "~0.9.7"
+    "q": "~0.9.7",
+    "pm2": "~0.6.12",
+    "bridgetown-api": "0.0.5",
+    "findup-sync": "~0.1.2",
+    "resolve": "~0.6.1"
   },
   "devDependencies": {
+    "matchdep": "~0.1.2",
     "uglify-js": "1.2.x",
     "nodelint": "~0.6.2",
     "mocha": "~1.12.1",
@@ -48,7 +66,9 @@
     "grunt-nodemon": "~0.1.1",
     "supertest": "~0.7.1",
     "grunt-shell": "~0.4.0",
-    "grunt-concurrent": "~0.4.0"
+    "grunt-concurrent": "~0.4.0",
+    "pm2": "~0.6.12",
+    "grunt-release-notes": "^0.1.1"
   },
   "jam": {
     "main": "lib/grasshopper-api.js",
@@ -59,6 +79,7 @@
     ]
   },
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "start" : "node ./bin/grasshopper-api"
   }
 }

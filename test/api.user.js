@@ -2,11 +2,13 @@ var should = require('chai').should();
 var request = require('supertest');
 
 describe('api.users', function(){
-    var url = 'http://localhost:8080',
+    var url = url = require('./config/test').url,
         testUserId  = "5245ce1d56c02c066b000001",
         testReaderUserId = "5246e80c56c02c0744000002",
+        admin2UserId = "5246e73d56c02c0744000004",
         readerToken = "",
         adminToken  = "",
+        adminToken2 = "",
         testCreatedUserId = "",
         testCreatedUserIdCustomVerb = "",
         testNodeForPermissions = "5261781556c02c072a000007",
@@ -31,7 +33,17 @@ describe('api.users', function(){
                     .end(function(err, res) {
                         if (err) { throw err; }
                         readerToken = res.body.access_token;
-                        done();
+
+                        request(url)
+                            .get('/token')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', new Buffer('admin:TestPassword').toString('base64'))
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                adminToken2 = res.body.access_token;
+                                done();
+                            });
                     });
             });
     });
@@ -519,6 +531,34 @@ describe('api.users', function(){
                     done();
                 });
         });
+
+        it('one admin should be able to change the role of another admin.', function(done) {
+            request(url)
+                .get('/users/' + admin2UserId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .end(function(err, res) {
+                    var u = res.body;
+                    u.role = "reader";
+
+                    request(url)
+                        .put('/users')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', 'Token ' + adminToken)
+                        .send(u)
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+
+                            res.status.should.equal(200);
+                            res.body.should.have.property('_id');
+                            done();
+                        });
+                });
+
+        });
+
         it('should update a user using the method override', function(done) {
             var newUser = {
                 _id: testCreatedUserIdCustomVerb,
@@ -667,32 +707,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return error if user has invalid permissions object sent to db.', function(done){
-            var newUser = {
-                _id: testCreatedUserId,
-                login: "tmpupdateuser",
-                role: "reader",
-                enabled: true,
-                email: "newtestuser1@thinksolid.com",
-                firstname: "Test",
-                lastname: "User",
-                password: "TestPassword",
-                permissions: "bad"
-            };
-            request(url)
-                .put('/users')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newUser)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
+
         it('should return error if the user login changed and is now a duplicate.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
@@ -839,9 +854,15 @@ describe('api.users', function(){
 
     describe("POST: " + url + '/users/query', function() {
         var query = {
-            filters: [{key: "role", cmp: "=", value: "editor"}],
-            options: {
-                //include: ["node","fields.testfield"]
+                filters: [{key: "role", cmp: "=", value: "editor"}],
+                options: {
+                    //include: ["node","fields.testfield"]
+                }
+            },
+            query2 = {
+                filters: [{key: "role", cmp: "=", value: "thisisnotarealrole"}],
+                options: {
+                    //include: ["node","fields.testfield"]
             }
         };
 
@@ -858,7 +879,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should user search results', function(done) {
+        it('should return user search results', function(done) {
             request(url)
                 .post('/users/query')
                 .set('Accept', 'application/json')
@@ -867,8 +888,22 @@ describe('api.users', function(){
                 .send(query)
                 .end(function(err, res) {
                     if (err) { console.log(err);throw err; }
-
                     res.status.should.equal(200);
+                    done();
+                });
+        });
+
+        it('should not return user search results', function(done) {
+            request(url)
+                .post('/users/query')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + adminToken)
+                .send(query2)
+                .end(function(err, res) {
+                    if (err) { console.log(err);throw err; }
+                    res.status.should.equal(200);
+                    res.body.should.have.length(0);
                     done();
                 });
         });
@@ -950,6 +985,7 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
+
                     res.status.should.equal(200);
                     res.body.should.have.property('_id');
                     res.body.should.not.have.property('password');

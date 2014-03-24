@@ -205,7 +205,6 @@ kill -9 [thePid]
 * 3rd party authentication schemes
 * more more more
 
- 
 ## License
 
 -------------------------------------------------------
@@ -220,6 +219,7 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * 0.8.0 - 2014-02-26 - [features](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.0_2014-02-26.md)
 * 0.8.1 - 2014-03-11 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.1_2014-03-11.md)
 * 0.8.2 - 2014-03-24 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.2_2014-03-24.md)
+* 0.9.0 - 2014-03-24 - [features](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.0_2014-03-24.md)
 
 
 ## Contributors (`git shortlog -s -n`)
@@ -234,4 +234,9 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * Main Conf Room
 
 
-_Compiled file. Do not modify directly. Created: 2014-03-24 07:26:01_
+## Dev Notes
+
+To create the readme, update the release notes dir and package.json.version at a minimum. If needed update README.template.md.
+Then run `grunt readme`.
+
+_Compiled file. Do not modify directly. Created: 2014-03-24 07:37:57_

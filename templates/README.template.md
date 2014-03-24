@@ -205,7 +205,6 @@ kill -9 [thePid]
 * 3rd party authentication schemes
 * more more more
 
- 
 ## License
 
 -------------------------------------------------------
@@ -219,5 +218,10 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 ## Contributors (`git shortlog -s -n`)
 
 <%= contributors %>
+
+## Dev Notes
+
+To create the readme, update the release notes dir and package.json.version at a minimum. If needed update README.template.md.
+Then run `grunt readme`.
 
 _<%= warning + ' Created: ' + grunt.template.today('yyyy-mm-dd hh:MM:ss') %>_

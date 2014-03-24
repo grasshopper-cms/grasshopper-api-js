@@ -219,6 +219,7 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * 0.7.3 - 2014-12-15 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.7.3_2014-12-15.md)
 * 0.8.0 - 2014-02-26 - [features](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.0_2014-02-26.md)
 * 0.8.1 - 2014-03-11 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.1_2014-03-11.md)
+* 0.8.2 - 2014-03-24 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.2_2014-03-24.md)
 
 
 ## Contributors (`git shortlog -s -n`)
@@ -233,4 +234,4 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * Main Conf Room
 
 
-_Compiled file. Do not modify directly. Created: 2014-03-11 12:10:20_
+_Compiled file. Do not modify directly. Created: 2014-03-24 07:26:01_

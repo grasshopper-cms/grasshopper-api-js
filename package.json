@@ -1,7 +1,7 @@
 {
   "name": "grasshopper-api",
   "description": "API to manage the grasshopper cms",
-  "main": "./bin/grasshopper-api",
+  "main": "./lib/grasshopper-api",
   "author": {
     "name": "Travis McHattie"
   },
@@ -16,7 +16,7 @@
       "name": "Greg Larrenaga"
     }
   ],
-  "version": "0.8.3",
+  "version": "0.8.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/Solid-Interactive/grasshopper-api-js.git"

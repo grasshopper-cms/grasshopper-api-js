@@ -155,9 +155,15 @@ module.exports = function(grunt) {
             main : {
                 src : 'templates/README.template.md',
                 dest : 'README.md',
-                baseLinkPath : 'https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/'
+                baseLinkPath : 'https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/',
             }
         }
+    });
+
+    grunt.registerTask('readme', 'create README.md from template', function() {
+
+        grunt.config.set('warning', 'Compiled file. Do not modify directly.');
+        grunt.task.run(['shell:shortlog', 'releaseNotes']);
     });
 
     grunt.registerTask('startTestWithDelay', function(delay) {

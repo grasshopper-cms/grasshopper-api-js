@@ -302,8 +302,9 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
+                    res.body.message.should.equal('Duplicate key already exists.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
@@ -326,8 +327,9 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
+                    res.body.message.should.equal('"login" is a required field.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
@@ -351,8 +353,9 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
+                    res.body.message.should.equal('"login" is a required field.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
@@ -376,8 +379,9 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
+                    res.body.message.should.equal('"login" is a required field.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
@@ -401,8 +405,9 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
+                    res.body.message.should.equal('Your login is too short.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
@@ -426,8 +431,9 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
+                    res.body.message.should.equal('Password must be at least 6 characters.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
@@ -451,8 +457,9 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
+                    res.body.message.should.equal('Password must be at least 6 characters.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
@@ -476,8 +483,9 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
+                    res.body.message.should.equal('User\'s role is invalid.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
@@ -601,7 +609,7 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(404);
                     res.body.should.have.property('message');
                     done();
                 });
@@ -625,7 +633,7 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
@@ -650,7 +658,7 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
@@ -675,7 +683,7 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
@@ -700,7 +708,7 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
@@ -727,10 +735,9 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
-                    res.body.message.should.equal("Different user with the same login already exists.");
                     done();
                 });
         });
@@ -828,28 +835,6 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should error if putting to /users/:id with an different ID than your own. [variation 2]', function(done){
-            var newUser = {
-                _id: testReaderUserId,
-                login: "apitestuserreader",
-                role: "reader",
-                enabled: true,
-                email: "newtestuser1@thinksolid.com",
-                name: "Updated test reader name with :id",
-                password: "TestPassword"
-            };
-            request(url)
-                .put('/users/' + testUserId)
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
-                .send(newUser)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(403);
-                    done();
-                });
-        });
     });
 
     describe("POST: " + url + '/users/query', function() {
@@ -887,6 +872,7 @@ describe('api.users', function(){
                 .set('authorization', 'Token ' + adminToken)
                 .send(query)
                 .end(function(err, res) {
+                    console.log(res.body);
                     if (err) { console.log(err);throw err; }
                     res.status.should.equal(200);
                     done();

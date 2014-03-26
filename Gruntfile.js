@@ -42,7 +42,7 @@ module.exports = function(grunt) {
                 tasks : ['shell:stopServer', 'generatePublicTest', 'mongodb:test', 'shell:stopTestServer']
             },
             test: {
-                tasks : ['shell:startTestServer', 'startTestWithDelay:1500']
+                tasks : ['shell:startTestServer', 'startTestWithDelay:2500']
             }
         },
         shell : {

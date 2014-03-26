@@ -221,7 +221,7 @@ describe('api.contentTypes', function(){
                 .send(newContentType)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
@@ -285,7 +285,7 @@ describe('api.contentTypes', function(){
                 .send(newContentType)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
@@ -316,7 +316,7 @@ describe('api.contentTypes', function(){
                 .send(newContentType)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
@@ -346,7 +346,7 @@ describe('api.contentTypes', function(){
                 .send(newContentType)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
@@ -377,159 +377,13 @@ describe('api.contentTypes', function(){
                 .send(newContentType)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
         });
 
-        /*@@ VERIFIED */
-        it('should return error when a malformed meta id is passed in (id has a space).', function(done){
-            var newContentType = {
-                label: "newtestsuitecontent",
-                fields: {
-                    testid: {
-                        label: "This is a test label",
-                        required: true,
-                        instancing: 1,
-                        type: "textbox"
-                    }
-                },
-                helpText: "",
-                meta: {
-                    "testmeta id" : {
-                        label: "Test Field Label",
-                        type: "textbox",
-                        required: true,
-                        instancing: 1
-                    }
-                },
-                description: ""
-            };
-            request(url)
-                .post('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
-
-
-        /*@@ VERIFIED */
-        it('should return error when a malformed meta is passed in (missing label).', function(done){
-            var newContentType = {
-                label: "newtestsuitecontent",
-                fields: {
-                    testid: {
-                        label: "My Label",
-                        required: true,
-                        instancing: 1,
-                        type: "textbox"
-                    }
-                },
-                helpText: "",
-                meta: {
-                    testmetaid: {
-                    id: "testmetaid",
-                    type: "I DO NOT EXIST",
-                    required: true,
-                    instancing: 1
-                }},
-                description: ""
-            };
-            request(url)
-                .post('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
-
-        /*@@ VERIFIED */
-        it('should return error when a malformed meta is passed in (missing type).', function(done){
-            var newContentType = {
-                label: "newtestsuitecontent",
-                fields: {
-                    testid: {
-                        label: "Test Field Label",
-                        required: true,
-                        type: "textbox",
-                        instancing: 1
-                    }
-                },
-                helpText: "",
-                meta: {testmetaid: {
-                    label: "Test Field Label",
-                    required: true,
-                    instancing: 1
-                }},
-                description: ""
-            };
-            request(url)
-                .post('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
-
-        /*@@ VERIFIED */
-        it('should return error when a malformed meta is passed in (invalid type).', function(done){
-            var newContentType = {
-                label: "newtestsuitecontent",
-                fields: {
-                    testid: {
-                        label: "Test Field Label",
-                        type: "textbox",
-                        required: true,
-                        instancing: 1
-                    }
-                },
-                helpText: "",
-                meta: {testmetaid:{
-                    label: "Test Field Label",
-                    type: "I DO NOT EXIST",
-                    required: true,
-                    instancing: 1
-                }},
-                description: ""
-            };
-            request(url)
-                .post('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(500);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
     });
 
     describe("PUT: " + url + '/contentTypes', function() {
@@ -702,7 +556,7 @@ describe('api.contentTypes', function(){
                 .send(newContentType)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(404);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();

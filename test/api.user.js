@@ -872,7 +872,6 @@ describe('api.users', function(){
                 .set('authorization', 'Token ' + adminToken)
                 .send(query)
                 .end(function(err, res) {
-                    console.log(res.body);
                     if (err) { console.log(err);throw err; }
                     res.status.should.equal(200);
                     done();

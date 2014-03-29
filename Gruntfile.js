@@ -51,12 +51,14 @@ module.exports = function(grunt) {
                 stderr : true
             },
             makeTest : {
-                command : "make test",
-                options : {
-                    callback : function(err, stdout, stderr, cb) {
-                        grunt.task.run(['deletePublicTest','shell:stopTestServer', 'exitTests']);
-                        cb();
-                    }
+                command: 'mocha --colors -R Spec <%= test %>',
+                options: {
+                    stdout: true,
+                    stderr: true
+                },
+                callback : function(err, stdout, stderr, cb) {
+                    grunt.task.run(['deletePublicTest','shell:stopTestServer', 'exitTests']);
+                    cb();
                 }
             },
             startTestServer: {

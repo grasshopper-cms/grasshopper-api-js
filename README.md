@@ -2,7 +2,9 @@
 
 ---------------------------------------------------------------
 
-### ALPHA - TO BE RELEASED OFFICIALLY EARLY 2014
+[![NPM](https://nodei.co/npm/grasshopper-api.png)](https://nodei.co/npm/grasshopper-api/)
+
+[![Build Status](https://travis-ci.org/Solid-Interactive/grasshopper-api-js.svg?branch=master)](https://travis-ci.org/Solid-Interactive/grasshopper-api-js)
 
 
 ### What am I?

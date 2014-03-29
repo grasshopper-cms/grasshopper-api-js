@@ -27,9 +27,6 @@ describe('api.token', function(){
         );
     });
 
-    /*
-    1) Test that you can auth with
-     */
     describe(url + '/token', function() {
         it('should return a valid access token', function(done) {
 

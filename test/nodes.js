@@ -4,6 +4,8 @@ var should = require('chai').should(),
     path = require('path');
 
 describe('api.nodes', function(){
+    'use strict';
+
     var url = url = require('./config/test').url,
         async = require('async'),
         globalAdminToken  = "",
@@ -160,7 +162,7 @@ describe('api.nodes', function(){
                  })
                  .end(function(err, res) {
                      if (err) { throw err; }
-                     res.status.should.equal(500);
+                     res.status.should.equal(400);
                      done();
                  });
          });
@@ -404,7 +406,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should fail with 500 if trying to save a content type to a node that doesn\'t exist.', function(done){
+        it('should fail with 404 if trying to save a content type to a node that doesn\'t exist.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -413,7 +415,7 @@ describe('api.nodes', function(){
                 .send({id: badTestContentTypeID})
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(404);
                     done();
                 });
         });
@@ -427,7 +429,7 @@ describe('api.nodes', function(){
                 .send({contenttypeid: testContentTypeID})
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(404);
                     done();
                 });
         });
@@ -537,6 +539,7 @@ describe('api.nodes', function(){
         });
     });
 
+    /** Not yet supported
     describe("GET: " + url + '/nodes/:id/hydrate', function() {
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes and its content', function(done) {
             request(url)
@@ -551,7 +554,7 @@ describe('api.nodes', function(){
                     done();
                 });
         });
-    });
+    });*/
 
     describe("GET: " + url + '/nodes/:id/deep', function() {
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
@@ -568,6 +571,7 @@ describe('api.nodes', function(){
                 });
         });
 
+        /** Node sure if this is useful
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes including the parent node.', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/deep")
@@ -580,7 +584,9 @@ describe('api.nodes', function(){
                     res.body.length.should.equal(14);
                     done();
                 });
-        });
+        });*/
+
+        /** Requires node level permissions
         it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/children")
@@ -593,7 +599,7 @@ describe('api.nodes', function(){
                     res.body.length.should.equal(9);
                     done();
                 });
-        });
+        });*/
     });
 
     describe("GET: " + url + '/nodes/:id/children', function() {
@@ -636,6 +642,7 @@ describe('api.nodes', function(){
                 });
         });
 
+        /** Requires node level permissions
         it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/children")
@@ -648,7 +655,7 @@ describe('api.nodes', function(){
                     res.body.length.should.equal(9);
                     done();
                 });
-        });
+        });*/
 
         it('should return list of root level child nodes', function(done) {
             request(url)
@@ -666,22 +673,6 @@ describe('api.nodes', function(){
     });
 
     describe("POST: " + url + '/node/:id/assets', function() {
-        it('an editor with all valid permissions should be able to post an attachment to a node.', function(done) {
-
-            request(url)
-                .post('/node/' + testNodeId + "/assets")
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalEditorToken)
-                .attach("file", "./test/fixtures/artwork.png")
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(200);
-                    res.body.message.should.equal("Success");
-                    done();
-                });
-        });
-
         it('post test fixtures', function(done) {
             function upload(file, next){
                 request(url)
@@ -702,8 +693,24 @@ describe('api.nodes', function(){
                 "./test/fixtures/48.png",
                 "./test/fixtures/72.png",
                 "./test/fixtures/96.png"
-            ], upload, function(){done()});
+            ], upload, function(){done();});
 
+        });
+
+        it('an editor with all valid permissions should be able to post an attachment to a node.', function(done) {
+
+            request(url)
+                .post('/node/' + testNodeId + "/assets")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .attach("file", "./test/fixtures/artwork.png")
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
         });
     });
 
@@ -739,7 +746,7 @@ describe('api.nodes', function(){
                 })
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(404);
                     done();
                 });
         });
@@ -817,7 +824,6 @@ describe('api.nodes', function(){
     });
 
 
-    /*
     describe("POST: " + url + '/node/:id/assets/move', function() {
         it('should move one asset to another node.', function(done) {
 
@@ -827,8 +833,8 @@ describe('api.nodes', function(){
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalEditorToken)
                 .send({
-                    newnodeid: "",
-                    filename: ""
+                    newnodeid: testNodeWithNoSubNodes,
+                    filename: "testimage.png"
                 })
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -838,21 +844,22 @@ describe('api.nodes', function(){
                 });
         });
 
+        /** Requires node level permissions
         it('should fail because the user does not have permissions on the new node id.', function(done) {
             done();
         });
 
         it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
             done();
-        });
+        });*/
     });
-*/
 
-   /* describe("DELETE: " + url + '/node/:id/assets/:name', function() {
+
+   describe("DELETE: " + url + '/node/:id/assets/:name', function() {
         it('should delete an asset with a specific name', function(done) {
 
             request(url)
-                .del('/node/' + testNodeId + "/assets/" + testNodeId)
+                .del('/node/' + testNodeWithNoSubNodes + "/assets/testimage.png")
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalEditorToken)
@@ -872,7 +879,7 @@ describe('api.nodes', function(){
             done();
         });
     });
-    */
+
     describe("DELETE: " + url + '/node/:id/assets', function() {
         it('should delete all files in a node.', function(done) {
 
@@ -923,6 +930,7 @@ describe('api.nodes', function(){
                 });
         });
 
+        /** Requires node level permissions
         it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
             request(url)
                 .get('/node/' + testLockedDownNodeId + "/assets")
@@ -934,8 +942,9 @@ describe('api.nodes', function(){
                     res.status.should.equal(403);
                     done();
                 });
-        });
+        });*/
 
+        /** Requires node level permissions
         it('an editor with rights restricted to a specific node should return a 403 error', function(done) {
             request(url)
                 .get('/node/' + testLockedDownNodeId + "/assets")
@@ -947,7 +956,7 @@ describe('api.nodes', function(){
                     res.status.should.equal(403);
                     done();
                 });
-        });
+        });*/
 
         it('an editor should return a list of files in a node', function(done) {
             request(url)
@@ -976,6 +985,7 @@ describe('api.nodes', function(){
                 });
         });
 
+        /** Deferred
         it('an editor should return a DEEP list of files in a node and it\'s children', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/assets/deep")
@@ -1016,7 +1026,7 @@ describe('api.nodes', function(){
                     res.body.should.be.an('array');
                     done();
                 });
-        });
+        });*/
     });
 
     describe("DELETE: " + url + '/node/:id', function() {

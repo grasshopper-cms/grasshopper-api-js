@@ -2,6 +2,8 @@ var should = require('chai').should();
 var request = require('supertest');
 
 describe('api.content', function(){
+    'use strict';
+
     var url = require('./config/test').url,
         async = require('async'),
         _ = require('underscore'),
@@ -63,6 +65,7 @@ describe('api.content', function(){
                 .set('authorization', 'Token ' + tokens.restrictedEditorToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
+
                     res.status.should.equal(403);
                     done();
                 });
@@ -347,6 +350,6 @@ describe('api.content', function(){
                         cb();
                     });
             }
-        }
+        };
     }
 });

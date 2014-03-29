@@ -51,7 +51,7 @@ module.exports = function(grunt) {
                 stderr : true
             },
             makeTest : {
-                command: 'mocha --colors -R Spec <%= test %>',
+                command: 'mocha --colors -R spec <%= test %>',
                 options: {
                     stdout: true,
                     stderr: true

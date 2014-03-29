@@ -2,9 +2,11 @@ var should = require('chai').should();
 
 describe('util.cache', function(){
     var path = require('path'),
+        environment = require('./config/environment'),
         cache = require('../lib/utils/cache'),
         cacheKey = "test",
         cacheValue = "{test:tefdsafsafdsast}";
+    require('../lib/grasshopper-api')();
 
     describe('#add()', function(){
         it('should create a cached item.', function(done){

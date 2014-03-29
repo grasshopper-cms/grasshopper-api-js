@@ -42,7 +42,7 @@ module.exports = function(grunt) {
                 tasks : ['shell:stopServer', 'generatePublicTest', 'mongodb:test', 'shell:stopTestServer']
             },
             test: {
-                tasks : ['shell:startTestServer', 'startTestWithDelay:1500']
+                tasks : ['shell:startTestServer', 'startTestWithDelay:2500']
             }
         },
         shell : {
@@ -51,12 +51,14 @@ module.exports = function(grunt) {
                 stderr : true
             },
             makeTest : {
-                command : "make test",
-                options : {
-                    callback : function(err, stdout, stderr, cb) {
-                        grunt.task.run(['deletePublicTest','shell:stopTestServer', 'exitTests']);
-                        cb();
-                    }
+                command: 'mocha --colors -R spec <%= test %>',
+                options: {
+                    stdout: true,
+                    stderr: true
+                },
+                callback : function(err, stdout, stderr, cb) {
+                    grunt.task.run(['deletePublicTest','shell:stopTestServer', 'exitTests']);
+                    cb();
                 }
             },
             startTestServer: {

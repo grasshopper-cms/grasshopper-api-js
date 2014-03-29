@@ -1,6 +1,7 @@
 var should = require('chai').should();
 var request = require('supertest');
 
+
 describe('api.contentTypes', function(){
     var url = url = require('./config/test').url,
         testContentTypeId  = "524362aa56c02c0703000001",
@@ -10,26 +11,27 @@ describe('api.contentTypes', function(){
         testCreatedContentTypeCustomVerb = "";
 
     before(function(done){
-        request(url)
-            .get('/token')
-            .set('Accept', 'application/json')
-            .set('Accept-Language', 'en_US')
-            .set('authorization', new Buffer('apitestuseradmin:TestPassword').toString('base64'))
-            .end(function(err, res) {
-                if (err) { throw err; }
-                adminToken = res.body.access_token;
 
-                request(url)
-                    .get('/token')
-                    .set('Accept', 'application/json')
-                    .set('Accept-Language', 'en_US')
-                    .set('authorization', new Buffer('apitestuserreader:TestPassword').toString('base64'))
-                    .end(function(err, res) {
-                        if (err) { throw err; }
-                        readerToken = res.body.access_token;
-                        done();
-                    });
-            });
+            request(url)
+                .get('/token')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', new Buffer('apitestuseradmin:TestPassword').toString('base64'))
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    adminToken = res.body.access_token;
+
+                    request(url)
+                        .get('/token')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            readerToken = res.body.access_token;
+                            done();
+                        });
+                });
     });
 
     describe("GET: " + url + '/contentTypes/:id', function() {

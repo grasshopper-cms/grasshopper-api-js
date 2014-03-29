@@ -3,6 +3,7 @@ var should = require('chai').should(),
     async = require('async'),
     path = require('path');
 
+
 describe('api.nodes', function(){
     'use strict';
 
@@ -706,6 +707,7 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + globalEditorToken)
                 .attach("file", "./test/fixtures/artwork.png")
                 .end(function(err, res) {
+                    console.log(res.body);
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.message.should.equal("Success");

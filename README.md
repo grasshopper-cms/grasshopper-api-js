@@ -9,16 +9,8 @@
 
 ------------------------------------------------------------------
 
-The Grasshopper API is the foundation of the Grasshopper DMS (Data Management System). It provides all of the mechanisms necessary to create content locally or in the cloud. This repository contains our NodeJS implementation but the API can be written in any language and it can fully support any document based database (NoSQL). There is no user interface included in this project, this is on purpose so that developers have complete freedom to creatively use the DMS in whichever way they want.
+The Grasshopper API is an HTTP wrapper for the Grasshopper DMS (Data Management System). It provides all of the mechanisms necessary to create content locally or in the cloud. This repository contains our NodeJS implementation but the API can be written in any language and it can fully support any document based database (NoSQL). There is no user interface included in this project, this is on purpose so that developers have complete freedom to creatively use the DMS in whichever way they want.
 
-![Grasshopper Ecosystem](https://s3.amazonaws.com/SolidInteractive/images/grasshopper/GrasshopperEcosystemOverview.png)
-
-
-### Why would you want to use me?
-
-------------------------------------------------------------------
-
-Common CMS products do not cut it for real apps. When you push Word Press beyond it's intended use you are constantly at war with it.  Our CMS is different, it is simply a data management tool not a website creator. This distinction makes it very appealing when creating APIs, apps or non-traditional websites.
 
  
  

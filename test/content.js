@@ -22,11 +22,14 @@ describe('api.content', function(){
         ],
         parallelTokenRequests = [];
 
+
     before(function(done){
         _.each(tokenRequests, function(theRequest) {
             parallelTokenRequests.push(createGetToken(theRequest[0], theRequest[1]).closure);
         });
-        async.parallel(parallelTokenRequests, done);
+        async.parallel(parallelTokenRequests, function(){
+            done();
+        });
     });
 
     describe("GET: " + url + '/content/:id', function() {

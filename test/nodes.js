@@ -707,7 +707,22 @@ describe('api.nodes', function(){
                 .set('authorization', 'Token ' + globalEditorToken)
                 .attach("file", "./test/fixtures/artwork.png")
                 .end(function(err, res) {
-                    console.log(res.body);
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal("Success");
+                    done();
+                });
+        });
+
+        it('an editor with all valid permissions should be able to post a LARGE attachment to a node.', function(done) {
+
+            request(url)
+                .post('/node/' + testNodeId + "/assets")
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalEditorToken)
+                .attach("file", "./test/fixtures/nodejs-2560x1440.png")
+                .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.message.should.equal("Success");

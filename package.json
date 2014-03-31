@@ -1,6 +1,6 @@
 {
   "name": "grasshopper-api",
-  "description": "API to manage the grasshopper cms",
+  "description": "HTTP wrapper for grasshopper-core. Grasshopper is a Data Management System (DMS) that makes working with application data easier for both administrators and developers.",
   "main": "./lib/grasshopper-api",
   "author": {
     "name": "Travis McHattie"
@@ -16,7 +16,7 @@
       "name": "Greg Larrenaga"
     }
   ],
-  "version": "0.9.5",
+  "version": "0.9.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/Solid-Interactive/grasshopper-api-js.git"
@@ -38,9 +38,9 @@
     "underscore": "~1.5.2",
     "async": "~0.2.9",
     "express": "~3.5.0",
-    "multiparty": "~3.0.0",
+    "multiparty": "~3.2.4",
     "q": "~0.9.7",
-    "grasshopper-core": "0.1.5",
+    "grasshopper-core": "0.1.8",
     "bridgetown-api": "0.0.7",
     "findup-sync": "~0.1.2",
     "resolve": "~0.6.1"

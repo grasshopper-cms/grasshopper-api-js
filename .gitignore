@@ -9,3 +9,4 @@ atlassian-ide-plugin.xml
 Vagrantfile
 .ghapi.json
 /tasks/seedData/*
+npm-debug.log

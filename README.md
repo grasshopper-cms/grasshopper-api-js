@@ -2,17 +2,23 @@
 
 ---------------------------------------------------------------
 
-[![NPM](https://nodei.co/npm/grasshopper-api.png)](https://nodei.co/npm/grasshopper-api/)
-
-[![Build Status](https://travis-ci.org/Solid-Interactive/grasshopper-api-js.svg?branch=master)](https://travis-ci.org/Solid-Interactive/grasshopper-api-js)
+### ALPHA - TO BE RELEASED OFFICIALLY EARLY 2014
 
 
 ### What am I?
 
 ------------------------------------------------------------------
 
-The Grasshopper API is an HTTP wrapper for the Grasshopper DMS (Data Management System). It provides all of the mechanisms necessary to create content locally or in the cloud. This repository contains our NodeJS implementation but the API can be written in any language and it can fully support any document based database (NoSQL). There is no user interface included in this project, this is on purpose so that developers have complete freedom to creatively use the DMS in whichever way they want.
+The Grasshopper API is the foundation of the Grasshopper DMS (Data Management System). It provides all of the mechanisms necessary to create content locally or in the cloud. This repository contains our NodeJS implementation but the API can be written in any language and it can fully support any document based database (NoSQL). There is no user interface included in this project, this is on purpose so that developers have complete freedom to creatively use the DMS in whichever way they want.
 
+![Grasshopper Ecosystem](https://s3.amazonaws.com/SolidInteractive/images/grasshopper/GrasshopperEcosystemOverview.png)
+
+
+### Why would you want to use me?
+
+------------------------------------------------------------------
+
+Common CMS products do not cut it for real apps. When you push Word Press beyond it's intended use you are constantly at war with it.  Our CMS is different, it is simply a data management tool not a website creator. This distinction makes it very appealing when creating APIs, apps or non-traditional websites.
 
  
  
@@ -217,6 +223,7 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * 0.9.1 - 2014-03-24 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-24.md)
 * 0.9.1 - 2014-03-28 - [initial release](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-28.md)
 * 0.9.3 - 2014-03-24 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.3_2014-03-24.md)
+* 0.10.0 - 2014-04-03 - [features](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.10.0_2014-04-03.md)
 
 
 ## Contributors (`git shortlog -s -n`)
@@ -236,4 +243,4 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 To create the readme, update the release notes dir and package.json.version at a minimum. If needed update README.template.md.
 Then run `grunt readme`.
 
-_Compiled file. Do not modify directly. Created: 2014-03-28 12:58:23_
+_Compiled file. Do not modify directly. Created: 2014-04-03 04:13:06_

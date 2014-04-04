@@ -2,9 +2,7 @@
 
 ---------------------------------------------------------------
 
-[![NPM](https://nodei.co/npm/grasshopper-api.png)](https://nodei.co/npm/grasshopper-api/)
-
-[![Build Status](https://travis-ci.org/Solid-Interactive/grasshopper-api-js.svg?branch=master)](https://travis-ci.org/Solid-Interactive/grasshopper-api-js)
+### ALPHA - TO BE RELEASED OFFICIALLY EARLY 2014
 
 
 ### What am I?
@@ -222,10 +220,11 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * 0.8.1 - 2014-03-11 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.1_2014-03-11.md)
 * 0.8.2 - 2014-03-24 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.2_2014-03-24.md)
 * 0.9.0 - 2014-03-24 - [features](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.0_2014-03-24.md)
-* 0.9.1 - 2014-03-24 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-24.md)
-* 0.9.1 - 2014-03-28 - [initial release](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-28.md)
+* 0.9.1 - 2014-03-28 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-28.md)
+* 0.9.1 - 2014-03-24 - [initial release](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-24.md)
 * 0.9.3 - 2014-03-24 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.3_2014-03-24.md)
 * 0.10.0 - 2014-04-03 - [features](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.10.0_2014-04-03.md)
+* 0.10.3 - 2014-04-03 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.10.3_2014-04-03.md)
 
 
 ## Contributors (`git shortlog -s -n`)
@@ -245,4 +244,4 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 To create the readme, update the release notes dir and package.json.version at a minimum. If needed update README.template.md.
 Then run `grunt readme`.
 
-_Compiled file. Do not modify directly. Created: 2014-04-03 04:13:06_
+_Compiled file. Do not modify directly. Created: 2014-04-03 05:59:05_

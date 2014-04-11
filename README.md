@@ -2,8 +2,9 @@
 
 ---------------------------------------------------------------
 
-### ALPHA - TO BE RELEASED OFFICIALLY EARLY 2014
+[![NPM](https://nodei.co/npm/grasshopper-api.png)](https://nodei.co/npm/grasshopper-api/)
 
+[![Build Status](https://travis-ci.org/Solid-Interactive/grasshopper-api-js.svg?branch=master)](https://travis-ci.org/Solid-Interactive/grasshopper-api-js)
 
 ### What am I?
 
@@ -20,21 +21,21 @@ The Grasshopper API is the foundation of the Grasshopper DMS (Data Management Sy
 
 Common CMS products do not cut it for real apps. When you push Word Press beyond it's intended use you are constantly at war with it.  Our CMS is different, it is simply a data management tool not a website creator. This distinction makes it very appealing when creating APIs, apps or non-traditional websites.
 
- 
- 
-### How would you use me? 
+
+
+### How would you use me?
 
 ------------------------------------------------------------------
 
 All operations are performed via a rest like api. If you are developing your project locally we have provided a vagrant box that can be used to create a local API (see developer setup instructions). To use the project in production you would need to:
 
 * Publish the code for the api to a hosting provider of your choice
-* Create your NoSQL database (currently only supporting mongo) 
+* Create your NoSQL database (currently only supporting mongo)
 * Update the configuration file to match your environment settings
 
- 
-  
-  
+
+
+
 ### Configuration Options
 
 ------------------------------------------------------------------
@@ -84,9 +85,9 @@ Open the ```lib/config/configuration``` file
                 }]
             }
         }
- 
- 
- 
+
+
+
 #### Configuration Definitions
 
 ------------------------------------------------------------------
@@ -100,7 +101,7 @@ Open the ```lib/config/configuration``` file
     * username: User name of the database
     * password: password for the database
     * degug: bool (do you want output into the console)
-* logger: Module used to capture logs from the API/SDK 
+* logger: Module used to capture logs from the API/SDK
     * type: file
     * path: Location that the file will be saved to
     * application: Name of your application
@@ -110,7 +111,7 @@ Open the ```lib/config/configuration``` file
     * tmpdir: temp file directory
     * engines: collections of engines that will be used. NOTE: all engines get files saved to them, only the default returns results
 
- 
+
 ### Managing Grasshopper API on production
 
 By Default we have added a `grunt server:start` command that will load a server cluster using `PM2`.
@@ -146,7 +147,7 @@ $ pm2 web                # Health computer API endpoint (http://localhost:9615)
 -------------------------------------------------------
 
 For full documentation on the grasshopper API [click here](https://github.com/Solid-Interactive/grasshopper-api-js/wiki)
- 
+
 
 
 ### Running Tests
@@ -245,4 +246,4 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 To create the readme, update the release notes dir and package.json.version at a minimum. If needed update README.template.md.
 Then run `grunt readme`.
 
-_Compiled file. Do not modify directly. Created: 2014-04-10 07:19:53_
+_Compiled file. Do not modify directly. Created: 2014-04-11 11:15:24_

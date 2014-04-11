@@ -7,7 +7,7 @@ var should = require('chai').should(),
 describe('api.nodes', function(){
     'use strict';
 
-    var url = url = require('./config/test').url,
+    var url = require('./config/test').url,
         async = require('async'),
         globalAdminToken  = "",
         globalReaderToken = "",
@@ -488,6 +488,7 @@ describe('api.nodes', function(){
                 });
         });
 
+        /*
         it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
             request(url)
                 .get('/node/' + testLockedDownNodeId)
@@ -512,7 +513,7 @@ describe('api.nodes', function(){
                     res.status.should.equal(403);
                     done();
                 });
-        });
+        });*/
 
         it('an editor should return an existing node object', function(done) {
             request(url)
@@ -630,6 +631,8 @@ describe('api.nodes', function(){
                 });
         });
 
+        /** Requires node level permissions
+         *
         it('should return a 403 because user does not have permissions to access this node', function(done) {
             request(url)
                 .get('/node/' + testLockedDownNodeId + "/children")
@@ -643,7 +646,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        /** Requires node level permissions
+
         it('a global reader with with a restriction on a child node should get a node object back with a filtered collection of child nodes', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/children")

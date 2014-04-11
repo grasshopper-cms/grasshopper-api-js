@@ -355,35 +355,6 @@ describe('api.contentTypes', function(){
         });
 
 
-        it('should return error when a malformed field is passed in (invalid type).', function(done){
-            var newContentType = {
-                label: "newtestsuitecontent",
-                fields: {
-                    testid: {
-                        label: "Test Field Label",
-                        type: "I DONT EXIST",
-                        required: true,
-                        instancing: 1
-                    }
-                },
-                helpText: "",
-                meta: [],
-                description: ""
-            };
-            request(url)
-                .post('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(400);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
 
     });
 
@@ -391,18 +362,14 @@ describe('api.contentTypes', function(){
         it('should return a 403 because user does not have permissions to access users', function(done) {
             var newContentType = {
                 _id: testCreatedContentTypeId,
-                label: "updatedlabel",
-                fields: {
-                    testfield: {
-                        required: true,
-                        label: "Title",
-                        instancing: 1,
-                        type: "textbox"
-                    }
-                },
-                helpText: "",
-                meta: [],
-                description: ""
+                label: 'updatedlabel',
+                fields: [{
+                    _id: 'testfield',
+                    label: 'Test Field Label',
+                    type: 'textbox'
+                }],
+                helpText: '',
+                description: ''
             };
 
             request(url)
@@ -420,24 +387,14 @@ describe('api.contentTypes', function(){
         it('should update a content type using the correct verb', function(done) {
             var newContentType = {
                 _id: testCreatedContentTypeId,
-                label: "updatedlabel",
-                fields: {
-                    testid : {
-                        id: "testid",
-                        label: "Test Field Label",
-                        type: "textbox",
-                        required: true,
-                        instancing: 1
-                    }
-                },
-                helpText: "",
-                meta: {testmetaid:{
-                    label: "Test Field Label",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
-                }},
-                description: ""
+                label: 'updatedlabel',
+                fields: [{
+                    _id: 'testfield',
+                    label: 'Test Field Label',
+                    type: 'textbox'
+                }],
+                helpText: '',
+                description: ''
             };
 
             request(url)
@@ -456,24 +413,14 @@ describe('api.contentTypes', function(){
         it('should update a content type when the ID is in the route', function(done) {
             var newContentType = {
                 _id: testCreatedContentTypeId,
-                label: "updatedlabel",
-                fields: {
-                    testid : {
-                        id: "testid",
-                        label: "Test Field Label",
-                        type: "textbox",
-                        required: true,
-                        instancing: 1
-                    }
-                },
-                helpText: "",
-                meta: {testmetaid:{
-                    label: "Test Field Label",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
-                }},
-                description: ""
+                label: 'updatedlabel',
+                fields: [{
+                    _id: 'testfield',
+                    label: 'Test Field Label',
+                    type: 'textbox'
+                }],
+                helpText: '',
+                description: ''
             };
 
             request(url)
@@ -492,25 +439,15 @@ describe('api.contentTypes', function(){
 
         it('should update a content type using the method override', function(done) {
             var newContentType = {
-                _id: testCreatedContentTypeCustomVerb,
-                label: "updatedlabel custom verb",
-                    fields: {
-                        testid : {
-                            id: "testid",
-                            label: "Test Field Label",
-                            type: "textbox",
-                            required: true,
-                            instancing: 1
-                        }
-                },
-                helpText: "",
-                meta: {testmetaid:{
-                    label: "Test Field Label",
-                    type: "textbox",
-                    required: true,
-                    instancing: 1
-                }},
-                description: ""
+                _id: testCreatedContentTypeId,
+                label: 'updatedlabel',
+                fields: [{
+                    _id: 'testfield',
+                    label: 'Test Field Label',
+                    type: 'textbox'
+                }],
+                helpText: '',
+                description: ''
             };
 
             request(url)

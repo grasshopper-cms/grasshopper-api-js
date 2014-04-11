@@ -113,7 +113,13 @@ describe('api.content', function(){
 
         it('should return 200 because I have the correct permissions.', function(done) {
             var obj = {
-                label:"Generated title", slug: 'generated_title', type: "524362aa56c02c0703000001", nonce:"1234fdsdfsa565", status: "Live", node : {_id: "526d5179966a883540000006", displayOrder: 1}, fields: {testfield: "test value"}, author: {_id: "5246e73d56c02c0744000001", name: "Test User"}
+                meta: {
+                    type: "524362aa56c02c0703000001",
+                    node : "526d5179966a883540000006"
+                },
+                fields: {
+                    testfield: "testvalue"
+                }
             };
 
 
@@ -133,7 +139,11 @@ describe('api.content', function(){
 
         it('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
             var obj = {
-                label:"Generated title", slug: 'generated_title', type: "524362aa56c02c0703000001", nonce:"1234fdsdfsa565", status: "Live", node : {_id: "526d5179966a883540000006", displayOrder: 1}, fields: {testfield: "test value"}, author: {_id: "5246e73d56c02c0744000001", name: "Test User"}
+                meta:{
+                    type: "524362aa56c02c0703000001",
+                    node :"526d5179966a883540000006"
+                },
+                fields: {testfield: "testvalue"}
             };
 
             request(url)

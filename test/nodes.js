@@ -558,6 +558,36 @@ describe('api.nodes', function(){
         });
     });*/
 
+    describe('GET: ' + url + '/node/:nodeid/content', function(){
+        it('should return a list of content inside of a node.', function(done){
+            request(url)
+                .get('/node/' + testNodeId + '/content')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+                    //true.should.equal(false);
+                    if (err) { throw err; }
+
+                    done();
+                });
+        });
+
+        it('should return an empty list because the node is root.', function(done){
+            request(url)
+                .get('/node/0/content')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + globalReaderToken)
+                .end(function(err, res) {
+
+                    if (err) { throw err; }
+
+                    done();
+                });
+        });
+    });
+
     describe("GET: " + url + '/nodes/:id/deep', function() {
         it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
             request(url)

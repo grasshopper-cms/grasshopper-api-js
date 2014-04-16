@@ -6,3 +6,12 @@ services:
 before_script:
   - npm install -g grunt-cli
   - ./tasks/importdb.sh
+notifications:
+  email:
+    - travis.mchattie@thinksolid.com
+    - peter.ajtai@thinksolid.com
+    - cooper.hilscher@thinksolid.com
+    - greg.larrenaga@thinksolid.com
+    - kaija.rayne@thinksolid.com
+  hipchat:
+    secure: "bqDRNBKKS7HPf8yqJVoo2FonP/MI3lbRqGBfu0t07qbmpubX2N66mbL3RW98fc4rZy0AsqA7uEdkYzqAC8g7ws4Yvg4VVCq1+sWRSQaYcZCN56jRAqmCZ3lMNpvFM2IGjCunE2khEoAE9BW7mP6u4rd8cBmersuvRcj5Pf5TbDQ="

@@ -888,7 +888,7 @@ describe('api.users', function(){
                 .end(function(err, res) {
                     if (err) { console.log(err);throw err; }
                     res.status.should.equal(200);
-                    res.body.should.have.length(0);
+                    res.body.total.should.equal(0);
                     done();
                 });
         });

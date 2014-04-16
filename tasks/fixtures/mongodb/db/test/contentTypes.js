@@ -9,7 +9,7 @@ module.exports = function(ObjectID) {
             description: '',
             fields: [
                 {
-                    id: 'testfield',
+                    _id: 'testfield',
                     type: 'textbox',
                     label: 'Title',
                     validation: [
@@ -23,7 +23,7 @@ module.exports = function(ObjectID) {
                     ]
                 },
                 {
-                    id: 'numfield',
+                    _id: 'numfield',
                     type: 'textbox',
                     label: 'Num Field',
                     validation: [
@@ -37,7 +37,7 @@ module.exports = function(ObjectID) {
                     ]
                 },
                 {
-                    id: 'alphanumfield',
+                    _id: 'alphanumfield',
                     type: 'textbox',
                     label: 'AlphaNum Field',
                     validation: [
@@ -51,7 +51,7 @@ module.exports = function(ObjectID) {
                     ]
                 },
                 {
-                    id: 'emailfield',
+                    _id: 'emailfield',
                     type: 'textbox',
                     label: 'Email Field',
                     validation: [
@@ -60,7 +60,7 @@ module.exports = function(ObjectID) {
                         }
                     ]
                 },{
-                    id: 'uniquefield1',
+                    _id: 'uniquefield1',
                     type: 'textbox',
                     label: 'Globally Unique Field',
                     validation: [
@@ -72,7 +72,7 @@ module.exports = function(ObjectID) {
                         }
                     ]
                 },{
-                    id: 'uniquefield2',
+                    _id: 'uniquefield2',
                     type: 'textbox',
                     label: 'Unique Field For Specific Content Type',
                     validation: [

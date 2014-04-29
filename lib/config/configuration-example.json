@@ -1,4 +1,10 @@
 {
+    "server": {
+        "https":{
+            "key":"{full path to key}",
+            "cert":"{full path to cert}"
+        }
+    },
     "cache": {
         "path": "./cache"
     },

@@ -40,7 +40,7 @@
     "express": "~3.5.0",
     "multiparty": "~3.2.4",
     "q": "~0.9.7",
-    "grasshopper-core": "0.4.7",
+    "grasshopper-core": "0.4.8",
     "bridgetown-api": "0.0.7",
     "findup-sync": "~0.1.2",
     "resolve": "~0.6.1"

@@ -980,6 +980,23 @@ describe('api.nodes', function(){
                 });
         });
 
+        describe('When calling in the root with a zero.', function() {
+           it('should return empty array', function(done) {
+               request(url)
+                   .get('/node/0/assets')
+                   .set('Accept', 'application/json')
+                   .set('Accept-Language', 'en_US')
+                   .set('authorization', 'Token ' + globalEditorToken)
+                   .end(function(err, res) {
+                       if (err) { throw err; }
+                       console.log('=========================================================');
+                       console.log(res.body);
+
+                       done();
+                   });
+           });
+        });
+
         /** Requires node level permissions
         it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
             request(url)
@@ -1108,5 +1125,4 @@ describe('api.nodes', function(){
                 });
         });
     });
-
 });

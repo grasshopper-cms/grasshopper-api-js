@@ -294,6 +294,24 @@ describe('api.content', function(){
         });
 
 
+        it('return valid results for everything within a node', function(done) {
+            request(url)
+                .post('/content/query')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Token ' + tokens.globalReaderToken)
+                .send({
+                    filters: [],
+                    nodes: ['526d5179966a883540000006']
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    console.log(res.body);
+                    res.status.should.equal(200);
+
+                    done();
+                });
+        });
     });
 
     describe("DELETE: " + url + '/content/:id', function() {

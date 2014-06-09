@@ -1,29 +1,26 @@
 'use strict';
 module.exports = function(grunt) {
 
-    grunt.config('nodemon',  {
-        dev: {
-            options: {
-                file: 'bin/grasshopper-api.js',
-                ignoredFiles: ['README.md', 'node_modules/**', 'Gruntfile.js','*.log', '*.xml'],
-                legacyWatch: true,
-                env: {
-                    PORT: '3000'
-                },
-                cwd: __dirname
-            }
-        },
+    grunt.config('mongodb', {
         test: {
-            options: {
-                file: 'bin/grasshopper-api.js',
-                args: ['test'],
-                ignoredFiles: ['README.md', 'node_modules/**', 'Gruntfile.js','*.log', '*.xml'],
-                legacyWatch: true,
-                env: {
-                    PORT: '3000'
-                },
-                cwd: __dirname
-            }
+            host: 'mongodb://localhost:27017/test',
+            collections: ['users','contenttypes','nodes','content', 'tokens'],
+            data: './fixtures/mongodb/test.js'
+        },
+        seed: {
+            host: 'mongodb://localhost:27017/grasshopper',
+            collections: ['users','contenttypes','tokens'],
+            data: './fixtures/mongodb/test.js'
+        },
+        dev : {
+            host: 'mongodb://localhost:27017/grasshopper',
+            collections: ['users','contenttypes','nodes','content', 'tokens'],
+            data: './fixtures/mongodb/dev.js'
+        },
+        heroku: {
+            host: '',
+            collections: ['users','contenttypes','nodes','content', 'tokens'],
+            data: './fixtures/mongodb/test.js'
         }
     });
 };

@@ -1,4 +1,5 @@
 'use strict';
+var sep = require('path').sep;
 module.exports = function(grunt) {
 
     grunt.config('nodemon',  {
@@ -10,7 +11,7 @@ module.exports = function(grunt) {
                 env: {
                     PORT: '3000'
                 },
-                cwd: __dirname
+                cwd: '..' + sep + '..' + sep + __dirname
             }
         },
         test: {
@@ -22,7 +23,7 @@ module.exports = function(grunt) {
                 env: {
                     PORT: '3000'
                 },
-                cwd: __dirname
+                cwd: '..' + sep + '..' + sep + __dirname
             }
         }
     });

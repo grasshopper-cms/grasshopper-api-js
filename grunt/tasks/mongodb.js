@@ -3,17 +3,19 @@ module.exports = function (grunt) {
 
     var host = "",
         async  = require('async'),
-        client = require('mongodb').MongoClient;
+        client = require('mongodb').MongoClient,
+        path = require('path');
 
-    grunt.registerMultiTask('mongodb', 'Runs a nodemon monitor of your node.js server.', function () {
+    grunt.registerMultiTask('mongodb', 'Imports data into mongo from a fixtures dir', function () {
         var done = this.async(),
             collections = this.data.collections,
-            data = require(this.data.data);
+            data = require(path.normalize('../../' + this.data.data));
 
         host = this.data.host;
 
         grunt.log.writeln("Cleaning up test database, starting from clean slate.");
 
+        // TODO: _.each
         async.series([
             function(callback){
                 async.each(collections, cleanCollection, function(err){
@@ -75,7 +77,9 @@ module.exports = function (grunt) {
 
     function cleanCollection(col, callback){
         client.connect(host, function(err, db) {
-            if (err) grunt.log.errorlns(err);
+            if (err) {
+                grunt.log.errorlns(err);
+            }
             db.collection(col, function(err, collection){
                 collection.remove({}, function(err, numRemovedDocs){
                     grunt.log.writeln(numRemovedDocs + " documents removed from " + col + " collection.");
@@ -88,7 +92,9 @@ module.exports = function (grunt) {
 
     function importData(col, obj, callback){
         client.connect(host, function(err, db) {
-            if (err) grunt.log.errorlns(err);
+            if (err) {
+                grunt.log.errorlns(err);
+            }
             db.collection(col, function(err, collection){
                 collection.insert(obj, function(err){
                     db.close();

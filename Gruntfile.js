@@ -14,8 +14,5 @@ module.exports = function(grunt) {
     grunt.loadTasks('grunt/configs');
     grunt.loadTasks('grunt/tasks');
 
-    // TODO: move these to grunt/tasks and move tasks/fixtures up one
-    grunt.loadTasks('tasks');
-
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 };

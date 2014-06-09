@@ -13,12 +13,12 @@ module.exports = function(grunt) {
         _.each(files, function(theFile) {
             _.each(ids, function(theId) {
                 grunt.file.write(prefix + '/' + theId + '/' + theFile, art);
-            })
+            });
         });
     });
     grunt.registerTask('deletePublicTest', function() {
             _.each(ids, function(theId) {
                 grunt.file.delete(prefix + '/' + theId);
-            })
+            });
     });
 }

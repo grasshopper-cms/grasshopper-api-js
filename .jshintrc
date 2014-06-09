@@ -1,0 +1,33 @@
+{
+    "node" : true,
+    "globals": {
+        "after" : false,
+        "before" : false,
+        "afterEach": false,
+        "beforeEach": false,
+        "define": false,
+        "describe": true,
+        "xdescribe": true,
+        "require": false,
+        "it": false,
+        "xit": false,
+        "mochaPhantomJS": false
+    },
+    "curly": true,
+//    "quotmark": "single",
+    "validthis": true,
+    "expr": true,
+    "loopfunc": false,
+    "onevar": true,
+    "strict": true,
+    "undef": true,
+//    "unused": true,
+//    "maxlen": 121,
+    "newcap": false,
+    "trailing": true,
+//    "indent": 4,
+    "noarg": true,
+    "maxdepth": 2,
+    "devel": false,
+    "debug": false
+}

@@ -1,8 +1,9 @@
+'use strict';
 var should = require('chai').should();
 var request = require('supertest');
 
 describe('api.users', function(){
-    var url = url = require('./config/test').url,
+    var url = require('./config/test').url,
         testUserId  = "5245ce1d56c02c066b000001",
         testReaderUserId = "5246e80c56c02c0744000002",
         admin2UserId = "5246e73d56c02c0744000004",

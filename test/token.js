@@ -1,9 +1,10 @@
+'use strict';
 var should = require('chai').should(),
     request = require('supertest'),
     async = require('async');
 
 describe('api.token', function(){
-    var url = url = require('./config/test').url,
+    var url = require('./config/test').url,
         globalReaderToken = "";
 
     before(function(done){

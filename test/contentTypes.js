@@ -1,9 +1,10 @@
+'use strict';
 var should = require('chai').should();
 var request = require('supertest');
 
 
 describe('api.contentTypes', function(){
-    var url = url = require('./config/test').url,
+    var url = require('./config/test').url,
         testContentTypeId  = "524362aa56c02c0703000001",
         readerToken = "",
         adminToken  = "",

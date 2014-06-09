@@ -34,17 +34,6 @@ module.exports = function(grunt) {
                 data: './fixtures/mongodb/test.js'
             }
         },
-        concurrent: {
-            options: {
-                logConcurrentOutput: true
-            },
-            setup: {
-                tasks : ['shell:stopServer', 'generatePublicTest', 'mongodb:test', 'shell:stopTestServer']
-            },
-            test: {
-                tasks : ['shell:makeTest']
-            }
-        },
         shell : {
             options : {
                 stdout : true,
@@ -60,6 +49,12 @@ module.exports = function(grunt) {
                     grunt.task.run(['deletePublicTest','shell:stopTestServer', 'exitTests']);
                     cb();
                 }
+            },
+            testSetup : {
+                command: "./tasks/importdb.sh"
+            },
+            testRun : {
+                command: "mocha --reporter spec --recursive"
             },
             startTestServer: {
                 command: "node bin/grasshopper-api test"
@@ -140,13 +135,7 @@ module.exports = function(grunt) {
         jshint: {
             files: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js'],
             options: {
-                // options here to override JSHint defaults
-                globals: {
-                    jQuery: true,
-                    console: true,
-                    module: true,
-                    document: true
-                }
+                jshintrc: '.jshintrc'
             }
         },
         watch: {
@@ -184,7 +173,7 @@ module.exports = function(grunt) {
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('dev',['nodemon:dev']);
-    grunt.registerTask('test', ['concurrent:setup', 'concurrent:test']);
+    grunt.registerTask('test', ['jshint', 'shell:testSetup', 'shell:testRun']);
 
     grunt.registerTask('seedDev', ['mongodb:dev']);
     grunt.registerTask('heroku:db:seed', 'Task that will seed the heroku test database.', function () {

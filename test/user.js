@@ -50,7 +50,7 @@ describe('api.users', function(){
     });
 
     describe("GET: " + url + '/users/:id', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
+        xit('should return 401 because trying to access unauthenticated', function(done) {
 
             request(url)
                 .get('/users/' + testUserId)
@@ -62,7 +62,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return a 403 because user does not have permissions to access users', function(done) {
+        xit('should return a 403 because user does not have permissions to access users', function(done) {
             request(url)
                 .get('/users/' + testUserId)
                 .set('Accept', 'application/json')
@@ -74,7 +74,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return an existing user', function(done) {
+        xit('should return an existing user', function(done) {
             request(url)
                 .get('/users/' + testUserId)
                 .set('Accept', 'application/json')
@@ -90,7 +90,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return 404 because test user id does not exist', function(done) {
+        xit('should return 404 because test user id does not exist', function(done) {
             request(url)
                 .get('/users/52314ae429ae439a6e49695d')
                 .set('Accept', 'application/json')
@@ -105,7 +105,7 @@ describe('api.users', function(){
     });
 
     describe("GET: " + url + '/user', function() {
-        it('should return the current logged in user', function(done) {
+        xit('should return the current logged in user', function(done) {
             request(url)
                 .get('/user')
                 .set('Accept', 'application/json')
@@ -121,7 +121,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return a 401 because user is not authenticated', function(done) {
+        xit('should return a 401 because user is not authenticated', function(done) {
             request(url)
                 .get('/user')
                 .set('Accept', 'application/json')
@@ -135,7 +135,7 @@ describe('api.users', function(){
     });
 
     describe("GET: " + url + '/users', function() {
-        it('should return a list of users with the default page size', function(done) {
+        xit('should return a list of users with the default page size', function(done) {
             request(url)
                 .get('/users')
                 .set('Accept', 'application/json')
@@ -149,7 +149,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should a list of users with the specified page size', function(done) {
+        xit('should a list of users with the specified page size', function(done) {
             request(url)
                 .get('/users?limit=1&skip=0')
                 .set('Accept', 'application/json')
@@ -163,7 +163,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return a 403 because user does not have permissions to access users', function(done) {
+        xit('should return a 403 because user does not have permissions to access users', function(done) {
             request(url)
                 .get('/users')
                 .set('Accept', 'application/json')
@@ -175,7 +175,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return an empty list if the page size and current requested items are out of bounds.', function(done) {
+        xit('should return an empty list if the page size and current requested items are out of bounds.', function(done) {
             request(url)
                 .get('/users?limit=1&skip=100000')
                 .set('Accept', 'application/json')
@@ -189,7 +189,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return a 401 because user is not authenticated', function(done) {
+        xit('should return a 401 because user is not authenticated', function(done) {
             request(url)
                 .get('/users')
                 .set('Accept', 'application/json')
@@ -203,7 +203,7 @@ describe('api.users', function(){
     });
 
     describe("POST: " + url + '/users', function() {
-        it('should create a user without an error using correct verb.', function(done){
+        xit('should create a user without an error using correct verb.', function(done){
             var newUser = {
                 login: "newtestuser1",
                 role: "reader",
@@ -230,7 +230,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should create a user without an error using correct verb with additional custom params.', function(done){
+        xit('should create a user without an error using correct verb with additional custom params.', function(done){
             var newUser = {
                 login: "newtestuser2",
                 role: "reader",
@@ -259,7 +259,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return error if a user id is sent with the request (maybe verb error).', function(done){
+        xit('should return error if a user id is sent with the request (maybe verb error).', function(done){
             var newUser = {
                 _id: "ISHOULDNOTBEHERE",
                 login: "newtestuser1",
@@ -285,7 +285,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return error if a duplicate is created.', function(done){
+        xit('should return error if a duplicate is created.', function(done){
             var newUser = {
                 login: "newtestuser1",
                 role: "reader",
@@ -311,7 +311,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should validate and return error if a mandatory property is missing.',function(done){
+        xit('should validate and return error if a mandatory property is missing.',function(done){
             var newUser = {
                 role: "reader",
                 enabled: true,
@@ -336,7 +336,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return error if an empty login is provided.', function(done){
+        xit('should return error if an empty login is provided.', function(done){
             var newUser = {
                 login: "",
                 role: "reader",
@@ -362,7 +362,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return error if an null login is provided.', function(done){
+        xit('should return error if an null login is provided.', function(done){
             var newUser = {
                 login: null,
                 role: "reader",
@@ -388,7 +388,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return error if a login is too short.', function(done){
+        xit('should return error if a login is too short.', function(done){
             var newUser = {
                 login: "sho",
                 role: "reader",
@@ -414,7 +414,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return error if a password is null.', function(done){
+        xit('should return error if a password is null.', function(done){
             var newUser = {
                 login: "newtestuserunique",
                 role: "reader",
@@ -440,7 +440,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return error if a password is too short.', function(done){
+        xit('should return error if a password is too short.', function(done){
             var newUser = {
                 login: "newtestuserunique",
                 role: "reader",
@@ -466,7 +466,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return error if a user has a role that is not allowed.', function(done){
+        xit('should return error if a user has a role that is not allowed.', function(done){
             var newUser = {
                 login: "newtestuserunique",
                 role: "fake role",
@@ -494,7 +494,7 @@ describe('api.users', function(){
     });
 
     describe("PUT: " + url + '/users', function() {
-        it('should return a 403 because user does not have permissions to access users', function(done) {
+        xit('should return a 403 because user does not have permissions to access users', function(done) {
             var newUser = {
                 _id: testCreatedUserId,
                 login: "newtestuser1",
@@ -517,7 +517,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should update a user using the correct verb', function(done) {
+        xit('should update a user using the correct verb', function(done) {
             var newUser = {
                 _id: testCreatedUserId,
                 login: "newtestuser1_updated",
@@ -541,7 +541,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('one admin should be able to change the role of another admin.', function(done) {
+        xit('one admin should be able to change the role of another admin.', function(done) {
             request(url)
                 .get('/users/' + admin2UserId)
                 .set('Accept', 'application/json')
@@ -568,7 +568,7 @@ describe('api.users', function(){
 
         });
 
-        it('should update a user using the method override', function(done) {
+        xit('should update a user using the method override', function(done) {
             var newUser = {
                 _id: testCreatedUserIdCustomVerb,
                 login: "newtestuser2_updated",
@@ -592,7 +592,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return error is user is updated without a set "ID"', function(done){
+        xit('should return error is user is updated without a set "ID"', function(done){
             var newUser = {
                 login: "newtestuser1_updated",
                 role: "reader",
@@ -615,7 +615,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return error if login is too short.', function(done){
+        xit('should return error if login is too short.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
                 login: "sho",
@@ -640,7 +640,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return error if user role is invalid.', function(done){
+        xit('should return error if user role is invalid.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
                 login: "newtestuesr1",
@@ -665,7 +665,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return error if user login is null.', function(done){
+        xit('should return error if user login is null.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
                 login: null,
@@ -690,7 +690,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should return error if user login is empty.', function(done){
+        xit('should return error if user login is empty.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
                 login: "",
@@ -717,7 +717,7 @@ describe('api.users', function(){
         });
 
 
-        it('should return error if the user login changed and is now a duplicate.', function(done){
+        xit('should return error if the user login changed and is now a duplicate.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
                 login: "apitestuserreader",
@@ -743,7 +743,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should a user to update themselves even if they do not have permission. at /user', function(done){
+        xit('should a user to update themselves even if they do not have permission. at /user', function(done){
             var newUser = {
                 _id: testReaderUserId,
                 login: "apitestuserreader",
@@ -766,7 +766,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should error if putting to /user with an different ID than your own.', function(done){
+        xit('should error if putting to /user with an different ID than your own.', function(done){
             var newUser = {
                 _id: testUserId,
                 login: "apitestuserreader",
@@ -790,7 +790,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should a user to update themselves even if they do not have permission. at /user/:id', function(done){
+        xit('should a user to update themselves even if they do not have permission. at /user/:id', function(done){
             var newUser = {
                 _id: testReaderUserId,
                 login: "apitestuserreader",
@@ -813,7 +813,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should error if putting to /users/:id with an different ID than your own.', function(done){
+        xit('should error if putting to /users/:id with an different ID than your own.', function(done){
             var newUser = {
                 _id: testUserId,
                 login: "apitestuserreader",
@@ -852,7 +852,7 @@ describe('api.users', function(){
             }
         };
 
-        it('should return 401 because trying to access unauthenticated', function(done) {
+        xit('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .post('/users/query')
                 .set('Accept', 'application/json')
@@ -865,7 +865,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return user search results', function(done) {
+        xit('should return user search results', function(done) {
             request(url)
                 .post('/users/query')
                 .set('Accept', 'application/json')
@@ -879,7 +879,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should not return user search results', function(done) {
+        xit('should not return user search results', function(done) {
             request(url)
                 .post('/users/query')
                 .set('Accept', 'application/json')
@@ -897,7 +897,7 @@ describe('api.users', function(){
     });
 
     describe("DELETE: " + url + '/users', function() {
-        it('should return a 403 because user does not have permissions to access users', function(done) {
+        xit('should return a 403 because user does not have permissions to access users', function(done) {
             request(url)
                 .del('/users/' + testCreatedUserId)
                 .set('Accept', 'application/json')
@@ -909,7 +909,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should delete a user using the correct verb', function(done) {
+        xit('should delete a user using the correct verb', function(done) {
             request(url)
                 .del('/users/' + testCreatedUserId)
                 .set('Accept', 'application/json')
@@ -921,7 +921,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        it('should delete a user using the method override', function(done) {
+        xit('should delete a user using the method override', function(done) {
             request(url)
                 .post('/users/' + testCreatedUserIdCustomVerb)
                 .set('Accept', 'application/json')
@@ -935,7 +935,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('should return 200 when we try to delete a user that doesn\'t exist', function(done) {
+        xit('should return 200 when we try to delete a user that doesn\'t exist', function(done) {
             request(url)
                 .del('/users/' + testCreatedUserIdCustomVerb)
                 .set('Accept', 'application/json')
@@ -950,7 +950,7 @@ describe('api.users', function(){
     });
 
     describe("Test creating a user, logging in with the new user then revoking the token and confirming that they are locked out", function() {
-        it('auth token of user should be revoked if user is disabled.', function(done) {
+        xit('auth token of user should be revoked if user is disabled.', function(done) {
             var newUser = {
                 login: "futurerevokee",
                 role: "admin",
@@ -1038,7 +1038,7 @@ describe('api.users', function(){
     });
 
     describe("POST: " + url + '/users/:id/permissions', function() {
-        it('add permission to edit a node with an empty permissions collection.', function(done) {
+        xit('add permission to edit a node with an empty permissions collection.', function(done) {
             request(url)
                 .post('/users/' + testReaderUserId + "/permissions")
                 .set('Accept', 'application/json')
@@ -1055,7 +1055,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('update a permission that a user already has set to another value.', function(done) {
+        xit('update a permission that a user already has set to another value.', function(done) {
             request(url)
                 .post('/users/' + testReaderUserId + "/permissions")
                 .set('Accept', 'application/json')
@@ -1072,7 +1072,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('add a permission that already has a permissions collection.', function(done) {
+        xit('add a permission that already has a permissions collection.', function(done) {
             request(url)
                 .post('/users/' + testReaderUserId + "/permissions")
                 .set('Accept', 'application/json')
@@ -1089,7 +1089,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('try to add permissions unathenticated should result in a 401.', function(done) {
+        xit('try to add permissions unathenticated should result in a 401.', function(done) {
             request(url)
                 .post('/users/' + testReaderUserId + "/permissions")
                 .set('Accept', 'application/json')
@@ -1105,7 +1105,7 @@ describe('api.users', function(){
                 });
         });
 
-        it('try to add permissions without the correct permissions. Should result in a 403.', function(done) {
+        xit('try to add permissions without the correct permissions. Should result in a 403.', function(done) {
             request(url)
                 .post('/users/' + testReaderUserId + "/permissions")
                 .set('Accept', 'application/json')

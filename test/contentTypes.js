@@ -36,7 +36,7 @@ describe('api.contentTypes', function(){
     });
 
     describe("GET: " + url + '/contentTypes/:id', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
+        xit('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .get('/contentTypes/' + testContentTypeId)
                 .set('Accept', 'application/json')
@@ -48,7 +48,7 @@ describe('api.contentTypes', function(){
                 });
         });
 
-        it('should return an existing content type', function(done) {
+        xit('should return an existing content type', function(done) {
             request(url)
                 .get('/contentTypes/' + testContentTypeId)
                 .set('Accept', 'application/json')
@@ -61,7 +61,7 @@ describe('api.contentTypes', function(){
                     done();
                 });
         });
-        it('should return 404 because test user id does not exist', function(done) {
+        xit('should return 404 because test user id does not exist', function(done) {
             request(url)
                 .get('/contentTypes/52607c5f5b7500ea65000008')
                 .set('Accept', 'application/json')
@@ -76,7 +76,7 @@ describe('api.contentTypes', function(){
     });
 
     describe("GET: " + url + '/contentTypes', function() {
-        it('should return a list of content types with the default page size', function(done) {
+        xit('should return a list of content types with the default page size', function(done) {
             request(url)
                 .get('/contentTypes')
                 .set('Accept', 'application/json')
@@ -90,7 +90,7 @@ describe('api.contentTypes', function(){
                     done();
                 });
         });
-        it('should a list of content types with the specified page size', function(done) {
+        xit('should a list of content types with the specified page size', function(done) {
             request(url)
                 .get('/contentTypes?limit=1&skip=0')
                 .set('Accept', 'application/json')
@@ -105,7 +105,7 @@ describe('api.contentTypes', function(){
                 });
         });
 
-        it('should return an empty list if the page size and current requested items are out of bounds.', function(done) {
+        xit('should return an empty list if the page size and current requested items are out of bounds.', function(done) {
             request(url)
                 .get('/contentTypes?limit=1&skip=100000')
                 .set('Accept', 'application/json')
@@ -119,7 +119,7 @@ describe('api.contentTypes', function(){
                     done();
                 });
         });
-        it('should return a 401 because user is not authenticated', function(done) {
+        xit('should return a 401 because user is not authenticated', function(done) {
             request(url)
                 .get('/contentTypes')
                 .set('Accept', 'application/json')
@@ -133,7 +133,7 @@ describe('api.contentTypes', function(){
     });
 
     describe("POST: " + url + '/contentTypes', function() {
-        it('should create a content type without an error using correct verb.', function(done){
+        xit('should create a content type without an error using correct verb.', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
                 fields: {
@@ -163,7 +163,7 @@ describe('api.contentTypes', function(){
                 });
         });
 
-        it('should create a content type without an error using correct verb. supplying fields and meta info', function(done){
+        xit('should create a content type without an error using correct verb. supplying fields and meta info', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
                 fields: {
@@ -201,7 +201,7 @@ describe('api.contentTypes', function(){
         });
 
 
-        it('should return an error because we are missing a "label" field.', function(done){
+        xit('should return an error because we are missing a "label" field.', function(done){
             var newContentType = {
                 fields: {
                     testid: {
@@ -231,7 +231,7 @@ describe('api.contentTypes', function(){
         });
 
 
-        it('should return error if a content type id is sent with the request (maybe verb error).', function(done){
+        xit('should return error if a content type id is sent with the request (maybe verb error).', function(done){
             var newContentType = {
                 _id: "ISHOULDNOTBEHERE",
                 label: "newtestsuitecontent",
@@ -264,7 +264,7 @@ describe('api.contentTypes', function(){
         });
 
 
-        it('should return error when a malformed field id is passed in (id has a space).', function(done){
+        xit('should return error when a malformed field id is passed in (id has a space).', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
                 fields: {
@@ -296,7 +296,7 @@ describe('api.contentTypes', function(){
 
 
 
-        it('should return error when a malformed field is passed in (missing label).', function(done){
+        xit('should return error when a malformed field is passed in (missing label).', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
                 fields: {
@@ -326,7 +326,7 @@ describe('api.contentTypes', function(){
         });
 
 
-        it('should return error when a malformed field is passed in (missing type).', function(done){
+        xit('should return error when a malformed field is passed in (missing type).', function(done){
             var newContentType = {
                 label: "newtestsuitecontent",
                 fields: {
@@ -360,7 +360,7 @@ describe('api.contentTypes', function(){
     });
 
     describe("PUT: " + url + '/contentTypes', function() {
-        it('should return a 403 because user does not have permissions to access users', function(done) {
+        xit('should return a 403 because user does not have permissions to access users', function(done) {
             var newContentType = {
                 _id: testCreatedContentTypeId,
                 label: 'updatedlabel',
@@ -385,7 +385,7 @@ describe('api.contentTypes', function(){
                     done();
                 });
         });
-        it('should update a content type using the correct verb', function(done) {
+        xit('should update a content type using the correct verb', function(done) {
             var newContentType = {
                 _id: testCreatedContentTypeId,
                 label: 'updatedlabel',
@@ -411,7 +411,7 @@ describe('api.contentTypes', function(){
                 });
         });
 
-        it('should update a content type when the ID is in the route', function(done) {
+        xit('should update a content type when the ID is in the route', function(done) {
             var newContentType = {
                 _id: testCreatedContentTypeId,
                 label: 'updatedlabel',
@@ -438,7 +438,7 @@ describe('api.contentTypes', function(){
         });
 
 
-        it('should update a content type using the method override', function(done) {
+        xit('should update a content type using the method override', function(done) {
             var newContentType = {
                 _id: testCreatedContentTypeId,
                 label: 'updatedlabel',
@@ -465,7 +465,7 @@ describe('api.contentTypes', function(){
                 });
         });
 
-        it('should return error if content type is updated without a set "ID"', function(done){
+        xit('should return error if content type is updated without a set "ID"', function(done){
             var newContentType = {
                 label: "updatedlabel",
                 fields: {
@@ -505,7 +505,7 @@ describe('api.contentTypes', function(){
     });
 
     describe("DELETE: " + url + '/contentTypes', function() {
-        it('should return a 403 because user does not have permissions to access content types', function(done) {
+        xit('should return a 403 because user does not have permissions to access content types', function(done) {
             request(url)
                 .del('/contentTypes/' + testCreatedContentTypeId)
                 .set('Accept', 'application/json')
@@ -517,7 +517,7 @@ describe('api.contentTypes', function(){
                     done();
                 });
         });
-        it('should delete a content type using the correct verb', function(done) {
+        xit('should delete a content type using the correct verb', function(done) {
             request(url)
                 .del('/contentTypes/' + testCreatedContentTypeId)
                 .set('Accept', 'application/json')
@@ -529,7 +529,7 @@ describe('api.contentTypes', function(){
                     done();
                 });
         });
-        it('should delete a content type using the method override', function(done) {
+        xit('should delete a content type using the method override', function(done) {
             request(url)
                 .post('/contentTypes/' + testCreatedContentTypeCustomVerb)
                 .set('Accept', 'application/json')
@@ -543,7 +543,7 @@ describe('api.contentTypes', function(){
                 });
         });
 
-        it('should return 200 when we try to delete a content type that doesn\'t exist', function(done) {
+        xit('should return 200 when we try to delete a content type that doesn\'t exist', function(done) {
             request(url)
                 .del('/contentTypes/52607c5f5b7500ea65000008')
                 .set('Accept', 'application/json')

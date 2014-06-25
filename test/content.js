@@ -33,7 +33,7 @@ describe('api.content', function(){
     });
 
     describe("GET: " + url + '/content/:id', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
+        xit('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .get('/content/' + testContentId)
                 .set('Accept', 'application/json')
@@ -45,7 +45,7 @@ describe('api.content', function(){
                 });
         });
 
-        it('should return 200 because getting content that exists with correct permissions.', function(done) {
+        xit('should return 200 because getting content that exists with correct permissions.', function(done) {
             request(url)
                 .get('/content/' + testContentId)
                 .set('Accept', 'application/json')
@@ -60,7 +60,7 @@ describe('api.content', function(){
         });
 
 
-        it('should return 403 because getting content from a node that is restricted to me.', function(done) {
+        xit('should return 403 because getting content from a node that is restricted to me.', function(done) {
             request(url)
                 .get('/content/' + restrictedContentId)
                 .set('Accept', 'application/json')
@@ -76,7 +76,7 @@ describe('api.content', function(){
     });
 
     describe("POST: " + url + '/content', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
+        xit('should return 401 because trying to access unauthenticated', function(done) {
             var obj = {
                 label:"Generated title", slug: 'generated_title', type: "524362aa56c02c0703000001", nonce:"1234fdsdfsa565", status: "Live",
                 node : {_id: "526d5179966a883540000006", displayOrder: 1}, fields: {testfield: "test value"}, author: {_id: "5246e73d56c02c0744000001", name: "Test User"}
@@ -94,7 +94,7 @@ describe('api.content', function(){
                 });
         });
 
-        it('should return 403 because I am am only a reader of content.', function(done) {
+        xit('should return 403 because I am am only a reader of content.', function(done) {
             var obj = {
                 label:"Generated title", slug: 'generated_title', type: "524362aa56c02c0703000001", nonce:"1234fdsdfsa565", status: "Live",
                 node : {_id: "526d5179966a883540000006", displayOrder: 1}, fields: {testfield: "test value"}, author: {_id: "5246e73d56c02c0744000001", name: "Test User"}
@@ -113,7 +113,7 @@ describe('api.content', function(){
                 });
         });
 
-        it('should return 200 because I have the correct permissions.', function(done) {
+        xit('should return 200 because I have the correct permissions.', function(done) {
             var obj = {
                 meta: {
                     type: "524362aa56c02c0703000001",
@@ -139,7 +139,7 @@ describe('api.content', function(){
         });
 
 
-        it('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
+        xit('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
             var obj = {
                 meta:{
                     type: "524362aa56c02c0703000001",
@@ -163,7 +163,7 @@ describe('api.content', function(){
     });
 
     describe("PUT: " + url + '/content/:id', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
+        xit('should return 401 because trying to access unauthenticated', function(done) {
             var obj = {};
             _.extend(obj, sampleContentObject);
 
@@ -181,7 +181,7 @@ describe('api.content', function(){
                 });
         });
 
-        it('should return 403 because I am am only a reader of content.', function(done) {
+        xit('should return 403 because I am am only a reader of content.', function(done) {
 
             var obj = {};
             _.extend(obj, sampleContentObject);
@@ -200,7 +200,7 @@ describe('api.content', function(){
                 });
         });
 
-        it('should return 200 because I have the correct permissions.', function(done) {
+        xit('should return 200 because I have the correct permissions.', function(done) {
             var obj = {};
             _.extend(obj, sampleContentObject);
 
@@ -220,7 +220,7 @@ describe('api.content', function(){
         });
 
 
-        it('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
+        xit('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
             var obj = {};
             _.extend(obj, sampleContentObject);
 
@@ -253,7 +253,7 @@ describe('api.content', function(){
             }
         };
 
-        it('should return a 401 because trying to access unauthenticated', function(done) {
+        xit('should return a 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .post('/content/query')
                 .set('Accept', 'application/json')
@@ -266,7 +266,7 @@ describe('api.content', function(){
                 });
         });
 
-        it('should return a 200', function(done) {
+        xit('should return a 200', function(done) {
             request(url)
                 .post('/content/query')
                 .set('Accept', 'application/json')
@@ -280,7 +280,7 @@ describe('api.content', function(){
                 });
         });
 
-        it('should return a 200 even if it finds nothing', function(done) {
+        xit('should return a 200 even if it finds nothing', function(done) {
             request(url)
                 .post('/content/query')
                 .set('Accept', 'application/json')
@@ -296,7 +296,7 @@ describe('api.content', function(){
         });
 
 
-        it('return valid results for everything within a node', function(done) {
+        xit('return valid results for everything within a node', function(done) {
             request(url)
                 .post('/content/query')
                 .set('Accept', 'application/json')
@@ -317,7 +317,7 @@ describe('api.content', function(){
     });
 
     describe("DELETE: " + url + '/content/:id', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
+        xit('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .del('/content/' + testContentId)
                 .set('Accept', 'application/json')
@@ -329,7 +329,7 @@ describe('api.content', function(){
                 });
         });
 
-        it('should return 403 because I am am only a reader of content.', function(done) {
+        xit('should return 403 because I am am only a reader of content.', function(done) {
             request(url)
                 .del('/content/' + testContentId)
                 .set('Accept', 'application/json')
@@ -342,7 +342,7 @@ describe('api.content', function(){
                 });
         });
 
-        it('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
+        xit('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
             request(url)
                 .del('/content/' + restrictedContentId)
                 .set('Accept', 'application/json')
@@ -355,7 +355,7 @@ describe('api.content', function(){
                 });
         });
 
-        it('should return 200 because I have the correct permissions.', function(done) {
+        xit('should return 200 because I have the correct permissions.', function(done) {
             request(url)
                 .del('/content/' + restrictedContentId)
                 .set('Accept', 'application/json')

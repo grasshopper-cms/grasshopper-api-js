@@ -93,7 +93,7 @@ describe('api.nodes', function(){
 
     describe("POST: " + url + '/nodes', function() {
 
-        it('should create a node without an error using correct verb.', function(done){
+        xit('should create a node without an error using correct verb.', function(done){
             request(url)
                 .post('/nodes')
                 .set('Accept', 'application/json')
@@ -112,7 +112,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should create a node without an error using correct verb. (sub node of root)', function(done){
+        xit('should create a node without an error using correct verb. (sub node of root)', function(done){
             request(url)
                 .post('/nodes')
                 .set('Accept', 'application/json')
@@ -131,7 +131,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should create a node without an error using correct verb. (sub sub node of root)', function(done){
+        xit('should create a node without an error using correct verb. (sub sub node of root)', function(done){
             request(url)
                 .post('/nodes')
                 .set('Accept', 'application/json')
@@ -149,7 +149,7 @@ describe('api.nodes', function(){
                 });
         });
 
-         it('should return an error because we are missing a "label" field.', function(done){
+         xit('should return an error because we are missing a "label" field.', function(done){
              request(url)
                  .post('/nodes')
                  .set('Accept', 'application/json')
@@ -165,7 +165,7 @@ describe('api.nodes', function(){
                  });
          });
 
-        it('should create a node when a reader with editor permissions creates a node', function(done){
+        xit('should create a node when a reader with editor permissions creates a node', function(done){
             request(url)
                 .post('/nodes')
                 .set('Accept', 'application/json')
@@ -183,7 +183,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should return error when a reader tries to create a node', function(done){
+        xit('should return error when a reader tries to create a node', function(done){
             request(url)
                 .post('/nodes')
                 .set('Accept', 'application/json')
@@ -200,7 +200,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should return error when a reader tries to create a node', function(done){
+        xit('should return error when a reader tries to create a node', function(done){
             request(url)
                 .post('/nodes')
                 .set('Accept', 'application/json')
@@ -220,7 +220,7 @@ describe('api.nodes', function(){
 
     describe("POST: " + url + '/node/:id/contenttype', function() {
 
-        it('should add a content type to an existing node as the property allowedTypes sent as a single value.', function(done){
+        xit('should add a content type to an existing node as the property allowedTypes sent as a single value.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -249,7 +249,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should replace a content type in an existing node with existing contenttypes.', function(done){
+        xit('should replace a content type in an existing node with existing contenttypes.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -290,7 +290,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should replace multiple contenttypes in an existing node with a single contenttype.', function(done){
+        xit('should replace multiple contenttypes in an existing node with a single contenttype.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -341,7 +341,7 @@ describe('api.nodes', function(){
 
 
 
-        it('should respond with a 200 when adding a content type to an existing node sent as a single value.', function(done){
+        xit('should respond with a 200 when adding a content type to an existing node sent as a single value.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -357,7 +357,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should respond with a 200 when adding a collection of content types to an existing node sent as an array.', function(done){
+        xit('should respond with a 200 when adding a collection of content types to an existing node sent as an array.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -373,7 +373,7 @@ describe('api.nodes', function(){
 
         });
 
-        it('should fail with 401 if the user is unauthenticated.', function(done){
+        xit('should fail with 401 if the user is unauthenticated.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -388,7 +388,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('Should fail with a 403 if a user does not have editor permissions to the parent node.', function(done){
+        xit('Should fail with a 403 if a user does not have editor permissions to the parent node.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -404,7 +404,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should fail with 404 if trying to save a content type to a node that doesn\'t exist.', function(done){
+        xit('should fail with 404 if trying to save a content type to a node that doesn\'t exist.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -418,7 +418,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should fail if the payload to the node types is not a correct format.', function(done){
+        xit('should fail if the payload to the node types is not a correct format.', function(done){
             request(url)
                 .post('/node/' + testNodeId + '/contenttype')
                 .set('Accept', 'application/json')
@@ -434,7 +434,7 @@ describe('api.nodes', function(){
     });
 
     describe("GET: " + url + '/node/:id', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
+        xit('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .get('/node/' + testNodeId)
                 .set('Accept', 'application/json')
@@ -446,7 +446,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should return a node when using a id', function(done) {
+        xit('should return a node when using a id', function(done) {
             request(url)
                 .get('/node/' + testNodeId)
                 .set('Accept', 'application/json')
@@ -459,7 +459,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should return a nodes allowedTypes when using a id', function(done) {
+        xit('should return a nodes allowedTypes when using a id', function(done) {
             request(url)
                 .get('/node/' + testNodeId)
                 .set('Accept', 'application/json')
@@ -472,7 +472,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should return a nodes allowedTypes with the fields (id, label, helptext) when using a id', function(done) {
+        xit('should return a nodes allowedTypes with the fields (id, label, helptext) when using a id', function(done) {
             request(url)
                 .get('/node/' + testNodeId)
                 .set('Accept', 'application/json')
@@ -512,7 +512,7 @@ describe('api.nodes', function(){
                 });
         });*/
 
-        it('an editor should return an existing node object', function(done) {
+        xit('an editor should return an existing node object', function(done) {
             request(url)
                 .get('/node/' + testNodeId)
                 .set('Accept', 'application/json')
@@ -524,7 +524,7 @@ describe('api.nodes', function(){
                     done();
                 });
         });
-        it('a reader should return an existing node object', function(done) {
+        xit('a reader should return an existing node object', function(done) {
             request(url)
                 .get('/node/' + testNodeId)
                 .set('Accept', 'application/json')
@@ -556,7 +556,7 @@ describe('api.nodes', function(){
     });*/
 
     describe('GET: ' + url + '/node/:nodeid/content', function(){
-        it('should return a list of content inside of a node.', function(done){
+        xit('should return a list of content inside of a node.', function(done){
             request(url)
                 .get('/node/' + testNodeId + '/content')
                 .set('Accept', 'application/json')
@@ -569,7 +569,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should return an empty list because the node is root.', function(done){
+        xit('should return an empty list because the node is root.', function(done){
             request(url)
                 .get('/node/0/content')
                 .set('Accept', 'application/json')
@@ -585,7 +585,7 @@ describe('api.nodes', function(){
     });
 
     describe("GET: " + url + '/nodes/:id/deep', function() {
-        it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
+        xit('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/children/deep")
                 .set('Accept', 'application/json')
@@ -631,7 +631,7 @@ describe('api.nodes', function(){
     });
 
     describe("GET: " + url + '/nodes/:id/children', function() {
-        it('should return a 401 because user is not authenticated', function(done) {
+        xit('should return a 401 because user is not authenticated', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/children")
                 .set('Accept', 'application/json')
@@ -643,7 +643,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
+        xit('a reader with all valid permissions should get a node object back with a full collection of child nodes', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/children")
                 .set('Accept', 'application/json')
@@ -687,7 +687,7 @@ describe('api.nodes', function(){
                 });
         });*/
 
-        it('should return list of root level child nodes', function(done) {
+        xit('should return list of root level child nodes', function(done) {
             request(url)
                 .get('/node/0/children')
                 .set('Accept', 'application/json')
@@ -703,7 +703,7 @@ describe('api.nodes', function(){
     });
 
     describe("POST: " + url + '/node/:id/assets', function() {
-        it('post test fixtures', function(done) {
+        xit('post test fixtures', function(done) {
             function upload(file, next){
                 request(url)
                     .post('/node/' + testNodeIdRoot_generated + "/assets")
@@ -743,7 +743,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('an editor with all valid permissions should be able to post a LARGE attachment to a node.', function(done) {
+        xit('an editor with all valid permissions should be able to post a LARGE attachment to a node.', function(done) {
 
             request(url)
                 .post('/node/' + testNodeId + "/assets")
@@ -762,7 +762,7 @@ describe('api.nodes', function(){
 
     ///////////////////////////////////////////////////////
     describe("POST: " + url + '/node/:id/assets/rename', function() {
-        it('should rename an asset to a new name in the same node.', function(done) {
+        xit('should rename an asset to a new name in the same node.', function(done) {
             request(url)
                 .post('/node/' + testNodeId + "/assets/rename")
                 .set('Accept', 'application/json')
@@ -780,7 +780,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should fail because asset does not exist.', function(done) {
+        xit('should fail because asset does not exist.', function(done) {
             request(url)
                 .post('/node/' + testNodeId + "/assets/rename")
                 .set('Accept', 'application/json')
@@ -797,7 +797,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should fail because the user does not have permissions.', function(done) {
+        xit('should fail because the user does not have permissions.', function(done) {
             request(url)
                 .post('/node/' + testNodeId + "/assets/rename")
                 .set('Accept', 'application/json')
@@ -816,7 +816,7 @@ describe('api.nodes', function(){
     });
 
     describe("POST: " + url + '/node/:id/assets/copy', function() {
-        it('should copy an asset from one node to another.', function(done) {
+        xit('should copy an asset from one node to another.', function(done) {
 
             request(url)
                 .post('/node/' + testNodeId + "/assets/copy")
@@ -838,7 +838,7 @@ describe('api.nodes', function(){
     });
 
     describe("GET: " + url + '/node/:nodeid/assets/:filename', function() {
-        it('should get a file from a node specified by the filename.', function(done) {
+        xit('should get a file from a node specified by the filename.', function(done) {
 
             request(url)
                 .get('/node/' + testNodeId + '/assets/testimage.png')
@@ -853,7 +853,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should return a 404 when it could not find the file.', function(done) {
+        xit('should return a 404 when it could not find the file.', function(done) {
 
             request(url)
                 .get('/node/' + testNodeId + '/assets/gobledigook.png')
@@ -871,7 +871,7 @@ describe('api.nodes', function(){
 
 
     describe("POST: " + url + '/node/:id/assets/move', function() {
-        it('should move one asset to another node.', function(done) {
+        xit('should move one asset to another node.', function(done) {
 
             request(url)
                 .post('/node/' + testNodeId + "/assets/move")
@@ -902,7 +902,7 @@ describe('api.nodes', function(){
 
 
    describe("DELETE: " + url + '/node/:id/assets/:name', function() {
-        it('should delete an asset with a specific name', function(done) {
+        xit('should delete an asset with a specific name', function(done) {
 
             request(url)
                 .del('/node/' + testNodeWithNoSubNodes + "/assets/testimage.png")
@@ -917,17 +917,17 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('should fail because the user does not have permissions.', function(done) {
+        xit('should fail because the user does not have permissions.', function(done) {
             done();
         });
 
-        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
+        xit('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
             done();
         });
     });
 
     describe("DELETE: " + url + '/node/:id/assets', function() {
-        it('should delete all files in a node.', function(done) {
+        xit('should delete all files in a node.', function(done) {
 
             request(url)
                 .post('/node/' + testNodeId + "/assets")
@@ -954,17 +954,17 @@ describe('api.nodes', function(){
 
         });
 
-        it('should fail because the user does not have permissions.', function(done) {
+        xit('should fail because the user does not have permissions.', function(done) {
             done();
         });
 
-        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
+        xit('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
             done();
         });
     });
 ////////////////////////////////////////////////////////
     describe("GET: " + url + '/nodes/:nodeid/assets', function() {
-        it('should return 401 because trying to access unauthenticated', function(done) {
+        xit('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .get('/node/' + testNodeId)
                 .set('Accept', 'application/json')
@@ -977,7 +977,7 @@ describe('api.nodes', function(){
         });
 
         describe('When calling in the root with a zero.', function() {
-           it('should return empty array', function(done) {
+           xit('should return empty array', function(done) {
                request(url)
                    .get('/node/0/assets')
                    .set('Accept', 'application/json')
@@ -994,7 +994,7 @@ describe('api.nodes', function(){
         });
 
         /** Requires node level permissions
-        it('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
+        xit('a reader should return a 403 because user does not have permissions to access a particular node', function(done) {
             request(url)
                 .get('/node/' + testLockedDownNodeId + "/assets")
                 .set('Accept', 'application/json')
@@ -1021,7 +1021,7 @@ describe('api.nodes', function(){
                 });
         });*/
 
-        it('an editor should return a list of files in a node', function(done) {
+        xit('an editor should return a list of files in a node', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/assets")
                 .set('Accept', 'application/json')
@@ -1034,7 +1034,7 @@ describe('api.nodes', function(){
                     done();
                 });
         });
-        it('a reader should return a list of files in a node', function(done) {
+        xit('a reader should return a list of files in a node', function(done) {
             request(url)
                 .get('/node/' + testNodeId + "/assets")
                 .set('Accept', 'application/json')
@@ -1094,7 +1094,7 @@ describe('api.nodes', function(){
 
     describe("DELETE: " + url + '/node/:id', function() {
 
-        it('Should delete an node.', function(done) {
+        xit('Should delete an node.', function(done) {
             request(url)
                 .del('/node/' + testNodeIdRoot_generated)
                 .set('Accept', 'application/json')
@@ -1107,7 +1107,7 @@ describe('api.nodes', function(){
                 });
         });
 
-        it('Should delete a generated node.', function(done) {
+        xit('Should delete a generated node.', function(done) {
             request(url)
                 .del('/node/' + testNodeIdSubSub_generated)
                 .set('Accept', 'application/json')

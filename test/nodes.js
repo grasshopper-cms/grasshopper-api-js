@@ -727,7 +727,7 @@ describe('api.nodes', function(){
 
         });
 
-        it('an editor with all valid permissions should be able to post an attachment to a node.', function(done) {
+        xit('an editor with all valid permissions should be able to post an attachment to a node.', function(done) {
 
             request(url)
                 .post('/node/' + testNodeId + "/assets")

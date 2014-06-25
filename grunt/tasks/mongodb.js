@@ -96,7 +96,7 @@ module.exports = function (grunt) {
                 grunt.log.errorlns(err);
             }
             db.collection(col, function(err, collection){
-                collection.insert(obj, function(err){
+                collection.insert(obj, function(){
                     db.close();
                     callback();
                 });

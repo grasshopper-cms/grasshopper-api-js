@@ -1,7 +1,7 @@
 'use strict';
-var should = require('chai').should();
 var request = require('supertest');
 
+require('chai').should();
 
 describe('api.contentTypes', function(){
     var url = require('./config/test').url,

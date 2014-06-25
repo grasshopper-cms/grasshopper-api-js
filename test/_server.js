@@ -3,7 +3,7 @@ describe('api.content', function(){
     require('./config/environment');
 
     before(function(done){
-        var proc = require('../lib/grasshopper-api')();
+        require('../lib/grasshopper-api')();
         setTimeout(function(){
             done();
         },1000);

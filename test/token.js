@@ -1,7 +1,8 @@
 'use strict';
-var should = require('chai').should(),
-    request = require('supertest'),
+var request = require('supertest'),
     async = require('async');
+
+require('chai').should();
 
 describe('api.token', function(){
     var url = require('./config/test').url,

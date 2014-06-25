@@ -1,8 +1,7 @@
-var should = require('chai').should(),
-    request = require('supertest'),
-    async = require('async'),
+var request = require('supertest'),
     path = require('path');
 
+require('chai').should();
 
 describe('api.nodes', function(){
     'use strict';
@@ -15,15 +14,13 @@ describe('api.nodes', function(){
         nodeEditorToken = "",
         restrictedEditorToken = "",
         testNodeId = "5261781556c02c072a000007",
-        testLockedDownNodeId = "526d5179966a883540000006",
         testNodeWithNoSubNodes = "5246e73d56c02c0744000001",
         testNodeIdRoot_generated = "",
         testNodeIdSubNode_generated = "",
         testNodeIdSubSub_generated = "",
         testContentTypeID = "524362aa56c02c0703000001",
         testContentTypeID_Users = "5254908d56c02c076e000001",
-        badTestContentTypeID = "52698a0033e248a360000006",
-        badTestNodeId = "526d545623c0ff9442000006";
+        badTestContentTypeID = "52698a0033e248a360000006";
 
     before(function(done){
         async.parallel(
@@ -232,7 +229,7 @@ describe('api.nodes', function(){
                 .send({
                     id: testContentTypeID
                 })
-                .end(function(err, res) {
+                .end(function(err) {
                     if (err) { throw err; }
                     request(url)
                         .get('/node/' + testNodeId)
@@ -261,7 +258,7 @@ describe('api.nodes', function(){
                 .send({
                     id: testContentTypeID
                 })
-                .end(function(err, res) {
+                .end(function(err) {
                     if (err) { throw err; }
 
                     request(url)
@@ -272,7 +269,7 @@ describe('api.nodes', function(){
                         .send({
                             id: testContentTypeID_Users
                         })
-                        .end(function(err, res) {
+                        .end(function(err) {
                             if (err) { throw err; }
                             request(url)
                                 .get('/node/' + testNodeId)
@@ -309,7 +306,7 @@ describe('api.nodes', function(){
                         }
                     ]
                 )
-                .end(function(err, res) {
+                .end(function(err) {
                     if (err) { throw err; }
 
                     request(url)
@@ -320,7 +317,7 @@ describe('api.nodes', function(){
                         .send({
                             id: testContentTypeID_Users
                         })
-                        .end(function(err, res) {
+                        .end(function(err) {
                             if (err) { throw err; }
                             request(url)
                                 .get('/node/' + testNodeId)
@@ -565,8 +562,7 @@ describe('api.nodes', function(){
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalReaderToken)
-                .end(function(err, res) {
-                    //true.should.equal(false);
+                .end(function(err) {
                     if (err) { throw err; }
 
                     done();
@@ -579,7 +575,7 @@ describe('api.nodes', function(){
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalReaderToken)
-                .end(function(err, res) {
+                .end(function(err) {
 
                     if (err) { throw err; }
 
@@ -715,7 +711,7 @@ describe('api.nodes', function(){
                     .set('Accept-Language', 'en_US')
                     .set('authorization', 'Token ' + globalEditorToken)
                     .attach("file", file)
-                    .end(function(err, res) {
+                    .end(function(err) {
                         if (err) { throw err; }
                         next();
                     });
@@ -939,7 +935,7 @@ describe('api.nodes', function(){
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalEditorToken)
                 .attach("file", "./test/fixtures/assetfordeletion.png")
-                .end(function(err, res) {
+                .end(function(err) {
                     if (err) { throw err; }
 
                     request(url)

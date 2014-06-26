@@ -234,17 +234,21 @@ describe('api.users', function(){
                 });
         });
 
-        xit('should create a user without an error using correct verb with additional custom params.', function(done){
+        it('should create a user without an error using correct verb with additional custom params.', function(done){
             var newUser = {
-                login: "newtestuser2",
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
                 firstname: "Test",
                 lastname: "User",
-                password: "TestPassword",
                 profile: {
-                    linkedid: "tjmchattie"
+                    linkedid : "tjmchattie"
+                },
+                identities : {
+                    basic : {
+                        login : 'newtestuser2',
+                        password : 'TestPassword'
+                    }
                 }
             };
             request(url)
@@ -262,17 +266,21 @@ describe('api.users', function(){
                     done();
                 });
         });
-
-        xit('should return error if a user id is sent with the request (maybe verb error).', function(done){
+//=====================================================================================================================
+        it('should return error if a user id is sent with the request (maybe verb error).', function(done){
             var newUser = {
                 _id: "ISHOULDNOTBEHERE",
-                login: "newtestuser1",
                 role: "reader",
                 enabled: true,
                 email: "newtestuser2@thinksolid.com",
                 firstname: "Test",
                 lastname: "User",
-                password: "TestPassword"
+                identities : {
+                    basic : {
+                        login : 'newtestuseronehundred',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .post('/users')
@@ -282,22 +290,27 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
+                    console.log(res.body);
                     res.status.should.equal(500);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
         });
-
-        xit('should return error if a duplicate is created.', function(done){
+//=====================================================================================================================
+        it('should return error if a duplicate is created.', function(done){
             var newUser = {
-                login: "newtestuser1",
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
                 firstname: "Test",
                 lastname: "User",
-                password: "TestPassword"
+                identities : {
+                    basic : {
+                        login : 'newtestuser1',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .post('/users')
@@ -309,20 +322,24 @@ describe('api.users', function(){
                     if (err) { throw err; }
                     res.status.should.equal(400);
                     res.body.should.have.property('message');
-                    res.body.message.should.equal('Duplicate key already exists.');
+                    res.body.message.should.equal('This login is already in use.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
         });
 
-        xit('should validate and return error if a mandatory property is missing.',function(done){
+        it('should validate and return error if a mandatory property is missing.',function(done){
             var newUser = {
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
                 firstname: "Test",
                 lastname: "User",
-                password: "TestPassword"
+                identities : {
+                    basic : {
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .post('/users')
@@ -334,21 +351,25 @@ describe('api.users', function(){
                     if (err) { throw err; }
                     res.status.should.equal(400);
                     res.body.should.have.property('message');
-                    res.body.message.should.equal('"login" is a required field.');
+                    res.body.message.should.equal('login is required.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
         });
 
-        xit('should return error if an empty login is provided.', function(done){
+        it('should return error if an empty login is provided.', function(done){
             var newUser = {
-                login: "",
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
                 firstname: "Test",
                 lastname: "User",
-                password: "TestPassword"
+                identities : {
+                    basic : {
+                        login : '',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .post('/users')
@@ -360,21 +381,25 @@ describe('api.users', function(){
                     if (err) { throw err; }
                     res.status.should.equal(400);
                     res.body.should.have.property('message');
-                    res.body.message.should.equal('"login" is a required field.');
+                    res.body.message.should.equal('login is required.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
         });
 
-        xit('should return error if an null login is provided.', function(done){
+        it('should return error if an null login is provided.', function(done){
             var newUser = {
-                login: null,
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
                 firstname: "Test",
                 lastname: "User",
-                password: "TestPassword"
+                identities : {
+                    basic : {
+                        login : null,
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .post('/users')
@@ -386,21 +411,25 @@ describe('api.users', function(){
                     if (err) { throw err; }
                     res.status.should.equal(400);
                     res.body.should.have.property('message');
-                    res.body.message.should.equal('"login" is a required field.');
+                    res.body.message.should.equal('login is required.');
                     res.body.message.should.have.length.above(0);
                     done();
                 });
         });
 
-        xit('should return error if a login is too short.', function(done){
+        it('should return error if a login is too short.', function(done){
             var newUser = {
-                login: "sho",
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
                 firstname: "Test",
                 lastname: "User",
-                password: "TestPassword"
+                identities : {
+                    basic : {
+                        login : 'sho',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .post('/users')
@@ -418,15 +447,19 @@ describe('api.users', function(){
                 });
         });
 
-        xit('should return error if a password is null.', function(done){
+        it('should return error if a password is null.', function(done){
             var newUser = {
-                login: "newtestuserunique",
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
                 firstname: "Test",
                 lastname: "User",
-                password: null
+                identities : {
+                    basic : {
+                        login : 'newtestuserunique',
+                        password : null
+                    }
+                }
             };
             request(url)
                 .post('/users')
@@ -444,15 +477,19 @@ describe('api.users', function(){
                 });
         });
 
-        xit('should return error if a password is too short.', function(done){
+        it('should return error if a password is too short.', function(done){
             var newUser = {
-                login: "newtestuserunique",
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
                 firstname: "Test",
                 lastname: "User",
-                password: "sho"
+                identities : {
+                    basic : {
+                        login : 'newtestuserunique',
+                        password : 'sho'
+                    }
+                }
             };
             request(url)
                 .post('/users')
@@ -470,15 +507,19 @@ describe('api.users', function(){
                 });
         });
 
-        xit('should return error if a user has a role that is not allowed.', function(done){
+        it('should return error if a user has a role that is not allowed.', function(done){
             var newUser = {
-                login: "newtestuserunique",
                 role: "fake role",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
                 firstname: "Test",
                 lastname: "User",
-                password: "TestPassword"
+                identities : {
+                    basic : {
+                        login : 'newtestuserunique',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .post('/users')

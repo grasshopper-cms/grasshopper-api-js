@@ -999,7 +999,7 @@ describe('api.users', function(){
     });
 
     describe('DELETE: ' + url + '/users', function() {
-        xit('should return a 403 because user does not have permissions to access users', function(done) {
+        it('should return a 403 because user does not have permissions to access users', function(done) {
             request(url)
                 .del('/users/' + testCreatedUserId)
                 .set('Accept', 'application/json')
@@ -1011,7 +1011,8 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should delete a user using the correct verb', function(done) {
+
+        it('should delete a user using the correct verb', function(done) {
             request(url)
                 .del('/users/' + testCreatedUserId)
                 .set('Accept', 'application/json')
@@ -1023,7 +1024,8 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should delete a user using the method override', function(done) {
+
+        it('should delete a user using the method override', function(done) {
             request(url)
                 .post('/users/' + testCreatedUserIdCustomVerb)
                 .set('Accept', 'application/json')
@@ -1037,7 +1039,7 @@ describe('api.users', function(){
                 });
         });
 
-        xit('should return 200 when we try to delete a user that doesn\'t exist', function(done) {
+        it('should return 200 when we try to delete a user that doesn\'t exist', function(done) {
             request(url)
                 .del('/users/' + testCreatedUserIdCustomVerb)
                 .set('Accept', 'application/json')
@@ -1052,15 +1054,21 @@ describe('api.users', function(){
     });
 
     describe('Test creating a user, logging in with the new user then revoking the token and confirming that they are locked out', function() {
-        xit('auth token of user should be revoked if user is disabled.', function(done) {
+        it('auth token of user should be revoked if user is disabled.', function(done) {
             var newUser = {
-                login: 'futurerevokee',
+//                login: 'futurerevokee',
                 role: 'admin',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 password: 'TestPassword',
                 firstname: 'Test',
-                lastname: 'User'
+                lastname: 'User',
+                identities : {
+                    basic : {
+                        login : 'futurerevokee',
+                        password : 'TestPassword'
+                    }
+                }
             },
             mytoken = '';
 
@@ -1069,7 +1077,7 @@ describe('api.users', function(){
                 .post('/users')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
+                .set('authorization', 'Basic ' + adminToken)
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -1084,7 +1092,7 @@ describe('api.users', function(){
                         .get('/token')
                         .set('Accept', 'application/json')
                         .set('Accept-Language', 'en_US')
-                        .set('authorization', new Buffer('futurerevokee:TestPassword').toString('base64'))
+                        .set('authorization', 'Basic '+ new Buffer('futurerevokee:TestPassword').toString('base64'))
                         .end(function(err, res) {
                             if (err) { throw err; }
                             mytoken = res.body.access_token;
@@ -1094,7 +1102,7 @@ describe('api.users', function(){
                                 .get('/user')
                                 .set('Accept', 'application/json')
                                 .set('Accept-Language', 'en_US')
-                                .set('authorization', 'Token ' + mytoken)
+                                .set('authorization', 'Basic ' + mytoken)
                                 .end(function(err, res) {
                                     if (err) { throw err; }
                                     res.status.should.equal(200);
@@ -1105,7 +1113,7 @@ describe('api.users', function(){
                                         .put('/users')
                                         .set('Accept', 'application/json')
                                         .set('Accept-Language', 'en_US')
-                                        .set('authorization', 'Token ' + adminToken)
+                                        .set('authorization', 'Basic ' + adminToken)
                                         .send(newUser)
                                         .end(function(err, res) {
 
@@ -1122,19 +1130,15 @@ describe('api.users', function(){
                                                 .get('/user')
                                                 .set('Accept', 'application/json')
                                                 .set('Accept-Language', 'en_US')
-                                                .set('authorization', 'Token ' + mytoken)
+                                                .set('authorization', 'Basic ' + mytoken)
                                                 .end(function(err, res) {
                                                     if (err) { throw err; }
                                                     res.status.should.equal(401);
                                                     done();
                                                 });
                                         });
-
                                 });
-
                         });
-
-
                 });
         });
     });

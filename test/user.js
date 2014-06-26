@@ -105,23 +105,23 @@ describe('api.users', function(){
     });
 
     describe("GET: " + url + '/user', function() {
-        xit('should return the current logged in user', function(done) {
+        it('should return the current logged in user', function(done) {
             request(url)
                 .get('/user')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
+                .set('authorization', 'Basic ' + readerToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.should.not.have.property('password');
                     res.body.should.not.have.property('salt');
                     res.body.should.not.have.property('pass_hash');
-                    res.body.login.should.equal("apitestuserreader");
+                    res.body.identities.basic.login.should.equal("apitestuserreader");
                     done();
                 });
         });
-        xit('should return a 401 because user is not authenticated', function(done) {
+        it('should return a 401 because user is not authenticated', function(done) {
             request(url)
                 .get('/user')
                 .set('Accept', 'application/json')
@@ -135,12 +135,12 @@ describe('api.users', function(){
     });
 
     describe("GET: " + url + '/users', function() {
-        xit('should return a list of users with the default page size', function(done) {
+        it('should return a list of users with the default page size', function(done) {
             request(url)
                 .get('/users')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
+                .set('authorization', 'Basic ' + adminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
@@ -149,12 +149,12 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should a list of users with the specified page size', function(done) {
+        it('should a list of users with the specified page size', function(done) {
             request(url)
                 .get('/users?limit=1&skip=0')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
+                .set('authorization', 'Basic ' + adminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
@@ -163,24 +163,24 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should return a 403 because user does not have permissions to access users', function(done) {
+        it('should return a 403 because user does not have permissions to access users', function(done) {
             request(url)
                 .get('/users')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
+                .set('authorization', 'Basic ' + readerToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(403);
                     done();
                 });
         });
-        xit('should return an empty list if the page size and current requested items are out of bounds.', function(done) {
+        it('should return an empty list if the page size and current requested items are out of bounds.', function(done) {
             request(url)
                 .get('/users?limit=1&skip=100000')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
+                .set('authorization', 'Basic ' + adminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
@@ -189,7 +189,7 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should return a 401 because user is not authenticated', function(done) {
+        it('should return a 401 because user is not authenticated', function(done) {
             request(url)
                 .get('/users')
                 .set('Accept', 'application/json')

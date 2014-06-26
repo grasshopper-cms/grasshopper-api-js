@@ -30,13 +30,13 @@ describe('api.system', function(){
     });
 
     describe(url + '/system', function() {
-        xit('should return a response from system because our token is valid', function(done) {
+        it('should return a response from system because our token is valid', function(done) {
 
             request(url)
                 .get('/system')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalReaderToken)
+                .set('authorization', 'Basic ' + globalReaderToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
@@ -44,7 +44,7 @@ describe('api.system', function(){
                     done();
                 });
         });
-        xit('should receive a 401 because we are not authorized.', function(done) {
+        it('should receive a 401 because we are not authorized.', function(done) {
 
             request(url)
                 .get('/system')

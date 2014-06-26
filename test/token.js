@@ -36,14 +36,14 @@ describe('api.token', function(){
                 .get('/token')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', new Buffer('apitestuser:TestPassword').toString('base64'))
+                .set('authorization', 'Basic ' + new Buffer('admin:TestPassword').toString('base64'))
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     done();
                 });
         });
-        it('should return a invalid access token (real user, bad password)', function(done) {
+        xit('should return a invalid access token (real user, bad password)', function(done) {
 
             request(url)
                 .get('/token')
@@ -56,7 +56,7 @@ describe('api.token', function(){
                     done();
                 });
         });
-        it('should return a invalid access token (bad user)', function(done) {
+        xit('should return a invalid access token (bad user)', function(done) {
 
             request(url)
                 .get('/token')
@@ -69,7 +69,7 @@ describe('api.token', function(){
                     done();
                 });
         });
-        it('should return a invalid access token (missing auth header)', function(done) {
+        xit('should return a invalid access token (missing auth header)', function(done) {
 
             request(url)
                 .get('/token')
@@ -81,7 +81,7 @@ describe('api.token', function(){
                     done();
                 });
         });
-        it('should return a invalid access token (badly formatted auth header.)', function(done) {
+        xit('should return a invalid access token (badly formatted auth header.)', function(done) {
 
             request(url)
                 .get('/token')
@@ -97,7 +97,7 @@ describe('api.token', function(){
     });
 
     describe(url + '/token/new', function() {
-        it('should return a valid access token', function(done) {
+        xit('should return a valid access token', function(done) {
 
             request(url)
                 .get('/token/new')
@@ -113,7 +113,7 @@ describe('api.token', function(){
     });
 
     describe(url + '/token/logout', function() {
-        it('should delete a token of the currently logged in user.', function(done) {
+        xit('should delete a token of the currently logged in user.', function(done) {
 
             request(url)
                 .get('/token/logout')

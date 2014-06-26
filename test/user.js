@@ -954,7 +954,7 @@ describe('api.users', function(){
             }
         };
 
-        xit('should return 401 because trying to access unauthenticated', function(done) {
+        it('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .post('/users/query')
                 .set('Accept', 'application/json')
@@ -967,7 +967,7 @@ describe('api.users', function(){
                 });
         });
 
-        xit('should return user search results', function(done) {
+        it('should return user search results', function(done) {
             request(url)
                 .post('/users/query')
                 .set('Accept', 'application/json')
@@ -981,7 +981,7 @@ describe('api.users', function(){
                 });
         });
 
-        xit('should not return user search results', function(done) {
+        it('should not return user search results', function(done) {
             request(url)
                 .post('/users/query')
                 .set('Accept', 'application/json')

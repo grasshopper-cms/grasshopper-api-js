@@ -7,8 +7,8 @@ describe('api.content', function(){
     var url = require('./config/test').url,
         async = require('async'),
         _ = require('underscore'),
-        testContentId  = "5261781556c02c072a000007",
-        restrictedContentId = "5254908d56c02c076e000001",
+        testContentId  = '5261781556c02c072a000007',
+        restrictedContentId = '5254908d56c02c076e000001',
         sampleContentObject = null,
         tokens = {},
         tokenRequests = [
@@ -32,7 +32,7 @@ describe('api.content', function(){
         });
     });
 
-    describe("GET: " + url + '/content/:id', function() {
+    describe('GET: ' + url + '/content/:id', function() {
         xit('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .get('/content/' + testContentId)
@@ -75,11 +75,11 @@ describe('api.content', function(){
         });
     });
 
-    describe("POST: " + url + '/content', function() {
+    describe('POST: ' + url + '/content', function() {
         xit('should return 401 because trying to access unauthenticated', function(done) {
             var obj = {
-                label:"Generated title", slug: 'generated_title', type: "524362aa56c02c0703000001", nonce:"1234fdsdfsa565", status: "Live",
-                node : {_id: "526d5179966a883540000006", displayOrder: 1}, fields: {testfield: "test value"}, author: {_id: "5246e73d56c02c0744000001", name: "Test User"}
+                label:'Generated title', slug: 'generated_title', type: '524362aa56c02c0703000001', nonce:'1234fdsdfsa565', status: 'Live',
+                node : {_id: '526d5179966a883540000006', displayOrder: 1}, fields: {testfield: 'test value'}, author: {_id: '5246e73d56c02c0744000001', name: 'Test User'}
             };
 
             request(url)
@@ -96,8 +96,8 @@ describe('api.content', function(){
 
         xit('should return 403 because I am am only a reader of content.', function(done) {
             var obj = {
-                label:"Generated title", slug: 'generated_title', type: "524362aa56c02c0703000001", nonce:"1234fdsdfsa565", status: "Live",
-                node : {_id: "526d5179966a883540000006", displayOrder: 1}, fields: {testfield: "test value"}, author: {_id: "5246e73d56c02c0744000001", name: "Test User"}
+                label:'Generated title', slug: 'generated_title', type: '524362aa56c02c0703000001', nonce:'1234fdsdfsa565', status: 'Live',
+                node : {_id: '526d5179966a883540000006', displayOrder: 1}, fields: {testfield: 'test value'}, author: {_id: '5246e73d56c02c0744000001', name: 'Test User'}
             };
 
             request(url)
@@ -116,11 +116,11 @@ describe('api.content', function(){
         xit('should return 200 because I have the correct permissions.', function(done) {
             var obj = {
                 meta: {
-                    type: "524362aa56c02c0703000001",
-                    node : "526d5179966a883540000006"
+                    type: '524362aa56c02c0703000001',
+                    node : '526d5179966a883540000006'
                 },
                 fields: {
-                    testfield: "testvalue"
+                    testfield: 'testvalue'
                 }
             };
 
@@ -142,10 +142,10 @@ describe('api.content', function(){
         xit('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
             var obj = {
                 meta:{
-                    type: "524362aa56c02c0703000001",
-                    node :"526d5179966a883540000006"
+                    type: '524362aa56c02c0703000001',
+                    node :'526d5179966a883540000006'
                 },
-                fields: {testfield: "testvalue"}
+                fields: {testfield: 'testvalue'}
             };
 
             request(url)
@@ -162,12 +162,12 @@ describe('api.content', function(){
         });
     });
 
-    describe("PUT: " + url + '/content/:id', function() {
+    describe('PUT: ' + url + '/content/:id', function() {
         xit('should return 401 because trying to access unauthenticated', function(done) {
             var obj = {};
             _.extend(obj, sampleContentObject);
 
-            obj.fields.newColumn = "newValue";
+            obj.fields.newColumn = 'newValue';
 
             request(url)
                 .put('/content/' + testContentId)
@@ -186,7 +186,7 @@ describe('api.content', function(){
             var obj = {};
             _.extend(obj, sampleContentObject);
 
-            obj.fields.newColumn = "newValue";
+            obj.fields.newColumn = 'newValue';
             request(url)
                 .put('/content/' + testContentId)
                 .set('Accept', 'application/json')
@@ -204,7 +204,7 @@ describe('api.content', function(){
             var obj = {};
             _.extend(obj, sampleContentObject);
 
-            obj.fields.newColumn = "newValue";
+            obj.fields.newColumn = 'newValue';
 
             request(url)
                 .put('/content/' + testContentId)
@@ -224,7 +224,7 @@ describe('api.content', function(){
             var obj = {};
             _.extend(obj, sampleContentObject);
 
-            obj.fields.newColumn = "newValue";
+            obj.fields.newColumn = 'newValue';
 
             request(url)
                 .put('/content/' + restrictedContentId)
@@ -240,16 +240,16 @@ describe('api.content', function(){
         });
     });
 
-    describe("POST: " + url + '/content/query', function() {
+    describe('POST: ' + url + '/content/query', function() {
         var query = {
-            filters: [{key: "slug", cmp: "=", value: "sample_content_title"}],
+            filters: [{key: 'slug', cmp: '=', value: 'sample_content_title'}],
             options: {
-                //include: ["node","fields.testfield"]
+                //include: ['node','fields.testfield']
             }
         }, query2 = {
-            filters: [{key: "nonsense", cmp: "=", value: "XXXNEVERSHOULDMATCHANTYHINGXXX"}],
+            filters: [{key: 'nonsense', cmp: '=', value: 'XXXNEVERSHOULDMATCHANTYHINGXXX'}],
             options: {
-                //include: ["node","fields.testfield"]
+                //include: ['node','fields.testfield']
             }
         };
 
@@ -316,7 +316,7 @@ describe('api.content', function(){
         });
     });
 
-    describe("DELETE: " + url + '/content/:id', function() {
+    describe('DELETE: ' + url + '/content/:id', function() {
         xit('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .del('/content/' + testContentId)

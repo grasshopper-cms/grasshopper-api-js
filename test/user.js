@@ -149,6 +149,7 @@ describe('api.users', function(){
                     done();
                 });
         });
+
         it('should a list of users with the specified page size', function(done) {
             request(url)
                 .get('/users?limit=1&skip=0')
@@ -163,6 +164,7 @@ describe('api.users', function(){
                     done();
                 });
         });
+
         it('should return a 403 because user does not have permissions to access users', function(done) {
             request(url)
                 .get('/users')
@@ -175,6 +177,7 @@ describe('api.users', function(){
                     done();
                 });
         });
+
         it('should return an empty list if the page size and current requested items are out of bounds.', function(done) {
             request(url)
                 .get('/users?limit=1&skip=100000')
@@ -189,6 +192,7 @@ describe('api.users', function(){
                     done();
                 });
         });
+
         it('should return a 401 because user is not authenticated', function(done) {
             request(url)
                 .get('/users')
@@ -566,6 +570,7 @@ describe('api.users', function(){
                     done();
                 });
         });
+
         it('should update a user using the correct verb', function(done) {
             var newUser = {
                 _id: testCreatedUserId,
@@ -1056,7 +1061,6 @@ describe('api.users', function(){
     describe('Test creating a user, logging in with the new user then revoking the token and confirming that they are locked out', function() {
         it('auth token of user should be revoked if user is disabled.', function(done) {
             var newUser = {
-//                login: 'futurerevokee',
                 role: 'admin',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
@@ -1144,12 +1148,12 @@ describe('api.users', function(){
     });
 
     describe('POST: ' + url + '/users/:id/permissions', function() {
-        xit('add permission to edit a node with an empty permissions collection.', function(done) {
+        it('add permission to edit a node with an empty permissions collection.', function(done) {
             request(url)
                 .post('/users/' + testReaderUserId + '/permissions')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
+                .set('authorization', 'Basic ' + adminToken)
                 .send({
                     nodeid: testNodeForPermissions,
                     role: 'editor'
@@ -1161,12 +1165,12 @@ describe('api.users', function(){
                 });
         });
 
-        xit('update a permission that a user already has set to another value.', function(done) {
+        it('update a permission that a user already has set to another value.', function(done) {
             request(url)
                 .post('/users/' + testReaderUserId + '/permissions')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
+                .set('authorization', 'Basic ' + adminToken)
                 .send({
                     nodeid: testNodeForPermissions,
                     role: 'none'
@@ -1178,12 +1182,12 @@ describe('api.users', function(){
                 });
         });
 
-        xit('add a permission that already has a permissions collection.', function(done) {
+        it('add a permission that already has a permissions collection.', function(done) {
             request(url)
                 .post('/users/' + testReaderUserId + '/permissions')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
+                .set('authorization', 'Basic ' + adminToken)
                 .send({
                     nodeid: testSubNodeForPermissions,
                     role: 'editor'
@@ -1195,7 +1199,7 @@ describe('api.users', function(){
                 });
         });
 
-        xit('try to add permissions unathenticated should result in a 401.', function(done) {
+        it('try to add permissions unathenticated should result in a 401.', function(done) {
             request(url)
                 .post('/users/' + testReaderUserId + '/permissions')
                 .set('Accept', 'application/json')
@@ -1211,12 +1215,12 @@ describe('api.users', function(){
                 });
         });
 
-        xit('try to add permissions without the correct permissions. Should result in a 403.', function(done) {
+        it('try to add permissions without the correct permissions. Should result in a 403.', function(done) {
             request(url)
                 .post('/users/' + testReaderUserId + '/permissions')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
+                .set('authorization', 'Basic ' + readerToken)
                 .send({
                     nodeid: testSubNodeForPermissions,
                     role: 'editor'

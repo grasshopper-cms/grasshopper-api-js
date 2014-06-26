@@ -33,7 +33,7 @@ describe('api.content', function(){
     });
 
     describe('GET: ' + url + '/content/:id', function() {
-        xit('should return 401 because trying to access unauthenticated', function(done) {
+        it('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .get('/content/' + testContentId)
                 .set('Accept', 'application/json')
@@ -45,12 +45,12 @@ describe('api.content', function(){
                 });
         });
 
-        xit('should return 200 because getting content that exists with correct permissions.', function(done) {
+        it('should return 200 because getting content that exists with correct permissions.', function(done) {
             request(url)
                 .get('/content/' + testContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.globalAdminToken)
+                .set('authorization', 'Basic ' + tokens.globalAdminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
@@ -59,13 +59,12 @@ describe('api.content', function(){
                 });
         });
 
-
-        xit('should return 403 because getting content from a node that is restricted to me.', function(done) {
+        it('should return 403 because getting content from a node that is restricted to me.', function(done) {
             request(url)
                 .get('/content/' + restrictedContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.restrictedEditorToken)
+                .set('authorization', 'Basic ' + tokens.restrictedEditorToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
 
@@ -76,7 +75,7 @@ describe('api.content', function(){
     });
 
     describe('POST: ' + url + '/content', function() {
-        xit('should return 401 because trying to access unauthenticated', function(done) {
+        it('should return 401 because trying to access unauthenticated', function(done) {
             var obj = {
                 label:'Generated title', slug: 'generated_title', type: '524362aa56c02c0703000001', nonce:'1234fdsdfsa565', status: 'Live',
                 node : {_id: '526d5179966a883540000006', displayOrder: 1}, fields: {testfield: 'test value'}, author: {_id: '5246e73d56c02c0744000001', name: 'Test User'}
@@ -94,7 +93,7 @@ describe('api.content', function(){
                 });
         });
 
-        xit('should return 403 because I am am only a reader of content.', function(done) {
+        xit('should return 403 because I am am only a reader of content.', function(done) { //Skipped because permissions are not implemented.
             var obj = {
                 label:'Generated title', slug: 'generated_title', type: '524362aa56c02c0703000001', nonce:'1234fdsdfsa565', status: 'Live',
                 node : {_id: '526d5179966a883540000006', displayOrder: 1}, fields: {testfield: 'test value'}, author: {_id: '5246e73d56c02c0744000001', name: 'Test User'}
@@ -104,7 +103,7 @@ describe('api.content', function(){
                 .post('/content')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.globalReaderToken)
+                .set('authorization', 'Basic ' + tokens.globalReaderToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -113,7 +112,7 @@ describe('api.content', function(){
                 });
         });
 
-        xit('should return 200 because I have the correct permissions.', function(done) {
+        it('should return 200 because I have the correct permissions.', function(done) {
             var obj = {
                 meta: {
                     type: '524362aa56c02c0703000001',
@@ -129,7 +128,7 @@ describe('api.content', function(){
                 .post('/content')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.globalAdminToken)
+                .set('authorization', 'Basic ' + tokens.globalAdminToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -138,8 +137,7 @@ describe('api.content', function(){
                 });
         });
 
-
-        xit('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
+        it('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
             var obj = {
                 meta:{
                     type: '524362aa56c02c0703000001',
@@ -152,7 +150,7 @@ describe('api.content', function(){
                 .post('/content')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.restrictedEditorToken)
+                .set('authorization', 'Basic ' + tokens.restrictedEditorToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -163,7 +161,7 @@ describe('api.content', function(){
     });
 
     describe('PUT: ' + url + '/content/:id', function() {
-        xit('should return 401 because trying to access unauthenticated', function(done) {
+        it('should return 401 because trying to access unauthenticated', function(done) {
             var obj = {};
             _.extend(obj, sampleContentObject);
 
@@ -181,7 +179,7 @@ describe('api.content', function(){
                 });
         });
 
-        xit('should return 403 because I am am only a reader of content.', function(done) {
+        it('should return 403 because I am am only a reader of content.', function(done) {
 
             var obj = {};
             _.extend(obj, sampleContentObject);
@@ -191,7 +189,7 @@ describe('api.content', function(){
                 .put('/content/' + testContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.globalReaderToken)
+                .set('authorization', 'Basic ' + tokens.globalReaderToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -200,7 +198,7 @@ describe('api.content', function(){
                 });
         });
 
-        xit('should return 200 because I have the correct permissions.', function(done) {
+        it('should return 200 because I have the correct permissions.', function(done) {
             var obj = {};
             _.extend(obj, sampleContentObject);
 
@@ -210,7 +208,7 @@ describe('api.content', function(){
                 .put('/content/' + testContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.globalAdminToken)
+                .set('authorization', 'Basic ' + tokens.globalAdminToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -219,8 +217,7 @@ describe('api.content', function(){
                 });
         });
 
-
-        xit('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
+        it('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
             var obj = {};
             _.extend(obj, sampleContentObject);
 
@@ -230,7 +227,7 @@ describe('api.content', function(){
                 .put('/content/' + restrictedContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.restrictedEditorToken)
+                .set('authorization', 'Basic ' + tokens.restrictedEditorToken)
                 .send(obj)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -253,7 +250,7 @@ describe('api.content', function(){
             }
         };
 
-        xit('should return a 401 because trying to access unauthenticated', function(done) {
+        it('should return a 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .post('/content/query')
                 .set('Accept', 'application/json')
@@ -266,12 +263,12 @@ describe('api.content', function(){
                 });
         });
 
-        xit('should return a 200', function(done) {
+        it('should return a 200', function(done) {
             request(url)
                 .post('/content/query')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.globalReaderToken)
+                .set('authorization', 'Basic ' + tokens.globalReaderToken)
                 .send(query)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -280,12 +277,12 @@ describe('api.content', function(){
                 });
         });
 
-        xit('should return a 200 even if it finds nothing', function(done) {
+        it('should return a 200 even if it finds nothing', function(done) {
             request(url)
                 .post('/content/query')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.globalReaderToken)
+                .set('authorization', 'Basic ' + tokens.globalReaderToken)
                 .send(query2)
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -295,13 +292,12 @@ describe('api.content', function(){
                 });
         });
 
-
-        xit('return valid results for everything within a node', function(done) {
+        it('return valid results for everything within a node', function(done) {
             request(url)
                 .post('/content/query')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.globalReaderToken)
+                .set('authorization', 'Basic ' + tokens.globalReaderToken)
                 .send({
                     filters: [],
                     nodes: ['526d5179966a883540000006']
@@ -317,7 +313,7 @@ describe('api.content', function(){
     });
 
     describe('DELETE: ' + url + '/content/:id', function() {
-        xit('should return 401 because trying to access unauthenticated', function(done) {
+        it('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .del('/content/' + testContentId)
                 .set('Accept', 'application/json')
@@ -329,12 +325,12 @@ describe('api.content', function(){
                 });
         });
 
-        xit('should return 403 because I am am only a reader of content.', function(done) {
+        it('should return 403 because I am am only a reader of content.', function(done) {
             request(url)
                 .del('/content/' + testContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.globalReaderToken)
+                .set('authorization', 'Basic ' + tokens.globalReaderToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(403);
@@ -342,12 +338,12 @@ describe('api.content', function(){
                 });
         });
 
-        xit('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
+        it('should return 403 because I am trying to delete content from a node that is restricted to me.', function(done) {
             request(url)
                 .del('/content/' + restrictedContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.restrictedEditorToken)
+                .set('authorization', 'Basic ' + tokens.restrictedEditorToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(403);
@@ -355,12 +351,12 @@ describe('api.content', function(){
                 });
         });
 
-        xit('should return 200 because I have the correct permissions.', function(done) {
+        it('should return 200 because I have the correct permissions.', function(done) {
             request(url)
                 .del('/content/' + restrictedContentId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + tokens.globalAdminToken)
+                .set('authorization', 'Basic ' + tokens.globalAdminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
@@ -376,7 +372,7 @@ describe('api.content', function(){
                     .get('/token')
                     .set('Accept', 'application/json')
                     .set('Accept-Language', 'en_US')
-                    .set('authorization', new Buffer(creds).toString('base64'))
+                    .set('authorization', 'Basic '+ new Buffer(creds).toString('base64'))
                     .end(function(err, res) {
                         if (err) { throw err; }
                         tokens[storage] = res.body.access_token;

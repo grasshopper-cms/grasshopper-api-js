@@ -43,7 +43,7 @@ describe('api.token', function(){
                     done();
                 });
         });
-        xit('should return a invalid access token (real user, bad password)', function(done) {
+        it('should return a invalid access token (real user, bad password)', function(done) {
 
             request(url)
                 .get('/token')
@@ -56,7 +56,7 @@ describe('api.token', function(){
                     done();
                 });
         });
-        xit('should return a invalid access token (bad user)', function(done) {
+        it('should return a invalid access token (bad user)', function(done) {
 
             request(url)
                 .get('/token')
@@ -69,7 +69,7 @@ describe('api.token', function(){
                     done();
                 });
         });
-        xit('should return a invalid access token (missing auth header)', function(done) {
+        it('should return a invalid access token (missing auth header)', function(done) {
 
             request(url)
                 .get('/token')
@@ -81,7 +81,7 @@ describe('api.token', function(){
                     done();
                 });
         });
-        xit('should return a invalid access token (badly formatted auth header.)', function(done) {
+        it('should return a invalid access token (badly formatted auth header.)', function(done) {
 
             request(url)
                 .get('/token')
@@ -97,7 +97,7 @@ describe('api.token', function(){
     });
 
     describe(url + '/token/new', function() {
-        xit('should return a valid access token', function(done) {
+        it('should return a valid access token', function(done) {
 
             request(url)
                 .get('/token/new')
@@ -113,7 +113,7 @@ describe('api.token', function(){
     });
 
     describe(url + '/token/logout', function() {
-        xit('should delete a token of the currently logged in user.', function(done) {
+        it('should delete a token of the currently logged in user.', function(done) {
 
             request(url)
                 .get('/token/logout')

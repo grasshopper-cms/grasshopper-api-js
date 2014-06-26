@@ -539,16 +539,20 @@ describe('api.users', function(){
     });
 
     describe('PUT: ' + url + '/users', function() {
-        xit('should return a 403 because user does not have permissions to access users', function(done) {
+        it('should return a 403 because user does not have permissions to access users', function(done) {
             var newUser = {
                 _id: testCreatedUserId,
-                login: 'newtestuser1',
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 firstname: 'Test',
                 lastname: 'User',
-                password: 'TestPassword'
+                identities : {
+                    basic : {
+                        login : 'newtestuser1',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .put('/users')
@@ -562,15 +566,19 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should update a user using the correct verb', function(done) {
+        it('should update a user using the correct verb', function(done) {
             var newUser = {
                 _id: testCreatedUserId,
-                login: 'newtestuser1_updated',
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 firstname: 'Test',
-                lastname: 'User'
+                lastname: 'User',
+                identities : {
+                    basic : {
+                        login : 'newtestuser1_updated'
+                    }
+                }
             };
             request(url)
                 .put('/users')
@@ -586,7 +594,7 @@ describe('api.users', function(){
                 });
         });
 
-        xit('one admin should be able to change the role of another admin.', function(done) {
+        it('one admin should be able to change the role of another admin.', function(done) {
             request(url)
                 .get('/users/' + admin2UserId)
                 .set('Accept', 'application/json')
@@ -613,15 +621,19 @@ describe('api.users', function(){
 
         });
 
-        xit('should update a user using the method override', function(done) {
+        it('should update a user using the method override', function(done) {
             var newUser = {
                 _id: testCreatedUserIdCustomVerb,
-                login: 'newtestuser2_updated',
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser2@thinksolid.com',
                 firstname: 'Test',
-                lastname: 'User'
+                lastname: 'User',
+                identities : {
+                    basic : {
+                        login : 'newtestuser2_updated'
+                    }
+                }
             };
             request(url)
                 .post('/users')
@@ -637,15 +649,20 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should return error is user is updated without a set ID', function(done){
+
+        it('should return error is user is updated without a set ID', function(done){
             var newUser = {
-                login: 'newtestuser1_updated',
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 firstname: 'Test',
                 lastname: 'User',
-                password: 'TestPassword'
+                password: 'TestPassword',
+                identities : {
+                    basic : {
+                        login : 'newtestuser2_updated'
+                    }
+                }
             };
             request(url)
                 .put('/users')
@@ -660,16 +677,21 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should return error if login is too short.', function(done){
+
+        it('should return error if login is too short.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
-                login: 'sho',
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 firstname: 'Test',
                 lastname: 'User',
-                password: 'TestPassword'
+                identities : {
+                    basic : {
+                        login : 'sho',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .put('/users')
@@ -685,16 +707,21 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should return error if user role is invalid.', function(done){
+
+        it('should return error if user role is invalid.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
-                login: 'newtestuesr1',
                 role: 'reader_bad',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 firstname: 'Test',
                 lastname: 'User',
-                password: 'TestPassword'
+                identities : {
+                    basic : {
+                        login : 'newtestuesr1',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .put('/users')
@@ -710,16 +737,21 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should return error if user login is null.', function(done){
+
+        it('should return error if user login is null.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
-                login: null,
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 firstname: 'Test',
                 lastname: 'User',
-                password: 'TestPassword'
+                identities : {
+                    basic : {
+                        login : null,
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .put('/users')
@@ -735,16 +767,21 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should return error if user login is empty.', function(done){
+
+        it('should return error if user login is empty.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
-                login: '',
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 firstname: 'Test',
                 lastname: 'User',
-                password: 'TestPassword'
+                identities : {
+                    basic : {
+                        login : '',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .put('/users')
@@ -762,16 +799,20 @@ describe('api.users', function(){
         });
 
 
-        xit('should return error if the user login changed and is now a duplicate.', function(done){
+        it('should return error if the user login changed and is now a duplicate.', function(done){
             var newUser = {
                 _id: testCreatedUserId,
-                login: 'apitestuserreader',
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 firstname: 'Test',
                 lastname: 'User',
-                password: 'TestPassword'
+                identities : {
+                    basic : {
+                        login : 'apitestuserreader',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .put('/users')
@@ -788,15 +829,19 @@ describe('api.users', function(){
                 });
         });
 
-        xit('should a user to update themselves even if they do not have permission. at /user', function(done){
+        it('should a user to update themselves even if they do not have permission. at /user', function(done){
             var newUser = {
                 _id: testReaderUserId,
-                login: 'apitestuserreader',
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 name: 'Updated test reader name with :id',
-                password: 'TestPassword'
+                identities : {
+                    basic : {
+                        login : 'apitestuserreader',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .put('/user')
@@ -811,16 +856,20 @@ describe('api.users', function(){
                 });
         });
 
-        xit('should error if putting to /user with an different ID than your own.', function(done){
+        it('should error if putting to /user with an different ID than your own.', function(done){
             var newUser = {
                 _id: testUserId,
-                login: 'apitestuserreader',
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 firstname: 'Updated test reader name with :id',
                 lastname: 'Last',
-                password: 'TestPassword'
+                identities : {
+                    basic : {
+                        login : 'apitestuserreader',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .put('/user')
@@ -835,15 +884,19 @@ describe('api.users', function(){
                 });
         });
 
-        xit('should a user to update themselves even if they do not have permission. at /user/:id', function(done){
+        it('should a user to update themselves even if they do not have permission. at /user/:id', function(done){
             var newUser = {
                 _id: testReaderUserId,
-                login: 'apitestuserreader',
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 name: 'Updated test reader name with :id',
-                password: 'TestPassword'
+                identities : {
+                    basic : {
+                        login : 'apitestuserreader',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .put('/users/' + testReaderUserId)
@@ -858,16 +911,20 @@ describe('api.users', function(){
                 });
         });
 
-        xit('should error if putting to /users/:id with an different ID than your own.', function(done){
+        it('should error if putting to /users/:id with an different ID than your own.', function(done){
             var newUser = {
                 _id: testUserId,
-                login: 'apitestuserreader',
                 role: 'reader',
                 enabled: true,
                 email: 'newtestuser1@thinksolid.com',
                 firstname: 'Updated test reader name with :id',
                 lastname: 'something',
-                password: 'TestPassword'
+                identities : {
+                    basic : {
+                        login : 'apitestuserreader',
+                        password : 'TestPassword'
+                    }
+                }
             };
             request(url)
                 .put('/users/' + testReaderUserId)

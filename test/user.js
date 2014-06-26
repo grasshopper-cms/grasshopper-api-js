@@ -203,13 +203,17 @@ describe('api.users', function(){
     });
 
     describe("POST: " + url + '/users', function() {
-        xit('should create a user without an error using correct verb.', function(done){
+        it('should create a user without an error using correct verb.', function(done){
             var newUser = {
-                login: "newtestuser1",
                 role: "reader",
                 enabled: true,
                 email: "newtestuser1@thinksolid.com",
-                password: "TestPassword",
+                identities : {
+                    basic : {
+                        login: "newtestuser1",
+                        password: "TestPassword"
+                    }
+                },
                 firstname: "Test",
                 lastname: "User"
             };
@@ -217,7 +221,7 @@ describe('api.users', function(){
                 .post('/users')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
+                .set('authorization', 'Basic ' + adminToken)
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }

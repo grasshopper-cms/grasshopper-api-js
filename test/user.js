@@ -21,7 +21,7 @@ describe('api.users', function(){
             .get('/token')
             .set('Accept', 'application/json')
             .set('Accept-Language', 'en_US')
-            .set('authorization', new Buffer('apitestuseradmin:TestPassword').toString('base64'))
+            .set('authorization', 'Basic '+ new Buffer('apitestuseradmin:TestPassword').toString('base64'))
             .end(function(err, res) {
                 if (err) { throw err; }
                 adminToken = res.body.access_token;
@@ -30,7 +30,7 @@ describe('api.users', function(){
                     .get('/token')
                     .set('Accept', 'application/json')
                     .set('Accept-Language', 'en_US')
-                    .set('authorization', new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                    .set('authorization', 'Basic '+ new Buffer('apitestuserreader:TestPassword').toString('base64'))
                     .end(function(err, res) {
                         if (err) { throw err; }
                         readerToken = res.body.access_token;
@@ -39,7 +39,7 @@ describe('api.users', function(){
                             .get('/token')
                             .set('Accept', 'application/json')
                             .set('Accept-Language', 'en_US')
-                            .set('authorization', new Buffer('admin:TestPassword').toString('base64'))
+                            .set('authorization', 'Basic '+ new Buffer('admin:TestPassword').toString('base64'))
                             .end(function(err, res) {
                                 if (err) { throw err; }
                                 adminToken2 = res.body.access_token;
@@ -50,7 +50,7 @@ describe('api.users', function(){
     });
 
     describe("GET: " + url + '/users/:id', function() {
-        xit('should return 401 because trying to access unauthenticated', function(done) {
+        it('should return 401 because trying to access unauthenticated', function(done) {
 
             request(url)
                 .get('/users/' + testUserId)
@@ -62,40 +62,40 @@ describe('api.users', function(){
                     done();
                 });
         });
-        xit('should return a 403 because user does not have permissions to access users', function(done) {
+        it('should return a 403 because user does not have permissions to access users', function(done) {
             request(url)
                 .get('/users/' + testUserId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + readerToken)
+                .set('authorization', 'Basic ' + readerToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(403);
                     done();
                 });
         });
-        xit('should return an existing user', function(done) {
+        it('should return an existing user', function(done) {
             request(url)
                 .get('/users/' + testUserId)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
+                .set('authorization', 'Basic ' + adminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.should.not.have.property('password');
                     res.body.should.not.have.property('salt');
                     res.body.should.not.have.property('pass_hash');
-                    res.body.login.should.equal("apitestuser");
+                    res.body.identities.basic.login.should.equal("apitestuser");
                     done();
                 });
         });
-        xit('should return 404 because test user id does not exist', function(done) {
+        it('should return 404 because test user id does not exist', function(done) {
             request(url)
                 .get('/users/52314ae429ae439a6e49695d')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + adminToken)
+                .set('authorization', 'Basic ' + adminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(404);

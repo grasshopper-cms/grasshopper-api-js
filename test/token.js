@@ -43,6 +43,7 @@ describe('api.token', function(){
                     done();
                 });
         });
+
         it('should return a invalid access token (real user, bad password)', function(done) {
 
             request(url)
@@ -56,6 +57,7 @@ describe('api.token', function(){
                     done();
                 });
         });
+
         it('should return a invalid access token (bad user)', function(done) {
 
             request(url)
@@ -69,6 +71,7 @@ describe('api.token', function(){
                     done();
                 });
         });
+
         it('should return a invalid access token (missing auth header)', function(done) {
 
             request(url)
@@ -81,6 +84,7 @@ describe('api.token', function(){
                     done();
                 });
         });
+
         it('should return a invalid access token (badly formatted auth header.)', function(done) {
 
             request(url)

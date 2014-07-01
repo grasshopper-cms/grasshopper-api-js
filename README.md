@@ -45,27 +45,27 @@ Below is an example configuration file. You should edit the parameters below to 
 Open the ```lib/config/configuration``` file
 
         {
-            "cache": {
-                "path": "./cache"
+            "cache" : {
+                "path" : "./cache"
             },
-            "crypto": {
+            "crypto" : {
                 "secret_passphrase" : "{Create guid}"
             },
-            "db": {
-                "type": "mongodb",
-                "host": "mongodb://localhost:27017/{your info here}",
-                "database": "{your info here}",
-                "username": "{your info here}",
-                "password": "{your info here}",
-                "debug": false
+            "db" : {
+                "type" : "mongodb",
+                "host" : "mongodb://localhost:27017/{your info here}",
+                "database" : "{your info here}",
+                "username" : "{your info here}",
+                "password" : "{your info here}",
+                "debug" : false
             },
-            "assets": {
+            "assets" : {
                 "default" : "amazon",
                 "tmpdir" : "{absolute path to your tmp folder}",
-                "engines": {
+                "engines" : {
                     "amazon" : {
-                        "accessKeyId": "{your info here}",
-                        "secretAccessKey": "{your info here}",
+                        "accessKeyId" : "{your info here}",
+                        "secretAccessKey" : "{your info here}",
                         "region" : "us-east-1",
                         "bucket" : "{your info here}",
                         "urlbase" : "{your info here}"
@@ -77,12 +77,20 @@ Open the ```lib/config/configuration``` file
                 }
             },
             "logger" : {
-                "adapters": [{
-                    "type": "file",
-                    "path": "{absolute path to your log file}",
-                    "application": "{name your application}",
-                    "machine": "{name your machine}"
+                "adapters" : [{
+                    "type" : "file",
+                    "path" : "{absolute path to your log file}",
+                    "application" : "{name your application}",
+                    "machine" : "{name your machine}"
                 }]
+            },
+            "identities" : {
+                "google" : {
+                    "appId" : "{ your google app id }",
+                    "secret" : "{ your google secret id }",
+                    "scopes" : [ "{ array of scopes you want to authorize }" ],
+                    "redirectUrl" : "{ the url you want to redirect to after successful auth, the users token will be appended to this route ex. '/login' entered here will send the user to '/login/googleToken' }"
+                }
             }
         }
 

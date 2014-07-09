@@ -26,11 +26,13 @@
             lastname: 'User',
             identities: {
                 basic: {
-                    login: 'admin',
+                    username: 'admin',
                     salt: '225384010328',
                     hash: '885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03'
                 }
             },
+            displayName: 'Greg',
+            linkedIdentities: ['basic'],
             email: 'apitestuser@thinksolid.com'
         },
         {
@@ -41,11 +43,13 @@
             lastname: 'User',
             identities: {
                 basic: {
-                    login: 'apitestuseradmin',
+                    username: 'apitestuseradmin',
                     salt: '225384010328',
                     hash: '885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03'
                 }
             },
+            displayName: 'Greg',
+            linkedIdentities: ['basic'],
             email: 'apitestuser@thinksolid.com'
         },
         {
@@ -56,11 +60,13 @@
             lastname: 'User',
             identities: {
                 basic: {
-                    login: 'apitestuserreader',
+                    username: 'apitestuserreader',
                     salt: '225384010328',
                     hash: '885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03'
                 }
             },
+            displayName: 'Greg',
+            linkedIdentities: ['basic'],
             email: 'apitestuser@thinksolid.com',
             permissions: [
                 {
@@ -77,11 +83,13 @@
             lastname: 'User With Editing permisions on a node',
             identities: {
                 basic: {
-                    login: 'apitestuserreader_1',
+                    username: 'apitestuserreader_1',
                     salt: '225384010328',
                     hash: '885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03'
                 }
             },
+            displayName: 'Greg',
+            linkedIdentities: ['basic'],
             email: 'apitestuser_1@thinksolid.com',
             permissions: [
                 {
@@ -98,11 +106,13 @@
             lastname: 'User',
             identities: {
                 basic: {
-                    login: 'apitestusereditor',
+                    username: 'apitestusereditor',
                     salt: '225384010328',
                     hash: '885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03'
                 }
             },
+            displayName: 'Greg',
+            linkedIdentities: ['basic'],
             email: 'apitestusereditor@thinksolid.com'
         },
         {
@@ -113,11 +123,13 @@
             lastname: 'User',
             identities: {
                 basic: {
-                    login: 'apitestusereditor_restricted',
+                    username: 'apitestusereditor_restricted',
                     salt: '225384010328',
                     hash: '885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03'
                 }
             },
+            displayName: 'Greg',
+            linkedIdentities: ['basic'],
             email: 'apitestusereditor_1@thinksolid.com',
             permissions: [
                 {
@@ -139,11 +151,13 @@
             email: 'apitestuser@thinksolid.com',
             identities: {
                 basic: {
-                    login: 'apitestuser',
+                    username: 'apitestuser',
                     salt: '225384010328',
                     hash: '885f59a76ea44e1d264f9da45ca83574fbe55e3e7e6c51afe681730b45c7bb03'
                 }
             },
+            displayName: 'Greg',
+            linkedIdentities: ['basic'],
             enabled: true,
             role: 'reader',
             firstname: 'Test',

@@ -30,5 +30,16 @@
             "application": "grasshopper-api",
             "machine": "dev-server"
         }]
+    },
+    "identities" : {
+        "google" : {
+            "appId" : "123AppId123",
+            "secret" : "123Secret123",
+            "redirectUrl" : "/guide/login",
+            "scopes" : [
+                "https://www.googleapis.com/auth/userinfo.profile",
+                "https://www.googleapis.com/auth/userinfo.email"
+            ]
+        }
     }
 }

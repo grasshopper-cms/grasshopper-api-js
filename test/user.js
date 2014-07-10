@@ -1233,4 +1233,45 @@ describe('api.users', function(){
                 });
         });
     });
+
+    describe('POST: ' + url + '/users/:id/link', function() {
+        it('should link a user with the passed in identity', function(done) {
+            request(url)
+                .post('/users/' + admin2UserId + '/link')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + adminToken)
+                .send({
+                    key : 'google',
+                    options : {
+                        name : 'Diego Montoya',
+                        message : 'Prepare to die.'
+                    }
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+
+    });
+
+    describe('POST: ' + url + '/users/:id/unlink', function() {
+        it('should unlink a user with the passed in identity', function(done) {
+            request(url)
+                .post('/users/' + admin2UserId + '/unlink')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + adminToken)
+                .send({
+                    key : 'google'
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+    });
 });

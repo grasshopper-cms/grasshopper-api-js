@@ -89,7 +89,8 @@ Open the ```lib/config/configuration``` file
                     "appId" : "{ your google app id }",
                     "secret" : "{ your google secret id }",
                     "scopes" : [ "{ array of scopes you want to authorize }" ],
-                    "redirectUrl" : "{ the url you want to redirect to after successful auth, the users token will be appended to this route ex. '/login' entered here will send the user to '/login/googleToken' }"
+                    "redirectUrl" : "{ the url you want to redirect to after successful auth, the users token will be appended to this route ex. '/login' entered here will send the user to '/login/googleToken' }",
+                    "oauthCallback" : "the url you want google to callback with the temp token. it should be your base url + '/oauth2Callback'"
                 }
             }
         }

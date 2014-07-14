@@ -18,10 +18,11 @@ describe('api.users', function(){
                     .end(function(err, res) {
                         should.not.exist(err);
                         res.body.should.be.a.string;
-                        res.body.should.equal('https://accounts.google.com/o/oauth2/auth?access_type=offline&scope=' +
-                            'https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.' +
-                            'googleapis.com%2Fauth%2Fuserinfo.email&response_type=code&client_id=123AppId123&redirect' +
-                            '_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2callback');
+                        res.body.should.equal('https://accounts.google.com/o/oauth2/auth?access_type=offline&' +
+                            'scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&' +
+                            'response_type=code&' +
+                            'client_id=123AppId123&' +
+                            'redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauth2callback');
                         done();
                     });
             });

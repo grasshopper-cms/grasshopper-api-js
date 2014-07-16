@@ -36,7 +36,7 @@ describe('api.system', function(){
                 .get('/system')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
-                .set('authorization', 'Token ' + globalReaderToken)
+                .set('authorization', 'Basic ' + globalReaderToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);

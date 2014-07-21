@@ -45,27 +45,27 @@ Below is an example configuration file. You should edit the parameters below to 
 Open the ```lib/config/configuration``` file
 
         {
-            "cache" : {
-                "path" : "./cache"
+            "cache": {
+                "path": "./cache"
             },
-            "crypto" : {
+            "crypto": {
                 "secret_passphrase" : "{Create guid}"
             },
-            "db" : {
-                "type" : "mongodb",
-                "host" : "mongodb://localhost:27017/{your info here}",
-                "database" : "{your info here}",
-                "username" : "{your info here}",
-                "password" : "{your info here}",
-                "debug" : false
+            "db": {
+                "type": "mongodb",
+                "host": "mongodb://localhost:27017/{your info here}",
+                "database": "{your info here}",
+                "username": "{your info here}",
+                "password": "{your info here}",
+                "debug": false
             },
-            "assets" : {
+            "assets": {
                 "default" : "amazon",
                 "tmpdir" : "{absolute path to your tmp folder}",
-                "engines" : {
+                "engines": {
                     "amazon" : {
-                        "accessKeyId" : "{your info here}",
-                        "secretAccessKey" : "{your info here}",
+                        "accessKeyId": "{your info here}",
+                        "secretAccessKey": "{your info here}",
                         "region" : "us-east-1",
                         "bucket" : "{your info here}",
                         "urlbase" : "{your info here}"
@@ -77,21 +77,12 @@ Open the ```lib/config/configuration``` file
                 }
             },
             "logger" : {
-                "adapters" : [{
-                    "type" : "file",
-                    "path" : "{absolute path to your log file}",
-                    "application" : "{name your application}",
-                    "machine" : "{name your machine}"
+                "adapters": [{
+                    "type": "file",
+                    "path": "{absolute path to your log file}",
+                    "application": "{name your application}",
+                    "machine": "{name your machine}"
                 }]
-            },
-            "identities" : {
-                "google" : {
-                    "appId" : "{ your google app id }",
-                    "secret" : "{ your google secret id }",
-                    "scopes" : [ "{ array of scopes you want to authorize }" ],
-                    "redirectUrl" : "{ the url you want to redirect to after successful auth, the users token will be appended to this route ex. '/login' entered here will send the user to '/login/googleToken' }",
-                    "oauthCallback" : "the url you want google to callback with the temp token. it should be your base url + '/oauth2Callback'"
-                }
             }
         }
 
@@ -257,6 +248,22 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * 0.13.0 - 2014-06-24 - [features](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.13.0_2014-06-24.md)
 * 0.13.1 - 2014-06-24 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.13.1_2014-06-24.md)
 * 0.14.0 - 2014-06-25 - [features](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.0_2014-06-25.md)
+* 0.14.2 - 2014-07-01 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.2_2014-07-01.md)
+* 0.14.3 - 2014-07-01 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.3_2014-07-01.md)
+* 0.14.4 - 2014-07-01 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.4_2014-07-01.md)
+* 0.14.5 - 2014-07-01 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.5_2014-07-01.md)
+* 0.14.6 - 2014-07-01 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.6_2014-07-01.md)
+* 0.14.7 - 2014-07-01 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.7_2014-07-01.md)
+* 0.14.8 - 2014-07-02 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.8_2014-07-02.md)
+* 0.14.9 - 2014-07-10 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.9_2014-07-10.md)
+* 0.14.10 - 2014-07-10 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.10_2014-07-10.md)
+* 0.14.11 - 2014-07-10 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.11_2014-07-10.md)
+* 0.14.12 - 2014-07-14 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.12_2014-07-14.md)
+* 0.14.13 - 2014-07-14 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.13_2014-07-14.md)
+* 0.14.14 - 2014-07-14 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.14_2014-07-14.md)
+* 0.14.15 - 2014-07-15 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.15_2014-07-15.md)
+* 0.14.16 - 2014-07-17 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.16_2014-07-17.md)
+* 0.14.17 - 2014-07-21 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.17_2014-07-21.md)
 
 
 ## Contributors (`git shortlog -s -n`)
@@ -276,4 +283,4 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 To create the readme, update the release notes dir and package.json.version at a minimum. If needed update README.template.md.
 Then run `grunt readme`.
 
-_Compiled file. Do not modify directly. Created: 2014-06-25 01:02:11_
+_Compiled file. Do not modify directly. Created: 2014-07-21 02:36:25_

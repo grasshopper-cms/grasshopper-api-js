@@ -304,7 +304,31 @@ describe('api.content', function(){
                 })
                 .end(function(err, res) {
                     if (err) { throw err; }
+                    res.status.should.equal(200);
+
+                    done();
+                });
+        });
+
+        it('return valid results for everything within a node', function(done) {
+            request(url)
+                .post('/content/query')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + tokens.globalReaderToken)
+                .send({
+                    filters: [],
+                    nodes: ['526d5179966a883540000006'],
+                    options : {
+                        limit : 1
+                    }
+                })
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    console.log(')()()()()()()()()()()()()()');
                     console.log(res.body);
+
+                    res.body.results.length.should.equal(1);
                     res.status.should.equal(200);
 
                     done();

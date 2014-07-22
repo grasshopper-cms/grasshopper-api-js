@@ -6,141 +6,39 @@
 
 [![Build Status](https://travis-ci.org/Solid-Interactive/grasshopper-api-js.svg?branch=master)](https://travis-ci.org/Solid-Interactive/grasshopper-api-js)
 
-### What am I?
+### Grasshopper is an everybody friendly, flexible, extensible CMS.
 
-------------------------------------------------------------------
+A CMS for the people, a great experience for developers, users and customers. Use Grasshopper to drastically speed up development for distributed systems. Support your clients better.
 
-The Grasshopper API is the foundation of the Grasshopper DMS (Data Management System). It provides all of the mechanisms necessary to create content locally or in the cloud. This repository contains our NodeJS implementation but the API can be written in any language and it can fully support any document based database (NoSQL). There is no user interface included in this project, this is on purpose so that developers have complete freedom to creatively use the DMS in whichever way they want.
+![Create, Share, Present](http://solid-interactive.github.io/grasshopper-core-nodejs/images/create-share-present.png)
 
-![Grasshopper Ecosystem](https://s3.amazonaws.com/SolidInteractive/images/grasshopper/GrasshopperEcosystemOverview.png)
+By standardizing your development workflow, you can spend more time building your public facing applications and less time building backend systems, APIs and administrations.
 
+Grasshopper focuses on user happiness, not just developer happiness. Grasshopper provides tools for everyone involved in a project, developers, content managers, clients and customers alike.
 
-### Why would you want to use me?
+**Using Grasshopper, developers get**
 
-------------------------------------------------------------------
+* An easy to use SDK, a ready to go REST API, built in concepts like user management and permissions, an open system that is both flexible and extensible.
+* High performance application stack built on Node.js. Hooks and events into the system to completely customize the handling of data and unlocking it's potential.
+* Consistent tools will that help you save time and delight your users. Using Grasshopper will elimiate much of the boring, boilerplate code that you have to write for every project.
+* The Grasshopper system can be run anywhere and has native cloud support that keeps growing. You can use services like Heroku or host on your own systems.
 
-Common CMS products do not cut it for real apps. When you push Word Press beyond it's intended use you are constantly at war with it.  Our CMS is different, it is simply a data management tool not a website creator. This distinction makes it very appealing when creating APIs, apps or non-traditional websites.
+**Using Grasshopper, managers get**
 
-
-
-### How would you use me?
-
-------------------------------------------------------------------
-
-All operations are performed via a rest like api. If you are developing your project locally we have provided a vagrant box that can be used to create a local API (see developer setup instructions). To use the project in production you would need to:
-
-* Publish the code for the api to a hosting provider of your choice
-* Create your NoSQL database (currently only supporting mongo)
-* Update the configuration file to match your environment settings
+* A ready to go environment to start working right away. No more technology black holes where you have to wait until the end of the project to do your job.
+* Faster access to the tools you need. When developers don't have to write code to give you what you want, you will get it faster.
+* Intuitive and useful content management screens that can have any definition. Any type of content can be defined, organized and managed without a developer having to write any code.
+* Piece of mind knowing that you can increase client engagement by giving them something to work on sooner and give them less time to think about changes.
 
 
+### Grasshopper API
 
+---------------------------------------------------------------------------------
 
-### Configuration Options
+Grasshopper API is an HTTP wrapper of core designed to run on HTTP or HTTPS protocols. The API includes all of the functionality that is available in CORE. The API is required if you intend on using Grasshopper Admin.
 
-------------------------------------------------------------------
+For more information see our [official documentation](http://solid-interactive.github.io/grasshopper-core-nodejs/documentation.html#gettingstarted).
 
-Below is an example configuration file. You should edit the parameters below to suit your needs.
-
-Open the ```lib/config/configuration``` file
-
-        {
-            "cache": {
-                "path": "./cache"
-            },
-            "crypto": {
-                "secret_passphrase" : "{Create guid}"
-            },
-            "db": {
-                "type": "mongodb",
-                "host": "mongodb://localhost:27017/{your info here}",
-                "database": "{your info here}",
-                "username": "{your info here}",
-                "password": "{your info here}",
-                "debug": false
-            },
-            "assets": {
-                "default" : "amazon",
-                "tmpdir" : "{absolute path to your tmp folder}",
-                "engines": {
-                    "amazon" : {
-                        "accessKeyId": "{your info here}",
-                        "secretAccessKey": "{your info here}",
-                        "region" : "us-east-1",
-                        "bucket" : "{your info here}",
-                        "urlbase" : "{your info here}"
-                    },
-                    "local" : {
-                        "path" : "{absolute path to your local assets}",
-                        "urlbase" : "{fully qualified url base to your assets}"
-                    }
-                }
-            },
-            "logger" : {
-                "adapters": [{
-                    "type": "file",
-                    "path": "{absolute path to your log file}",
-                    "application": "{name your application}",
-                    "machine": "{name your machine}"
-                }]
-            }
-        }
-
-
-
-#### Configuration Definitions
-
-------------------------------------------------------------------
-
-* cache: Set path the cached files/data are going to live. (Default is cache directoy in root of project).
-* crypto: Set a unique secret_passphrase that can be used to encrypt data.
-* DB settings
-    * type: mongodb (right now only backend supported)
-    * host: URL to database
-    * database: Name of the database
-    * username: User name of the database
-    * password: password for the database
-    * degug: bool (do you want output into the console)
-* logger: Module used to capture logs from the API/SDK
-    * type: file
-    * path: Location that the file will be saved to
-    * application: Name of your application
-    * machine: Identifyable name of your server
-* assets: Where are your file attachments going to get stored
-    * default: which provider are you going to use (local or amazon)
-    * tmpdir: temp file directory
-    * engines: collections of engines that will be used. NOTE: all engines get files saved to them, only the default returns results
-
-
-### Managing Grasshopper API on production
-
-By Default we have added a `grunt server:start` command that will load a server cluster using `PM2`.
-
-
-Available commands
-
-[https://github.com/Unitech/pm2](https://github.com/Unitech/pm2)
-
-```
-$ npm install pm2 -g     # Install pm2 command line globally
-$ pm2 start app.js -i 4  # Daemonize pm2 and Start 4 clustered instances of app.js
-                         # You can also pass the 'max' params to start
-                         # the right numbers of processes depending of CPUs
-$ pm2 list               # Display all processes status
-$ pm2 monit              # Monitor all processes
-$ pm2 logs               # Display all processes logs in streaming
-$ pm2 dump               # Dump the states of all processes
-$ pm2 stop pm2_id        # Stop specific process id
-$ pm2 stopAll            # Stop all processes
-$ pm2 resurrect          # Put online previously dumped processes
-$ pm2 reload all         # Hot Reload all processes with 0s downtime (only for HTTP)
-$ pm2 restart pm2_id     # Restart specific process
-$ pm2 restart all        # Hard Restart all proccesses
-$ pm2 stop all           # Stop all processes
-$ pm2 generate app       # Generate a JSON process configuration
-$ pm2 startup            # Generate init script to keep processes alive
-$ pm2 web                # Health computer API endpoint (http://localhost:9615)
-```
 
 ### API Documentation
 
@@ -158,29 +56,6 @@ To run the tests:
 
 ```shell
 grunt test
-```
-
-If you are working with a Vagrant box you must first `vagrant ssh`, then in Vagrant, you have to `cd /vagrant` before
-running the command above.
-
-The url used by the tests is in a module located at: `test/config/test.js`. The port should be `80` when running the
-tests. The url can be quickly updated to test remove locations too.
-
-Depending on the node version you use, pm2 might not shut down properly. If you get an error that looks like the following:
-
-```
-Running "shell:makeTest" (shell) task
-Listening on port 3000...
-
-events.js:72
-        throw er; // Unhandled 'error' event
-```
-
-Get the pid of the blocking process (a pm2 satan daemon) and kill it:
-
-```
-lsof -i:3000
-kill -9 [thePid]
 ```
 
 ### Upcoming Features

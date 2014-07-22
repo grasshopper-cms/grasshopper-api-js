@@ -1,16 +1,20 @@
 describe('api.content', function(){
     'use strict';
-    require('./config/environment');
+
+    var database = "is not ready";
 
     before(function(done){
-        require('../lib/grasshopper-api')();
-        setTimeout(function(){
+        var grasshopper = require('../lib/grasshopper-api')();
+        grasshopper.ghCore.event.channel('/system/db').on('start', function(payload, next) {
+            next();
+            console.log('db ready - moving on with tests - server will remain running for duration of all tests.');
+            database = "ready";
             done();
-        },1000);
+        });
     });
 
-    it('test', function(){
-       console.log('');
+    it('database should be ready', function(){
+       database.should.equal("ready");
     });
 });
 

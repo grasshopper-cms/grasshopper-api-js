@@ -325,8 +325,6 @@ describe('api.content', function(){
                 })
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    console.log(')()()()()()()()()()()()()()');
-                    console.log(res.body);
 
                     res.body.results.length.should.equal(1);
                     res.status.should.equal(200);

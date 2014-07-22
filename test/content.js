@@ -310,7 +310,7 @@ describe('api.content', function(){
                 });
         });
 
-        it('return valid results for everything within a node', function(done) {
+        it('return only one result when the options.limit is set to one.', function(done) {
             request(url)
                 .post('/content/query')
                 .set('Accept', 'application/json')

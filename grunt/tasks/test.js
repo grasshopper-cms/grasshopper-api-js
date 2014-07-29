@@ -2,7 +2,7 @@
 
 module.exports = function (grunt) {
 
-    var _ = require('underscore'),
+    var _ = require('lodash'),
         art = grunt.file.read('test/fixtures/artwork.png'),
         prefix = 'lib/public/',
         files = [

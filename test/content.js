@@ -6,7 +6,7 @@ describe('api.content', function(){
 
     var url = require('./config/test').url,
         async = require('async'),
-        _ = require('underscore'),
+        _ = require('lodash'),
         testContentId  = '5261781556c02c072a000007',
         restrictedContentId = '5254908d56c02c076e000001',
         sampleContentObject = null,

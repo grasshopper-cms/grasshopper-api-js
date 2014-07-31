@@ -734,6 +734,8 @@ describe('api.nodes', function(){
                 .set('authorization', 'Basic ' + globalEditorToken)
                 .attach('file', './test/fixtures/nodejs-2560x1440.png')
                 .end(function(err, res) {
+
+                    console.log(res.body);
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.message.should.equal('Success');

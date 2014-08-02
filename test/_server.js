@@ -5,7 +5,7 @@ describe('api.content', function(){
 
     before(function(done){
         var grasshopper = require('../lib/grasshopper-api')();
-        grasshopper.ghCore.event.channel('/system/db').on('start', function(payload, next) {
+        grasshopper.core.event.channel('/system/db').on('start', function(payload, next) {
             next();
             console.log('db ready - moving on with tests - server will remain running for duration of all tests.');
             database = "ready";

@@ -1,7 +1,7 @@
 'use strict';
 
 var lineEnding = '\n',
-    _ = require('underscore');
+    _ = require('lodash');
 
 module.exports = function(grunt) {
 
@@ -26,24 +26,6 @@ module.exports = function(grunt) {
         },
         testRun : {
             command: "mocha --reporter spec --recursive"
-        },
-        startTestServer: {
-            command: "node bin/grasshopper-api test"
-        },
-        startSeedServer: {
-            command: "node bin/grasshopper-api grasshopper"
-        },
-        stopTestServer: {
-            command: "tasks/killserver.sh bin/grasshopper-api"
-        },
-        startServer: {
-            command : "pm2 start bin/grasshopper-api.js -i max -e log/grasshopper.err.log -o log/grasshopper.out.log"
-        },
-        stopServer : {
-            command : "pm2 kill all"
-        },
-        restartServer : {
-            command : "pm2 restart all"
         },
         'getHerokuDbConnection' : {
             options : {

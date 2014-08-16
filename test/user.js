@@ -86,7 +86,7 @@ describe('api.users', function(){
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.should.not.have.property('identities');
-                    res.body.displayName.should.equal('apitestuser');
+                    res.body.displayname.should.equal('apitestuser');
                     done();
                 });
         });
@@ -116,7 +116,7 @@ describe('api.users', function(){
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.should.not.have.property('identities');
-                    res.body.displayName.should.equal('apitestuserreader');
+                    res.body.displayname.should.equal('apitestuserreader');
                     done();
                 });
         });
@@ -231,7 +231,7 @@ describe('api.users', function(){
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.should.have.property('_id');
-                    res.body.displayName.should.equal('newtestuser1');
+                    res.body.displayname.should.equal('newtestuser1');
                     res.body.should.not.have.property('password');
                     res.body.should.not.have.property('identities');
                     testCreatedUserId = res.body._id;
@@ -266,7 +266,7 @@ describe('api.users', function(){
                     if (err) { throw err; }
                     res.status.should.equal(200);
                     res.body.should.not.have.property('identities');
-                    res.body.displayName.should.equal('newtestuser2');
+                    res.body.displayname.should.equal('newtestuser2');
                     res.body.should.have.property('_id');
                     res.body.should.not.have.property('password');
                     testCreatedUserIdCustomVerb = res.body._id;

@@ -74,6 +74,22 @@ describe('api.content', function(){
         });
     });
 
+    describe('GET: ' + url + '/content/:id/full', function() {
+        it('should return 200 because getting content that exists with correct permissions.', function(done) {
+            request(url)
+                .get('/content/' + testContentId + '/full')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + tokens.globalAdminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    sampleContentObject = res.body;
+                    done();
+                });
+        });
+    });
+
     describe('POST: ' + url + '/content', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             var obj = {
@@ -277,6 +293,8 @@ describe('api.content', function(){
                 });
         });
 
+
+
         it('should return a 200 even if it finds nothing', function(done) {
             request(url)
                 .post('/content/query')
@@ -329,6 +347,29 @@ describe('api.content', function(){
                     res.body.results.length.should.equal(1);
                     res.status.should.equal(200);
 
+                    done();
+                });
+        });
+    });
+
+    describe('POST: ' + url + '/content/query/full', function() {
+        var query = {
+            filters: [{key: 'slug', cmp: '=', value: 'sample_content_title'}],
+            options: {
+                //include: ['node','fields.testfield']
+            }
+        };
+
+        it('should return a 200', function(done) {
+            request(url)
+                .post('/content/query')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + tokens.globalReaderToken)
+                .send(query)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
                     done();
                 });
         });

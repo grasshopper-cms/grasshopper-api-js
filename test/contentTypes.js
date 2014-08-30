@@ -136,14 +136,13 @@ describe('api.contentTypes', function(){
         it('should create a content type without an error using correct verb.', function(done){
             var newContentType = {
                 label: 'newtestsuitecontent',
-                fields: {
-                    testfield: {
-                        required: true,
+                fields: [
+                    {
+                        _id : 'testfield',
                         label: 'Title',
-                        instancing: 1,
                         type: 'textbox'
                     }
-                },
+                ],
                 helpText: '',
                 meta: [],
                 description: ''
@@ -166,15 +165,13 @@ describe('api.contentTypes', function(){
         it('should create a content type without an error using correct verb. supplying fields and meta info', function(done){
             var newContentType = {
                 label: 'newtestsuitecontent',
-                fields: {
-                    testfield: {
-                        id: 'testfield',
-                        required: true,
+                fields: [
+                    {
+                        _id: 'testfield',
                         label: 'Title',
-                        instancing: 1,
                         type: 'textbox'
                     }
-                },
+                ],
                 helpText: '',
                 meta: [{
                     id: 'testfield',
@@ -202,14 +199,13 @@ describe('api.contentTypes', function(){
 
         it('should return an error because we are missing a label field.', function(done){
             var newContentType = {
-                fields: {
-                    testid: {
-                        required: true,
+                fields: [
+                    {
+                        _id : 'testid',
                         label: 'Title',
-                        instancing: 1,
                         type: 'textbox'
                     }
-                },
+                ],
                 helpText: '',
                 meta: [],
                 description: ''
@@ -233,14 +229,13 @@ describe('api.contentTypes', function(){
             var newContentType = {
                 _id: 'ISHOULDNOTBEHERE',
                 label: 'newtestsuitecontent',
-                fields: {
-                    testid: {
-                        required: true,
+                fields: [
+                    {
+                        _id : 'testid',
                         label: 'Title',
-                        instancing: 1,
                         type: 'textbox'
                     }
-                },
+                ],
                 helpText: '',
                 meta: [],
                 description: ''
@@ -261,92 +256,151 @@ describe('api.contentTypes', function(){
                 });
         });
 
-        it('should return error when a malformed field id is passed in (id has a space).', function(done){
-            var newContentType = {
-                label: 'newtestsuitecontent',
-                fields: {
-                    'test id' :{
-                        label: 'This is a test label',
-                        required: true,
-                        instancing: 1,
-                        type: 'textbox'
-                    }
-                },
-                helpText: '',
-                meta: [],
-                description: ''
-            };
-            request(url)
-                .post('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Basic ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(400);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
+        describe('the fields collection', function() {
+            it('should return error when a malformed field id is passed in (id has a space).', function(done){
+                var newContentType = {
+                    label: 'newtestsuitecontent',
+                    fields: [
+                        {
+                            _id : 'test id',
+                            label: 'This is a test label',
+                            required: true,
+                            instancing: 1,
+                            type: 'textbox'
+                        }
+                    ],
+                    helpText: '',
+                    meta: [],
+                    description: ''
+                };
+                request(url)
+                    .post('/contentTypes')
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Basic ' + adminToken)
+                    .send(newContentType)
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        res.status.should.equal(400);
+                        res.body.should.have.property('message');
+                        res.body.message.should.have.length.above(0);
+                        done();
+                    });
+            });
 
-        it('should return error when a malformed field is passed in (missing label).', function(done){
-            var newContentType = {
-                label: 'newtestsuitecontent',
-                fields: {
-                    testid: {
-                        required: true,
-                        instancing: 1,
-                        type: 'textbox'
-                    }
-                },
-                helpText: '',
-                meta: [],
-                description: ''
-            };
-            request(url)
-                .post('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Basic ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(400);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
-        });
+            it('should return error when a malformed field is passed in (missing _id).', function(done){
+                var newContentType = {
+                    label: 'newtestsuitecontent',
+                    fields: [
+                        {
+                            type: 'textbox'
+                        }
+                    ],
+                    helpText: '',
+                    meta: [],
+                    description: ''
+                };
+                request(url)
+                    .post('/contentTypes')
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Basic ' + adminToken)
+                    .send(newContentType)
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        res.status.should.equal(400);
+                        res.body.should.have.property('message');
+                        res.body.message.should.equal('Invalid Field Object');
+                        res.body.message.should.have.length.above(0);
+                        done();
+                    });
+            });
 
-        it('should return error when a malformed field is passed in (missing type).', function(done){
-            var newContentType = {
-                label: 'newtestsuitecontent',
-                fields: {
-                    testid: {
-                        label: 'Test Field Label',
-                        required: true,
-                        instancing: 1
-                    }
-                },
-                helpText: '',
-                meta: [],
-                description: ''
-            };
-            request(url)
-                .post('/contentTypes')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Basic ' + adminToken)
-                .send(newContentType)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(400);
-                    res.body.should.have.property('message');
-                    res.body.message.should.have.length.above(0);
-                    done();
-                });
+            it('should return error when a malformed field is passed in (missing type).', function(done){
+                var newContentType = {
+                    label: 'newtestsuitecontent',
+                    fields: [
+                        {
+                            _id : 'yourMomma'
+                        }
+                    ],
+                    helpText: '',
+                    meta: [],
+                    description: ''
+                };
+                request(url)
+                    .post('/contentTypes')
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Basic ' + adminToken)
+                    .send(newContentType)
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        res.status.should.equal(400);
+                        res.body.should.have.property('message');
+                        res.body.message.should.equal('Invalid Field Object');
+                        res.body.message.should.have.length.above(0);
+                        done();
+                    });
+            });
+
+            it('should return error when a malformed field is passed in (missing type).', function(done){
+                var newContentType = {
+                    label: 'newtestsuitecontent',
+                    fields: [
+                        {
+                            _id : 'testid',
+                            label: 'Test Field Label'
+                        }
+                    ],
+                    helpText: '',
+                    meta: [],
+                    description: ''
+                };
+                request(url)
+                    .post('/contentTypes')
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Basic ' + adminToken)
+                    .send(newContentType)
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        res.status.should.equal(400);
+                        res.body.should.have.property('message');
+                        res.body.message.should.equal('Invalid Field Object');
+                        res.body.message.should.have.length.above(0);
+                        done();
+                    });
+            });
+
+            it('should return error when a malformed field is passed in (_id has spaces in it).', function(done){
+                var newContentType = {
+                    label: 'newtestsuitecontent',
+                    fields: [
+                        {
+                            _id : 'your momma',
+                            type : 'textbox'
+                        }
+                    ],
+                    helpText: '',
+                    meta: [],
+                    description: ''
+                };
+                request(url)
+                    .post('/contentTypes')
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Basic ' + adminToken)
+                    .send(newContentType)
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        res.status.should.equal(400);
+                        res.body.should.have.property('message');
+                        res.body.message.should.equal('Invalid Field Object');
+                        res.body.message.should.have.length.above(0);
+                        done();
+                    });
+            });
         });
     });
 

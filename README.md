@@ -188,4 +188,4 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 To create the readme, update the release notes dir and package.json.version at a minimum. If needed update README.template.md.
 Then run `grunt readme`.
 
-_Compiled file. Do not modify directly. Created: 2014-08-29 04:02:05_
+_Compiled file. Do not modify directly. Created: 2014-09-02 04:23:46_

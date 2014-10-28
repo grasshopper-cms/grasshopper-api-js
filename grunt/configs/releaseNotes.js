@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         main : {
             src : 'templates/README.template.md',
             dest : 'README.md',
-            baseLinkPath : 'https://github.com/Solid-Interactive/grasshopper-api-js/tree/kirby/'
+            baseLinkPath : 'https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/'
         }
     });
 };

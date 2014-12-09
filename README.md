@@ -96,8 +96,8 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * 0.8.1 - 2014-03-11 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.1_2014-03-11.md)
 * 0.8.2 - 2014-03-24 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.2_2014-03-24.md)
 * 0.9.0 - 2014-03-24 - [features](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.0_2014-03-24.md)
-* 0.9.1 - 2014-03-28 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-28.md)
-* 0.9.1 - 2014-03-24 - [initial release](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-24.md)
+* 0.9.1 - 2014-03-24 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-24.md)
+* 0.9.1 - 2014-03-28 - [initial release](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-28.md)
 * 0.9.3 - 2014-03-24 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.3_2014-03-24.md)
 * 0.10.0 - 2014-04-03 - [features](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.10.0_2014-04-03.md)
 * 0.10.3 - 2014-04-03 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.10.3_2014-04-03.md)
@@ -152,6 +152,8 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * 0.14.28 - 2014-07-29 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.28_2014-07-29.md)
 * 0.14.29 - 2014-08-01 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.29_2014-08-01.md)
 * 0.14.30 - 2014-08-01 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.30_2014-08-01.md)
+* 0.14.31 - 2014-10-01 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.31_2014-10-01.md)
+* 0.14.32 - 2014-10-01 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.14.32_2014-10-01.md)
 * 0.15.0 - 2014-08-12 - [features](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.15.0_2014-08-12.md)
 * 0.15.1 - 2014-08-13 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.15.1_2014-08-13.md)
 * 0.15.2 - 2014-08-14 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.15.2_2014-08-14.md)
@@ -171,6 +173,7 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * 0.16.9 - 2014-09-30 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.16.9_2014-09-30.md)
 * 0.16.10 - 2014-10-28 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.16.10_2014-10-28.md)
 * 0.16.11 - 2014-12-06 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.16.11_2014-12-06.md)
+* 0.16.12 - 2014-12-08 - [patches](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.16.12_2014-12-08.md)
 
 
 ## Contributors (`git shortlog -s -n`)
@@ -179,13 +182,13 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * Greg Larrenaga
 * Peter Ajtai
 * Cooper Hilscher
-* Main Conf Room
 * kaijarayne
+* Main Conf Room
 * Andrew Gurinovich
+* Jonathan Waltner
 * Jesse McCabe
 * Eric Beringer
 * root
-* Jonathan Waltner
 
 
 ## Dev Notes
@@ -193,4 +196,4 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 To create the readme, update the release notes dir and package.json.version at a minimum. If needed update README.template.md.
 Then run `grunt readme`.
 
-_Compiled file. Do not modify directly. Created: 2014-12-06 08:26:30_
+_Compiled file. Do not modify directly. Created: 2014-12-08 05:15:45_

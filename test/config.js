@@ -1,6 +1,6 @@
 require('chai').should();
 
-describe.only('the ghapi.json config file', function(){
+describe('the ghapi.json config file', function(){
     'use strict';
 
     var Request = require('../lib/utils/request'),

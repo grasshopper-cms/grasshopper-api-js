@@ -12,7 +12,11 @@ describe('the ghapi.json config file', function(){
         reqObjWithoutDefaultInParams = {
             query : {}
         },
-        GhCore = require('grasshopper-core');
+        grasshopper = require('grasshopper-core');
+
+    beforeEach(function() {
+        grasshopper.config.db.defaultPageSize = 100000;
+    });
 
     describe('the db.defaultPageSize config', function() {
         describe('when set', function() {
@@ -26,15 +30,11 @@ describe('the ghapi.json config file', function(){
             });
             describe('and one is not passed into the query', function() {
                 it('respects the default', function() {
-                    var config = JSON.parse(process.env.GRASSHOPPER_CONFIG),
-                        request = new Request(),
-                        listPageSize;
+                    var request, listPageSize;
 
-                    config.db.defaultPageSize = 840;
+                    grasshopper.config.db.defaultPageSize = 840;
 
-                    process.env.GRASSHOPPER_CONFIG = JSON.stringify(config);
-
-                    GhCore.init();
+                    request = new Request();
 
                     listPageSize = request.getListPageSize(reqObjWithoutDefaultInParams);
 
@@ -56,7 +56,7 @@ describe('the ghapi.json config file', function(){
                     var request = new Request(),
                         listPageSize = request.getListPageSize(reqObjWithoutDefaultInParams);
 
-                    listPageSize.should.equal(200);
+                    listPageSize.should.equal(100000);
                 });
             });
         });

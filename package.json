@@ -16,7 +16,7 @@
       "name": "Greg Larrenaga"
     }
   ],
-  "version": "0.16.25",
+  "version": "0.16.26",
   "repository": {
     "type": "git",
     "url": "https://github.com/Solid-Interactive/grasshopper-api-js.git"
@@ -39,7 +39,7 @@
     "body-parser": "1.10.0",
     "bridgetown-api": "1.0.3",
     "express": "~4.8.0",
-    "grasshopper-core": "0.16.25",
+    "grasshopper-core": "0.16.26",
     "lodash": "^2.4.1",
     "method-override": "~1.0.1",
     "morgan": "~1.1.0",

@@ -1,5 +1,6 @@
 'use strict';
-var request = require('supertest');
+var request = require('supertest'),
+    env = require('./config/environment')();
 
 require('chai').should();
 
@@ -12,6 +13,19 @@ describe('api.contentTypes', function(){
         testCreatedContentTypeCustomVerb = '';
 
     before(function(done){
+        //run shell command to setup the db
+        var exec = require('child_process').exec;
+        exec('./tasks/importdb.sh', function (error, stdout, stderr) {
+              console.log('stdout: ' + stdout);
+              console.log('stderr: ' + stderr);
+              if (error !== null) {
+                console.log('exec error: ' + error);
+              }
+        });
+
+        var grasshopper = require('../lib/grasshopper-api')(env);
+
+        grasshopper.core.event.channel('/system/db').on('start', function() {
 
             request(url)
                 .get('/token')
@@ -33,6 +47,7 @@ describe('api.contentTypes', function(){
                             done();
                         });
                 });
+        });
     });
 
     describe('GET: ' + url + '/contentTypes/:id', function() {
@@ -249,7 +264,7 @@ describe('api.contentTypes', function(){
                 .send(newContentType)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();

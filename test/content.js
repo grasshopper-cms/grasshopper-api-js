@@ -1,34 +1,43 @@
-var request = require('supertest');
+'use strict';
+
+var request = require('supertest'),
+    env = require('./config/environment')(),
+    BB = require('bluebird');
 require('chai').should();
 
 describe('api.content', function(){
-    'use strict';
 
     var url = require('./config/test').url,
-        async = require('async'),
+        // async = require('async'),
         _ = require('lodash'),
         testContentId  = '5261781556c02c072a000007',
         restrictedContentId = '5254908d56c02c076e000001',
         sampleContentObject = null,
-        tokens = {},
-        tokenRequests = [
-            ['apitestuseradmin:TestPassword', 'globalAdminToken'],
-            ['apitestuserreader:TestPassword', 'globalReaderToken'],
-            ['apitestusereditor_restricted:TestPassword', 'restrictedEditorToken'],
-
-            // There are no tests for the following:
-            ['apitestusereditor:TestPassword', 'globalEditorToken'],
-            ['apitestuserreader_1:TestPassword', 'nodeEditorToken']
-        ],
-        parallelTokenRequests = [];
-
+        tokens = {
+            globalAdminToken : 'apitestuseradmin:TestPassword',
+            globalReaderToken : 'apitestuserreader:TestPassword',
+            restrictedEditorToken : 'apitestusereditor_restricted:TestPassword'
+        };
 
     before(function(done){
-        _.each(tokenRequests, function(theRequest) {
-            parallelTokenRequests.push(createGetToken(theRequest[0], theRequest[1]).closure);
+
+        //run shell command to setup the db
+        var exec = require('child_process').exec;
+        exec('./tasks/importdb.sh', function (error, stdout, stderr) {
+              console.log('stdout: ' + stdout);
+              console.log('stderr: ' + stderr);
+              if (error !== null) {
+                console.log('exec error: ' + error);
+              }
         });
-        async.parallel(parallelTokenRequests, function(){
-            done();
+
+        var grasshopper = require('../lib/grasshopper-api')(env);
+
+        grasshopper.core.event.channel('/system/db').on('start', function() {
+            //next();
+
+            getAllAccessTokens()
+                .then(function() { done(); });
         });
     });
 
@@ -67,7 +76,7 @@ describe('api.content', function(){
                 .set('authorization', 'Basic ' + tokens.restrictedEditorToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
-
+                    console.log(res);
                     res.status.should.equal(403);
                     done();
                 });
@@ -428,20 +437,27 @@ describe('api.content', function(){
         });
     });
 
-    function createGetToken(creds, storage) {
-        return {
-            closure : function getToken(cb){
-                request(url)
-                    .get('/token')
-                    .set('Accept', 'application/json')
-                    .set('Accept-Language', 'en_US')
-                    .set('authorization', 'Basic '+ new Buffer(creds).toString('base64'))
-                    .end(function(err, res) {
-                        if (err) { throw err; }
-                        tokens[storage] = res.body.access_token;
-                        cb();
-                    });
-            }
-        };
+    function getAllAccessTokens() {
+        return BB.all(
+            _.chain(tokens)
+            .keys()
+            .map(function(key) {
+                return new BB(function(resolve, reject) {
+                    request(url)
+                        .get('/token')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', 'Basic '+ new Buffer(tokens[key]).toString('base64'))
+                        .end(function(err, res) {
+                            err && reject();
+
+                            tokens[key] = res.body.access_token;
+                            resolve();
+                        });
+                });
+            })
+            .value()
+        );
     }
+
 });

@@ -1,9 +1,29 @@
 'use strict';
 var request = require('supertest'),
-    should = require('chai').should();
+    should = require('chai').should(),
+    env = require('./config/environment')();
 
 describe('api.users', function(){
     var url = require('./config/test').url;
+
+    before(function(done){
+
+        //run shell command to setup the db
+        var exec = require('child_process').exec;
+        exec('./tasks/importdb.sh', function (error, stdout, stderr) {
+              console.log('stdout: ' + stdout);
+              console.log('stderr: ' + stderr);
+              if (error !== null) {
+                console.log('exec error: ' + error);
+              }
+        });
+
+        var grasshopper = require('../lib/grasshopper-api')(env);
+
+        grasshopper.core.event.channel('/system/db').on('start', function() {
+            done();
+        });
+    });
 
     describe('Google Routes', function() {
 

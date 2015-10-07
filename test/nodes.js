@@ -1,5 +1,6 @@
 var request = require('supertest'),
-    path = require('path');
+    path = require('path'),
+    env = require('./config/environment')();
 
 require('chai').should();
 
@@ -23,72 +24,88 @@ describe('api.nodes', function(){
         badTestContentTypeID = '52698a0033e248a360000006';
 
     before(function(done){
-        async.parallel(
-            [
-                function(cb){
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', 'Basic '+ new Buffer('apitestuseradmin:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            globalAdminToken = res.body.access_token;
-                            cb();
-                        });
-                },
-                function(cb){
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', 'Basic '+ new Buffer('apitestuserreader:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            globalReaderToken = res.body.access_token;
-                            cb();
-                        });
-                },
-                function(cb){
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', 'Basic '+ new Buffer('apitestusereditor:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            globalEditorToken = res.body.access_token;
-                            cb();
-                        });
-                },
-                function(cb){
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', 'Basic '+ new Buffer('apitestuserreader_1:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            nodeEditorToken = res.body.access_token;
-                            cb();
-                        });
-                },
-                function(cb){
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', 'Basic '+ new Buffer('apitestusereditor_restricted:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            restrictedEditorToken = res.body.access_token;
-                            cb();
-                        });
+
+        //run shell command to setup the db
+        var exec = require('child_process').exec;
+        exec('./tasks/importdb.sh', function (error, stdout, stderr) {
+              console.log('stdout: ' + stdout);
+              console.log('stderr: ' + stderr);
+              if (error !== null) {
+                console.log('exec error: ' + error);
+              }
+        });
+
+        var grasshopper = require('../lib/grasshopper-api')(env);
+
+        grasshopper.core.event.channel('/system/db').on('start', function() {
+            async.parallel(
+                [
+                    function(cb){
+                        request(url)
+                            .get('/token')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', 'Basic '+ new Buffer('apitestuseradmin:TestPassword').toString('base64'))
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                globalAdminToken = res.body.access_token;
+                                cb();
+                            });
+                    },
+                    function(cb){
+                        request(url)
+                            .get('/token')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', 'Basic '+ new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                globalReaderToken = res.body.access_token;
+                                cb();
+                            });
+                    },
+                    function(cb){
+                        request(url)
+                            .get('/token')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', 'Basic '+ new Buffer('apitestusereditor:TestPassword').toString('base64'))
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                globalEditorToken = res.body.access_token;
+                                cb();
+                            });
+                    },
+                    function(cb){
+                        request(url)
+                            .get('/token')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', 'Basic '+ new Buffer('apitestuserreader_1:TestPassword').toString('base64'))
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                nodeEditorToken = res.body.access_token;
+                                cb();
+                            });
+                    },
+                    function(cb){
+                        request(url)
+                            .get('/token')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', 'Basic '+ new Buffer('apitestusereditor_restricted:TestPassword').toString('base64'))
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                restrictedEditorToken = res.body.access_token;
+                                cb();
+                            });
+                    }
+                ],function(){
+                    done();
                 }
-            ],function(){
-                done();
-            }
-        );
+            );
+        });
+
     });
 
     describe('POST: ' + url + '/nodes', function() {
@@ -853,9 +870,9 @@ describe('api.nodes', function(){
     });
 
 
-    describe('POST: ' + url + '/node/:id/assets/move', function() {
+    describe('POST: ' + url + '/node/:nodeid/assets/move', function() {
         it('should move one asset to another node.', function(done) {
-
+            console.log(request(url));
             request(url)
                 .post('/node/' + testNodeId + '/assets/move')
                 .set('Accept', 'application/json')
@@ -888,7 +905,7 @@ describe('api.nodes', function(){
         it('should delete an asset with a specific name', function(done) {
 
              request(url)
-                 .del('/node/' + testNodeWithNoSubNodes + '/assets/testimage.png')
+                 .del('/node/' + testNodeId + '/assets/testimage.png')
                  .set('Accept', 'application/json')
                  .set('Accept-Language', 'en_US')
                  .set('authorization', 'Basic ' + globalEditorToken)

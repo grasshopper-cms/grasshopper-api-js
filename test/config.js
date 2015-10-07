@@ -1,8 +1,10 @@
+'use strict';
+
 require('chai').should();
 
 describe('the ghapi.json config file', function(){
-    'use strict';
 
+// TODO: write a test for default port, port via process.ENV and port view options.port
     var Request = require('../lib/utils/request'),
         reqObjWithDefaultInParams = {
             query : {

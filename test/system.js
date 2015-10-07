@@ -1,6 +1,7 @@
 'use strict';
 var request = require('supertest'),
-    async = require('async');
+    async = require('async'),
+    env = require('./config/environment')();
 
 require('chai').should();
 
@@ -9,24 +10,39 @@ describe('api.system', function(){
         globalReaderToken = "";
 
     before(function(done){
-        async.parallel(
-            [
-                function(cb){
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', new Buffer('apitestuserreader:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            globalReaderToken = res.body.access_token;
-                            cb();
-                        });
+
+        //run shell command to setup the db
+        var exec = require('child_process').exec;
+        exec('./tasks/importdb.sh', function (error, stdout, stderr) {
+              console.log('stdout: ' + stdout);
+              console.log('stderr: ' + stderr);
+              if (error !== null) {
+                console.log('exec error: ' + error);
+              }
+        });
+
+        var grasshopper = require('../lib/grasshopper-api')(env);
+
+        grasshopper.core.event.channel('/system/db').on('start', function() {
+            async.parallel(
+                [
+                    function(cb){
+                        request(url)
+                            .get('/token')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                globalReaderToken = res.body.access_token;
+                                cb();
+                            });
+                    }
+                ],function(){
+                    done();
                 }
-            ],function(){
-                done();
-            }
-        );
+            );
+        });
     });
 
     describe(url + '/system', function() {

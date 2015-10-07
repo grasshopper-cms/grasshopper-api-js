@@ -1,5 +1,6 @@
 'use strict';
-var request = require('supertest');
+var request = require('supertest'),
+    env = require('./config/environment')();
 require('chai').should();
 
 describe('api.users', function(){
@@ -17,36 +18,53 @@ describe('api.users', function(){
 
 
     before(function(done){
-        request(url)
-            .get('/token')
-            .set('Accept', 'application/json')
-            .set('Accept-Language', 'en_US')
-            .set('authorization', 'Basic '+ new Buffer('apitestuseradmin:TestPassword').toString('base64'))
-            .end(function(err, res) {
-                if (err) { throw err; }
-                adminToken = res.body.access_token;
 
-                request(url)
-                    .get('/token')
-                    .set('Accept', 'application/json')
-                    .set('Accept-Language', 'en_US')
-                    .set('authorization', 'Basic '+ new Buffer('apitestuserreader:TestPassword').toString('base64'))
-                    .end(function(err, res) {
-                        if (err) { throw err; }
-                        readerToken = res.body.access_token;
+        //run shell command to setup the db
+        var exec = require('child_process').exec;
+        exec('./tasks/importdb.sh', function (error, stdout, stderr) {
+              console.log('stdout: ' + stdout);
+              console.log('stderr: ' + stderr);
+              if (error !== null) {
+                console.log('exec error: ' + error);
+              }
+        });
 
-                        request(url)
-                            .get('/token')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', 'Basic '+ new Buffer('admin:TestPassword').toString('base64'))
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                adminToken2 = res.body.access_token;
-                                done();
-                            });
-                    });
-            });
+        var grasshopper = require('../lib/grasshopper-api')(env);
+
+        grasshopper.core.event.channel('/system/db').on('start', function() {
+            request(url)
+                .get('/token')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic '+ new Buffer('apitestuseradmin:TestPassword').toString('base64'))
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    adminToken = res.body.access_token;
+
+                    request(url)
+                        .get('/token')
+                        .set('Accept', 'application/json')
+                        .set('Accept-Language', 'en_US')
+                        .set('authorization', 'Basic '+ new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                        .end(function(err, res) {
+                            if (err) { throw err; }
+                            readerToken = res.body.access_token;
+
+                            request(url)
+                                .get('/token')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Basic '+ new Buffer('admin:TestPassword').toString('base64'))
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    adminToken2 = res.body.access_token;
+                                    done();
+                                });
+                        });
+                });
+        });
+
+
     });
 
     describe('GET: ' + url + '/users/:id', function() {
@@ -297,7 +315,7 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();

@@ -4,12 +4,15 @@ module.exports = function (grunt) {
 
     var _ = require('lodash'),
         art = grunt.file.read('test/fixtures/artwork.png'),
-        prefix = 'lib/public/',
+        prefix = 'test/public/',
         files = [
             'artwork.png',
             'testimage.png'
         ],
-        ids = require('../../fixtures/mongodb/db/test/ids');
+        ids = require('../../fixtures/mongodb/db/test/ids'),
+        empties = [
+            '526d5179966a883540000006'
+        ];
 
     grunt.registerTask('test', ['jshint', 'shell:testSetup', 'shell:testRun']);
 
@@ -24,6 +27,9 @@ module.exports = function (grunt) {
             _.each(ids, function(theId) {
                 grunt.file.write(prefix + '/' + theId + '/' + theFile, art);
             });
+        });
+        _.each(empties, function(theId) {
+            grunt.file.mkdir(prefix + '/' + theId);
         });
     });
     grunt.registerTask('test:deletePublic', function() {

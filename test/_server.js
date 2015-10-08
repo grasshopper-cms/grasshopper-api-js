@@ -4,7 +4,7 @@ var env = require('./config/environment')();
 require('chai').should();
 
 describe('api.content', function(){
-
+    console.log(env);
 
     var database = "is not ready";
 

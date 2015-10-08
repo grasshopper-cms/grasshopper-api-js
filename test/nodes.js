@@ -15,7 +15,7 @@ describe('api.nodes', function(){
         nodeEditorToken = '',
         restrictedEditorToken = '',
         testNodeId = '5261781556c02c072a000007',
-        testNodeWithNoSubNodes = '5246e73d56c02c0744000001',
+        testNodeWithNoSubNodes = '526d5179966a883540000006',
         testNodeIdRoot_generated = '',
         testNodeIdSubNode_generated = '',
         testNodeIdSubSub_generated = '',
@@ -26,15 +26,10 @@ describe('api.nodes', function(){
     before(function(done){
 
         //run shell command to setup the db
-        var exec = require('child_process').exec;
-        exec('./tasks/importdb.sh', function (error, stdout, stderr) {
-              console.log('stdout: ' + stdout);
-              console.log('stderr: ' + stderr);
-              if (error !== null) {
-                console.log('exec error: ' + error);
-              }
-        });
-
+        var exec = require('child_process').execSync;
+        exec('./tasks/importdb.sh');
+        exec('grunt test:generatePublic');
+        console.log("GETTINGPAST");
         var grasshopper = require('../lib/grasshopper-api')(env);
 
         grasshopper.core.event.channel('/system/db').on('start', function() {
@@ -871,16 +866,16 @@ describe('api.nodes', function(){
 
 
     describe('POST: ' + url + '/node/:nodeid/assets/move', function() {
-        it('should move one asset to another node.', function(done) {
-            console.log(request(url));
+        it.only('should move one asset to another node.', function(done) {
             request(url)
                 .post('/node/' + testNodeId + '/assets/move')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Basic ' + globalEditorToken)
                 .send({
+                    // this node doesn't exist
                     newnodeid: testNodeWithNoSubNodes,
-                    filename: 'testimage.png'
+                    filename: 'artwork.png'
                 })
                 .end(function(err, res) {
                     if (err) { throw err; }

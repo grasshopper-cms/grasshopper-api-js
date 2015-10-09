@@ -15,13 +15,7 @@ describe('api.contentTypes', function(){
     before(function(done){
         //run shell command to setup the db
         var exec = require('child_process').exec;
-        exec('./tasks/importdb.sh', function (error, stdout, stderr) {
-              console.log('stdout: ' + stdout);
-              console.log('stderr: ' + stderr);
-              if (error !== null) {
-                console.log('exec error: ' + error);
-              }
-        });
+        exec('./tasks/importdb.sh');
 
         var grasshopper = require('../lib/grasshopper-api')(env);
 

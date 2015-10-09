@@ -32,6 +32,11 @@ module.exports = function (grunt) {
             grunt.file.mkdir(prefix + '/' + theId);
         });
     });
+    // /Users/solid/grasshopper-node-js/grasshopper-api-js/test/fixtures/72.png
+    grunt.registerTask('test:genTestNodeDir', function(dir){
+        grunt.file.mkdir(prefix + '/' + dir);
+    });
+    //
     grunt.registerTask('test:deletePublic', function() {
         _.each(ids, function(theId) {
             grunt.file.delete(prefix + '/' + theId);

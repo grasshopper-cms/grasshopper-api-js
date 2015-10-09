@@ -3,6 +3,7 @@
 var request = require('supertest'),
     env = require('./config/environment')(),
     BB = require('bluebird');
+
 require('chai').should();
 
 describe('api.content', function(){
@@ -70,7 +71,6 @@ describe('api.content', function(){
                 .set('authorization', 'Basic ' + tokens.restrictedEditorToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    console.log(res);
                     res.status.should.equal(403);
                     done();
                 });

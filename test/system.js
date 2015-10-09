@@ -1,43 +1,41 @@
 'use strict';
 var request = require('supertest'),
     async = require('async'),
-    env = require('./config/environment')();
+    env = require('./config/environment')(),
+    exec = require('child_process').execSync,
+    url = require('./config/test').url,
+    globalReaderToken = "",
+    start = require('./_start');
 
 require('chai').should();
 
 describe('api.system', function(){
-    var url = require('./config/test').url,
-        globalReaderToken = "";
-
     before(function(done){
-
-        //run shell command to setup the db
-        var exec = require('child_process').execSync;
         exec('./tasks/importdb.sh');
-
-        var grasshopper = require('../lib/grasshopper-api')(env);
-
-        grasshopper.core.event.channel('/system/db').on('start', function() {
-            async.parallel(
-                [
-                    function(cb){
-                        request(url)
-                            .get('/token')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', new Buffer('apitestuserreader:TestPassword').toString('base64'))
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                globalReaderToken = res.body.access_token;
-                                cb();
-                            });
+        this.timeout(10000);
+        start()
+            .then(function(){
+                async.parallel(
+                    [
+                        function(cb){
+                            request(url)
+                                .get('/token')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    globalReaderToken = res.body.access_token;
+                                    cb();
+                                });
+                        }
+                    ],function(){
+                        done();
                     }
-                ],function(){
-                    done();
-                }
-            );
-        });
+                );
+            });
     });
+
 
     describe(url + '/system', function() {
         it('should return a response from system because our token is valid', function(done) {

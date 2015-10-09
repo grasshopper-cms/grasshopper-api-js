@@ -1,26 +1,21 @@
 'use strict';
 var request = require('supertest'),
-    env = require('./config/environment')();
+    exec = require('child_process').execSync,
+    url = require('./config/test').url,
+    start = require('./_start');
 
 require('chai').should();
 
 describe('page not found', function(){
 
     before(function(done){
-
-        //run shell command to setup the db
-        var exec = require('child_process').execSync;
         exec('./tasks/importdb.sh');
-
-        var grasshopper = require('../lib/grasshopper-api')(env);
-
-        grasshopper.core.event.channel('/system/db').on('start', function() {
-            done();
-        });
+        this.timeout(10000);
+        start()
+            .then(function(){
+                done();
+            });
     });
-
-    var url = require('./config/test').url;
-
 
     it('should return a 404 for a non existent endpoint', function(done) {
         request(url)

@@ -1,39 +1,35 @@
 'use strict';
 
 var request = require('supertest'),
-    env = require('./config/environment')(),
-    BB = require('bluebird');
+    BB = require('bluebird'),
+    exec = require('child_process').execSync,
+    start = require('./_start'),
+    url = require('./config/test').url,
+    // async = require('async'),
+    _ = require('lodash'),
+    testContentId  = '5261781556c02c072a000007',
+    restrictedContentId = '5254908d56c02c076e000001',
+    sampleContentObject = null,
+    tokens = {
+        globalAdminToken : 'apitestuseradmin:TestPassword',
+        globalReaderToken : 'apitestuserreader:TestPassword',
+        restrictedEditorToken : 'apitestusereditor_restricted:TestPassword'
+    };
 
 require('chai').should();
 
 describe('api.content', function(){
 
-    var url = require('./config/test').url,
-        // async = require('async'),
-        _ = require('lodash'),
-        testContentId  = '5261781556c02c072a000007',
-        restrictedContentId = '5254908d56c02c076e000001',
-        sampleContentObject = null,
-        tokens = {
-            globalAdminToken : 'apitestuseradmin:TestPassword',
-            globalReaderToken : 'apitestuserreader:TestPassword',
-            restrictedEditorToken : 'apitestusereditor_restricted:TestPassword'
-        };
-
     before(function(done){
-
-        //run shell command to setup the db
-        var exec = require('child_process').execSync;
         exec('./tasks/importdb.sh');
-
-        var grasshopper = require('../lib/grasshopper-api')(env);
-
-        grasshopper.core.event.channel('/system/db').on('start', function() {
-            //next();
-
-            getAllAccessTokens()
-                .then(function() { done(); });
-        });
+        this.timeout(10000);
+        start()
+            .then(function(){
+                getAllAccessTokens()
+                .then(function() {
+                    done();
+                });
+            });
     });
 
     describe('GET: ' + url + '/content/:id', function() {

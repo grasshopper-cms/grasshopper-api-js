@@ -1,249 +1,247 @@
+'use strict';
+
 var request = require('supertest-promised'),
     path = require('path'),
     env = require('./config/environment')(),
-    BB = require('bluebird');
+    BB = require('bluebird'),
+    url = require('./config/test').url,
+    async = require('async'),
+    globalAdminToken  = '',
+    globalReaderToken = '',
+    globalEditorToken = '',
+    nodeEditorToken = '',
+    restrictedEditorToken = '',
+    testNodeId = '',
+    testNodeWithNoSubNodes = '',
+    testNodeToCopyTo = '',
+    testNodeIdRoot_generated = '',
+    testNodeIdSubNode_generated = '',
+    // testNodeIdSubSub_generated = '',
+    testContentType = {
+        _id: '524362aa56c02c0703000001',
+        label: 'This is my test content type',
+        helpText: ''
+    },
+    testContentTypeUsers = {
+        _id: '5254908d56c02c076e000001',
+        label: 'Users',
+        helpText: 'These fields are the minimum required to create a user in the system. See more about extending users through plugins.'
+    },
+    files = [
+        './test/fixtures/artwork.png',
+        './test/fixtures/36.png',
+        './test/fixtures/48.png',
+        './test/fixtures/72.png',
+        './test/fixtures/96.png',
+        './test/fixtures/assetfordeletion.png'
+    ],
+    exec = require('child_process').execSync,
+    start = require('./_start');
 
 require('chai').should();
 
 describe('api.nodes', function(){
-    'use strict';
-
-    var url = require('./config/test').url,
-        async = require('async'),
-        globalAdminToken  = '',
-        globalReaderToken = '',
-        globalEditorToken = '',
-        nodeEditorToken = '',
-        restrictedEditorToken = '',
-        testNodeId = '',
-        testNodeWithNoSubNodes = '',
-        testNodeToCopyTo = '',
-        testNodeIdRoot_generated = '',
-        testNodeIdSubNode_generated = '',
-        // testNodeIdSubSub_generated = '',
-        testContentType = {
-            _id: '524362aa56c02c0703000001',
-            label: 'This is my test content type',
-            helpText: ''
-        },
-        testContentTypeUsers = {
-            _id: '5254908d56c02c076e000001',
-            label: 'Users',
-            helpText: 'These fields are the minimum required to create a user in the system. See more about extending users through plugins.'
-        },
-        files = [
-            './test/fixtures/artwork.png',
-            './test/fixtures/36.png',
-            './test/fixtures/48.png',
-            './test/fixtures/72.png',
-            './test/fixtures/96.png',
-            './test/fixtures/assetfordeletion.png'
-        ],
-        exec = require('child_process').execSync;
-
     before(function(done){
-
-        //run shell command to setup the db
+        //exec('grunt test:generatePublic');
         exec('./tasks/importdb.sh');
-        exec('grunt test:generatePublic');
-        console.log("Loaded the test/public folder.");
-        var grasshopper = require('../lib/grasshopper-api')(env);
-
-        grasshopper.core.event.channel('/system/db').on('start', function() {
-            async.series(
-                [
-                    function(cb){
-                        request(url)
-                            .get('/token')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', 'Basic '+ new Buffer('apitestuseradmin:TestPassword').toString('base64'))
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                globalAdminToken = res.body.access_token;
-                                cb();
-                            });
-                    },
-                    function(cb){
-                        request(url)
-                            .get('/token')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', 'Basic '+ new Buffer('apitestuserreader:TestPassword').toString('base64'))
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                globalReaderToken = res.body.access_token;
-                                cb();
-                            });
-                    },
-                    function(cb){
-                        request(url)
-                            .get('/token')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', 'Basic '+ new Buffer('apitestusereditor:TestPassword').toString('base64'))
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                globalEditorToken = res.body.access_token;
-                                cb();
-                            });
-                    },
-                    function(cb){
-                        request(url)
-                            .get('/token')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', 'Basic '+ new Buffer('apitestuserreader_1:TestPassword').toString('base64'))
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                nodeEditorToken = res.body.access_token;
-                                cb();
-                            });
-                    },
-                    function(cb){
-                        request(url)
-                            .get('/token')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', 'Basic '+ new Buffer('apitestusereditor_restricted:TestPassword').toString('base64'))
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                restrictedEditorToken = res.body.access_token;
-                                cb();
-                            });
-                    },
-                    function(cb) {
-                        request(url)
-                            .post('/nodes')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', 'Basic ' + globalEditorToken)
-                            .send({
-                                label : 'Magik Mike',
-                                parent: null
-                            })
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                testNodeId = res.body._id;
-                                cb();
-                            });
-                    },
-                    function(cb){
-                        request(url)
-                            .post('/nodes')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', 'Basic ' + globalEditorToken)
-                            .send({
-                                label : 'My Test Node',
-                                parent: null
-                            })
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                testNodeIdRoot_generated = res.body._id;
-                                cb();
-                            });
-                    },
-                    function(cb){
-                        request(url)
-                            .post('/nodes')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', 'Basic ' + globalEditorToken)
-                            .send({
-                                label : 'moveToThisNode',
-                                parent: null
-                            })
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                testNodeWithNoSubNodes = res.body._id;
-                                cb();
-                            });
-                    },
-                    function(cb){
-                        request(url)
-                            .post('/nodes')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', 'Basic ' + globalEditorToken)
-                            .send({
-                                label : 'Greg is a Jabroni',
-                                parent: null
-                            })
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                testNodeToCopyTo = res.body._id;
-                                cb();
-                            });
-                    },
-                    function(cb) {
-                        request(url)
-                            .post('/nodes')
-                            .set('Accept', 'application/json')
-                            .set('Accept-Language', 'en_US')
-                            .set('authorization', 'Basic ' + globalEditorToken)
-                            .send({
-                                label : 'My Test Sub-Node',
-                                parent: testNodeIdRoot_generated
-                            })
-                            .end(function(err, res) {
-                                if (err) { throw err; }
-                                testNodeIdSubNode_generated = res.body._id;
-                                cb();
-                            });
-                    },
-                    function(cb) {
-                        BB.all([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(function(label) {
-                            return request(url)
+        this.timeout(10000);
+        start()
+            .then(function(){
+                async.series(
+                    [
+                        function(cb){
+                            request(url)
+                                .get('/token')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Basic '+ new Buffer('apitestuseradmin:TestPassword').toString('base64'))
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    globalAdminToken = res.body.access_token;
+                                    cb();
+                                });
+                        },
+                        function(cb){
+                            request(url)
+                                .get('/token')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Basic '+ new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    globalReaderToken = res.body.access_token;
+                                    cb();
+                                });
+                        },
+                        function(cb){
+                            request(url)
+                                .get('/token')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Basic '+ new Buffer('apitestusereditor:TestPassword').toString('base64'))
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    globalEditorToken = res.body.access_token;
+                                    cb();
+                                });
+                        },
+                        function(cb){
+                            request(url)
+                                .get('/token')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Basic '+ new Buffer('apitestuserreader_1:TestPassword').toString('base64'))
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    nodeEditorToken = res.body.access_token;
+                                    cb();
+                                });
+                        },
+                        function(cb){
+                            request(url)
+                                .get('/token')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Basic '+ new Buffer('apitestusereditor_restricted:TestPassword').toString('base64'))
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    restrictedEditorToken = res.body.access_token;
+                                    cb();
+                                });
+                        },
+                        function(cb) {
+                            request(url)
                                 .post('/nodes')
                                 .set('Accept', 'application/json')
                                 .set('Accept-Language', 'en_US')
                                 .set('authorization', 'Basic ' + globalEditorToken)
                                 .send({
-                                    label : label,
-                                    parent: testNodeId
+                                    label : 'Magik Mike',
+                                    parent: null
                                 })
-                                .end()
-                                .then(function(res) {
-                                    return request(url)
-                                        .post('/nodes')
-                                        .set('Accept', 'application/json')
-                                        .set('Accept-Language', 'en_US')
-                                        .set('authorization', 'Basic ' + globalEditorToken)
-                                        .send({
-                                            label : label,
-                                            parent: res.body._id
-                                        })
-                                        .end();
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    testNodeId = res.body._id;
+                                    cb();
                                 });
-                        }))
-                        .then(function() {
-                            cb();
-                        });
-                    },
-                    function(cb){
-                        BB.all([0,1,2,3,4,5].map(function(fileNum){
-                            return request(url)
-                                .post('/node/' + testNodeId + '/assets')
+                        },
+                        function(cb){
+                            request(url)
+                                .post('/nodes')
                                 .set('Accept', 'application/json')
                                 .set('Accept-Language', 'en_US')
                                 .set('authorization', 'Basic ' + globalEditorToken)
-                                .attach('file', files[fileNum])
-                                .end(function(err,res){
+                                .send({
+                                    label : 'My Test Node',
+                                    parent: null
+                                })
+                                .end(function(err, res) {
                                     if (err) { throw err; }
+                                    testNodeIdRoot_generated = res.body._id;
+                                    cb();
                                 });
-                        }))
-                        .then(function(){
-                            cb();
-                        })
-                    },
-                ],function(){
-                    done();
-                }
-            );
-        });
+                        },
+                        function(cb){
+                            request(url)
+                                .post('/nodes')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Basic ' + globalEditorToken)
+                                .send({
+                                    label : 'moveToThisNode',
+                                    parent: null
+                                })
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    testNodeWithNoSubNodes = res.body._id;
+                                    cb();
+                                });
+                        },
+                        function(cb){
+                            request(url)
+                                .post('/nodes')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Basic ' + globalEditorToken)
+                                .send({
+                                    label : 'Greg is a Jabroni',
+                                    parent: null
+                                })
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    testNodeToCopyTo = res.body._id;
+                                    cb();
+                                });
+                        },
+                        function(cb) {
+                            request(url)
+                                .post('/nodes')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Basic ' + globalEditorToken)
+                                .send({
+                                    label : 'My Test Sub-Node',
+                                    parent: testNodeIdRoot_generated
+                                })
+                                .end(function(err, res) {
+                                    if (err) { throw err; }
+                                    testNodeIdSubNode_generated = res.body._id;
+                                    cb();
+                                });
+                        },
+                        function(cb) {
+                            BB.all([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(function(label) {
+                                return request(url)
+                                    .post('/nodes')
+                                    .set('Accept', 'application/json')
+                                    .set('Accept-Language', 'en_US')
+                                    .set('authorization', 'Basic ' + globalEditorToken)
+                                    .send({
+                                        label : label,
+                                        parent: testNodeId
+                                    })
+                                    .end()
+                                    .then(function(res) {
+                                        return request(url)
+                                            .post('/nodes')
+                                            .set('Accept', 'application/json')
+                                            .set('Accept-Language', 'en_US')
+                                            .set('authorization', 'Basic ' + globalEditorToken)
+                                            .send({
+                                                label : label,
+                                                parent: res.body._id
+                                            })
+                                            .end();
+                                    });
+                            }))
+                            .then(function() {
+                                cb();
+                            });
+                        },
+                        function(cb){
+                            BB.all([0,1,2,3,4,5].map(function(fileNum){
+                                return request(url)
+                                    .post('/node/' + testNodeId + '/assets')
+                                    .set('Accept', 'application/json')
+                                    .set('Accept-Language', 'en_US')
+                                    .set('authorization', 'Basic ' + globalEditorToken)
+                                    .attach('file', files[fileNum])
+                                    .end(function(err,res){
+                                        if (err) { throw err; }
+                                    });
+                            }))
+                            .then(function(){
+                                cb();
+                            });
+                        },
+                    ],function(){
+                        done();
+                    }
+                );
+            });
 
     });
+
 
     describe('POST: ' + url + '/nodes', function() {
 

@@ -1,48 +1,45 @@
 'use strict';
 var request = require('supertest'),
-    env = require('./config/environment')();
+    env = require('./config/environment')(),
+    exec = require('child_process').execSync,
+    start = require('./_start'),
+    url = require('./config/test').url,
+    testContentTypeId  = '524362aa56c02c0703000001',
+    readerToken = '',
+    adminToken  = '',
+    testCreatedContentTypeId = '',
+    testCreatedContentTypeCustomVerb = '';
 
 require('chai').should();
 
 describe('api.contentTypes', function(){
-    var url = require('./config/test').url,
-        testContentTypeId  = '524362aa56c02c0703000001',
-        readerToken = '',
-        adminToken  = '',
-        testCreatedContentTypeId = '',
-        testCreatedContentTypeCustomVerb = '';
-
     before(function(done){
-        //run shell command to setup the db
-        var exec = require('child_process').exec;
         exec('./tasks/importdb.sh');
-
-        var grasshopper = require('../lib/grasshopper-api')(env);
-
-        grasshopper.core.event.channel('/system/db').on('start', function() {
-
-            request(url)
-                .get('/token')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Basic '+ new Buffer('apitestuseradmin:TestPassword').toString('base64'))
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    adminToken = res.body.access_token;
-
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', 'Basic '+ new Buffer('apitestuserreader:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            readerToken = res.body.access_token;
-                            done();
-                        });
-                });
+        this.timeout(10000);
+        start()
+            .then(function(){
+                request(url)
+                    .get('/token')
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Basic '+ new Buffer('apitestuseradmin:TestPassword').toString('base64'))
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        adminToken = res.body.access_token;
+                        request(url)
+                            .get('/token')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', 'Basic '+ new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                readerToken = res.body.access_token;
+                                done();
+                            });
+                    });
+            });
         });
-    });
+
 
     describe('GET: ' + url + '/contentTypes/:id', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {

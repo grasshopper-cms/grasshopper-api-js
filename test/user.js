@@ -1,65 +1,63 @@
 'use strict';
 var request = require('supertest'),
-    env = require('./config/environment')();
+    env = require('./config/environment')(),
+    url = require('./config/test').url,
+    testUserId  = '5245ce1d56c02c066b000001',
+    testReaderUserId = '5246e80c56c02c0744000002',
+    admin2UserId = '5246e73d56c02c0744000004',
+    readerToken = '',
+    adminToken  = '',
+    adminToken2 = '',
+    testCreatedUserId = '',
+    testCreatedUserIdCustomVerb = '',
+    testNodeForPermissions = '5261781556c02c072a000007',
+    testSubNodeForPermissions = '526417710658fc1f0a00000b',
+    exec = require('child_process').execSync,
+    start = require('./_start');
+
 require('chai').should();
 
 describe('api.users', function(){
-    var url = require('./config/test').url,
-        testUserId  = '5245ce1d56c02c066b000001',
-        testReaderUserId = '5246e80c56c02c0744000002',
-        admin2UserId = '5246e73d56c02c0744000004',
-        readerToken = '',
-        adminToken  = '',
-        adminToken2 = '',
-        testCreatedUserId = '',
-        testCreatedUserIdCustomVerb = '',
-        testNodeForPermissions = '5261781556c02c072a000007',
-        testSubNodeForPermissions = '526417710658fc1f0a00000b';
-
-
     before(function(done){
-
-        //run shell command to setup the db
-        var exec = require('child_process').execSync;
         exec('./tasks/importdb.sh');
+        this.timeout(10000);
+        start()
+            .then(function(){
+                request(url)
+                    .get('/token')
+                    .set('Accept', 'application/json')
+                    .set('Accept-Language', 'en_US')
+                    .set('authorization', 'Basic '+ new Buffer('apitestuseradmin:TestPassword').toString('base64'))
+                    .end(function(err, res) {
+                        if (err) { throw err; }
+                        adminToken = res.body.access_token;
+                        request(url)
+                            .get('/token')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', 'Basic '+ new Buffer('apitestuserreader:TestPassword').toString('base64'))
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                readerToken = res.body.access_token;
 
-        var grasshopper = require('../lib/grasshopper-api')(env);
-
-        grasshopper.core.event.channel('/system/db').on('start', function() {
-            request(url)
-                .get('/token')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Basic '+ new Buffer('apitestuseradmin:TestPassword').toString('base64'))
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    adminToken = res.body.access_token;
-
-                    request(url)
-                        .get('/token')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', 'Basic '+ new Buffer('apitestuserreader:TestPassword').toString('base64'))
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            readerToken = res.body.access_token;
-
-                            request(url)
-                                .get('/token')
-                                .set('Accept', 'application/json')
-                                .set('Accept-Language', 'en_US')
-                                .set('authorization', 'Basic '+ new Buffer('admin:TestPassword').toString('base64'))
-                                .end(function(err, res) {
-                                    if (err) { throw err; }
-                                    adminToken2 = res.body.access_token;
-                                    done();
-                                });
-                        });
-                });
-        });
-
+                                request(url)
+                                    .get('/token')
+                                    .set('Accept', 'application/json')
+                                    .set('Accept-Language', 'en_US')
+                                    .set('authorization', 'Basic '+ new Buffer('admin:TestPassword').toString('base64'))
+                                    .end(function(err, res) {
+                                        if (err) { throw err; }
+                                        adminToken2 = res.body.access_token;
+                                        done();
+                                    });
+                            });
+                    });
+            });
 
     });
+
+
+
 
     describe('GET: ' + url + '/users/:id', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {

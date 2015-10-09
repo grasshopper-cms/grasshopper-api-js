@@ -16,7 +16,8 @@ describe('api.nodes', function(){
         nodeEditorToken = '',
         restrictedEditorToken = '',
         testNodeId = '',
-        // testNodeWithNoSubNodes = '526d5179966a883540000006',
+        testNodeWithNoSubNodes = '',
+        testNodeToCopyTo = '',
         testNodeIdRoot_generated = '',
         testNodeIdSubNode_generated = '',
         // testNodeIdSubSub_generated = '',
@@ -35,7 +36,8 @@ describe('api.nodes', function(){
             './test/fixtures/36.png',
             './test/fixtures/48.png',
             './test/fixtures/72.png',
-            './test/fixtures/96.png'
+            './test/fixtures/96.png',
+            './test/fixtures/assetfordeletion.png'
         ],
         exec = require('child_process').execSync;
 
@@ -44,7 +46,7 @@ describe('api.nodes', function(){
         //run shell command to setup the db
         exec('./tasks/importdb.sh');
         exec('grunt test:generatePublic');
-        console.log("GETTINGPAST");
+        console.log("Loaded the test/public folder.");
         var grasshopper = require('../lib/grasshopper-api')(env);
 
         grasshopper.core.event.channel('/system/db').on('start', function() {
@@ -139,9 +141,38 @@ describe('api.nodes', function(){
                             .end(function(err, res) {
                                 if (err) { throw err; }
                                 testNodeIdRoot_generated = res.body._id;
-                                // console.log("NEW FOLDER");
-                                // exec("grunt test:genTestNodeDir:" + res.body._id);
-                                // console.log(res.body._id);
+                                cb();
+                            });
+                    },
+                    function(cb){
+                        request(url)
+                            .post('/nodes')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', 'Basic ' + globalEditorToken)
+                            .send({
+                                label : 'moveToThisNode',
+                                parent: null
+                            })
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                testNodeWithNoSubNodes = res.body._id;
+                                cb();
+                            });
+                    },
+                    function(cb){
+                        request(url)
+                            .post('/nodes')
+                            .set('Accept', 'application/json')
+                            .set('Accept-Language', 'en_US')
+                            .set('authorization', 'Basic ' + globalEditorToken)
+                            .send({
+                                label : 'Greg is a Jabroni',
+                                parent: null
+                            })
+                            .end(function(err, res) {
+                                if (err) { throw err; }
+                                testNodeToCopyTo = res.body._id;
                                 cb();
                             });
                     },
@@ -189,7 +220,23 @@ describe('api.nodes', function(){
                         .then(function() {
                             cb();
                         });
-                    }
+                    },
+                    function(cb){
+                        BB.all([0,1,2,3,4,5].map(function(fileNum){
+                            return request(url)
+                                .post('/node/' + testNodeId + '/assets')
+                                .set('Accept', 'application/json')
+                                .set('Accept-Language', 'en_US')
+                                .set('authorization', 'Basic ' + globalEditorToken)
+                                .attach('file', files[fileNum])
+                                .end(function(err,res){
+                                    if (err) { throw err; }
+                                });
+                        }))
+                        .then(function(){
+                            cb();
+                        })
+                    },
                 ],function(){
                     done();
                 }
@@ -783,7 +830,7 @@ describe('api.nodes', function(){
                 .end(function(err, res) {
                     if (err) { throw err; }
                     res.status.should.equal(200);
-                    res.body.length.should.equal(5);
+                    res.body.length.should.equal(7);
                     done();
                 });
         });
@@ -847,19 +894,7 @@ describe('api.nodes', function(){
         });
     });
 
-    console.log('======================================================');
-    console.log('======================================================');
-    console.log('======================================================');
-    console.log('======================================================');
-    console.log('======================================================');
-    console.log('======================================================');
-    console.log('MIKE');
-    console.log('FIX');
-    console.log('THESE');
-    console.log('NODE');
-    console.log('TESTS');
-
-    xdescribe('POST: ' + url + '/node/:id/assets/rename', function() {
+    describe('POST: ' + url + '/node/:id/assets/rename', function() {
         it('should rename an asset to a new name in the same node.', function(done) {
             request(url)
                 .post('/node/' + testNodeId + '/assets/rename')
@@ -867,7 +902,7 @@ describe('api.nodes', function(){
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Basic ' + globalEditorToken)
                 .send({
-                    original: 'artwork.png',
+                    original: path.basename(files[0]),
                     updated: 'testimage.png'
                 })
                 .end(function(err, res) {
@@ -902,8 +937,8 @@ describe('api.nodes', function(){
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Basic ' + globalReaderToken)
                 .send({
-                    original: 'artwork.png',
-                    updated: 'testimage.png'
+                    original: path.basename(files[0]),
+                    updated: 'updated.png'
                 })
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -913,8 +948,8 @@ describe('api.nodes', function(){
         });
     });
 
-    xdescribe('POST: ' + url + '/node/:id/assets/copy', function() {
-        xit('should copy an asset from one node to another.', function(done) {
+    describe('POST: ' + url + '/node/:id/assets/copy', function() {
+        it('should copy an asset from one node to another.', function(done) {
 
             request(url)
                 .post('/node/' + testNodeId + '/assets/copy')
@@ -922,8 +957,8 @@ describe('api.nodes', function(){
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Token ' + globalEditorToken)
                 .send({
-                    newnodeid: '5246e73d56c02c0744000001',
-                    filename: 'testimage.png'
+                    newnodeid: testNodeToCopyTo,
+                    filename: path.basename(files[4])
                 })
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -935,18 +970,20 @@ describe('api.nodes', function(){
 
     });
 
-    xdescribe('GET: ' + url + '/node/:nodeid/assets/:filename', function() {
+
+    describe('GET: ' + url + '/node/:nodeid/assets/:filename', function() {
         it('should get a file from a node specified by the filename.', function(done) {
 
             request(url)
-                .get('/node/' + testNodeId + '/assets/testimage.png')
+                .get('/node/' + testNodeId + '/assets/48.png')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Basic ' + globalEditorToken)
                 .send()
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    path.basename(res.body.url).should.equal('testimage.png');
+                    console.log(res.body);
+                    path.basename(res.body.url).should.equal('48.png');
                     done();
                 });
         });
@@ -967,7 +1004,9 @@ describe('api.nodes', function(){
         });
     });
 
-    xdescribe('POST: ' + url + '/node/:nodeid/assets/move', function() {
+
+
+    describe('POST: ' + url + '/node/:nodeid/assets/move', function() {
         it('should move one asset to another node.', function(done) {
             request(url)
                 .post('/node/' + testNodeId + '/assets/move')
@@ -975,9 +1014,8 @@ describe('api.nodes', function(){
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Basic ' + globalEditorToken)
                 .send({
-                    // this node doesn't exist
                     newnodeid: testNodeWithNoSubNodes,
-                    filename: 'artwork.png'
+                    filename: path.basename(files[1])
                 })
                 .end(function(err, res) {
                     if (err) { throw err; }
@@ -997,69 +1035,80 @@ describe('api.nodes', function(){
         });*/
     });
 
-    xdescribe('DELETE: ' + url + '/node/:id/assets/:name', function() {
+    describe('DELETE: ' + url + '/node/:id/assets/:name', function() {
         it('should delete an asset with a specific name', function(done) {
 
-             request(url)
-                 .del('/node/' + testNodeId + '/assets/testimage.png')
-                 .set('Accept', 'application/json')
-                 .set('Accept-Language', 'en_US')
-                 .set('authorization', 'Basic ' + globalEditorToken)
-                 .end(function(err, res) {
-                     if (err) { throw err; }
-                     res.status.should.equal(200);
-                     res.body.message.should.equal('Success');
-                     done();
-                 });
-         });
-
-         it('should fail because the user does not have permissions.', function(done) {
-             done();
-         });
-
-         it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
-             done();
-         });
-    });
-
-    xdescribe('DELETE: ' + url + '/node/:id/assets', function() {
-        it('should delete all files in a node.', function(done) {
-
             request(url)
-                .post('/node/' + testNodeId + '/assets')
+                .del('/node/' + testNodeId + '/assets/72.png')
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Basic ' + globalEditorToken)
-                .attach('file', './test/fixtures/assetfordeletion.png')
-                .end(function(err) {
+                .end(function(err, res) {
                     if (err) { throw err; }
-
-                    request(url)
-                        .del('/node/' + testNodeId + '/assets/assetfordeletion.png')
-                        .set('Accept', 'application/json')
-                        .set('Accept-Language', 'en_US')
-                        .set('authorization', 'Basic ' + globalEditorToken)
-                        .end(function(err, res) {
-                            if (err) { throw err; }
-                            res.status.should.equal(200);
-                            res.body.message.should.equal('Success');
-                            done();
-                        });
+                    res.status.should.equal(200);
+                    res.body.message.should.equal('Success');
+                    done();
                 });
-
-
         });
 
         it('should fail because the user does not have permissions.', function(done) {
-            done();
+            request(url)
+                .del('/node/' + testNodeId + '/assets/72.png')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    res.body.message.should.equal('User does not have enough privileges.');
+                    done();
+                });
         });
 
-        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
-            done();
+        xit('should succeed when a user that is a reader but has editor rights on a specific node.', function() {
+
         });
     });
 
-    xdescribe('GET: ' + url + '/nodes/:nodeid/assets', function() {
+
+
+
+    describe('DELETE: ' + url + '/node/:id/assets', function() {
+        it('should delete all files in a node.', function(done) {
+            request(url)
+                .del('/node/' + testNodeId + '/assets')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    res.body.message.should.equal('Success');
+                    done();
+                });
+        });
+
+        it('should fail because the user does not have permissions.', function(done) {
+            request(url)
+                .del('/node/' + testNodeId + '/assets')
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + globalReaderToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(403);
+                    res.body.message.should.equal('User does not have enough privileges.');
+                    done();
+                });
+        });
+
+        xit('should succeed when a user that is a reader but had editor rights on a specific node.', function() {
+
+        });
+    });
+
+
+    describe('GET: ' + url + '/nodes/:nodeid/assets', function() {
         it('should return 401 because trying to access unauthenticated', function(done) {
             request(url)
                 .get('/node/' + testNodeId)
@@ -1132,6 +1181,7 @@ describe('api.nodes', function(){
                     done();
                 });
         });
+
         it('a reader should return a list of files in a node', function(done) {
             request(url)
                 .get('/node/' + testNodeId + '/assets')
@@ -1190,9 +1240,9 @@ describe('api.nodes', function(){
         });*/
     });
 
-    xdescribe('DELETE: ' + url + '/node/:id', function() {
+    describe('DELETE: ' + url + '/node/:id', function() {
 
-        xit('Should delete an node.', function(done) {
+        it('Should delete an node.', function(done) {
             request(url)
                 .del('/node/' + testNodeIdRoot_generated)
                 .set('Accept', 'application/json')
@@ -1205,19 +1255,18 @@ describe('api.nodes', function(){
                 });
         });
 
-        xit('Should delete a generated node.', function(done) {
-            request(url)
-                .del('/node/' + testNodeIdSubSub_generated)
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Basic ' + globalEditorToken)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    console.log(res.body);
-                    res.status.should.equal(200);
-                    done();
-                });
-        });
+        // it('Should delete a generated node.', function(done) {
+        //     request(url)
+        //         .del('/node/' + testNodeIdSubSub_generated)
+        //         .set('Accept', 'application/json')
+        //         .set('Accept-Language', 'en_US')
+        //         .set('authorization', 'Basic ' + globalEditorToken)
+        //         .end(function(err, res) {
+        //             if (err) { throw err; }
+        //             res.status.should.equal(200);
+        //             done();
+        //         });
+        // });
     });
 
 });

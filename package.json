@@ -52,7 +52,6 @@
     "matchdep": "~0.1.2",
     "uglify-js": "1.2.x",
     "nodelint": "~0.6.2",
-    "mocha": "~1.12.1",
     "chai": "~1.7.2",
     "sinon": "~1.7.3",
     "grunt": "~0.4.1",
@@ -73,7 +72,7 @@
     ]
   },
   "scripts": {
-    "test": "mocha --timeout 6000 --color -R spec --recursive test",
+    "test": "npm install -g mocha; mocha --timeout 6000 --color -R spec --recursive test",
     "start": "node ./bin/grasshopper-api"
   }
 }

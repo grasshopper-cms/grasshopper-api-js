@@ -1,5 +1,5 @@
 'use strict';
-
+var exec = require('child_process').execSync;
 require('chai').should();
 
 describe('the ghapi.json config file', function(){

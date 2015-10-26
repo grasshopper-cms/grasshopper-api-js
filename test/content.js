@@ -21,7 +21,10 @@ require('chai').should();
 describe('api.content', function(){
 
     before(function(done){
+        console.log("starting import task");
+        console.log("cwd is: " + process.cwd());
         exec('./tasks/importdb.sh');
+        console.log("import task done");
         this.timeout(10000);
         start()
             .then(function(){

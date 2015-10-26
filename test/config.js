@@ -21,17 +21,6 @@ describe('the ghapi.json config file', function(){
     });
 
     describe('the db.defaultPageSize config', function() {
-        before(function(done){
-            exec('./tasks/importdb.sh');
-            this.timeout(10000);
-            start()
-                .then(function(){
-                    getAllAccessTokens()
-                        .then(function() {
-                    done();
-                });
-            });
-        });
         describe('when set', function() {
             describe('and one is passes into the query', function() {
                 it('respects the limit in the query', function() {

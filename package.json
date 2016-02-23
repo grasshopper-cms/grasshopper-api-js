@@ -39,7 +39,7 @@
     "body-parser": "1.10.0",
     "bridgetown-api": "1.0.3",
     "express": "~4.8.0",
-    "grasshopper-core": "0.18.2",
+    "grasshopper-core": "0.19.0-alpha.logs.1",
     "lodash": "^2.4.1",
     "method-override": "~1.0.1",
     "morgan": "~1.1.0",

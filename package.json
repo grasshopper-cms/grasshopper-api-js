@@ -47,6 +47,7 @@
     "method-override": "~1.0.1",
     "morgan": "~1.1.0",
     "multiparty": "~3.3.1",
+    "purest": "^2.0.0",
     "q": "~1.0.1",
     "resolve": "~0.6.1"
   },

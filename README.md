@@ -185,6 +185,7 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * 0.18.10 - 2016-03-04 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.18.10_2016-03-04.md)
 * 0.18.11 - 2016-03-04 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.18.11_2016-03-04.md)
 * 0.18.12 - 2016-03-10 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.18.12_2016-03-10.md)
+* 0.18.13 - 2016-03-12 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.18.13_2016-03-12.md)
 
 
 ## Contributors (`git shortlog -s -n`)
@@ -208,4 +209,4 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 To create the readme, update the release notes dir and package.json.version at a minimum. If needed update README.template.md.
 Then run `grunt readme`.
 
-_Compiled file. Do not modify directly. Created: 2016-03-10 05:28:20_
+_Compiled file. Do not modify directly. Created: 2016-03-12 11:15:13_

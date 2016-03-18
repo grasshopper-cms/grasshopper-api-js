@@ -1,0 +1,31 @@
+{
+  "name": "grasshopper-admin",
+  "dependencies": {
+    "foundation": "5.5.2",
+    "modernizr": "2.8.3",
+    "requirejs-text": "2.0.10",
+    "js-base64": "2.1.2",
+    "masseuse": "2.3.0",
+    "jquery.ui": "1.10.4",
+    "ckeditor": "4.3.5",
+    "ace": "1.1.3",
+    "moment": "2.10.6",
+    "font-awesome": "4.1.0",
+    "ScrollToFixed": "~1.0.5",
+    "datetimepicker": "~2.3.0",
+    "select2": "~3.5.0",
+    "SparkMD5": "satazor/SparkMD5",
+    "jsoneditor": "~3.1.1",
+    "contextjs": "altmind/Context.js",
+    "velocity": "TheFuzzball/velocity#892cd6132d679c558827e6b7e7a00b838fccafe6",
+    "mousetrap": "1.4.6",
+    "multiple-select": "#f2402d9209b48693b3093962173ecb5495026193",
+    "moment-timezone": "0.4.0"
+  },
+  "devDependencies": {
+    "mocha": "1.12.1",
+    "chai": "1.7.2",
+    "sinon": "1.7.3",
+    "sinon-chai": "2.4.0"
+  }
+}

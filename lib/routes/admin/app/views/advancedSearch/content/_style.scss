@@ -1,0 +1,43 @@
+#advancedContentSearch {
+
+    .ms-drop {
+        width: 140%;
+    }
+
+    .newFilterSection {
+        line-height : 1.5rem;
+    }
+
+    .activeFiltersSection {
+        margin-top : 20px;
+
+        .panel {
+            background-color : $white;
+        }
+
+        i {
+            margin-left : 10px;
+        }
+    }
+
+    #filterCreator {
+        padding :  1.5rem;
+
+        #s2id_newFilterKeys {
+
+        }
+
+        #s2id_newFilterComparator {
+            margin-top: 1.5rem;
+        }
+
+        #newFilterValue {
+            margin-top: 1.5rem;
+        }
+
+        .newFilterButtons {
+            margin-top: 1.5rem;
+        }
+    }
+
+}

@@ -1,0 +1,59 @@
+<div id="modalContainer">
+    <div id="modalContents">
+
+        <div id="modalHeader" class="row">
+            <h2 class="modalHeader-title">{{model:header}}</h2>
+            <div id="contentTypeSearch" data-rv-if="model:withSearch">
+                <input class="contentTypeSearchInput" type="text" placeholder="Search by content type label " data-rv-value="model:contentTypeSearchValue" data-rv-on-keyup="view.searchContentType"/>
+                <span class="contentTypeSearchIcon fa fa-search"></span>
+            </div>
+        </div>
+
+        <div id="modalBody" class="row">
+
+            <div class="small-12 columns inputContainer">
+
+                <div class="row" data-rv-each-type="model:data">
+
+                    <div class="small-12 columns">
+
+                        <input data-rv-id="type._id" type="checkbox" data-rv-checked="type.checked">
+
+                        <label class="inline" data-rv-for="type._id">
+                            <span data-rv-unless="type.helpText">
+                                {{type.label}}
+                            </span>
+
+                            <span data-rv-if="type.helpText" data-tooltip class="has-tip" data-rv-title="type.helpText">
+                                {{type.label}}
+                            </span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="row" data-rv-if="model:withSearch">
+                    <div class="small-12 columns" data-rv-unless="model:data | canShow">
+                        <label class="inline modalEmptySearch">{{model:resources->emptySearchResult}}</label>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="buttonContainer" class="row">
+            <div class="right">
+                <button class="button tiny radius noMarginBottom" data-rv-on-click="view.confirmModal">
+                    {{model:resources->confirm}}
+                </button>
+
+                <button class="button tiny radius noMarginBottom" data-rv-on-click="view.cancelModal">
+                    {{model:resources->cancel}}
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

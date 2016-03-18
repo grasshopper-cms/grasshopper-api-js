@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="small-2 columns">
+        <label class="right inline">{{model:resources->plugins->embeddedType->contentType | withColon}}</label>
+    </div>
+    <div class="small-10 columns">
+        <select data-rv-value="model:options">
+            <option disabled selected>{{model:resources->selectOption}}</option>
+            <option data-rv-each-option="model:availableContentTypes" data-rv-value="option._id">{{option.label}}</option>
+        </select>
+    </div>
+</div>

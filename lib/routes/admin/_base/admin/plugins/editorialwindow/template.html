@@ -1,0 +1,84 @@
+<div class="row">
+
+    <div class="row">
+        <div class="small-2 columns">
+
+            <label data-rv-for="model.cid | prepend startDate" class="right inline">{{model:resources->plugins->editorialWindow->start}}</label>
+
+        </div>
+
+        <div class="small-10 columns">
+
+            <div class="small-7 large-4 columns">
+
+                <input class="datetimepicker" data-rv-id="model.cid | prepend startDate"
+                       data-rv-value="model:value->validFrom  | asEditorialDate">
+                <small data-rv-if="model:orderError" class="error small-4">
+                    {{model:resources->plugins->editorialWindow->startAfterEnd}}
+                </small>
+
+            </div>
+            <div class="small-5 large-8 columns">
+
+                <button class="button tiny radius" data-rv-on-click="view.setValidFromToNow">
+                    {{model:resources->plugins->editorialWindow->setToNow}}
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-2 columns">
+
+            <label data-rv-for="model.cid | prepend endDate" class="right inline">{{model:resources->plugins->editorialWindow->end}}</label>
+
+        </div>
+
+        <div class="small-10 columns">
+
+            <div class="small-7 large-4 columns">
+
+                <input class="datetimepicker" data-rv-id="model.cid | prepend endDate"
+                       data-rv-value="model:value->validTo | asEditorialDate">
+
+            </div>
+
+            <div class="small-5 large-8 columns">
+
+                <ul class="button-group radius">
+
+                    <li>
+                        <button class="button tiny" data-rv-on-click="view.setValidToToNow">
+                            {{model:resources->plugins->editorialWindow->setToNow}}
+                        </button>
+                    </li>
+                    <li>
+                        <button class="button tiny" data-rv-on-click="view.setValidToNeverExpire">
+                            {{model:resources->plugins->editorialWindow->neverExpire}}
+                        </button>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row" data-rv-show='model:constants.timeZone'>
+        <div class="small-10 small-offset-2 columns">
+            <div class="row">
+                <div class="small-7 large-4 columns">
+                    <span>Application Timezone : </span>
+                </div>
+                <div class="small-5 large-4 columns left">
+                    <span data-rv-text='model:constants.timeZone'></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

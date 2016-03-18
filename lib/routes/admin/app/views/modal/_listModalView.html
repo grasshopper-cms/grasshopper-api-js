@@ -1,0 +1,33 @@
+<div id="modalContainer">
+    <div id="modalContents">
+
+        <div id="modalHeader" class="row">
+            {{model:header}}
+        </div>
+
+        <div id="modalBody" class="row inputContainer">
+            <div class="small-4 columns small-centered">
+                <div class="row">
+                    <ol>
+                        <li data-rv-each-item="model:data">
+                            {{item}}
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div id="buttonContainer" class="row">
+            <div class="right">
+                <button class="button tiny radius noMarginBottom" data-rv-on-click="view.confirmModal">
+                    {{model:resources->confirm}}
+                </button>
+
+                <button class="button tiny radius noMarginBottom" data-rv-on-click="view.cancelModal">
+                    {{model:resources->cancel}}
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,26 @@
+@import "CSS:../vendor/multiple-select/multiple-select";
+
+.ms-choice {
+    margin-bottom : 0;
+    border : none;
+    min-width : 10%;
+    border-radius : 0;
+
+
+    &:hover, &:focus {
+        background-color: $white;
+        color: $black;
+        border: 1px solid $darkGray;
+    }
+
+    >span.placeholder {
+        color : $black;
+    }
+
+}
+
+.ms-drop {
+    input[type=checkbox] {
+        margin-bottom : 0;
+    }
+}

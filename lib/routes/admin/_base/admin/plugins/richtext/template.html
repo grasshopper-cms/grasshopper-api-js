@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="large-12 small-centered columns">
+        <div data-rv-show="model:loading">
+            <span>{{model:resources->plugins->richText->loading}}</span>
+            <i data-rv-show="model:loading" class="fa fa-refresh fa fa-spin"></i>
+        </div>
+
+        <textarea data-rv-id="model.cid | prepend ckeditor" data-rv-value="model:value" style="display: none;"></textarea>
+        <div class="richTextEditorPadding"></div>
+    </div>
+</div>

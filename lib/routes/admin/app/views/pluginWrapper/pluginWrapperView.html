@@ -1,0 +1,53 @@
+<div class="row pluginWrapper">
+    <div class="large-12 small-centered columns">
+        <div class="row">
+
+            <div class="small-2 columns">
+                <label data-rv-for="model:_id | prepend pluginWrapper" class="right inline">{{model:label}}</label>
+            </div>
+
+            <div class="small-10 columns">
+
+                <div class="row emptyFieldMessage" data-rv-hide="collection: | hasLength">
+                    <div class="small-12 columns">
+                        <label>
+                            {{model:label | spaceAfter}}{{model:resources->pluginWrapper->emptyFieldsMessage}}
+                            <a data-rv-on-click="view.addField">{{model:resources->pluginWrapper->clickToAdd}}</a>
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="row" data-rv-id="model.cid | prepend sortableMulti" data-rv-show="collection: | hasLength">
+                    <div data-rv-id="model:_id | prepend pluginWrapper" data-rv-each-field="collection:" data-rv-sortIndex="index | prepend sort">
+
+                        <div class="row collapse sortableMulti" data-rv-modelid="field.cid">
+                            <div data-rv-sortable-multi-columns="model:showSortableButton" class="small-10 columns">
+                                <div data-rv-fieldtype="field"></div>
+                            </div>
+                            <div data-rv-if="model:showSortableButton" class="small-1 columns text-center">
+                                <div class="button radius tiny sortableMultiHandle"><i class="fa fa-sort"></i></div>
+                            </div>
+                            <div class="small-1 columns">
+                                <button type="button" id="removeField" class="button radius tiny" data-rv-on-click="view.removeField" data-rv-show="model:showSubtractionButton"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="small-11 columns">
+                        <blockquote data-rv-show="model:helpText" data-rv-text="model:helpText"></blockquote>
+                    </div>
+                    <div class="small-1 columns" style="padding-left: 0;">
+                        <button type="button" id="addField" class="button radius tiny noMarginBottom" data-rv-on-click="view.addField" data-rv-show="model:showAdditionButton">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>

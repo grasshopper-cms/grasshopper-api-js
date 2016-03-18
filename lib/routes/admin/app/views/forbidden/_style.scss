@@ -1,0 +1,11 @@
+.error_page {
+  display: table;
+  margin: 0 auto;
+
+  .error_sidetext, .error_image {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px;
+  }
+
+}

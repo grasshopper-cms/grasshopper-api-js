@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="small-1 columns">
+        <label data-rv-for="model.cid | prepend min" class="inline noMarginBottom">
+            {{model:resources->from}}
+        </label>
+    </div>
+
+    <div class="small-5 columns">
+        <input class="noMarginBottom" type="datetime-local" min="0" data-rv-id="model.cid | prepend min" data-rv-value="model:options->min | asDate">
+    </div>
+
+    <div class="small-1 columns">
+        <label data-rv-for="model.cid | prepend max" class="inline noMarginBottom">
+            {{model:resources->to}}
+        </label>
+    </div>
+
+    <div class="small-5 columns">
+        <input class="noMarginBottom" type="datetime-local" min="0" data-rv-id="model.cid | prepend max" data-rv-value="model:options->max | asDate">
+    </div>
+</div>

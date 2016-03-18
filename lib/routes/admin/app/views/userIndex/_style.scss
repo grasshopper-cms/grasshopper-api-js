@@ -1,0 +1,48 @@
+#userIndex {
+    #UserSearch {
+        width:180px;
+    }
+}
+
+#userIndexTable {
+    cursor: pointer;
+    :hover {
+        background-color: $userIndexTableRowHover;
+    }
+}
+.userIndexTableWrapper {
+    position: relative;
+    padding-bottom: 1.5rem;
+
+    #table-loading-overlay {
+        top: 2.5rem;
+    }
+    th {
+        .sort-arrow {
+            display: inline-block;
+            float: right;
+
+            font-size: 10px;
+
+            transform: rotate(0deg);
+
+            transition: transform 0.2s ease, color 0.2s ease;
+
+            color: $darkGray;
+
+            &.active-down {
+                transform: rotate(180deg);
+                color: $lightBlue;
+            }
+
+            &.active-up {
+                transform: rotate(0deg);
+                color: $lightBlue;
+            }
+
+            &:hover {
+                color: $lightBlue;
+            }
+        }
+    }
+}

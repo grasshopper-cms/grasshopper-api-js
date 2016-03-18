@@ -1,0 +1,228 @@
+// Import Foundation
+@import "../vendor/foundation/scss/normalize.scss";
+@import "../vendor/foundation/scss/foundation.scss";
+// Fonts
+@import "fonts";
+// Colors
+@import "colors";
+// Mixins
+@import "mixins";
+// Z-Index
+@import "z-index";
+// Vendor Plugins
+@import "datetimepicker";
+@import "CSS:../vendor/select2/select2";
+@import "CSS:../vendor/jsoneditor/jsoneditor";
+@import "CSS:../vendor/contextjs/context.standalone";
+@import "multiple-select";
+
+$imgPath: 'img';
+
+$font: 'Open Sans', arial, sans-serif;
+
+.row {
+  max-width: 100%;
+}
+
+@import "_loading-spinner.scss";
+
+body, html {
+  height: 100%;
+
+  font-family: $font;
+
+  a {
+    outline: none;
+  }
+
+  .jsoneditor-contextmenu {
+    button {
+      border-radius: 0px;
+    }
+    ul {
+      li {
+        button.default {
+          width: 90px;
+        }
+        ul {
+          left: 0px;
+          &.menu {
+            height: auto !important;
+          }
+        }
+      }
+    }
+
+  }
+  .jsoneditor {
+    border-color: $lightGray;
+    .menu {
+      background-color: $gray;
+      border-color: $lightGray;
+    }
+    textarea.text {
+      min-height: 200px;
+    }
+    button {
+      border-radius: 0px;
+    }
+    .search {
+      width: 200px;
+      .frame {
+        border-color: $lightGray;
+      }
+      input {
+        padding: 0px;
+      }
+    }
+    table {
+      border-radius: 0px;
+      width: inherit;
+      background: none;
+      margin-bottom: 0px;
+      border: none;
+
+      th {
+        background: none;
+        border-bottom: 0px;
+        box-shadow: 0px;
+      }
+
+      tr {
+        background: none;
+        border-bottom: 0px;
+        box-shadow: 0px;
+      }
+    }
+  }
+
+  #siteContainter {
+    min-height: 100%;
+    position: relative;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $font;
+    margin: 10px 0;
+    font-family: inherit;
+    font-weight: normal;
+    color: inherit;
+    text-rendering: optimizelegibility;
+  }
+
+  table {
+    border-radius: 4px;
+    border-collapse: inherit;
+    width: 100%;
+
+    th {
+      @include lightGradient;
+    }
+
+    td {
+      -webkit-user-select: none;
+      user-select: none;
+    }
+  }
+
+  label, input, button, select, textarea {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    padding: 5px;
+    border-radius: 3px;
+  }
+
+  fieldset + legend {
+    max-width: 90%;
+    font-weight: normal;
+  }
+
+  ul.folder-tree li {
+    list-style-type: none;
+  }
+
+  #stage {
+    margin-top: 1em;
+  }
+
+  .search {
+    display: inline;
+    width: 200px;
+  }
+
+  .noMarginBottom {
+    margin-bottom: 0;
+  }
+
+  .noMarginTop {
+    margin-top: 0;
+  }
+
+  .tooltip {
+    z-index: $tooltipZIndex;
+  }
+
+  #contentSearch {
+    position: relative;
+    float: right;
+    width: 19rem;
+    margin: -3rem 0 0;
+
+    &.contentSearch-user {
+      margin: 0 0 0.5rem;
+    }
+
+    .contentSearchInput {
+      margin: 0;
+      padding-right: 2rem;
+      font-style: italic;
+    }
+
+    .contentSearchInput:focus {
+      font-style: normal;
+    }
+
+    .contentSearchIcon {
+      position: absolute;
+      right: 0.5rem;
+      top: 0;
+      margin: 0;
+      font-size: 1.3rem;
+      line-height: 2.3125rem;
+      color: $borderGray;
+    }
+  }
+
+  // VIEWS
+  @import "../views/advancedSearch/_style.scss"; // Advanced Search
+  @import "../views/advancedSearch/content/_style.scss"; // Advanced Content Search
+  @import "../views/header/_style.scss"; // Header
+  @import "../views/modal/_style.scss"; // Modal
+  @import "../views/alertBox/_style.scss"; // Alertbox
+  @import "../views/login/_style.scss"; // Login
+  @import "../views/masthead/_style.scss"; // Masthead
+  @import "../views/userIndex/_style.scss"; // User Index
+  @import "../views/userDetail/_style.scss"; // User Detail
+  @import "../views/contentDetail/_style.scss"; // Content Detail
+  @import "../views/assetDetail/_style.scss"; // Asset Detail
+  @import "../views/contentTypeIndex/_style.scss"; // Content Type Index
+  @import "../views/contentTypeDetail/_style.scss"; // Content Type Detail
+  @import "../views/contentTypeDetail/fieldAccordion/_style.scss"; // Content Type Detail Field Accordion@import "../views/nodeDetail/_style.scss"; // Node Detail
+  @import "../views/contentBrowse/_style.scss"; // Content Browse
+  @import "../views/pluginWrapper/_style.scss"; // Plugin Wrapper
+  @import "../views/forbidden/_style.scss"; // Forbidden page
+  @import "../views/sysInfo/_style.scss"; // SysInfo page
+  @import "../views/pagination/_style.scss"; // Pagination View
+  @import "../views/itemSelectModal/_style.scss"; // Item Select Modal
+
+  // PLUGINS
+  @import "../plugins/embeddedtype/_style.scss"; // Embedded Type Plugin
+  @import "../plugins/contentreference/_style.scss"; // Content Reference Plugin
+  @import "../plugins/filereference/_style.scss"; // File Reference Plugin
+  @import "../plugins/codeeditor/_style.scss"; // Code Editor Plugin
+  @import "../plugins/jsoneditor/_style.scss"; // JSON Editor Plugin
+  @import "../plugins/richtext/_style.scss"; // Rich Text Plugin
+  @import "../plugins/checkbox/_style.scss"; // Checkbox Plugin
+  @import "../plugins/author/_style.scss"; // Author Plugin
+}

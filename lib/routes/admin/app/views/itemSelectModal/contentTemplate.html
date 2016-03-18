@@ -1,0 +1,53 @@
+<div id="modalContainer" class="itemSelectModal">
+    <div id="modalContents">
+
+        <header id="modalHeader" class="row">
+            <h3 class="modalHeader-title">{{model:header}}</h3>
+            <nav class="modalHeader-nav">
+                <a class="modalHeader-nav-item" data-rv-breadcrumb="model:breadcrumbs"></a>
+            </nav>
+            <div id="contentSearch">
+                <input class="contentSearchInput" type="text" placeholder="Search by content label " data-rv-value="model:content.searchValue" data-rv-on-keyup="model:content.search"/>
+                <span class="contentSearchIcon" data-rv-swap-text-while="model:content.searching" data-swap-html="<i class='fa fa-refresh fa-spin'></i>">
+                    <i class="fa fa-search"></i>
+                </span>
+            </div>
+        </header>
+
+        <section id="modalBody" class="row">
+
+            <div class="inputContainer itemSelection table-wrapper spinner-loading">
+
+                <div id="table-loading-overlay" data-rv-if="model:content.searching">
+                    <img class="loading-overlay-image" src="themes/img/loading-spinner-horizontal.gif">
+                </div>
+
+                <div class="childNode" data-rv-each-node="model:childNodes:" data-rv-on-click="view.navigateToFolder" data-rv-nodeid="node:_id">
+                    <i data-rv-nodeid="node:_id" class="fa fa-folder"></i>
+                    <a data-rv-nodeid="node:_id">{{node:label | spaceBefore}}</a>
+                </div>
+
+                <ul class="no-bullet childContent" data-rv-hide="model:inRoot">
+                    <li data-rv-each-item="model:content:">
+                        <input data-rv-id="item.cid" type="radio" name="selectedContent" data-rv-value="item:_id" data-rv-checked="model:value">
+                        <label data-rv-for="item.cid">{{item:label}}</label>
+                    </li>
+
+                    <li data-rv-unless="model:content.length | greaterThan 0">
+                        {{model:resources->node->emptyContent}}
+                    </li>
+                </ul>
+
+            </div>
+
+        </section>
+
+        <footer id="buttonContainer" class="row" data-rv-hide="model:loading">
+            <div class="right">
+                <button id="confirm" class="button tiny radius noMarginBottom">{{model:resources->confirm}}</button>
+                <button id="cancel" class="button tiny radius noMarginBottom">{{model:resources->cancel}}</button>
+            </div>
+        </footer>
+
+    </div>
+</div>

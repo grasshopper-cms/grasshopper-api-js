@@ -11,3 +11,6 @@ ghapi.json
 /tasks/seedData/*
 npm-debug.log
 .DS_Store
+/lib/routes/admin/app/vendor
+/lib/routes/admin/_base/admin/vendor/
+

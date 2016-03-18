@@ -1,0 +1,32 @@
+#paginator {
+  overflow: hidden;
+  margin-bottom: -1.5rem;
+
+  .pagination {
+    list-style-type: none;
+    margin: 0;
+  }
+
+  .pagination-limit {
+    float: left;
+  }
+
+  .pagination-skip {
+    float: right;
+  }
+
+  .pagination-item {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 0;
+  }
+
+  .pagination-item-link {
+    padding: 0.0625rem 0.425rem;
+
+    &.active {
+      margin: 0 0.2rem;
+      background: $paginationActiveItem;
+    }
+  }
+}

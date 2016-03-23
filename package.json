@@ -43,6 +43,7 @@
     "express-session": "^1.13.0",
     "grant": "^3.5.5",
     "grasshopper-core": "0.18.7",
+    "grasshopper-admin": "^1.0.0-beta.1",
     "jade": "^1.11.0",
     "lodash": "^2.4.1",
     "method-override": "~1.0.1",

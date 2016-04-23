@@ -297,7 +297,7 @@ describe('api.users', function(){
                 .send(newUser)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    res.status.should.equal(500);
+                    res.status.should.equal(400);
                     res.body.should.have.property('message');
                     res.body.message.should.have.length.above(0);
                     done();

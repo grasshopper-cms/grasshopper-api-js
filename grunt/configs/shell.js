@@ -14,7 +14,8 @@ module.exports = function(grunt) {
             command: 'mocha --colors -R spec <%= test %>',
             options: {
                 stdout: true,
-                stderr: true
+                stderr: true,
+                failOnError: true,
             },
             callback : function(err, stdout, stderr, cb) {
                 grunt.task.run(['deletePublicTest','shell:stopTestServer', 'exitTests']);
@@ -25,6 +26,9 @@ module.exports = function(grunt) {
             command: "./tasks/importdb.sh"
         },
         testRun : {
+            options : {
+                failOnError: true
+            },
             command: "mocha --reporter spec --recursive"
         },
         'getHerokuDbConnection' : {

@@ -2,6 +2,7 @@ language: node_js
 node_js:
   - "0.10"
   - "0.11"
+  - "0.12"
   - "4"
   - "5"
 services:
@@ -14,4 +15,3 @@ notifications:
     - peter.ajtai@thinksolid.com
     - cooper.hilscher@thinksolid.com
     - greg.larrenaga@thinksolid.com
-    - kaija.rayne@thinksolid.com

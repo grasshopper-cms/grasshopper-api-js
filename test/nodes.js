@@ -851,16 +851,6 @@ describe('api.nodes', function(){
     });
 
 
-        /** Requires node level permissions
-        it('should fail because the user does not have permissions on the new node id.', function(done) {
-            done();
-        });
-
-        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
-            done();
-        });*/
-    });
-
     describe('DELETE: ' + url + '/node/:id/assets', function() {
         it('should delete all files in a node.', function(done) {
 

@@ -14,7 +14,7 @@ describe('api.nodes', function(){
         nodeEditorToken = '',
         restrictedEditorToken = '',
         testNodeId = '5261781556c02c072a000007',
-        testNodeWithNoSubNodes = '5246e73d56c02c0744000001',
+        // testNodeWithNoSubNodes = '5246e73d56c02c0744000001',
         testNodeIdRoot_generated = '',
         testNodeIdSubNode_generated = '',
         testNodeIdSubSub_generated = '',

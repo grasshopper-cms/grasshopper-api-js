@@ -1,15 +1,15 @@
 'use strict';
 const path = require('path');
 const webpack = require('webpack');
-const SplitByPathPlugin = require('webpack-split-by-path');
+const SplitByPathPlugin = require('webpack-split-by-path')
 
 module.exports = {
     cache: true,
 
     // each value on this object is now an array and MUST have the extra modules
     entry: {
-        core : ['./lib/admin/client/core'],
-        components : ['./lib/admin/client/components']
+        core :       ['./lib/admin/client/core', 'webpack-hot-middleware/client', 'webpack/hot/dev-server'],
+        components : ['./lib/admin/client/components', 'webpack-hot-middleware/client', 'webpack/hot/dev-server']
     },
 
     // we use ES2015; we will want source maps for development
@@ -23,9 +23,9 @@ module.exports = {
     // "path" is now "/" because we're building our app into memory now rather than a build folder
     // "publicPath" is where the hosted app expects the resources
     output: {
-        filename: 'gh/[name].js',
-        path: path.join(__dirname, 'lib', 'public'),
-        publicPath: '/admin/'
+        filename: '[name].js',
+        path: path.join(__dirname, 'lib', 'admin', 'public'),
+        publicPath: 'http://localhost:3008/'
     },
 
     plugins: [
@@ -36,10 +36,7 @@ module.exports = {
 
         new webpack.ProvidePlugin({
             riot: 'riot'
-        }),
-
-        // added this thing!
-        new webpack.HotModuleReplacementPlugin()
+        })
     ],
 
     resolve: {

@@ -8,8 +8,8 @@ module.exports = {
 
     // each value on this object is now an array and MUST have the extra modules
     entry: {
-        core :       ['./lib/admin/client/core', 'webpack-hot-middleware/client', 'webpack/hot/dev-server'],
-        components : ['./lib/admin/client/components', 'webpack-hot-middleware/client', 'webpack/hot/dev-server']
+        core :       ['./lib/admin/client/core'],
+        components : ['./lib/admin/client/components']
     },
 
     // we use ES2015; we will want source maps for development

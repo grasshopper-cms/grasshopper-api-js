@@ -29,8 +29,8 @@ html
                 apiEndpoint: '/api',
                 buildDirectory: 'app/public/admin',
                 base: '/admin/',
-                homeString: '!{homeString}',
-                menuItems : !{JSON.stringify(menuItems,null,4)}
+                homeString: '!{homeString || 'Grasshopper' }',
+                menuItems : !{ menuItems ? JSON.stringify(menuItems, null, 4) : null }
             };
             window.menuItems = window.ghaConfigs.menuItems;
         script(src='/admin/manifest.js')

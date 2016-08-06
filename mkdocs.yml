@@ -1,7 +1,10 @@
 site_name: Grasshopper Docs
+#theme: material
+#theme: cinder
 pages:
 - Home: 'index.md'
 - User Guide:
     - 'Api': 'user-guide/api.md'
 - Developer Guide:
     - 'Generating Docs': 'developer-guide/generating-docs.md'
+    - 'Dev Workflow': 'developer-guide/dev-workflow.md'

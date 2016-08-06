@@ -1,0 +1,7 @@
+site_name: Grasshopper Docs
+pages:
+- Home: 'index.md'
+- User Guide:
+    - 'Api': 'user-guide/api.md'
+- Developer Guide:
+    - 'Generating Docs': 'developer-guide/generating-docs.md'

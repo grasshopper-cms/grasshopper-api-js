@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 const runner = require('node-shell-runner');
+const path = require('path');
 
 runner.run([
-    ['nodemon app', 'Starting app with nodemon']
+    [`nodemon ${path.join(__dirname, '..', 'app')}`, 'Starting app with nodemon']
 ]);

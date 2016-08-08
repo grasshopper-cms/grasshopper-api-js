@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+bin/build
+(bin/watchScss) & (demo/bin/start)

@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var scss = require('node-sass'),
+    fs = require('fs'),
+    childProcess = require('child_process'),
+    path = require('path'),
+    mainScssFile = path.join(__dirname, '..', 'lib', 'admin', 'client', 'styles', 'main.scss'),
+    outputFile = path.join(__dirname, '..', 'lib', 'admin', 'public', 'main.css');
+
+console.log('----- RUNNING SCSS ------');
+
+var nodeSassResult = scss.renderSync({
+    file : mainScssFile,
+    outFile : outputFile,
+    includePaths : [path.join(__dirname, '..', 'node_modules')]
+});
+
+fs.writeFileSync(outputFile, nodeSassResult.css);
+fs.writeFileSync(outputFile + '.map', nodeSassResult.map);
+
+childProcess.execSync(`postcss --use autoprefixer --autoprefixer.browsers "> 1%" -o ${outputFile} ${outputFile}`, { stdio : 'inherit' });
+
+console.log('----- FINISHED RUNNING SCSS ------');

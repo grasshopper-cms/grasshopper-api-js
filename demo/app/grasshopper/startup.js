@@ -8,14 +8,13 @@ const configs = require('expressively').configs;
 var ghInstance = require('./instance');
 
 module.exports = function start() {
-    console.log('ghapi options are', configs.grasshopper);
     const apiInitializationResults = api(configs.grasshopper);
 
+    ghInstance.admin = apiInitializationResults.admin;
     ghInstance.bridgetown = apiInitializationResults.bridgetown;
     ghInstance.core = apiInitializationResults.core;
     ghInstance.router = apiInitializationResults.router;
-
-    return new BB(function(resolve, reject) {
+    ghInstance.waitFor = new BB(function(resolve, reject) {
 
         ghInstance
             .core.event.channel('/system/db')
@@ -23,7 +22,7 @@ module.exports = function start() {
                 console.log('starting grasshopper');
                 ghInstance
                     .core.auth('basic', {
-                    username : 'admin', password : 'TestPassword'
+                    username : configs.grasshopperAdminUsername, password : configs.grasshopperAdminPassword
                 })
                     .then(function (token) {
                         console.log('grasshopper authenticated');

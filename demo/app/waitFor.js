@@ -1,8 +1,6 @@
 'use strict';
-const startup = require('./grasshopper/startup');
+const grasshopperInstance = require('./grasshopper/instance');
 
-module.exports = waitFor;
-
-function waitFor() {
-    return startup();
-}
+module.exports = function waitFor() {
+    return grasshopperInstance.waitFor;
+};

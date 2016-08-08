@@ -1,3 +1,16 @@
 [
-
+    [
+        "use",
+        "/api",
+        [
+            "grasshopperApi"
+        ]
+    ],
+    [
+        "use",
+        "/admin",
+        [
+            "grasshopperAdmin"
+        ]
+    ]
 ]

@@ -11,7 +11,8 @@
         "require": false,
         "it": false,
         "xit": false,
-        "mochaPhantomJS": false
+        "mochaPhantomJS": false,
+        "window" : false
     },
     "curly": true,
 //    "quotmark": "single",
@@ -29,5 +30,6 @@
     "noarg": true,
     "maxdepth": 2,
     "devel": false,
-    "debug": false
+    "debug": false,
+    "esversion" : 6
 }

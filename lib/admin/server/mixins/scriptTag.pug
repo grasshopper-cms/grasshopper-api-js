@@ -1,0 +1,9 @@
+mixin scriptTag
+    script.
+        window.ghaConfigs = {
+            apiEndpoint : '/api',
+            buildDirectory : 'app/public/admin',
+            base : '/admin/',
+            homeString : '!{homeString || 'Grasshopper' }',
+            menuItems : !{ menuItems ? JSON.stringify(menuItems, null, 4) : null }
+        };

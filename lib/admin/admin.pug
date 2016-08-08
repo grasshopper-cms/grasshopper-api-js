@@ -1,3 +1,4 @@
+include ./server/mixins/scriptTag.pug
 doctype html
 //if IE 8
 // [if gt IE 8] <!
@@ -21,12 +22,5 @@ html
             #alertBox
             #footer
             #modal
-        script.
-            window.ghaConfigs = {
-                apiEndpoint: '/api',
-                buildDirectory: 'app/public/admin',
-                base: '/admin/',
-                homeString: '!{homeString || 'Grasshopper' }',
-                menuItems : !{ menuItems ? JSON.stringify(menuItems,null,4) : null }
-            };
+        +scriptTag
         script(src='/admin/main.67f7ee85.js')

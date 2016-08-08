@@ -7,6 +7,21 @@
         ]
     ],
     [
+        "GET",
+        "/admin/settings",
+        [
+            "populateNecessaryAdminData",
+            "admin/settings/get"
+        ]
+    ],
+    [
+        "GET",
+        "/admin/plugins",
+        [
+            "admin/plugins/get"
+        ]
+    ],
+    [
         "use",
         "/admin",
         [

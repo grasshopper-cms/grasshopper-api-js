@@ -19,10 +19,10 @@ bin/loadData
 bin/start
 ```
 
-## Hackin on
+## Hacking on
 
 Follow the trying out instructions, but make sure you snapshot your data
-back into the repo with `bin/saveData`. 
+back into the repo with `bin/saveData`.
 
 
 

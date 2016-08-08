@@ -14,6 +14,7 @@
     "expressively": "^0.6.2"
   },
   "devDependencies": {
-    "node-shell-runner": "0.0.2"
+    "node-shell-runner": "0.0.2",
+    "primer-css": "^4.1.0"
   }
 }

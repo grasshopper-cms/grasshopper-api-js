@@ -1,4 +1,4 @@
-include ./mixins/scriptTag.pug
+include ./mixins/addConfigs.pug
 doctype html
 //if IE 8
 // [if gt IE 8] <!
@@ -9,7 +9,7 @@ html
         base(href='/admin/')
         meta(name='viewport', content='width=device-width')
         title Grasshopper
-        link(rel='stylesheet', href='/admin/themes/main.c5896048.css')
+        link(rel='stylesheet', href='/admin/main.css')
     body
         #siteContainter
             #header
@@ -25,7 +25,7 @@ html
             #alertBox
             #footer
             #modal
-        +scriptTag
+        +addConfigs
         script(src='/admin/manifest.js')
         script(src='/admin/core.js')
         script(src='/admin/components.js')

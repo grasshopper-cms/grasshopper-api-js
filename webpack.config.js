@@ -49,15 +49,17 @@ module.exports = {
             // Don't think tag files are really working yet
             { test: /\.js$|\.tag$/, loader: "eslint-loader", exclude: /node_modules/}
         ],
-        loaders: [{
-            test: /\.js$/,
-            exclude: /(node_modules|bower_components)/,
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
 
-            // "loader" property changed to "loaders" and is now an array!
-            loaders: [
-                // webpack forbids the "loader.query" property when you have multiple loaders; use a queryString to pass those details
-                'babel'
-            ]
-        }]
+                // "loader" property changed to "loaders" and is now an array!
+                loaders: [
+                    // webpack forbids the "loader.query" property when you have multiple loaders; use a queryString to pass those details
+                    'babel'
+                ]
+            }
+        ]
     }
 };

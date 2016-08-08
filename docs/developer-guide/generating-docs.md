@@ -14,7 +14,7 @@ To add to the docs you have to:
     (You will need [python](http://docs.python-guide.org/en/latest/starting/install/osx/)
      and pip. Pip can be installed with `sudo easy_install pip`)
     
-1. `mkdocs server`
+1. `mkdocs serve`
 1. Open [http://localhost:8000](http://localhost:8000)
 1. Start editing the files in the `docs/` dir and `mkdocs.yml` in the project root.
  

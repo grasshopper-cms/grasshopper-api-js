@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+const runner = require('node-shell-runner');
+
+runner.run([
+    ['nodemon app', 'Starting app with nodemon']
+]);

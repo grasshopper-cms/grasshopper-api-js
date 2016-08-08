@@ -1,0 +1,19 @@
+{
+  "name": "grasshopper-demo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Demo app for using grasshopper api, admin, and core.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SOLID Interactive",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "expressively": "^0.6.2"
+  },
+  "devDependencies": {
+    "node-shell-runner": "0.0.2"
+  }
+}

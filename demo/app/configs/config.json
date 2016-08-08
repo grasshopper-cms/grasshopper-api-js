@@ -1,0 +1,41 @@
+{
+  "grasshopper" : {
+    "assets": {
+      "default" : "local",
+      "tmpdir" : "/tmp",
+      "engines": {
+        "local": {
+            "path" : "/demo/this/should/work/with/a/relative/path",
+            "urlbase" : "http://localhost:3008/assets/"
+        }
+      }
+    },
+    "cache": {
+      "path": "./cache"
+    },
+    "crypto": {
+      "secret_passphrase" : "some-secret-passphrase"
+    },
+    "db": {
+      "type": "mongodb",
+      "defaultPageSize" : "10000",
+      "endpoint": "<%= dbEndpoint %>",
+      "host": "<%= dbHost %>",
+      "database": "<%= dbName %>",
+      "debug": <%= debug %>
+    },
+    "logger": {
+      "adapters": [
+        {
+          "type": "console",
+          "application": "grasshopper-api",
+          "machine": "staging-server"
+        }
+      ]
+    },
+    "server" : {
+      "proxy" : true
+    }
+  }
+
+}

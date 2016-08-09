@@ -1,14 +1,14 @@
 top-bar
-    #top-nav
-        ul.pull-right
-            li
-                a(data-rv-href='model:userModel->href', href='/user/{ model._id }')
-                    img.gravatar-img(src='{ this.model.gravatarUrl }')
-                    span Logged in as
-                    span &nbsp; { model.displayname }
-            li
-                a#logOutButton(href='/logout')
-                    | Log Out
+    //- #top-nav
+    //-     ul.pull-right
+    //-         li
+    //-             a(data-rv-href='model:userModel->href', href='/user/{ model._id }')
+    //-                 img.gravatar-img(src='{ this.model.gravatarUrl }')
+    //-                 span Logged in as
+    //-                 span &nbsp; { model.displayname }
+    //-         li
+    //-             a#logOutButton(href='/logout')
+    //-                 | Log Out
     script.
         var self = this,
             crypto = require('crypto');

@@ -10,17 +10,16 @@ html
         meta(name='viewport', content='width=device-width')
         title Grasshopper
         link(rel='stylesheet', href='/admin/main.css')
+        style(type='riot')
     body
-        #siteContainter
-            #header
-                div(style='display: block; opacity: 1;')
-                    #topbar.contain-to-grid.sticky(riot-tag="top-bar")
-                    #headerbar(riot-tag="tabs-bar")
-            #masthead(riot-tag="masthead", style="z-index: 1000;")
-            #loading-overlay-header
-            loading-overlay
-            #sidebar
-            #stage
+        #siteContainer
+            //- #topbar(riot-tag='top-bar')
+            #headerbar(riot-tag='tabs-bar')
+            //- #masthead(riot-tag='masthead', style='z-index: 1000;')
+            //- #loading-overlay-header
+            //- loading-overlay
+            //- #sidebar
+            #stage.container
                 block stage
             #alertBox
             #footer

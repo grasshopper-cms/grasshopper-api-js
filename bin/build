@@ -3,5 +3,5 @@
 var childProcess = require('child_process');
 
 childProcess.execSync(`bin/ensureDeps`, { stdio : 'inherit' });
-childProcess.execSync(`webpack`, { stdio : 'inherit' });
+childProcess.execSync(`bin/webpack`, { stdio : 'inherit' });
 childProcess.execSync(`bin/scss`, { stdio : 'inherit' });

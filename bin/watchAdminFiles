@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var globWatcher = require('glob-watcher'),
+    childProcess = require('child_process'),
+    path = require('path');
+
+console.log('----- WATCHING ADMIN FILES ------');
+
+globWatcher([
+    path.join(__dirname, '..', 'lib', 'admin', 'client', 'components', '**/*.js'),
+    path.join(__dirname, '..', 'lib', 'admin', 'client', 'components', '**/*.tag'),
+    path.join(__dirname, '..', 'lib', 'admin', 'client', 'core', '**/*.js'),
+], function(done) {
+    console.log('RECOMPILING ADMIN FILES');
+    childProcess.execSync('bin/webpack');
+    console.log('ADMIN FILES RECOMPILED');
+    done();
+});

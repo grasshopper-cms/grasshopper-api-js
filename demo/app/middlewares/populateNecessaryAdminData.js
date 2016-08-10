@@ -5,32 +5,32 @@ module.exports = function populateNecessaryAdminData(request, response, next) {
             {
                 'showWhenUserRoleIncludes' : 'admin reader editor',
                 'name' : 'Content',
-                'href' : '/items',
+                'href' : '/admin/items',
                 'iconClasses' : 'fa fa-th'
             },
             {
                 'showWhenUserRoleIncludes' : 'admin',
                 'name' : 'Types',
-                'href' : '/content-types',
+                'href' : '/admin/content-types',
                 'iconClasses' : 'fa fa-cogs'
             },
             {
                 'showWhenUserRoleIncludes' : 'admin',
                 'name' : 'Users',
-                'href' : '/users',
+                'href' : '/admin/users',
                 'iconClasses' : 'fa fa-user'
             },
             {
                 'showWhenUserRoleIncludes' : 'admin reader editor',
                 'name' : 'Advanced Search',
-                'href' : '/advanced-search',
+                'href' : '/admin/advanced-search',
                 'iconClasses' : 'fa fa-search'
             },
             {
                 'showWhenUserRoleIncludes' : 'admin reader editor',
-                'name' : 'Info',
-                'href' : '/info',
-                'iconClasses' : 'fa fa-info'
+                'name' : 'Settings',
+                'href' : '/admin/settings',
+                'iconClasses' : 'fa fa-cogs'
             },
             {
                 'showWhenUserRoleIncludes' : 'admin reader editor',
@@ -39,7 +39,7 @@ module.exports = function populateNecessaryAdminData(request, response, next) {
             {
                 'showWhenUserRoleIncludes' : 'admin reader editor',
                 'name' : 'Help',
-                'href' : '/help',
+                'href' : '/admin/help',
                 'iconClasses' : 'fa fa-question'
             }
         ];

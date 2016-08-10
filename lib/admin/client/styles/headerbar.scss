@@ -1,0 +1,201 @@
+
+#headerbar {
+    position: relative;
+    height: $header-height;
+    line-height: $header-height;
+
+    background-color: $dark-blue;
+
+    color: $white;
+
+    padding-left: $site-gutter;
+    padding-right: $site-gutter;
+
+    .brand {
+        display: inline-block;
+        height: $header-height;
+        width: 23%;
+        background-image: $grasshopper-logo;
+        background-repeat: no-repeat;
+        background-position: left center;
+    }
+
+    .nav-items {
+        display: inline-block;
+        height: $header-height;
+
+        float: right;
+        text-align: right;
+
+        .nav-item {
+            display: inline-block;
+            vertical-align: bottom;
+
+            padding: 8px 12px;
+            line-height: 20px;
+            color: $white;
+
+            text-decoration: none;
+
+            background-color: $dark-blue;
+            border: 1px solid transparent;
+            border-bottom: 0;
+
+            border-radius: 3px 3px 0 0;
+
+            i {
+                width: 16px;
+                margin-right: 5px;
+                text-align: center;
+            }
+
+            &:hover:not(.active):not(:active):not(.is-spacer) {
+                background-color: $almost-white;
+                color: $almost-black;
+            }
+
+            &.active, &:active {
+                color: $almost-black;
+                background-color: $white;
+                border-color: $off-white;
+                i {
+                    color: #333;
+                }
+            }
+
+            &.is-spacer {
+                background-image: none;
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+            }
+        }
+
+        .user-information-section {
+            position: relative;
+            display: inline-block;
+            vertical-align: bottom;
+
+            line-height: 20px;
+
+            padding-top: 8px;
+            padding-right: 12px;
+            padding-bottom: 8px;
+            padding-left: 12px;
+
+            color: $white;
+
+            border-radius: 3px 3px 0 0;
+
+            cursor: pointer;
+
+            &.active {
+                background-color: $almost-white;
+                .user-information-dropdown {
+                    display: block;
+                }
+            }
+
+            &:hover {
+                background-color: $almost-white;
+            }
+
+            .gravatar-img {
+                display: inline-block;
+                vertical-align: middle;
+                max-width: 24px;
+                max-height: 24px;
+                margin-right: 6px;
+                border-radius: 3px;
+                outline: 1px solid transparent;
+            }
+
+            .expand-icon {
+                color: $white;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .user-information-dropdown {
+                position: absolute;
+                display: none;
+
+                top: 100%;
+                right: 0;
+
+                max-width: 300px;
+                min-width: 160px;
+
+                white-space: nowrap;
+
+                text-align: left;
+
+                background-color: $white;
+
+                border: 1px solid $almost-white;
+
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px;
+
+                box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+
+                .logged-in-as-text {
+                    height: 30px;
+                    line-height: 29px;
+
+                    padding-left: 10px;
+                    padding-right: 10px;
+
+                    color: $almost-black;
+                    background-color: $white;
+
+                    border-bottom: 1px solid $almost-white;
+                }
+
+                .profile {
+                    display: block;
+
+                    height: 30px;
+                    line-height: 30px;
+
+                    padding-left: 10px;
+                    padding-right: 10px;
+
+                    color: $almost-black;
+                    background-color: $white;
+
+                    margin-top: 2px;
+                    margin-bottom: 2px;
+
+                    text-decoration: none;
+
+                    &:hover {
+                        background-color: $almost-white;
+                    }
+                }
+
+                .logout {
+                    display: block;
+
+                    height: 30px;
+                    line-height: 30px;
+
+                    padding-left: 10px;
+                    padding-right: 10px;
+
+                    color: $almost-black;
+                    background-color: $white;
+
+                    text-decoration: none;
+
+                    margin-top: 2px;
+                    margin-bottom: 2px;
+
+                    &:hover {
+                        background-color: $almost-white;
+                    }
+                }
+            }
+        }
+    }
+}

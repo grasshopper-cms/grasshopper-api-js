@@ -1,3 +1,22 @@
 @import 'primer-css/index.scss';
 
-body {}
+$fa-font-path: 'fonts/font-awesome/';
+@import 'font-awesome/scss/font-awesome.scss';
+
+@import 'variables';
+
+@import 'colors';
+
+@import 'image-paths';
+
+html {
+    height: 100%;
+    width: 100%;
+
+    body {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+@import 'headerbar';

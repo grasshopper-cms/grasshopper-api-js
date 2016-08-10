@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('../../../plugins/plugins');
+module.exports = require('../../../plugins/plugins').get;

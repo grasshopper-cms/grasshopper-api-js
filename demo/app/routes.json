@@ -23,6 +23,13 @@
         ]
     ],
     [
+        "POST",
+        "/admin/plugins",
+        [
+            "admin/plugins/post"
+        ]
+    ],
+    [
         "use",
         "/admin",
         [

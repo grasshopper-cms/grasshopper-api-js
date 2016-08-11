@@ -15,7 +15,7 @@ simpleCustomAttributes.addAttribute('on-change', {
     }
 });
 
-simpleCustomAttributes.register(view, document.querySelector('#plugins'));
+simpleCustomAttributes.register(view, document.querySelector('#settings'));
 
 function handlePluginCheck() {
     window.gh.appState

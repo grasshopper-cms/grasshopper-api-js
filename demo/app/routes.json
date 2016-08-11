@@ -8,6 +8,14 @@
     ],
     [
         "GET",
+        "/admin/example",
+        [
+            "populateNecessaryAdminData",
+            "admin/example/get"
+        ]
+    ],
+    [
+        "GET",
         "/admin/settings",
         [
             "populateNecessaryAdminData",
@@ -15,18 +23,11 @@
         ]
     ],
     [
-        "GET",
-        "/admin/plugins",
+        "POST",
+        "/admin/settings",
         [
             "populateNecessaryAdminData",
-            "admin/plugins/get"
-        ]
-    ],
-    [
-        "POST",
-        "/admin/plugins",
-        [
-            "admin/plugins/post"
+            "admin/settings/post"
         ]
     ],
     [

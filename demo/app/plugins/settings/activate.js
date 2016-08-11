@@ -7,7 +7,7 @@ var pluginsContentType = require('./pluginsContentType'),
 module.exports = function activatePluginsPlugin(grasshopperInstance) {
     // Add this plugins Assets DIR to the use static
     console.log('Adding the plugin plugins assets dir to the static path');
-    grasshopperInstance.admin.use('/plugins/plugins/', express.static(path.join(__dirname, 'assets')));
+    grasshopperInstance.admin.use('/plugins/settings/', express.static(path.join(__dirname, 'assets')));
 
     // Query GH for for a 'plugins' content type.
     // If it does not exist, insert it.

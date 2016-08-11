@@ -3,7 +3,7 @@
 const api = require('../../../lib/grasshopper-api');
 const BB = require('bluebird');
 const configs = require('expressively').configs;
-const pluginsPluginActive = require('../plugins/plugins/activate');
+const pluginsPluginActive = require('../plugins/settings/activate');
 
 // This could technically be a const, but conceptually is a var
 var ghInstance = require('./instance');

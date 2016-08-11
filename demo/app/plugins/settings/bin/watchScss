@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var globWatcher = require('glob-watcher'),
+    childProcess = require('child_process'),
+    path = require('path');
+
+console.log('----- WATCHING SCSS ------');
+
+globWatcher([path.join(__dirname, '..', 'styles.scss')], function(done) {
+    console.log('Recompiling SCSS');
+    childProcess.execSync(path.join(__dirname, '..', 'bin/scss'), { stdio : 'inherit' });
+    console.log('SCSS Recompiled');
+    done();
+});

@@ -1,0 +1,20 @@
+#settings nav.menu {
+  color: #008cba; }
+  #settings nav.menu .selected {
+    color: #333; }
+    #settings nav.menu .selected:before {
+      background-color: #008cba; }
+
+#settings #generalView {
+  display: none; }
+  #settings #generalView.active {
+    display: block; }
+
+#settings #pluginsView {
+  display: none; }
+  #settings #pluginsView.active {
+    display: block; }
+
+#settings .sub-view-title {
+  margin-top: 0; }
+/*# sourceMappingURL=settings.css.map */

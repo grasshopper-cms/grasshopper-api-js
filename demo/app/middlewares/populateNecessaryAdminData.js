@@ -28,9 +28,9 @@ module.exports = function populateNecessaryAdminData(request, response, next) {
             },
             {
                 'showWhenUserRoleIncludes' : 'admin reader editor',
-                'name' : 'Plugins',
-                'href' : '/admin/plugins',
-                'iconClasses' : 'fa fa-plug'
+                'name' : 'Settings',
+                'href' : '/admin/settings',
+                'iconClasses' : 'fa fa-cogs'
             },
             {
                 'showWhenUserRoleIncludes' : 'admin reader editor',

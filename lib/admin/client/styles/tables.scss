@@ -1,0 +1,54 @@
+// Needs refactoring. Copy and pasted from GH Admin.
+table {
+
+
+    display: table;
+
+    background: $white;
+    border: solid 1px $off-white;
+
+    margin-bottom: 1.25rem;
+    table-layout: auto;
+    border-radius: 4px;
+    border-collapse: inherit;
+    width: 100%;
+
+    thead {
+        background: #f5f5f5;
+
+        th {
+            background-color: #f8f8f8;
+            background-image: linear-gradient(to bottom, $white, #ededed);
+            background-repeat: repeat-x;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+
+            text-align: left;
+
+            border-bottom: 1px solid #c9c9c9;
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+            color: #222;
+            font-size: 0.875rem;
+            font-weight: bold;
+            padding: 0.5rem 0.625rem 0.625rem;
+            display: table-cell;
+            line-height: 1.125rem;
+        }
+    }
+
+    tbody {
+        td {
+            border:none;
+            color: #222;
+            font-size: 0.875rem;
+            padding: 0.5625rem 0.625rem;
+            text-align: left;
+            line-height: 1.125rem;
+
+            input {
+                cursor: pointer;
+            }
+        }
+    }
+}

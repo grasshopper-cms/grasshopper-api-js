@@ -1,18 +1,38 @@
 extends ../../../../lib/admin/server/layout
 
-//- block head
-//-     //- // Because you know the name of your plugin, the paths are important.
-//-     link(rel='stylesheet', href='/admin/settings/assets/styles.css')
+block head
+    link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
 
 block stage
-    #plugins
-        h1 PLUGINS
+    #settings
+        h1 SETTINGS
 
-        ul
-            for plugin in plugins
-                li
-                    span= plugin.name
-                    input(type='checkbox' checked=plugin.active on-change='handlePluginCheck')
+        .columns
+            .one-fifth.column
+                nav.menu
+                    a.menu-item(rv-on-click='view.handleTabClicked' rv-class-selected='view.activeTab | equals view.tabs.general' rv-tab-name='view.tabs.general') General
+                    a.menu-item(rv-on-click='view.handleTabClicked' rv-class-selected='view.activeTab | equals view.tabs.plugins' rv-tab-name='view.tabs.plugins') Plugins
+            .four-fifths.column
+                #generalView(rv-class-active='view.activeTab | equals view.tabs.general')
+                    h2.sub-view-title General Settings
+                #pluginsView(rv-class-active='view.activeTab | equals view.tabs.plugins')
+                    h2.sub-view-title Plugins
+
+                    table
+                        thead
+                            tr
+                                th Name
+                                th Description
+                                th Version
+                                th.text-center Activate
+                        tbody
+                            for plugin in plugins
+                                tr
+                                    td= plugin.name
+                                    td= plugin.description
+                                    td= plugin.version
+                                    td.text-center
+                                        input(type='checkbox' checked=plugin.active rv-on-change='view.handlePluginCheck')
 
 block script
     script.

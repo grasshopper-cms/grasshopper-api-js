@@ -1,7 +1,9 @@
 'use strict';
 
+var path = require('path');
+
 module.exports = {
-    name : 'Settings',
-    version : '',
-    notes : 'This is what I do?'
+    name : 'Example',
+    version : require(path.join(__dirname, 'package.json')).version,
+    description : 'This is what I do?'
 };

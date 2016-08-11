@@ -12,7 +12,8 @@
         "it": false,
         "xit": false,
         "mochaPhantomJS": false,
-        "window" : false
+        "window" : false,
+        "document" : false
     },
     "curly": true,
 //    "quotmark": "single",

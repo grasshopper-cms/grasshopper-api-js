@@ -12,7 +12,7 @@ globWatcher([
     path.join(__dirname, '..', 'client.js'),
 ], function(done) {
     console.log('Recompiling Javascript');
-    childProcess.execSync(path.join(__dirname, '..', 'bin/browserify'));
+    childProcess.execSync(path.join(__dirname, '..', 'bin/browserify'), { stdio : 'inherit' });
     console.log('Javascript Recompiled');
     done();
 });

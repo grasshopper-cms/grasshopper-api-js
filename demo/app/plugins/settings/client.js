@@ -1,21 +1,39 @@
 'use strict';
 
-var simpleCustomAttributes = require('simple-custom-attributes'),
+var rivets = require('rivets'),
+    queryString = require('query-string'),
+    domReady = require('domready'),
     view = {
         plugins : window.plugins,
-        handlePluginCheck : handlePluginCheck
+        activeTab : 'general',
+
+        tabs : {
+            general : 'general',
+            plugins : 'plugins'
+        },
+
+        handlePluginCheck : handlePluginCheck,
+        handleTabClicked : handleTabClicked
     };
 
-simpleCustomAttributes.addAttribute('on-change', {
-    bind : function(el, value) {
-        el.addEventListener('change', value);
-    },
-    unbind : function(el, value) {
-        el.removeEventListener('change', value);
-    }
-});
+function init() {
+    view.activeTab = queryString.parse(window.location.hash).tab;
 
-simpleCustomAttributes.register(view, document.querySelector('#settings'));
+    bindView();
+}
+
+function bindView() {
+    rivets.formatters.equals = function(comparator, comparatee) {
+        return comparator === comparatee;
+    };
+
+    rivets.bind(document.querySelector('#settings'), { view : view });
+}
+
+function handleTabClicked(event) {
+    window.location.hash = queryString.stringify({ tab : event.currentTarget.getAttribute('tab-name') });
+    view.activeTab = event.currentTarget.getAttribute('tab-name');
+}
 
 function handlePluginCheck() {
     window.gh.appState
@@ -31,3 +49,5 @@ function handlePluginCheck() {
             'iconClasses' : 'fa fa-refresh fa-spin'
         });
 }
+
+domReady(init);

@@ -1,0 +1,16 @@
+{
+  "name": "grasshopper-plugin-settings",
+  "version": "1.0.0",
+  "description": "Settings plugin for Grasshopper DMS Admin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "domready": "^1.0.8",
+    "query-string": "^4.2.2",
+    "rivets": "^0.9.4"
+  }
+}

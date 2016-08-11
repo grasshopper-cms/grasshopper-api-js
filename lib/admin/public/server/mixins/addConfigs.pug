@@ -1,0 +1,11 @@
+mixin addConfigs(locals)
+    script.
+        window.gh = {
+            configs :{
+                apiEndpoint : '/api',
+                buildDirectory : 'app/public/admin',
+                base : '/admin/',
+                homeString : '!{homeString || 'Grasshopper' }',
+                menuItems : !{ menuItems ? JSON.stringify(menuItems, null, 4) : JSON.stringify([]) }
+            }
+        };

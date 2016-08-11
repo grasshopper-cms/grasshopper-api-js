@@ -1,3 +1,34 @@
-body {
-    background-color: lime;
+@import '../../../../lib/admin/client/styles/colors';
+
+#settings {
+    nav.menu {
+        color: $light-blue;
+
+        .selected {
+            color: $almost-black;
+
+            &:before {
+                background-color: $light-blue;
+            }
+        }
+    }
+
+    #generalView {
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
+
+    #pluginsView {
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
+    .sub-view-title {
+        margin-top: 0;
+    }
 }

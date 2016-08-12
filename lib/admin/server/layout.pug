@@ -14,7 +14,6 @@ html
         block head
     body
         #siteContainer
-            //- #topbar(riot-tag='top-bar')
             #headerbar(riot-tag='tabs-bar')
             //- #masthead(riot-tag='masthead', style='z-index: 1000;')
             //- #loading-overlay-header
@@ -22,8 +21,6 @@ html
             //- #sidebar
             #stage.container.markdown-body
                 block stage
-            #alertBox
-            #footer
             #modal
         +addConfigs
         script(src='/admin/manifest.js')

@@ -3,7 +3,6 @@
 const api = require('../../../lib/grasshopper-api');
 const BB = require('bluebird');
 const configs = require('expressively').configs;
-const pluginsPluginActive = require('../plugins/settings/activate');
 
 // This could technically be a const, but conceptually is a var
 var ghInstance = require('./instance');
@@ -47,7 +46,7 @@ module.exports = function start() {
             });
     })
     .then(function() {
-        console.log('Activating the admin plugins plugin');
-        return pluginsPluginActive(ghInstance);
+        const settingsPlugin = require('../plugins/settings/');
+        return settingsPlugin.onAppInit();
     });
 };

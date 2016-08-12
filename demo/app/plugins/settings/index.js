@@ -5,6 +5,8 @@ var fs = require('fs'),
     extend = require('lodash/extend'),
     grasshopperInstance = require('../../grasshopper/instance'),
     Response = grasshopperInstance.bridgetown.Response,
+    activate = require('./activate'),
+    BB = require('bluebird'),
     possiblePlugins = fs
         .readdirSync(path.join(__dirname, '..', '..', 'plugins'))
         .filter(function(dirname) {
@@ -16,8 +18,29 @@ var fs = require('fs'),
 
 module.exports = {
     get : get,
-    post : post
+
+    onAppInit : onAppInit
 };
+
+function onAppInit() {
+    console.log('Activating the admin plugins plugin');
+    return activate(grasshopperInstance)
+        .then(function() {
+            console.log('Adding POST admin/settings route to api routes.');
+            grasshopperInstance.router.post('/admin/settings', [
+                grasshopperInstance.bridgetown.middleware.authorization,
+                grasshopperInstance.bridgetown.middleware.authToken,
+                function(request, response, next) {
+                    if(request.bridgetown.identity.role === 'admin') {
+                        next();
+                    } else {
+                        new Response(response).writeUnauthorized();
+                    }
+                },
+                _handleSettingsPost
+            ]);
+        });
+}
 
 function get(request, response) {
     grasshopperInstance
@@ -54,29 +77,55 @@ function get(request, response) {
         });
 }
 
-function post(request, response) {
-    var pluginIdToActive = request.body.id;
+function _handleSettingsPost(request, response) {
+    var pluginIdToActivate = request.body.id;
 
-    if(!pluginIdToActive) {
-        new Response(response).writeBadRequest('You must send a plugin ID');
+    if(!pluginIdToActivate) {
+        new Response(response).writeError({ message : 'You must send a plugin ID.', code : 400 });
+    } else if(!_pluginExists(pluginIdToActivate)){
+        new Response(response).writeError({ message : 'The plugin you wanted to activate does not exist.', code : 400 });
     } else {
-        console.log(grasshopperInstance.bridgetown.Response(response));
-        new Response(response).writeSuccess({ 'duder' : 'galt' });
+        _activateOrDeactivatePlugin(response, pluginIdToActivate)
+            .then(_activePluginInDB(response, pluginIdToActivate))
+            .then(function() {
+                new Response(response).writeSuccess('YEAH BUDDY');
+            })
+            .catch(function() {
+                new Response(response).writeError('YEAH BUDDY');
+            });
     }
+}
 
-    // see what the person posted, then save this to the DB.
+function _pluginExists(pluginIdToActive) {
+    return !!possiblePlugins.find(function(plugin) {
+        console.log(plugin.id);
+        console.log(plugin.id === pluginIdToActive);
+        console.log(pluginIdToActive);
+        return plugin.id === pluginIdToActive;
+    });
+}
 
+function _activateOrDeactivatePlugin(pluginIdToActive) {
     // Does it exist?
     // YES?
-        // update it with what was passed.
-
-
+    //     update it with what was passed.
+    //
+    //
     // NO
-        // Make a piece of content for this setting plugin setting it to true.
-
-
-    // if it wanted to be active, run that active for the plugin in question
+    //     Make a piece of content for this setting plugin setting it to true.
+    return BB.resolve();
 }
+
+function _activePluginInDB(response, pluginIdToActive) {
+    return function() {
+        // if is in db and currently active, call the deactiveate
+
+        // should actually call the plugins activate
+        return BB.resolve();
+    };
+}
+
+
 
 
 

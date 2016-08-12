@@ -23,16 +23,6 @@
         ]
     ],
     [
-        "POST",
-        "/admin/settings",
-        [
-            "authorization",
-            "authToken",
-            "ensureUserIsAdmin",
-            "admin/settings/post"
-        ]
-    ],
-    [
         "use",
         "/admin",
         [

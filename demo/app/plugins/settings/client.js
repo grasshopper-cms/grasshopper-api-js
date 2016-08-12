@@ -35,17 +35,16 @@ function handleTabClicked(event) {
     view.activeTab = event.currentTarget.getAttribute('tab-name');
 }
 
-function handlePluginCheck(event) {
-    var pluginIdToActivate = event.currentTarget.getAttribute('plugin-id');
+function handlePluginCheck(event, context) {
+    context.plugin.workingType = context.plugin.active ? 'Deactivating' : 'Activating';
+    context.plugin.isWorking = true;
 
-
-
-    window.gh.api.plugins.activate(pluginIdToActivate)
+    window.gh.api.plugins.activate(context.plugin.id)
         .then(function() {
-            console.log('WORKED');
+            context.plugin.isWorking = false;
         })
         .catch(function() {
-            console.log('DID NOT WORK');
+            context.plugin.isWorking = false;
         });
 }
 

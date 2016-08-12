@@ -26,14 +26,15 @@ block stage
                                 th Version
                                 th.text-center Activate
                         tbody
-                            for plugin in plugins
-                                tr
-                                    td= plugin.title
-                                    td= plugin.description
-                                    td= plugin.version
-                                    td.text-center
-                                        input(type='checkbox' checked=plugin.active rv-on-change='view.handlePluginCheck' plugin-id=plugin.id)
-
+                            tr(rv-each-plugin='view.plugins')
+                                td(rv-text='plugin.title')
+                                td(rv-text='plugin.description')
+                                td(rv-text='plugin.version')
+                                td.activation-cell.text-center(rv-class-is-working='plugin.isWorking')
+                                    span.working
+                                        .text(rv-text='plugin.workingType')
+                                        i.icon.fa.fa-spin.fa-refresh
+                                    input(type='checkbox' rv-checked='plugin.active' rv-on-change='view.handlePluginCheck')
 block script
     script.
         window.plugins = JSON.parse('!{JSON.stringify(plugins)}');

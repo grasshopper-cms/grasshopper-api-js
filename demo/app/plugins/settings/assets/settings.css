@@ -14,6 +14,56 @@
   display: none; }
   #settings #pluginsView.active {
     display: block; }
+  #settings #pluginsView .activation-cell {
+    overflow: hidden;
+    position: relative; }
+    #settings #pluginsView .activation-cell.is-working .working {
+      opacity: 1;
+      -webkit-transform: translateY(0);
+              transform: translateY(0); }
+    #settings #pluginsView .activation-cell.is-working input {
+      -webkit-transform: translateY(-2.25rem);
+              transform: translateY(-2.25rem);
+      opacity: 0; }
+    #settings #pluginsView .activation-cell .working {
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      -webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
+      transition: opacity 1s ease, -webkit-transform 1s ease;
+      transition: transform 1s ease, opacity 1s ease;
+      transition: transform 1s ease, opacity 1s ease, -webkit-transform 1s ease;
+      -webkit-transform: translateY(2.25rem);
+              transform: translateY(2.25rem);
+      opacity: 0;
+      font-size: 0.875rem;
+      padding-top: 0.5625rem;
+      padding-bottom: 0.5625rem;
+      line-height: 1.125rem;
+      cursor: progress; }
+      #settings #pluginsView .activation-cell .working .text {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 15px; }
+      #settings #pluginsView .activation-cell .working .icon {
+        display: inline-block;
+        vertical-align: middle; }
+    #settings #pluginsView .activation-cell input {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      -webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
+      transition: opacity 1s ease, -webkit-transform 1s ease;
+      transition: transform 1s ease, opacity 1s ease;
+      transition: transform 1s ease, opacity 1s ease, -webkit-transform 1s ease;
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+      opacity: 1; }
 
 #settings .sub-view-title {
   margin-top: 0; }

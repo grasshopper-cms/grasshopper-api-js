@@ -27,6 +27,70 @@
         &.active {
             display: block;
         }
+
+        .activation-cell {
+            overflow: hidden;
+            position: relative;
+
+            &.is-working {
+                .working {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                input {
+                    transform: translateY(-2.25rem);
+                    opacity: 0;
+                }
+            }
+            .working {
+                display: block;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+
+                width: 100%;
+                text-align: center;
+
+                transition: transform 1s ease, opacity 1s ease;
+
+                transform: translateY(2.25rem);
+                opacity: 0;
+
+                font-size: 0.875rem;
+
+                padding-top: 0.5625rem;
+                padding-bottom: 0.5625rem;
+
+                line-height: 1.125rem;
+
+                cursor: progress;
+
+                .text {
+                    display: inline-block;
+                    vertical-align: middle;
+
+                    margin-right: 15px;
+                }
+
+                .icon {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
+
+            input {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+
+                transition: transform 1s ease, opacity 1s ease;
+
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     }
     .sub-view-title {
         margin-top: 0;

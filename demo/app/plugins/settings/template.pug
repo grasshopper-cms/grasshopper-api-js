@@ -32,7 +32,7 @@ block stage
                                     td= plugin.description
                                     td= plugin.version
                                     td.text-center
-                                        input(type='checkbox' checked=plugin.active rv-on-change='view.handlePluginCheck')
+                                        input(type='checkbox' checked=plugin.active rv-on-change='view.handlePluginCheck' plugin-id=plugin.id)
 
 block script
     script.

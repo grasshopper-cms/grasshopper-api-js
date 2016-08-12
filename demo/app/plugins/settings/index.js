@@ -2,11 +2,11 @@
 
 var fs = require('fs'),
     path = require('path'),
-    extend = require('lodash/extend'),
+    defaultsDeep = require('lodash/defaultsDeep'),
     grasshopperInstance = require('../../grasshopper/instance'),
     Response = grasshopperInstance.bridgetown.Response,
     activate = require('./activate'),
-    BB = require('bluebird'),
+    pluginsContentTypeId = null,
     possiblePlugins = fs
         .readdirSync(path.join(__dirname, '..', '..', 'plugins'))
         .filter(function(dirname) {
@@ -18,40 +18,47 @@ var fs = require('fs'),
 
 module.exports = {
     get : get,
-
     onAppInit : onAppInit
 };
 
 function onAppInit() {
     console.log('Activating the admin plugins plugin');
-    return activate(grasshopperInstance)
-        .then(function() {
-            console.log('Adding POST admin/settings route to api routes.');
-            grasshopperInstance.router.post('/admin/settings', [
-                grasshopperInstance.bridgetown.middleware.authorization,
-                grasshopperInstance.bridgetown.middleware.authToken,
-                function(request, response, next) {
-                    if(request.bridgetown.identity.role === 'admin') {
-                        next();
-                    } else {
-                        new Response(response).writeUnauthorized();
-                    }
-                },
-                _handleSettingsPost
-            ]);
+    return activate(_handleSettingsPost)
+        .then(function(currentPluginsContentTypeId) {
+
+            pluginsContentTypeId = currentPluginsContentTypeId;
         });
 }
 
 function get(request, response) {
-    grasshopperInstance
+    _getActivePlugins()
+        .then(function(result) {
+            response.render(require.resolve('./template.pug'),
+                defaultsDeep({
+                    plugins : possiblePlugins
+                        .map(function(possiblePlugin) {
+                            possiblePlugin.active = !!result
+                                .results
+                                .find(function(activePlugin) {
+                                    return activePlugin.fields.directory === possiblePlugin.directory;
+                                });
+
+                            return possiblePlugin;
+                        })
+                }, response.locals));
+        });
+}
+
+function _getActivePlugins() {
+    return grasshopperInstance
         .request
         .content
         .query({
             filters :[
                 {
-                    key : 'meta.typelabel',
+                    key : 'meta.type',
                     cmp : '=',
-                    value : 'Plugins'
+                    value : pluginsContentTypeId
                 },
                 {
                     key : 'fields.active',
@@ -59,21 +66,6 @@ function get(request, response) {
                     value : true
                 }
             ]
-        })
-        .then(function(result) {
-            response.render(require.resolve('./template.pug'),
-                extend({
-                    plugins : possiblePlugins
-                        .map(function(possiblePlugin) {
-                            possiblePlugin.active = !!result
-                                .results
-                                .find(function(activePlugin) {
-                                    return activePlugin.fields.title === possiblePlugin.name;
-                                });
-
-                            return possiblePlugin;
-                        })
-                }, response.locals));
         });
 }
 
@@ -87,95 +79,119 @@ function _handleSettingsPost(request, response) {
     } else {
         _activateOrDeactivatePlugin(response, pluginIdToActivate)
             .then(_activePluginInDB(response, pluginIdToActivate))
-            .then(function() {
-                new Response(response).writeSuccess('YEAH BUDDY');
+            .then(function(activationBody) {
+                new Response(response).writeSuccess(activationBody);
             })
-            .catch(function() {
-                new Response(response).writeError('YEAH BUDDY');
+            .catch(function(err) {
+                new Response(response).writeError('Plugin could not be activated '+ err);
             });
     }
 }
 
 function _pluginExists(pluginIdToActive) {
     return !!possiblePlugins.find(function(plugin) {
-        console.log(plugin.id);
-        console.log(plugin.id === pluginIdToActive);
-        console.log(pluginIdToActive);
         return plugin.id === pluginIdToActive;
     });
 }
 
-function _activateOrDeactivatePlugin(pluginIdToActive) {
-    // Does it exist?
-    // YES?
-    //     update it with what was passed.
-    //
-    //
-    // NO
-    //     Make a piece of content for this setting plugin setting it to true.
-    return BB.resolve();
+function _activateOrDeactivatePlugin(response, pluginIdToActivate) {
+    var thisPlugin = possiblePlugins
+            .find(function(plugin) {
+                return plugin.id === pluginIdToActivate;
+            });
+
+    return grasshopperInstance
+            .request
+            .content
+            .query({
+                filters :[
+                    {
+                        key : 'meta.type',
+                        cmp : '=',
+                        value : pluginsContentTypeId
+                    },
+                    {
+                        key : 'fields.active',
+                        cmp : '=',
+                        value : true
+                    }
+                ]
+            })
+            .then(function(queryResults) {
+                if(queryResults.results.find(function(result) { return result.fields.directory === thisPlugin.directory; })) {
+                    console.log('Deactivating Plugin : '+ thisPlugin.title);
+                    return require(path.join(__dirname, '..', thisPlugin.directory, 'deactivate'))();
+                } else {
+                    console.log('Activating Plugin : '+ thisPlugin.title);
+                    return require(path.join(__dirname, '..', thisPlugin.directory, 'activate'))();
+                }
+            });
 }
 
-function _activePluginInDB(response, pluginIdToActive) {
-    return function() {
-        // if is in db and currently active, call the deactiveate
+function _activePluginInDB(response, pluginIdToActivate) {
+    return function(activationBody) {
+        var thisPlugin = possiblePlugins
+                .find(function(plugin) {
+                    return plugin.id === pluginIdToActivate;
+                });
 
-        // should actually call the plugins activate
-        return BB.resolve();
+        return grasshopperInstance
+                .request
+                .content
+                .query({
+                    filters :[
+                        {
+                            key : 'meta.type',
+                            cmp : '=',
+                            value : pluginsContentTypeId
+                        },
+                        {
+                            key : 'fields.directory',
+                            cmp : '=',
+                            value : thisPlugin.directory
+                        }
+                    ]
+                })
+                .then(function(queryResults) {
+                    var found = queryResults
+                            .results
+                            .find(function(result) {
+                                return thisPlugin.directory === result.fields.directory;
+                            });
+
+                    if(found) {
+                        return grasshopperInstance
+                                .request
+                                .content
+                                .update(defaultsDeep({
+                                    fields : {
+                                        active : !found.fields.active
+                                    }
+                                }, found))
+                                .then(function() {
+                                    return activationBody;
+                                });
+                    } else {
+                        return grasshopperInstance
+                                .request
+                                .content
+                                .insert({
+                                    meta : {
+                                        type : pluginsContentTypeId,
+                                        hidden : true
+                                    },
+                                    fields : {
+                                        title : thisPlugin.title,
+                                        version : thisPlugin.version,
+                                        description : thisPlugin.description,
+                                        directory : thisPlugin.directory,
+                                        active : true
+                                    }
+                                })
+                                .then(function() {
+                                    return activationBody;
+                                });
+                    }
+                });
     };
 }
-
-
-
-
-
-
-
-// module.exports = function(request, response, next) {
-//     if(request.bridgetown.identity.role === 'admin') {
-//         next();
-//     } else {
-//         grasshopperInstance.bridgetown.Response.writeUnauthorized(response);
-// middleware.identity,
-// middleware.nodes.setNodeIdFromArgument,
-// middleware.nodes.requireNodePermissions(security.roles.AUTHOR),
-// middleware.content.convertType,
-// middleware.content.prepareEvent,
-// middleware.event('parse'),
-// middleware.event('validate'),
-// middleware.content.validate,
-// middleware.content.setComputedProperties,
-// middleware.content.update,
-// middleware.event('out'),
-// middleware.event('save')
-
-// var self = this,
-//     deferred = q.defer();
-//
-// this.model.create(obj, function(err, doc){
-//     if(err) {
-//         deferred.reject(self.handleError(err));
-//     } else {
-//
-//         self.getById(doc._id, options)
-//             .then(function(cleanObj){
-//                 deferred.resolve(cleanObj);
-//             })
-//             .fail(function(err){
-//                 deferred.reject(createError(err));
-//             });
-//     }
-// });
-//
-// return deferred.promise;
-
-// var api = {},
-//     grasshopper = require('grasshopper-core'),
-//     bridgetown = require('bridgetown-api'),
-//     Response = bridgetown.Response,
-//     middleware = bridgetown.middleware;
-//
-// api.getById = function (httpRequest, httpResponse){
-//     var promise = grasshopper.request(httpRequest.bridgetown.token).content.getById(httpRequest.params.id);
-//     new Response(httpResponse).writeFromPromise(promise);
-// };

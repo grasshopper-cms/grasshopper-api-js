@@ -37,6 +37,9 @@ function handleTabClicked(event) {
 
 function handlePluginCheck(event) {
     var pluginIdToActivate = event.currentTarget.getAttribute('plugin-id');
+
+
+
     window.gh.api.plugins.activate(pluginIdToActivate)
         .then(function() {
             console.log('WORKED');

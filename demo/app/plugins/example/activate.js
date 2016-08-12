@@ -2,7 +2,7 @@
 
 var BB = require('bluebird');
 
-module.exports = function activate(pipeToClient) {
+module.exports = function activate() {
     console.log('called activate on the example plugin');
 
     return new BB(function(resolve, reject) {

@@ -36,7 +36,7 @@ function handleTabClicked(event) {
 }
 
 function handlePluginCheck(event, context) {
-    context.plugin.workingType = context.plugin.active ? 'Deactivating' : 'Activating';
+    context.plugin.workingType = context.plugin.active ? 'Activating' : 'Deactivating'; // Reversed because rivets has allready set the value;
     context.plugin.isWorking = true;
 
     window.gh.api.plugins.activate(context.plugin.id)
@@ -45,6 +45,7 @@ function handlePluginCheck(event, context) {
         })
         .catch(function() {
             context.plugin.isWorking = false;
+            context.plugin.active = !context.plugin.active;
         });
 }
 

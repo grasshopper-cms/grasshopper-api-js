@@ -34,7 +34,7 @@ block stage
                                     span.working
                                         .text(rv-text='plugin.workingType')
                                         i.icon.fa.fa-spin.fa-refresh
-                                    input(type='checkbox' rv-checked='plugin.active' rv-on-change='view.handlePluginCheck')
+                                    input(type='checkbox' rv-on-change='view.handlePluginCheck' rv-checked='plugin.active')
 block script
     script.
         window.plugins = JSON.parse('!{JSON.stringify(plugins)}');

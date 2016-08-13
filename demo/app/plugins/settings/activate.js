@@ -1,18 +1,20 @@
 'use strict';
 
-var pluginsContentType = require('./pluginsContentType'),
+var settingsContentTypes = require('./settingsContentTypes'),
     grasshopperInstance = require('../../grasshopper/instance'),
     Response = grasshopperInstance.bridgetown.Response,
     path = require('path'),
     express = require('express');
 
-module.exports = function activatePluginsPlugin(_handleSettingsPost) {
+module.exports = function activatePluginsPlugin(_handleUpdatePlugins, _handleUpdateTabs) {
+    var state = { tabsContentType : '', pluginsContentType : '' };
+
     // Add this plugins Assets DIR to the use static
     console.log('Adding the plugin plugins assets dir to the static path');
     grasshopperInstance.admin.use('/plugins/settings/', express.static(path.join(__dirname, 'assets')));
 
-    console.log('Adding POST admin/settings route to api routes.');
-    grasshopperInstance.router.post('/admin/settings', [
+    console.log('Adding POST admin/settings/plugins route to api routes.');
+    grasshopperInstance.router.post('/admin/settings/plugins', [
         grasshopperInstance.bridgetown.middleware.authorization,
         grasshopperInstance.bridgetown.middleware.authToken,
         function(request, response, next) {
@@ -22,9 +24,35 @@ module.exports = function activatePluginsPlugin(_handleSettingsPost) {
                 new Response(response).writeUnauthorized();
             }
         },
-        _handleSettingsPost
+        _handleUpdatePlugins
     ]);
 
+    console.log('Adding POST admin/settings/tabs route to api routes.');
+    grasshopperInstance.router.post('/admin/settings/tabs', [
+        grasshopperInstance.bridgetown.middleware.authorization,
+        grasshopperInstance.bridgetown.middleware.authToken,
+        function(request, response, next) {
+            if(request.bridgetown.identity.role === 'admin') {
+                next();
+            } else {
+                new Response(response).writeUnauthorized();
+            }
+        },
+        _handleUpdateTabs
+    ]);
+
+    return _ensurePluginsContentType()
+        .then(function(pluginsContentType) {
+            state.pluginsContentType = pluginsContentType;
+        })
+        .then(_ensureTabsContentType)
+        .then(function(tabsContentType) {
+            state.tabsContentType = tabsContentType;
+            return state;
+        });
+};
+
+function _ensurePluginsContentType() {
     // Query GH for for a 'plugins' content type.
     // If it does not exist, insert it.
     return grasshopperInstance
@@ -35,7 +63,7 @@ module.exports = function activatePluginsPlugin(_handleSettingsPost) {
             var found = queryResults
                     .results
                     .find(function(contentType) {
-                        return contentType.label === 'Plugins';
+                        return contentType.label === settingsContentTypes.plugins.label;
                     });
 
             if(found) {
@@ -46,12 +74,40 @@ module.exports = function activatePluginsPlugin(_handleSettingsPost) {
                 return grasshopperInstance
                     .request
                     .contentTypes
-                    .insert(pluginsContentType)
+                    .insert(settingsContentTypes.plugins)
                     .then(function(newContentType) {
-                        console.log('Finished inserting required Conetent Types');
+                        console.log('Finished inserting Plugins Content Type');
                         return newContentType._id;
                     });
             }
-        })
-        .catch();
-};
+        });
+}
+
+function _ensureTabsContentType() {
+    return grasshopperInstance
+        .request
+        .contentTypes
+        .list() // Cannot query content types yet.
+        .then(function(queryResults) {
+            var found = queryResults
+                    .results
+                    .find(function(contentType) {
+                        return contentType.label === settingsContentTypes.tabs.label;
+                    });
+
+            if(found) {
+                console.log('Found Tabs Content Type');
+                return found._id;
+            } else {
+                console.log('Could not find Tabs Content Type, inserting now');
+                return grasshopperInstance
+                    .request
+                    .contentTypes
+                    .insert(settingsContentTypes.tabs)
+                    .then(function(newContentType) {
+                        console.log('Finished inserting Tabs Content type');
+                        return newContentType._id;
+                    });
+            }
+        });
+}

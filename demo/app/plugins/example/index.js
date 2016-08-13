@@ -1,5 +1,10 @@
 'use strict';
 
-module.exports = function renderSettingsView(request, response) {
-    response.render(require.resolve('./template.pug'), response.locals);
+module.exports = {
+    get : get
 };
+
+
+function get(request, response) {
+    response.render(require.resolve('./template.pug'), response.locals);
+}

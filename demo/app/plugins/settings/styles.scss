@@ -27,10 +27,26 @@
         &.active {
             display: block;
         }
+    }
 
+    #tabsView {
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
+
+    .sub-view-title {
+        margin-top: 0;
+    }
+
+    table {
         .activation-cell {
             overflow: hidden;
             position: relative;
+
+            min-width: 140px;
 
             &.is-working {
                 .working {
@@ -91,8 +107,5 @@
                 opacity: 1;
             }
         }
-    }
-    .sub-view-title {
-        margin-top: 0;
     }
 }

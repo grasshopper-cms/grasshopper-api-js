@@ -10,18 +10,19 @@ block stage
         .columns
             .one-fifth.column
                 nav.menu
-                    a.menu-item(rv-on-click='view.handleTabClicked' rv-class-selected='view.activeTab | equals view.tabs.general' rv-tab-name='view.tabs.general') General
-                    a.menu-item(rv-on-click='view.handleTabClicked' rv-class-selected='view.activeTab | equals view.tabs.plugins' rv-tab-name='view.tabs.plugins') Plugins
+                    a.menu-item(rv-on-click='view.handleTabClicked' rv-class-selected='view.activeTab | equals view.subViews.general' rv-tab-name='view.subViews.general') General
+                    a.menu-item(rv-on-click='view.handleTabClicked' rv-class-selected='view.activeTab | equals view.subViews.plugins' rv-tab-name='view.subViews.plugins') Plugins
+                    a.menu-item(rv-on-click='view.handleTabClicked' rv-class-selected='view.activeTab | equals view.subViews.tabs' rv-tab-name='view.subViews.tabs') Tabs
             .four-fifths.column
-                #generalView(rv-class-active='view.activeTab | equals view.tabs.general')
+                #generalView(rv-class-active='view.activeTab | equals view.subViews.general')
                     h2.sub-view-title General Settings
-                #pluginsView(rv-class-active='view.activeTab | equals view.tabs.plugins')
+                #pluginsView(rv-class-active='view.activeTab | equals view.subViews.plugins')
                     h2.sub-view-title Plugins
 
                     table
                         thead
                             tr
-                                th Name
+                                th Title
                                 th Description
                                 th Version
                                 th.text-center Activate
@@ -35,7 +36,32 @@ block stage
                                         .text(rv-text='plugin.workingType')
                                         i.icon.fa.fa-spin.fa-refresh
                                     input(type='checkbox' rv-on-change='view.handlePluginCheck' rv-checked='plugin.active')
+                #tabsView(rv-class-active='view.activeTab | equals view.subViews.tabs')
+                    h2.sub-view-title Tabs
+                    
+                    table
+                        thead
+                            tr
+                                th Title
+                                th Href
+                                th Icon Classes
+                                th Allowed Roles
+                                th Added By
+                                th.text-center Is Active
+                        tbody
+                            tr(rv-each-tab='view.tabs')
+                                td(rv-text='tab.fields.title')
+                                td(rv-text='tab.fields.href')
+                                td(rv-text='tab.fields.iconclasses')
+                                td(rv-text='tab.fields.roles')
+                                td(rv-text='tab.fields.addedby')
+                                td.activation-cell.text-center(rv-class-is-working='tab.isWorking')
+                                    span.working
+                                        .text(rv-text='tab.workingType')
+                                        i.icon.fa.fa-spin.fa-refresh
+                                    input(type='checkbox' rv-on-change='view.handleMenuItemsToggled' rv-checked='tab.fields.active')
 block script
     script.
         window.plugins = JSON.parse('!{JSON.stringify(plugins)}');
+        window.tabs = JSON.parse('!{JSON.stringify(tabs)}');
     script(type='text/javascript' src='/admin/plugins/settings/bundle.js')

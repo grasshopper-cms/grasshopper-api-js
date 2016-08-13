@@ -7,13 +7,17 @@ var rivets = require('rivets'),
         plugins : window.plugins,
         activeTab : 'general',
 
-        tabs : {
+        tabs : window.tabs,
+
+        subViews : {
             general : 'general',
-            plugins : 'plugins'
+            plugins : 'plugins',
+            tabs : 'tabs'
         },
 
         handlePluginCheck : handlePluginCheck,
-        handleTabClicked : handleTabClicked
+        handleTabClicked : handleTabClicked,
+        handleMenuItemsToggled : handleMenuItemsToggled
     };
 
 function init() {
@@ -46,7 +50,25 @@ function handlePluginCheck(event, context) {
         .catch(function() {
             context.plugin.isWorking = false;
             context.plugin.active = !context.plugin.active;
+
+            window.gh.alert('Plugin Activation Failed. ');
         });
+}
+
+function handleMenuItemsToggled(event, context) {
+    context.tab.workingType = context.plugin.active ? 'Activating' : 'Deactivating'; // Reversed because rivets has allready set the value;
+    context.tab.isWorking = true;
+
+    // window.gh.api.plugins.activate(context.tab.id)
+    //     .then(function() {
+    //         context.plugin.isWorking = false;
+    //     })
+    //     .catch(function() {
+    //         context.plugin.isWorking = false;
+    //         context.plugin.active = !context.plugin.active;
+    //
+    //         window.gh.alert('Plugin Activation Failed. ');
+    //     });
 }
 
 domReady(init);

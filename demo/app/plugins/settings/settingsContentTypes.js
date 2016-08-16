@@ -140,6 +140,17 @@ module.exports = {
                 "_id" : "sort",
                 "defaultValue" : "",
                 "dataType" : "string"
+            },
+            {
+                "label" : "Ancestors",
+                "max" : 1,
+                "min" : 1,
+                "options" : false,
+                "type" : "textbox",
+                "validation" : [],
+                "_id" : "ancestors",
+                "defaultValue" : "",
+                "dataType" : "array"
             }
         ]
     }

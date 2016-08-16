@@ -20,10 +20,10 @@ module.exports = function activatePluginsPlugin() {
     grasshopperInstance.router.post('/admin/settings/plugins/deactivate', require('./api/plugins/deactivate'));
 
     console.log('Adding POST admin/settings/tabs route to api routes.');
-    grasshopperInstance.router.post('/admin/settings/tabs/activate', require('./api/tabs/activate'));
+    grasshopperInstance.router.post('/admin/settings/tab/:id/activate', require('./api/tab/activate'));
 
     console.log('Adding POST admin/settings/tabs route to api routes.');
-    grasshopperInstance.router.post('/admin/settings/tabs/deactivate', require('./api/tabs/deactivate'));
+    grasshopperInstance.router.post('/admin/settings/tab/:id/deactivate', require('./api/tab/deactivate'));
 
     console.log('Adding GET admin/settings/tabs route to api routes.');
     grasshopperInstance.router.get('/admin/settings/tabs', require('./api/tabs/list'));

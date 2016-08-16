@@ -18,7 +18,7 @@ module.exports = [
 ];
 
 function _handleTabActivation(request, response) {
-    var tabIdToActivate = request.body.id,
+    var tabIdToActivate = request.params.id || request.body.id,
         currentTabStateInDb;
 
     if(!tabIdToActivate) {

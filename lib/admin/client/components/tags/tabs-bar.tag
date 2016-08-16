@@ -1,9 +1,10 @@
 tabs-bar
     a.brand(href='/items')
     .nav-items
-        a.nav-item(each='{ item in menuItems }' if='{ item.fields.active }' href='{ item.fields.href }' class='{ active : item.active }')
-            i(class='{ item.fields.iconclasses }')
-            span { item.fields.title }
+        virtual(each='{ item in menuItems }')
+            a.nav-item(if='{ item.fields.active }' href='{ item.fields.href }' class='{ active : item.active }')
+                i(class='{ item.fields.iconclasses }')
+                span { item.fields.title }
         .user-information-section(name='userInformationSection' onclick='{ toggleUserInformationDropdown }' class='{ active : userInformationDropdownIsOpen }')
             img.gravatar-img(src='{ user.gravatarUrl }')
             i.fa.fa-caret-down.expand-icon

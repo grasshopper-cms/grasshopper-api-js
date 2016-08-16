@@ -18,7 +18,7 @@ module.exports = [
 ];
 
 function _handleTabDeactivation(request, response) {
-    var tabIdToDeactivate = request.body.id,
+    var tabIdToDeactivate = request.params.id || request.body.id,
         currentTabStateInDb;
 
     if(!tabIdToDeactivate) {

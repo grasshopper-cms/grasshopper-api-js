@@ -4,7 +4,7 @@ var grasshopperInstance = require('../../grasshopper/instance'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
 module.exports = function deactivate() {
-    console.log('called deactivate on the example plugin');
+    console.log('called deactivate on the Advanced Search plugin');
 
     return _queryForThisPluginsTab()
             .then(_deleteThisPluginsTab);

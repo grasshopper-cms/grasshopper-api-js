@@ -32,9 +32,18 @@
     -webkit-transform: translateY(0);
             transform: translateY(0); }
   #settings table .activation-cell.is-working input {
-    -webkit-transform: translateY(-2.25rem);
-            transform: translateY(-2.25rem);
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
     opacity: 0; }
+  #settings table .activation-cell.cant-deactivate {
+    cursor: not-allowed;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    pointer-events: none; }
+    #settings table .activation-cell.cant-deactivate input {
+      cursor: not-allowed; }
   #settings table .activation-cell .working {
     display: block;
     position: absolute;
@@ -48,8 +57,8 @@
     transition: opacity 1s ease, -webkit-transform 1s ease;
     transition: transform 1s ease, opacity 1s ease;
     transition: transform 1s ease, opacity 1s ease, -webkit-transform 1s ease;
-    -webkit-transform: translateY(2.25rem);
-            transform: translateY(2.25rem);
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
     opacity: 0;
     font-size: 0.875rem;
     padding-top: 0.5625rem;

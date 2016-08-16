@@ -2,11 +2,11 @@
 
 var settingsContentTypes = require('./settingsContentTypes'),
     grasshopperInstance = require('../../grasshopper/instance'),
-    Response = grasshopperInstance.bridgetown.Response,
     path = require('path'),
-    express = require('express');
+    express = require('express'),
+    thisPluginsConfig = require('./config');
 
-module.exports = function activatePluginsPlugin(_handleUpdatePlugins, _handleUpdateTabs) {
+module.exports = function activatePluginsPlugin() {
     var state = { tabsContentType : '', pluginsContentType : '' };
 
     // Add this plugins Assets DIR to the use static
@@ -14,32 +14,19 @@ module.exports = function activatePluginsPlugin(_handleUpdatePlugins, _handleUpd
     grasshopperInstance.admin.use('/plugins/settings/', express.static(path.join(__dirname, 'assets')));
 
     console.log('Adding POST admin/settings/plugins route to api routes.');
-    grasshopperInstance.router.post('/admin/settings/plugins', [
-        grasshopperInstance.bridgetown.middleware.authorization,
-        grasshopperInstance.bridgetown.middleware.authToken,
-        function(request, response, next) {
-            if(request.bridgetown.identity.role === 'admin') {
-                next();
-            } else {
-                new Response(response).writeUnauthorized();
-            }
-        },
-        _handleUpdatePlugins
-    ]);
+    grasshopperInstance.router.post('/admin/settings/plugins/activate', require('./api/plugins/activate'));
+
+    console.log('Adding POST admin/settings/plugins route to api routes.');
+    grasshopperInstance.router.post('/admin/settings/plugins/deactivate', require('./api/plugins/deactivate'));
 
     console.log('Adding POST admin/settings/tabs route to api routes.');
-    grasshopperInstance.router.post('/admin/settings/tabs', [
-        grasshopperInstance.bridgetown.middleware.authorization,
-        grasshopperInstance.bridgetown.middleware.authToken,
-        function(request, response, next) {
-            if(request.bridgetown.identity.role === 'admin') {
-                next();
-            } else {
-                new Response(response).writeUnauthorized();
-            }
-        },
-        _handleUpdateTabs
-    ]);
+    grasshopperInstance.router.post('/admin/settings/tabs/activate', require('./api/tabs/activate'));
+
+    console.log('Adding POST admin/settings/tabs route to api routes.');
+    grasshopperInstance.router.post('/admin/settings/tabs/deactivate', require('./api/tabs/deactivate'));
+
+    console.log('Adding GET admin/settings/tabs route to api routes.');
+    grasshopperInstance.router.get('/admin/settings/tabs', require('./api/tabs/list'));
 
     return _ensurePluginsContentType()
         .then(function(pluginsContentType) {
@@ -48,6 +35,9 @@ module.exports = function activatePluginsPlugin(_handleUpdatePlugins, _handleUpd
         .then(_ensureTabsContentType)
         .then(function(tabsContentType) {
             state.tabsContentType = tabsContentType;
+            return _addThisPluginsMenuTab(tabsContentType);
+        })
+        .then(function() {
             return state;
         });
 };
@@ -108,6 +98,57 @@ function _ensureTabsContentType() {
                         console.log('Finished inserting Tabs Content type');
                         return newContentType._id;
                     });
+            }
+        });
+}
+
+function _addThisPluginsMenuTab(tabsContentType) {
+    console.log('Potentially Adding the Settings Tab Content');
+
+    return grasshopperInstance
+        .request
+        .content
+        .query({
+            filters :[
+                {
+                    key : 'meta.type',
+                    cmp : '=',
+                    value : tabsContentType
+                }
+            ]
+        })
+        .then(function(queryResults) {
+            var found = queryResults && queryResults
+                .results
+                .find(function(result) {
+                    return result.fields.title === thisPluginsConfig.title;
+                });
+
+            if(found) {
+                console.log('Did not need to add the settings Tab Content');
+
+                return true;
+            } else {
+
+                console.log('Could not find the settings tab Content. Adding now.');
+
+                return grasshopperInstance
+                        .request
+                        .content
+                        .insert({
+                            meta : {
+                                type : tabsContentType,
+                                hidden : true
+                            },
+                            fields : {
+                                title : thisPluginsConfig.title,
+                                active : true,
+                                href : '/admin/settings',
+                                iconclasses : 'fa fa fa-cogs',
+                                roles : 'admin reader editor',
+                                addedby : 'Settings Plugin Init Script, Version :'+ require(path.join(__dirname, 'package.json')).version
+                            }
+                        });
             }
         });
 }

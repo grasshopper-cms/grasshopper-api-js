@@ -5,8 +5,15 @@ var path = require('path'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
 module.exports = function activate() {
-    console.log('Called activate on the example plugin');
+    console.log('Called activate on the users plugin');
 
+    return _insertTab()
+        .then(function() {
+            return  { 'state' : 'good to go' };
+        });
+};
+
+function _insertTab() {
     return grasshopperInstance
             .request
             .content
@@ -18,10 +25,10 @@ module.exports = function activate() {
                 fields : {
                     title : require('./config').title,
                     active : true,
-                    href : '/admin/example',
-                    iconclasses : 'fa fa-bug fa-spin',
-                    roles : 'admin reader editor',
-                    addedby : 'Example Plugin : Version '+ require(path.join(__dirname, 'package.json')).version
+                    href : '/admin/users',
+                    iconclasses : 'fa fa-user',
+                    roles : 'admin',
+                    addedby : 'Users Plugin : Version '+ require(path.join(__dirname, 'package.json')).version
                 }
             })
             .then(function() {
@@ -30,4 +37,4 @@ module.exports = function activate() {
             .catch(function(err) {
                 console.log(err);
             });
-};
+}

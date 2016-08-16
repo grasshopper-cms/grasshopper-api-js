@@ -1,9 +1,9 @@
 tabs-bar
     a.brand(href='/items')
     .nav-items
-        a.nav-item(each='{ item in menuItems }' href='{ item.href }' class='{ active : item.active, is-spacer : item.isSpacer }')
-            i(class='{ item.iconClasses }')
-            span { item.name }
+        a.nav-item(each='{ item in menuItems }' href='{ item.fields.href }' class='{ active : item.active }')
+            i(class='{ item.fields.iconclasses }')
+            span { item.fields.title }
         .user-information-section(name='userInformationSection' onclick='{ toggleUserInformationDropdown }' class='{ active : userInformationDropdownIsOpen }')
             img.gravatar-img(src='{ user.gravatarUrl }')
             i.fa.fa-caret-down.expand-icon
@@ -56,7 +56,7 @@ tabs-bar
 
         function markActiveItem(menuItems) {
             return menuItems.map(function(item) {
-                if (item.href === window.location.pathname) {
+                if (item.fields.href === window.location.pathname) {
                     item.active = true;
                 }
                 return item;

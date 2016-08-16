@@ -5,7 +5,6 @@ var fs = require('fs'),
     defaultsDeep = require('lodash/defaultsDeep'),
     BB = require('bluebird'),
     grasshopperInstance = require('../../grasshopper/instance'),
-    Response = grasshopperInstance.bridgetown.Response,
     activate = require('./activate'),
     pluginsContentTypeId = null,
     tabsContentTypeId = null,
@@ -22,12 +21,14 @@ module.exports = {
     get : get,
 
     onAppInit : onAppInit,
-    getTabsContentType : getTabsContentType
+    getTabsContentTypeId : getTabsContentTypeId,
+    getPluginsContentTypeId : getPluginsContentTypeId,
+    getPossiblePlugins : getPossiblePlugins
 };
 
 function onAppInit() {
     console.log('Activating the admin plugins plugin');
-    return activate(_handleUpdatePlugins, _handleUpdateTabs)
+    return activate()
         .then(function(state) {
 
             pluginsContentTypeId = state.pluginsContentType;
@@ -35,8 +36,16 @@ function onAppInit() {
         });
 }
 
-function getTabsContentType() {
+function getPluginsContentTypeId() {
+    return pluginsContentTypeId;
+}
+
+function getTabsContentTypeId() {
     return tabsContentTypeId;
+}
+
+function getPossiblePlugins() {
+    return possiblePlugins;
 }
 
 function get(request, response) {
@@ -102,151 +111,4 @@ function _getTabs() {
         .then(function(queryResults) {
             this.tabs = queryResults.results;
         }.bind(this));
-}
-
-function _handleUpdatePlugins(request, response) {
-    var pluginIdToActivate = request.body.id;
-
-    if(!pluginIdToActivate) {
-        new Response(response).writeError({ message : 'You must send a plugin ID.', code : 400 });
-    } else if(!_pluginExists(pluginIdToActivate)){
-        new Response(response).writeError({ message : 'The plugin you wanted to activate does not exist.', code : 400 });
-    } else {
-        _activateOrDeactivatePlugin(response, pluginIdToActivate)
-            .then(_activePluginInDB(response, pluginIdToActivate))
-            .then(function(activationBody) {
-                new Response(response).writeSuccess(activationBody);
-            })
-            .catch(function(err) {
-                new Response(response).writeError('Plugin could not be activated '+ err);
-            });
-    }
-}
-
-function _handleUpdateTabs(request, response) {
-    new Response(response).writeSuccess('');
-    // var pluginIdToActivateå = request.body.id;
-    //
-    // if(!pluginIdToActivate) {
-    //     new Response(response).writeError({ message : 'You must send a plugin ID.', code : 400 });
-    // } else if(!_pluginExists(pluginIdToActivate)){
-    //     new Response(response).writeError({ message : 'The plugin you wanted to activate does not exist.', code : 400 });
-    // } else {
-    //     _activateOrDeactivatePlugin(response, pluginIdToActivate)
-    //         .then(_activePluginInDB(response, pluginIdToActivate))
-    //         .then(function(activationBody) {
-    //             new Response(response).writeSuccess(activationBody);
-    //         })
-    //         .catch(function(err) {
-    //             new Response(response).writeError('Plugin could not be activated '+ err);
-    //         });
-    // }
-}
-
-function _pluginExists(pluginIdToActive) {
-    return !!possiblePlugins.find(function(plugin) {
-        return plugin.id === pluginIdToActive;
-    });
-}
-
-function _activateOrDeactivatePlugin(response, pluginIdToActivate) {
-    var thisPlugin = possiblePlugins
-            .find(function(plugin) {
-                return plugin.id === pluginIdToActivate;
-            });
-
-    return grasshopperInstance
-            .request
-            .content
-            .query({
-                filters :[
-                    {
-                        key : 'meta.type',
-                        cmp : '=',
-                        value : pluginsContentTypeId
-                    },
-                    {
-                        key : 'fields.active',
-                        cmp : '=',
-                        value : true
-                    }
-                ]
-            })
-            .then(function(queryResults) {
-                if(queryResults.results.find(function(result) { return result.fields.directory === thisPlugin.directory; })) {
-                    console.log('Deactivating Plugin : '+ thisPlugin.title);
-                    return require(path.join(__dirname, '..', thisPlugin.directory, 'deactivate'))();
-                } else {
-                    console.log('Activating Plugin : '+ thisPlugin.title);
-                    return require(path.join(__dirname, '..', thisPlugin.directory, 'activate'))();
-                }
-            });
-}
-
-function _activePluginInDB(response, pluginIdToActivate) {
-    return function(activationBody) {
-        var thisPlugin = possiblePlugins
-                .find(function(plugin) {
-                    return plugin.id === pluginIdToActivate;
-                });
-
-        return grasshopperInstance
-                .request
-                .content
-                .query({
-                    filters :[
-                        {
-                            key : 'meta.type',
-                            cmp : '=',
-                            value : pluginsContentTypeId
-                        },
-                        {
-                            key : 'fields.directory',
-                            cmp : '=',
-                            value : thisPlugin.directory
-                        }
-                    ]
-                })
-                .then(function(queryResults) {
-                    var found = queryResults
-                            .results
-                            .find(function(result) {
-                                return thisPlugin.directory === result.fields.directory;
-                            });
-
-                    if(found) {
-                        return grasshopperInstance
-                                .request
-                                .content
-                                .update(defaultsDeep({
-                                    fields : {
-                                        active : !found.fields.active
-                                    }
-                                }, found))
-                                .then(function() {
-                                    return activationBody;
-                                });
-                    } else {
-                        return grasshopperInstance
-                                .request
-                                .content
-                                .insert({
-                                    meta : {
-                                        type : pluginsContentTypeId,
-                                        hidden : true
-                                    },
-                                    fields : {
-                                        title : thisPlugin.title,
-                                        version : thisPlugin.version,
-                                        description : thisPlugin.description,
-                                        directory : thisPlugin.directory,
-                                        active : true
-                                    }
-                                })
-                                .then(function() {
-                                    return activationBody;
-                                });
-                    }
-                });
-    };
 }

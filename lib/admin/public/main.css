@@ -5324,7 +5324,7 @@ html {
         width: 16px;
         margin-right: 5px;
         text-align: center; }
-      #headerbar .nav-items .nav-item:hover:not(.active):not(:active):not(.is-spacer) {
+      #headerbar .nav-items .nav-item:hover:not(.active):not(:active) {
         background-color: #ccc;
         color: #333; }
       #headerbar .nav-items .nav-item.active, #headerbar .nav-items .nav-item:active {
@@ -5333,11 +5333,6 @@ html {
         border-color: #ddd; }
         #headerbar .nav-items .nav-item.active i, #headerbar .nav-items .nav-item:active i {
           color: #333; }
-      #headerbar .nav-items .nav-item.is-spacer {
-        background-image: none;
-        background-color: transparent;
-        border: none;
-        box-shadow: none; }
     #headerbar .nav-items .user-information-section {
       position: relative;
       display: inline-block;

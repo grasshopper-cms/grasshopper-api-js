@@ -54,10 +54,20 @@
                     transform: translateY(0);
                 }
                 input {
-                    transform: translateY(-2.25rem);
+                    transform: translateY(-100%);
                     opacity: 0;
                 }
             }
+
+            &.cant-deactivate {
+                cursor : not-allowed;
+                user-select: none;
+                pointer-events: none;
+                input {
+                    cursor: not-allowed;
+                }
+            }
+
             .working {
                 display: block;
                 position: absolute;
@@ -71,7 +81,7 @@
 
                 transition: transform 1s ease, opacity 1s ease;
 
-                transform: translateY(2.25rem);
+                transform: translateY(100%);
                 opacity: 0;
 
                 font-size: 0.875rem;

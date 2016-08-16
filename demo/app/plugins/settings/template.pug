@@ -55,7 +55,7 @@ block stage
                                 td(rv-text='tab.fields.iconclasses')
                                 td(rv-text='tab.fields.roles')
                                 td(rv-text='tab.fields.addedby')
-                                td.activation-cell.text-center(rv-class-is-working='tab.isWorking')
+                                td.activation-cell.text-center(rv-class-is-working='tab.isWorking' rv-class-cant-deactivate='tab.fields.href | equals "/admin/settings"')
                                     span.working
                                         .text(rv-text='tab.workingType')
                                         i.icon.fa.fa-spin.fa-refresh

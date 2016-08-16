@@ -28,7 +28,8 @@ function _insertTab() {
                     href : '/admin/users',
                     iconclasses : 'fa fa-user',
                     roles : 'admin',
-                    addedby : 'Users Plugin : Version '+ require(path.join(__dirname, 'package.json')).version
+                    addedby : 'Users Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
+                    sort : 0
                 }
             })
             .then(function() {

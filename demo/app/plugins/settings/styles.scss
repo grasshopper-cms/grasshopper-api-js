@@ -42,6 +42,26 @@
     }
 
     table {
+
+        .sort-cell {
+            min-width: 70px;
+            .sort-text {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .arrows-container {
+                display: inline-block;
+                vertical-align: middle;
+                float: right;
+                .up {
+                    display: block;
+                }
+                .down {
+                    display: block;
+                }
+            }
+        }
+
         .activation-cell {
             overflow: hidden;
             position: relative;

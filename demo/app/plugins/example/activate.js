@@ -21,7 +21,8 @@ module.exports = function activate() {
                     href : '/admin/example',
                     iconclasses : 'fa fa-bug fa-spin',
                     roles : 'admin reader editor',
-                    addedby : 'Example Plugin : Version '+ require(path.join(__dirname, 'package.json')).version
+                    addedby : 'Example Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
+                    sort : 0
                 }
             })
             .then(function() {

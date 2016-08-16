@@ -28,7 +28,8 @@ function _insertTab() {
                     href : '/admin/help',
                     iconclasses : 'fa fa-question',
                     roles : 'admin reader editor',
-                    addedby : 'Help Plugin : Version '+ require(path.join(__dirname, 'package.json')).version
+                    addedby : 'Help Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
+                    sort : 0
                 }
             })
             .then(function() {

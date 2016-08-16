@@ -28,7 +28,8 @@ function _insertContentTab() {
                     href : '/admin/items',
                     iconclasses : 'fa fa-th',
                     roles : 'admin reader editor',
-                    addedby : 'Content Plugin : Version '+ require(path.join(__dirname, 'package.json')).version
+                    addedby : 'Content Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
+                    sort : 0
                 }
             })
             .then(function() {

@@ -129,6 +129,17 @@ module.exports = {
                 "_id" : "addedby",
                 "defaultValue" : "",
                 "dataType" : "string"
+            },
+            {
+                "label" : "Sort",
+                "max" : 1,
+                "min" : 1,
+                "options" : false,
+                "type" : "textbox",
+                "validation" : [],
+                "_id" : "sort",
+                "defaultValue" : "",
+                "dataType" : "string"
             }
         ]
     }

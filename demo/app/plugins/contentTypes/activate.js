@@ -29,7 +29,8 @@ function _insertContentTypesTab() {
                     href : '/admin/content-types',
                     iconclasses : 'fa fa-cogs',
                     roles : 'admin',
-                    addedby : 'Content Types Plugin : Version '+ require(path.join(__dirname, 'package.json')).version
+                    addedby : 'Content Types Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
+                    sort : 0
                 }
             })
             .then(function() {

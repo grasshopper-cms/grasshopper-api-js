@@ -146,7 +146,8 @@ function _addThisPluginsMenuTab(tabsContentType) {
                                 href : '/admin/settings',
                                 iconclasses : 'fa fa fa-cogs',
                                 roles : 'admin reader editor',
-                                addedby : 'Settings Plugin Init Script, Version :'+ require(path.join(__dirname, 'package.json')).version
+                                addedby : 'Settings Plugin Init Script, Version :'+ require(path.join(__dirname, 'package.json')).version,
+                                sort : 0
                             }
                         });
             }

@@ -28,7 +28,8 @@ function _insertTab() {
                     href : '/admin/advanced-search',
                     iconclasses : 'fa fa-search',
                     roles : 'admin reader editor',
-                    addedby : 'Advanced Search Plugin : Version '+ require(path.join(__dirname, 'package.json')).version
+                    addedby : 'Advanced Search Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
+                    sort : 0
                 }
             })
             .then(function() {

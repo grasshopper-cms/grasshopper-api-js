@@ -23,6 +23,20 @@
 #settings .sub-view-title {
   margin-top: 0; }
 
+#settings table .sort-cell {
+  min-width: 70px; }
+  #settings table .sort-cell .sort-text {
+    display: inline-block;
+    vertical-align: middle; }
+  #settings table .sort-cell .arrows-container {
+    display: inline-block;
+    vertical-align: middle;
+    float: right; }
+    #settings table .sort-cell .arrows-container .up {
+      display: block; }
+    #settings table .sort-cell .arrows-container .down {
+      display: block; }
+
 #settings table .activation-cell {
   overflow: hidden;
   position: relative;

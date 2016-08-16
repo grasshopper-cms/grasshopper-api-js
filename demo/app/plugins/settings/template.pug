@@ -47,6 +47,7 @@ block stage
                                 th Icon Classes
                                 th Allowed Roles
                                 th Added By
+                                th Sort
                                 th.text-center Is Active
                         tbody
                             tr(rv-each-tab='view.tabs')
@@ -55,6 +56,11 @@ block stage
                                 td(rv-text='tab.fields.iconclasses')
                                 td(rv-text='tab.fields.roles')
                                 td(rv-text='tab.fields.addedby')
+                                td.sort-cell
+                                    .sort-text(rv-text='tab.fields.sort')
+                                    .arrows-container
+                                        i.up.fa.fa-arrow-up
+                                        i.down.fa.fa-arrow-down
                                 td.activation-cell.text-center(rv-class-is-working='tab.isWorking' rv-class-cant-deactivate='tab.fields.href | equals "/admin/settings"')
                                     span.working
                                         .text(rv-text='tab.workingType')

@@ -65,7 +65,7 @@ block stage
                                     span.working
                                         .text(rv-text='tab.workingType')
                                         i.icon.fa.fa-spin.fa-refresh
-                                    input(type='checkbox' rv-on-change='view.handleMenuItemsToggled' rv-checked='tab.fields.active')
+                                    input(type='checkbox' rv-on-change='view.handleMenuItemsToggled' rv-checked='tab.fields.active')    
 block script
     script.
         window.plugins = JSON.parse('!{JSON.stringify(plugins)}');

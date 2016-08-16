@@ -43,6 +43,8 @@
 
             border-radius: 3px 3px 0 0;
 
+            cursor: pointer;
+
             i {
                 width: 16px;
                 margin-right: 5px;
@@ -60,6 +62,82 @@
                 border-color: $off-white;
                 i {
                     color: #333;
+                }
+            }
+
+            &.no-sub-items {
+
+            }
+
+            &.has-sub-items {
+                position: relative;
+
+                &:hover {
+                    .expand-icon {
+                        opacity: 1;
+                    }
+                }
+
+                &.expanded {
+                    .expand-icon {
+                        opacity: 1;
+                    }
+                    .nav-item-dropdown {
+                        display: block;
+                    }
+                }
+
+                .expand-icon {
+                    margin-left: 5px;
+                    display: inline-block;
+                    vertical-align: middle;
+                    opacity: 0;
+                }
+
+                .nav-item-dropdown {
+                    position: absolute;
+                    display: none;
+
+                    top: 100%;
+                    right: 0;
+
+                    max-width: 300px;
+                    min-width: 160px;
+
+                    white-space: nowrap;
+
+                    text-align: left;
+
+                    background-color: $white;
+
+                    border: 1px solid $almost-white;
+
+                    border-bottom-left-radius: 3px;
+                    border-bottom-right-radius: 3px;
+
+                    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+
+                    .sub-item {
+                        display: block;
+
+                        height: 30px;
+                        line-height: 30px;
+
+                        padding-left: 10px;
+                        padding-right: 10px;
+
+                        color: $almost-black;
+                        background-color: $white;
+
+                        margin-top: 2px;
+                        margin-bottom: 2px;
+
+                        text-decoration: none;
+
+                        &:hover {
+                            background-color: $almost-white;
+                        }
+                    }
                 }
             }
         }

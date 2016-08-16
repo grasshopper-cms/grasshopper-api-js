@@ -1,10 +1,18 @@
 tabs-bar
     a.brand(href='/items')
     .nav-items
-        virtual(each='{ item in menuItems }')
-            a.nav-item(if='{ item.fields.active }' href='{ item.fields.href }' class='{ active : item.active }')
-                i(class='{ item.fields.iconclasses }')
-                span { item.fields.title }
+        virtual(each='{ menuItem in menuItems }')
+            a.nav-item.no-sub-items(if='{ menuItem.fields.active && !menuItem.childTabs.length }' href='{ menuItem.fields.href }' class='{ active : menuItem.active }')
+                i(class='{ menuItem.fields.iconclasses }')
+                span { menuItem.fields.title }
+            .nav-item.has-sub-items(if='{ menuItem.fields.active && menuItem.childTabs.length }' class='{ active : menuItem.active, expanded : menuItem.active }' onclick='{ toggleThisTabsDropdown }')
+                i(class='{ menuItem.fields.iconclasses }')
+                span { menuItem.fields.title }
+                i.fa.fa-caret-down.expand-icon
+                .nav-item-dropdown
+                    a.sub-item(each='{ childTab in menuItem.childTabs }' href='{ childTab.fields.href }' class='{ active : childTab.active }')
+                        i(class='{ childTab.fields.iconclasses }')
+                        span { childTab.fields.title }
         .user-information-section(name='userInformationSection' onclick='{ toggleUserInformationDropdown }' class='{ active : userInformationDropdownIsOpen }')
             img.gravatar-img(src='{ user.gravatarUrl }')
             i.fa.fa-caret-down.expand-icon
@@ -16,7 +24,7 @@ tabs-bar
         var crypto = require('crypto'),
             listenOnce = require('listen-once');
 
-        this.menuItems = markActiveItem(this.opts.appState('configs.menuItems'));
+        this.menuItems = markActiveItems(this.opts.appState('configs.menuItems'));
         this.user = this.opts.appState('user');
         this.userInformationDropdownIsOpen = false;
 
@@ -27,9 +35,28 @@ tabs-bar
         }.bind(this));
 
         this.opts.appState.subscribe('configs.menuItems', function (menuItems) {
-            this.menuItems = markActiveItem(menuItems);
+            this.menuItems = markActiveItems(menuItems);
             this.update();
         }.bind(this));
+
+        this.toggleThisTabsDropdown = function(event) {
+            if(event.item.menuItem.active) {
+                this.closeThisTabsDropdown(event.item.menuItem);
+            } else {
+                this.openThisTabsDropdown(event.item.menuItem);
+                listenOnce(document.body, 'click', this.closeThisTabsDropdown.bind(this, event.item.menuItem), true);
+            }
+        };
+
+        this.closeThisTabsDropdown = function(tab) {
+            tab.active = false;
+            this.update();
+        };
+
+        this.openThisTabsDropdown = function(tab) {
+            tab.active = true;
+            this.update();
+        };
 
         this.toggleUserInformationDropdown = function() {
             if(this.userInformationDropdownIsOpen) {
@@ -55,8 +82,15 @@ tabs-bar
             return 'http://www.gravatar.com/avatar/' + md5value + '?s=' + args + '&d=mm';
         }
 
-        function markActiveItem(menuItems) {
+        function markActiveItems(menuItems) {
             return menuItems.map(function(item) {
+
+                item.childTabs.forEach(function(item) {
+                    if (item.fields.href === window.location.pathname) {
+                        item.active = true;
+                    }
+                });
+
                 if (item.fields.href === window.location.pathname) {
                     item.active = true;
                 }

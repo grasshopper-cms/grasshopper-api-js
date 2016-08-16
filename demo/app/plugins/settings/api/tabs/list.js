@@ -1,8 +1,9 @@
 'use strict';
 
 var grasshopperInstance = require('../../../../grasshopper/instance'),
-    Response = grasshopperInstance.bridgetown.Response,
-    getTabsContentTypeId = require('../../index').getTabsContentTypeId;
+    nestChildTabsTransform = require('./_nestChildTabsTransform'),
+    queryTabs = require('./_queryTabs'),
+    Response = grasshopperInstance.bridgetown.Response;
 
 module.exports = [
     grasshopperInstance.bridgetown.middleware.authorization,
@@ -18,19 +19,10 @@ module.exports = [
 ];
 
 function _handleGetTabs(request, response) {
-    grasshopperInstance
-        .request
-        .content
-        .query({
-            filters :[
-                {
-                    key : 'meta.type',
-                    cmp : '=',
-                    value : getTabsContentTypeId()
-                }
-            ]
-        })
-        .then(function(queryResults) {
-            new Response(response).writeSuccess(queryResults.results);
+    queryTabs()
+        .then(nestChildTabsTransform)
+        .then(function(tabs) {
+            new Response(response).writeSuccess(tabs);
         });
 }
+

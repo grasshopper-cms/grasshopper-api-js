@@ -6,6 +6,8 @@ var fs = require('fs'),
     BB = require('bluebird'),
     grasshopperInstance = require('../../grasshopper/instance'),
     activate = require('./activate'),
+    queryTabs = require('./api/tabs/_queryTabs'),
+    nestChildTabsTransform = require('./api/tabs/_nestChildTabsTransform'),
     pluginsContentTypeId = null,
     tabsContentTypeId = null,
     possiblePlugins = fs
@@ -96,19 +98,9 @@ function _getActivePlugins() {
 }
 
 function _getTabs() {
-    return grasshopperInstance
-        .request
-        .content
-        .query({
-            filters :[
-                {
-                    key : 'meta.type',
-                    cmp : '=',
-                    value : tabsContentTypeId
-                }
-            ]
-        })
-        .then(function(queryResults) {
-            this.tabs = queryResults.results;
+    return queryTabs()
+        .then(nestChildTabsTransform)
+        .then(function(tabs) {
+            this.tabs = tabs;
         }.bind(this));
 }

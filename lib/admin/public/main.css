@@ -5319,7 +5319,8 @@ html {
       background-color: #1d354d;
       border: 1px solid transparent;
       border-bottom: 0;
-      border-radius: 3px 3px 0 0; }
+      border-radius: 3px 3px 0 0;
+      cursor: pointer; }
       #headerbar .nav-items .nav-item i {
         width: 16px;
         margin-right: 5px;
@@ -5333,6 +5334,46 @@ html {
         border-color: #ddd; }
         #headerbar .nav-items .nav-item.active i, #headerbar .nav-items .nav-item:active i {
           color: #333; }
+      #headerbar .nav-items .nav-item.has-sub-items {
+        position: relative; }
+        #headerbar .nav-items .nav-item.has-sub-items:hover .expand-icon {
+          opacity: 1; }
+        #headerbar .nav-items .nav-item.has-sub-items.expanded .expand-icon {
+          opacity: 1; }
+        #headerbar .nav-items .nav-item.has-sub-items.expanded .nav-item-dropdown {
+          display: block; }
+        #headerbar .nav-items .nav-item.has-sub-items .expand-icon {
+          margin-left: 5px;
+          display: inline-block;
+          vertical-align: middle;
+          opacity: 0; }
+        #headerbar .nav-items .nav-item.has-sub-items .nav-item-dropdown {
+          position: absolute;
+          display: none;
+          top: 100%;
+          right: 0;
+          max-width: 300px;
+          min-width: 160px;
+          white-space: nowrap;
+          text-align: left;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          border-bottom-left-radius: 3px;
+          border-bottom-right-radius: 3px;
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); }
+          #headerbar .nav-items .nav-item.has-sub-items .nav-item-dropdown .sub-item {
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+            color: #333;
+            background-color: #fff;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            text-decoration: none; }
+            #headerbar .nav-items .nav-item.has-sub-items .nav-item-dropdown .sub-item:hover {
+              background-color: #ccc; }
     #headerbar .nav-items .user-information-section {
       position: relative;
       display: inline-block;

@@ -44,8 +44,8 @@ function _handleTabActivation(request, response) {
                                 active : true
                             }
                         }, currentTabStateInDb))
-                        .then(function(queryResults) {
-                            new Response(response).writeSuccess(queryResults.results);
+                        .then(function(updatedTab) {
+                            new Response(response).writeSuccess(updatedTab);
                         });
                 }
             });

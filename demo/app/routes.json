@@ -8,13 +8,6 @@
     ],
     [
         "GET",
-        "/admin/example",
-        [
-            "admin/example/get"
-        ]
-    ],
-    [
-        "GET",
         "/admin/settings",
         [
             "admin/settings/get"

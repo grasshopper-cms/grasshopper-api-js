@@ -8,6 +8,7 @@ var fs = require('fs'),
     activate = require('./activate'),
     queryTabs = require('./api/tabs/_queryTabs'),
     nestChildTabsTransform = require('./api/tabs/_nestChildTabsTransform'),
+    applySort = require('./api/tabs/_applySort'),
     pluginsContentTypeId = null,
     tabsContentTypeId = null,
     possiblePlugins = fs
@@ -100,6 +101,7 @@ function _getActivePlugins() {
 function _getTabs() {
     return queryTabs()
         .then(nestChildTabsTransform)
+        .then(applySort)
         .then(function(tabs) {
             this.tabs = tabs;
         }.bind(this));

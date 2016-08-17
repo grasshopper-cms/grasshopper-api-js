@@ -7,6 +7,9 @@ var path = require('path'),
 module.exports = function activate() {
     console.log('Called activate on the example plugin');
 
+    console.log('Adding GET admin/example route to api routes.');
+    grasshopperInstance.router.get('/admin/example', require('./index').get);
+
     return grasshopperInstance
             .request
             .content

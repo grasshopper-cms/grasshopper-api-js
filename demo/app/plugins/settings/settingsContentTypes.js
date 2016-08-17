@@ -138,8 +138,8 @@ module.exports = {
                 "type" : "textbox",
                 "validation" : [],
                 "_id" : "sort",
-                "defaultValue" : "",
-                "dataType" : "string"
+                "defaultValue" : 0,
+                "dataType" : "number"
             },
             {
                 "label" : "Ancestors",

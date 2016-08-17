@@ -10,7 +10,7 @@ tabs-bar
                 span { menuItem.fields.title }
                 i.fa.fa-caret-down.expand-icon
                 .nav-item-dropdown
-                    a.sub-item(each='{ childTab in menuItem.childTabs }' href='{ childTab.fields.href }' class='{ active : childTab.active }')
+                    a.sub-item(each='{ childTab in menuItem.childTabs }' if='{ childTab.fields.active }' href='{ childTab.fields.href }' class='{ active : childTab.active }')
                         i(class='{ childTab.fields.iconclasses }')
                         span { childTab.fields.title }
         .user-information-section(name='userInformationSection' onclick='{ toggleUserInformationDropdown }' class='{ active : userInformationDropdownIsOpen }')

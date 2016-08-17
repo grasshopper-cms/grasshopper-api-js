@@ -3,6 +3,7 @@
 var grasshopperInstance = require('../../../../grasshopper/instance'),
     nestChildTabsTransform = require('./_nestChildTabsTransform'),
     queryTabs = require('./_queryTabs'),
+    applySort = require('./_applySort'),
     Response = grasshopperInstance.bridgetown.Response;
 
 module.exports = [
@@ -21,6 +22,7 @@ module.exports = [
 function _handleGetTabs(request, response) {
     queryTabs()
         .then(nestChildTabsTransform)
+        .then(applySort)
         .then(function(tabs) {
             new Response(response).writeSuccess(tabs);
         });

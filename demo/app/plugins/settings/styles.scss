@@ -1,4 +1,84 @@
 @import '../../../../lib/admin/client/styles/colors';
+@import 'node_modules/dragula/dist/dragula';
+
+@mixin activation-cell() {
+    overflow: hidden;
+    position: relative;
+
+    min-width: 140px;
+
+    &.is-working {
+        .working {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        input {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+    }
+
+    &.cant-deactivate {
+        display: none;
+    }
+
+    .working {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+
+        width: 100%;
+        text-align: center;
+
+        transition: transform 1s ease, opacity 1s ease;
+
+        transform: translateY(100%);
+        opacity: 0;
+
+        font-size: 0.875rem;
+
+        padding-top: 0.5625rem;
+        padding-bottom: 0.5625rem;
+
+        line-height: 1.125rem;
+
+        cursor: progress;
+
+        .text {
+            display: inline-block;
+            vertical-align: middle;
+
+            margin-right: 15px;
+        }
+
+        .icon {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    input {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+
+        transition: transform 1s ease, opacity 1s ease;
+
+        outline: none;
+
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.item.gu-mirror {
+    .activation {
+        display: none;
+    }
+}
 
 #settings {
     nav.menu {
@@ -35,107 +115,147 @@
         &.active {
             display: block;
         }
-    }
 
-    .sub-view-title {
-        margin-top: 0;
-    }
 
-    table {
-
-        .sort-cell {
-            min-width: 70px;
-            .sort-text {
+        .title-container {
+            .sub-view-title {
                 display: inline-block;
                 vertical-align: middle;
             }
-            .arrows-container {
-                display: inline-block;
+
+            .save-tab-sort-container {
+                display: none;
                 vertical-align: middle;
+
                 float: right;
-                .up {
-                    display: block;
+
+                &.has-changed {
+                    display: inline-block;
                 }
-                .down {
-                    display: block;
+
+                button {
+                    .normal {
+
+                    }
+                    .is-working {
+                        span {
+
+                        }
+                        i {
+
+                        }
+                    }
                 }
             }
         }
 
-        .activation-cell {
-            overflow: hidden;
-            position: relative;
+        .tabs-sort-header {
+            padding-top: 8px;
+            padding-right: 10px;
+            padding-bottom: 8px;
+            padding-left: 10px;
 
-            min-width: 140px;
-
-            &.is-working {
-                .working {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-                input {
-                    transform: translateY(-100%);
-                    opacity: 0;
-                }
+            .title {
+                display: inline-block;
+                vertical-align: middle;
             }
+            .href {
 
-            &.cant-deactivate {
-                cursor : not-allowed;
-                user-select: none;
-                pointer-events: none;
-                input {
-                    cursor: not-allowed;
-                }
             }
+            .icons {
 
-            .working {
-                display: block;
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
+            }
+            .allowed {
 
-                width: 100%;
-                text-align: center;
+            }
+            .added{
 
-                transition: transform 1s ease, opacity 1s ease;
+            }
+            .activation {
+                display: inline-block;
+                vertical-align: middle;
+                float: right;
+                width: 100px;
+            }
+        }
 
-                transform: translateY(100%);
-                opacity: 0;
+        .tabs-sort-container {
 
-                font-size: 0.875rem;
-
-                padding-top: 0.5625rem;
-                padding-bottom: 0.5625rem;
+            .item {
+                padding-top: 8px;
+                padding-right: 10px;
+                padding-bottom: 8px;
+                padding-left: 10px;
 
                 line-height: 1.125rem;
 
-                cursor: progress;
-
-                .text {
-                    display: inline-block;
-                    vertical-align: middle;
-
-                    margin-right: 15px;
+                &.parent {
+                    &:only-child {
+                        .nested {
+                            display: none;
+                        }
+                    }
+                    .nested {
+                        border: 1px dotted $darker-grey;
+                        margin-top: 4px;
+                        padding-top: 2px;
+                        padding-bottom: 2px;
+                    }
+                    .activation {
+                        margin-right: 2px;
+                    }
                 }
 
-                .icon {
+                &.child {
+                    padding-right: 0px;
+                    .activation {
+                        margin-right: 0px;
+                    }
+                    .nested {
+                        display: none;
+                    }
+                }
+
+                .title {
                     display: inline-block;
                     vertical-align: middle;
                 }
+
+                .href {
+
+                }
+
+                .icons {
+
+                }
+
+                .allowed {
+
+                }
+
+                .added {
+
+                }
+
+                .activation {
+                    display: inline-block;
+                    vertical-align: middle;
+                    float: right;
+                    width: 100px;
+                    @include activation-cell();
+                }
             }
+        }
+    }
 
-            input {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
+    .sub-view-title {
+        margin-top: 0;
+        border-bottom: none;
+    }
 
-                transition: transform 1s ease, opacity 1s ease;
-
-                transform: translateY(0);
-                opacity: 1;
-            }
+    table {
+        .activation-cell {
+            @include activation-cell();
         }
     }
 }

@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "add-named-elements-to-object": "^1.0.0",
     "domready": "^1.0.8",
+    "dragula": "^3.7.1",
     "query-string": "^4.2.2",
     "rivets": "^0.9.4"
   }

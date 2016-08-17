@@ -13,20 +13,18 @@ module.exports = function activatePluginsPlugin() {
     console.log('Adding the plugin plugins assets dir to the static path');
     grasshopperInstance.admin.use('/plugins/settings/', express.static(path.join(__dirname, 'assets')));
 
-    console.log('Adding POST admin/settings/plugins route to api routes.');
+    console.log('Adding PLUGIN route to api routes.');
     grasshopperInstance.router.post('/admin/settings/plugins/activate', require('./api/plugins/activate'));
-
-    console.log('Adding POST admin/settings/plugins route to api routes.');
     grasshopperInstance.router.post('/admin/settings/plugins/deactivate', require('./api/plugins/deactivate'));
 
-    console.log('Adding POST admin/settings/tabs route to api routes.');
+    console.log('Adding TAB route to api routes.');
     grasshopperInstance.router.post('/admin/settings/tab/:id/activate', require('./api/tab/activate'));
-
-    console.log('Adding POST admin/settings/tabs route to api routes.');
     grasshopperInstance.router.post('/admin/settings/tab/:id/deactivate', require('./api/tab/deactivate'));
+    grasshopperInstance.router.post('/admin/settings/tab/:id/update', require('./api/tab/update'));
 
-    console.log('Adding GET admin/settings/tabs route to api routes.');
+    console.log('Adding TABS route to api routes.');
     grasshopperInstance.router.get('/admin/settings/tabs', require('./api/tabs/list'));
+    grasshopperInstance.router.post('/admin/settings/tabs/update-sort', require('./api/tabs/updateSort'));
 
     return _ensurePluginsContentType()
         .then(function(pluginsContentType) {
@@ -147,7 +145,7 @@ function _addThisPluginsMenuTab(tabsContentType) {
                                 iconclasses : 'fa fa fa-cogs',
                                 roles : 'admin reader editor',
                                 addedby : 'Settings Plugin Init Script, Version :'+ require(path.join(__dirname, 'package.json')).version,
-                                sort : 0
+                                sort : 1
                             }
                         });
             }

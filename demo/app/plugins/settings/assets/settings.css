@@ -1,3 +1,28 @@
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80); }
+
+.gu-hide {
+  display: none !important; }
+
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important; }
+
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20); }
+
+.item.gu-mirror .activation {
+  display: none; }
+
 #settings nav.menu {
   color: #008cba; }
   #settings nav.menu .selected {
@@ -19,23 +44,114 @@
   display: none; }
   #settings #tabsView.active {
     display: block; }
-
-#settings .sub-view-title {
-  margin-top: 0; }
-
-#settings table .sort-cell {
-  min-width: 70px; }
-  #settings table .sort-cell .sort-text {
+  #settings #tabsView .title-container .sub-view-title {
     display: inline-block;
     vertical-align: middle; }
-  #settings table .sort-cell .arrows-container {
-    display: inline-block;
+  #settings #tabsView .title-container .save-tab-sort-container {
+    display: none;
     vertical-align: middle;
     float: right; }
-    #settings table .sort-cell .arrows-container .up {
-      display: block; }
-    #settings table .sort-cell .arrows-container .down {
-      display: block; }
+    #settings #tabsView .title-container .save-tab-sort-container.has-changed {
+      display: inline-block; }
+  #settings #tabsView .tabs-sort-header {
+    padding-top: 8px;
+    padding-right: 10px;
+    padding-bottom: 8px;
+    padding-left: 10px; }
+    #settings #tabsView .tabs-sort-header .title {
+      display: inline-block;
+      vertical-align: middle; }
+    #settings #tabsView .tabs-sort-header .activation {
+      display: inline-block;
+      vertical-align: middle;
+      float: right;
+      width: 100px; }
+  #settings #tabsView .tabs-sort-container .item {
+    padding-top: 8px;
+    padding-right: 10px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    line-height: 1.125rem; }
+    #settings #tabsView .tabs-sort-container .item.parent:only-child .nested {
+      display: none; }
+    #settings #tabsView .tabs-sort-container .item.parent .nested {
+      border: 1px dotted #909090;
+      margin-top: 4px;
+      padding-top: 2px;
+      padding-bottom: 2px; }
+    #settings #tabsView .tabs-sort-container .item.parent .activation {
+      margin-right: 2px; }
+    #settings #tabsView .tabs-sort-container .item.child {
+      padding-right: 0px; }
+      #settings #tabsView .tabs-sort-container .item.child .activation {
+        margin-right: 0px; }
+      #settings #tabsView .tabs-sort-container .item.child .nested {
+        display: none; }
+    #settings #tabsView .tabs-sort-container .item .title {
+      display: inline-block;
+      vertical-align: middle; }
+    #settings #tabsView .tabs-sort-container .item .activation {
+      display: inline-block;
+      vertical-align: middle;
+      float: right;
+      width: 100px;
+      overflow: hidden;
+      position: relative;
+      min-width: 140px; }
+      #settings #tabsView .tabs-sort-container .item .activation.is-working .working {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+                transform: translateY(0); }
+      #settings #tabsView .tabs-sort-container .item .activation.is-working input {
+        -webkit-transform: translateY(-100%);
+                transform: translateY(-100%);
+        opacity: 0; }
+      #settings #tabsView .tabs-sort-container .item .activation.cant-deactivate {
+        display: none; }
+      #settings #tabsView .tabs-sort-container .item .activation .working {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        -webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
+        transition: opacity 1s ease, -webkit-transform 1s ease;
+        transition: transform 1s ease, opacity 1s ease;
+        transition: transform 1s ease, opacity 1s ease, -webkit-transform 1s ease;
+        -webkit-transform: translateY(100%);
+                transform: translateY(100%);
+        opacity: 0;
+        font-size: 0.875rem;
+        padding-top: 0.5625rem;
+        padding-bottom: 0.5625rem;
+        line-height: 1.125rem;
+        cursor: progress; }
+        #settings #tabsView .tabs-sort-container .item .activation .working .text {
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: 15px; }
+        #settings #tabsView .tabs-sort-container .item .activation .working .icon {
+          display: inline-block;
+          vertical-align: middle; }
+      #settings #tabsView .tabs-sort-container .item .activation input {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        -webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
+        transition: opacity 1s ease, -webkit-transform 1s ease;
+        transition: transform 1s ease, opacity 1s ease;
+        transition: transform 1s ease, opacity 1s ease, -webkit-transform 1s ease;
+        outline: none;
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+        opacity: 1; }
+
+#settings .sub-view-title {
+  margin-top: 0;
+  border-bottom: none; }
 
 #settings table .activation-cell {
   overflow: hidden;
@@ -50,14 +166,7 @@
             transform: translateY(-100%);
     opacity: 0; }
   #settings table .activation-cell.cant-deactivate {
-    cursor: not-allowed;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-    pointer-events: none; }
-    #settings table .activation-cell.cant-deactivate input {
-      cursor: not-allowed; }
+    display: none; }
   #settings table .activation-cell .working {
     display: block;
     position: absolute;
@@ -94,6 +203,7 @@
     transition: opacity 1s ease, -webkit-transform 1s ease;
     transition: transform 1s ease, opacity 1s ease;
     transition: transform 1s ease, opacity 1s ease, -webkit-transform 1s ease;
+    outline: none;
     -webkit-transform: translateY(0);
             transform: translateY(0);
     opacity: 1; }

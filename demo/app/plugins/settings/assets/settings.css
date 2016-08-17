@@ -148,6 +148,15 @@
         -webkit-transform: translateY(0);
                 transform: translateY(0);
         opacity: 1; }
+  #settings #tabsView .add-new-tab-container {
+    margin-top: 32px; }
+    #settings #tabsView .add-new-tab-container .add-new-tab-form {
+      position: relative;
+      padding: 15px;
+      font-size: 13px;
+      line-height: 1.4;
+      border: 1px solid #e5e5e5;
+      border-radius: .25rem .25rem 0 0; }
 
 #settings .sub-view-title {
   margin-top: 0;

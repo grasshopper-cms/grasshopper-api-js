@@ -13,6 +13,7 @@ var rivets = require('rivets'),
         tabs : cloneDeep(window.tabs),
         tabsSortHasChanged : false,
         isSavingTabSort : false,
+        isAddingTab : false,
 
         subViews : {
             general : 'general',
@@ -22,7 +23,14 @@ var rivets = require('rivets'),
 
         elements : {
             tabsSortContainer : null,
-            tabsSortDragulaHandle : null
+            tabsSortDragulaHandle : null,
+
+            newTabTitle : null,
+            newTabHref : null,
+            newTabRoleAdmin : null,
+            newTabRoleEditor : null,
+            newTabRoleReader : null,
+            newTabIconClass : null
         },
 
         handlePluginCheck : handlePluginCheck,
@@ -31,6 +39,9 @@ var rivets = require('rivets'),
 
         handleTabsSorted : handleTabsSorted,
         saveSortedTabs : saveSortedTabs,
+
+        addNewTabFromTabForm : addNewTabFromTabForm,
+        cancelTabAddClearForm : cancelTabAddClearForm,
 
         dragulaInstance : null
     };
@@ -161,6 +172,42 @@ function saveSortedTabs() {
             view.isSavingTabSort = false;
             view.tabsSortHasChanged = false;
         });
+}
+
+function addNewTabFromTabForm() {
+    var newTab = {
+        title : view.elements.newTabTitle.value,
+        href : view.elements.newTabHref.value,
+        roles : [
+            view.elements.newTabRoleAdmin.checked ? 'admin' : '',
+            view.elements.newTabRoleEditor.checked ? 'editor' : '',
+            view.elements.newTabRoleReader.checked ? 'reader' : ''
+        ].join(' '),
+        iconclasses : view.elements.newTabIconClass.value
+    };
+
+    view.isAddingTab = true;
+
+    window.gh.api.tab.create(newTab)
+        .then(window.gh.api.tabs.list)
+        .then(function(updatedTabs) {
+            window.gh.appState.set('configs.menuItems', updatedTabs);
+            view.tabs = updatedTabs;
+            initDragula();
+            view.isAddingTab = false;
+        })
+        .catch(function() {
+            view.isAddingTab = false;
+        });
+}
+
+function cancelTabAddClearForm() {
+    view.elements.newTabTitle.value = '';
+    view.elements.newTabHref.value = '';
+    view.elements.newTabRoleAdmin.checked = false;
+    view.elements.newTabRoleEditor.checked = false;
+    view.elements.newTabRoleReader.checked = false;
+    view.elements.newTabIconClass.value = 'Choose an option';
 }
 
 domReady(init);

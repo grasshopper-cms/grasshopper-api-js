@@ -21,6 +21,7 @@ module.exports = function activatePluginsPlugin() {
     grasshopperInstance.router.post('/admin/settings/tab/:id/activate', require('./api/tab/activate'));
     grasshopperInstance.router.post('/admin/settings/tab/:id/deactivate', require('./api/tab/deactivate'));
     grasshopperInstance.router.post('/admin/settings/tab/:id/update', require('./api/tab/update'));
+    grasshopperInstance.router.post('/admin/settings/tab/create', require('./api/tab/create'));
 
     console.log('Adding TABS route to api routes.');
     grasshopperInstance.router.get('/admin/settings/tabs', require('./api/tabs/list'));

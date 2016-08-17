@@ -246,6 +246,19 @@
                 }
             }
         }
+
+        .add-new-tab-container {
+            margin-top: 32px;
+
+            .add-new-tab-form {
+                position: relative;
+                padding: 15px;
+                font-size: 13px;
+                line-height: 1.4;
+                border: 1px solid #e5e5e5;
+                border-radius: .25rem .25rem 0 0;
+            }
+        }
     }
 
     .sub-view-title {

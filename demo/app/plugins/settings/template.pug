@@ -1,5 +1,7 @@
 extends ../../../../lib/admin/server/layout
 
+include fontAwesomeListOptions.pug
+
 block head
     link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
 
@@ -81,9 +83,54 @@ block stage
                                                 i.icon.fa.fa-spin.fa-refresh
                                             input(type='checkbox' rv-on-change='view.handleTabToggled' tab-key='child' rv-checked='child.fields.active' rv-disabled='view.tabsSortHasChanged')
                                         .nested
+                    .add-new-tab-container
+                        h2.sub-view-title Add New Tab
+                        
+                        form.add-new-tab-form
+                            dl.form-group
+                                dt
+                                    label Title
+                                dd
+                                    input.form-control(name='newTabTitle' type='text')
+                            dl.form-group
+                                dt
+                                    label Href
+                                dd
+                                    input.form-control(name='newTabHref' type='text')
+                            dl.form-group
+                                dt
+                                    label Roles
+                                dd
+                                    .form-checkbox
+                                        label
+                                            input(name='newTabRoleAdmin' type='checkbox') 
+                                            span Admin
+                                    .form-checkbox
+                                        label
+                                            input(name='newTabRoleEditor' type='checkbox') 
+                                            span Editor
+                                    .form-checkbox
+                                        label
+                                            input(name='newTabRoleReader' type='checkbox') 
+                                            span Reader
+                            dl.form-group
+                                dt
+                                    label Icon
+                                dd
+                                    select.form-select(name='newTabIconClass')
+                                        option Choose an option
+                                        +fontAwesomeListOptions()
+                            .form-actions
+                                button.btn.btn-primary(type='button' rv-on-click='view.addNewTabFromTabForm' rv-disabled='view.isAddingTab')
+                                    .normal(rv-hide='view.isAddingTab') Add New Tab
+                                    .is-working(rv-show='view.isAddingTab')
+                                        span Working
+                                        i.fa.fa-refresh.fa-spin
+                                button.btn(type='button' rv-on-click='view.cancelTabAddClearForm') Cancel
         
 block script
     script.
         window.plugins = JSON.parse('!{JSON.stringify(plugins)}');
         window.tabs = JSON.parse('!{JSON.stringify(tabs)}');
     script(type='text/javascript' src='/admin/plugins/settings/bundle.js')
+    

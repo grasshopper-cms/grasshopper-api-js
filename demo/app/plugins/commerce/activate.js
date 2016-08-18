@@ -9,6 +9,9 @@ var path = require('path'),
 module.exports = function activate() {
     console.log('Called activate on the Commerce plugin');
 
+    // add routes for commerce to grasshopper.
+    // add types.
+
     return _insertParentTab()
         .then(_insertChildTabs)
         .then(function() {

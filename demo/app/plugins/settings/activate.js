@@ -9,7 +9,6 @@ var settingsContentTypes = require('./settingsContentTypes'),
 module.exports = function activatePluginsPlugin() {
     var state = { tabsContentType : '', pluginsContentType : '' };
 
-    // Add this plugins Assets DIR to the use static
     console.log('Adding the plugin plugins assets dir to the static path');
     grasshopperInstance.admin.use('/plugins/settings/', express.static(path.join(__dirname, 'assets')));
 

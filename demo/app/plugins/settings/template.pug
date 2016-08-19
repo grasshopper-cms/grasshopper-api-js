@@ -21,7 +21,8 @@ block stage
                     
                     h2 Currently Active Routes (Needs manual refresh, I put this here for dev.)
                     
-                    code(name='routesJsonSection' rv-html='view.currentlyActiveRoutes')
+                    pre
+                        code(name='routesJsonSection' rv-html='view.currentlyActiveRoutes')
                     
                 #pluginsView(rv-class-active='view.activeSection | equals view.subViews.plugins')
                     h2.sub-view-title Plugins
@@ -136,6 +137,6 @@ block script
     script.
         window.plugins = JSON.parse('!{JSON.stringify(plugins)}');
         window.tabs = JSON.parse('!{JSON.stringify(tabs)}');
-        window.activeRoutesJson = JSON.parse('!{JSON.stringify(activeRoutesJson)}');
+        window.activeRoutes = JSON.parse('!{JSON.stringify(activeRoutes)}');
     script(type='text/javascript' src='/admin/plugins/settings/bundle.js')
     

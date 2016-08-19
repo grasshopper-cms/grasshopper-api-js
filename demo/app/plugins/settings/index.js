@@ -69,7 +69,7 @@ function get(request, response) {
                             return possiblePlugin;
                         }),
                     tabs : tabs,
-                    activeRoutesJson : JSON.stringify({ routes: activeRoutes })
+                    activeRoutes : activeRoutes
                 }));
         });
 }
@@ -107,12 +107,9 @@ function _getTabs() {
 }
 
 function _reactivateActivePluginsFromDb() {
-    return BB.bind({
-            plugins : []
-        })
-        .then(_getActivePlugins)
-        .then(function() {
-            return BB.all(this.plugins
+    return _getActivePlugins()
+        .then(function(plugins) {
+            return BB.all(plugins
                     .map(function(plugin) {
                         return runThisPluginsActivateSequense(path.join(__dirname, '..', plugin.fields.directory, 'activate'));
                     }));

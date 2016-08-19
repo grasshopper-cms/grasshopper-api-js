@@ -15,7 +15,7 @@ var rivets = require('rivets'),
         isSavingTabSort : false,
         isAddingTab : false,
 
-        currentlyActiveRoutes : window.routesJsonSection,
+        currentlyActiveRoutes : JSON.stringify(window.activeRoutes, null, 4),
 
         subViews : {
             general : 'general',

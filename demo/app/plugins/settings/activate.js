@@ -11,6 +11,7 @@ module.exports = function activatePluginsPlugin() {
 
     console.log('Adding the plugin plugins assets dir to the static path');
     grasshopperInstance.admin.use('/plugins/settings/', express.static(path.join(__dirname, 'assets')));
+    grasshopperInstance.admin.get('/settings', require('./index').get);
 
     console.log('Adding PLUGIN route to api routes.');
     grasshopperInstance.router.post('/admin/settings/plugins/activate', require('./api/plugins/activate'));

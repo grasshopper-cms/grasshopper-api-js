@@ -2,40 +2,64 @@
 
 var path = require('path'),
     grasshopperInstance = require('../../grasshopper/instance'),
+    express = require('express'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
 module.exports = function activate() {
     console.log('Called activate on the Help plugin');
 
-    return _insertTab()
-        .then(function() {
-            return  { 'state' : 'good to go' };
-        });
+    grasshopperInstance.admin.use('/plugins/help/', express.static(path.join(__dirname, 'assets')));
+    grasshopperInstance.admin.get('/help', require('./index').get);
+
+    return _queryForTab()
+        .then(_insertTab);
 };
 
-function _insertTab() {
+function _queryForTab() {
     return grasshopperInstance
-            .request
-            .content
-            .insert({
-                meta : {
-                    type : getTabsContentTypeId(),
-                    hidden : true
+        .request
+        .content
+        .query({
+            filters : [
+                {
+                    key : 'meta.type',
+                    cmp : '=',
+                    value : getTabsContentTypeId()
                 },
-                fields : {
-                    title : require('./config').title,
-                    active : true,
-                    href : '/admin/help',
-                    iconclasses : 'fa fa-question',
-                    roles : 'admin reader editor',
-                    addedby : 'Help Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
-                    sort : 0
+                {
+                    key : 'fields.title',
+                    cmp : '=',
+                    value : require('./config').title
                 }
-            })
-            .then(function() {
-                return { 'state' : 'good to go' };
-            })
-            .catch(function(err) {
-                console.log(err);
-            });
+            ]
+        });
+}
+
+function _insertTab(queryResults) {
+    if(!queryResults.results.length) {
+        return grasshopperInstance
+                .request
+                .content
+                .insert({
+                    meta : {
+                        type : getTabsContentTypeId(),
+                        hidden : true
+                    },
+                    fields : {
+                        title : require('./config').title,
+                        active : true,
+                        href : '/admin/help',
+                        iconclasses : 'fa fa-question',
+                        roles : 'admin reader editor',
+                        addedby : 'Help Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
+                        sort : 0
+                    }
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+
+    } else {
+        return queryResults.results[0];
+    }
 }

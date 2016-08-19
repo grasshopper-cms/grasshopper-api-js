@@ -6,7 +6,8 @@ var grasshopperInstance = require('../../../../grasshopper/instance'),
     fs = require('fs'),
     defaultsDeep = require('lodash/defaultsDeep'),
     getPossiblePlugins = require('../../index').getPossiblePlugins,
-    getPluginsContentTypeId = require('../../index').getPluginsContentTypeId;
+    getPluginsContentTypeId = require('../../index').getPluginsContentTypeId,
+    runThisPluginsActivateSequense = require('./runPluginsActivateSequence');
 
 module.exports = [
     grasshopperInstance.bridgetown.middleware.authorization,
@@ -44,7 +45,7 @@ function _handleActivatePlugin(request, response) {
                 } else {
 
                     console.log('Activating Plugin : '+ thisPlugin.title);
-                    require(thisPluginsActivationPath)()
+                    runThisPluginsActivateSequense(thisPluginsActivationPath)
                         .then(_activePluginInDB(pluginIdToActivate))
                         .then(function(activationBody) {
                             new Response(response).writeSuccess(activationBody);

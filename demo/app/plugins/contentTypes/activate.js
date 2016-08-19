@@ -2,41 +2,63 @@
 
 var path = require('path'),
     grasshopperInstance = require('../../grasshopper/instance'),
+    express = require('express'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
 module.exports = function activate() {
     console.log('Called activate on the content types plugin');
 
-    return _insertContentTypesTab()
-        .then(function() {
-            return  { 'state' : 'good to go' };
-        });
+    grasshopperInstance.admin.use('/plugins/content-types/', express.static(path.join(__dirname, 'assets')));
+    grasshopperInstance.admin.get('/content-types', require('./index').get);
+
+    return _queryForContentTypeTab()
+        .then(_insertContentTypesTab);
 };
 
-
-function _insertContentTypesTab() {
+function _queryForContentTypeTab() {
     return grasshopperInstance
-            .request
-            .content
-            .insert({
-                meta : {
-                    type : getTabsContentTypeId(),
-                    hidden : true
+        .request
+        .content
+        .query({
+            filters : [
+                {
+                    key : 'meta.type',
+                    cmp : '=',
+                    value : getTabsContentTypeId()
                 },
-                fields : {
-                    title : require('./config').title,
-                    active : true,
-                    href : '/admin/content-types',
-                    iconclasses : 'fa fa-cogs',
-                    roles : 'admin',
-                    addedby : 'Content Types Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
-                    sort : 0
+                {
+                    key : 'fields.title',
+                    cmp : '=',
+                    value : require('./config').title
                 }
-            })
-            .then(function() {
-                return { 'state' : 'good to go' };
-            })
-            .catch(function(err) {
-                console.log(err);
-            });
+            ]
+        });
+}
+
+function _insertContentTypesTab(queryResults) {
+    if(!queryResults.results.length) {
+        return grasshopperInstance
+                .request
+                .content
+                .insert({
+                    meta : {
+                        type : getTabsContentTypeId(),
+                        hidden : true
+                    },
+                    fields : {
+                        title : require('./config').title,
+                        active : true,
+                        href : '/admin/content-types',
+                        iconclasses : 'fa fa-cogs',
+                        roles : 'admin',
+                        addedby : 'Content Types Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
+                        sort : 0
+                    }
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+    } else {
+        return queryResults.results[0];
+    }
 }

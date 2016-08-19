@@ -9,6 +9,8 @@ var fs = require('fs'),
     queryTabs = require('./api/tabs/_queryTabs'),
     nestChildTabsTransform = require('./api/tabs/_nestChildTabsTransform'),
     applySort = require('./api/tabs/_applySort'),
+    runThisPluginsActivateSequense = require('./api/plugins/runPluginsActivateSequence'),
+    getActiveRoutes = require('./api/routes/getRoutesFromGrasshopper'),
     pluginsContentTypeId = null,
     tabsContentTypeId = null,
     possiblePlugins = fs
@@ -36,7 +38,8 @@ function onAppInit() {
 
             pluginsContentTypeId = state.pluginsContentType;
             tabsContentTypeId = state.tabsContentType;
-        });
+        })
+        .then(_reactivateActivePluginsFromDb);
 }
 
 function getPluginsContentTypeId() {
@@ -52,26 +55,22 @@ function getPossiblePlugins() {
 }
 
 function get(request, response) {
-    BB.bind({
-        plugins : [],
-        tabs : []
-    })
-        .then(_getActivePlugins)
-        .then(_getTabs)
-        .then(function() {
+    BB.join(_getActivePlugins(), _getTabs(), getActiveRoutes(),
+        function(theseActivePlugins, tabs, activeRoutes) {
             response.render(require.resolve('./template.pug'),
-                defaultsDeep({
+                defaultsDeep(response.locals, {
                     plugins : possiblePlugins
                         .map(function(possiblePlugin) {
-                            possiblePlugin.active = !!this.plugins
+                            possiblePlugin.active = !!theseActivePlugins
                                 .find(function(activePlugin) {
                                     return activePlugin.fields.directory === possiblePlugin.directory;
                                 });
 
                             return possiblePlugin;
-                        }.bind(this)),
-                    tabs : this.tabs
-                }, response.locals));
+                        }),
+                    tabs : tabs,
+                    activeRoutesJson : JSON.stringify({ routes: activeRoutes })
+                }));
         });
 }
 
@@ -94,15 +93,28 @@ function _getActivePlugins() {
             ]
         })
         .then(function(queryResults) {
-            this.plugins = queryResults.results;
-        }.bind(this));
+            return queryResults.results;
+        });
 }
 
 function _getTabs() {
     return queryTabs()
         .then(nestChildTabsTransform)
         .then(applySort)
-        .then(function(tabs) {
-            this.tabs = tabs;
-        }.bind(this));
+        .catch(function(err) {
+            console.log('TABS QUERY FAILED - '+ err.toString());
+        });
+}
+
+function _reactivateActivePluginsFromDb() {
+    return BB.bind({
+            plugins : []
+        })
+        .then(_getActivePlugins)
+        .then(function() {
+            return BB.all(this.plugins
+                    .map(function(plugin) {
+                        return runThisPluginsActivateSequense(path.join(__dirname, '..', plugin.fields.directory, 'activate'));
+                    }));
+        });
 }

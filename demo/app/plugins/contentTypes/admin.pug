@@ -1,0 +1,27 @@
+include ../../../../lib/admin/server/mixins/addConfigs.pug
+
+doctype html
+//if IE 8
+// [if gt IE 8] <!
+// <![endif]
+html
+    head
+        meta(charset='utf-8')
+        base(href='/admin/')
+        meta(name='viewport', content='width=device-width')
+        title Grasshopper
+        link(rel='stylesheet', href='/admin/themes/main.c5896048.css')
+    body
+        #siteContainter
+            #header
+            #masthead
+            #loading-overlay-header
+            #loading-overlay
+                img.loading-overlay-image(src='/admin/themes/img/loading-spinner-horizontal.f091d23f.gif')
+            #sidebar
+            #stage
+            #alertBox
+            #footer
+            #modal
+        +addConfigs
+        script(src='/admin/main.67f7ee85.js')

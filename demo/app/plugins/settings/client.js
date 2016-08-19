@@ -15,6 +15,8 @@ var rivets = require('rivets'),
         isSavingTabSort : false,
         isAddingTab : false,
 
+        currentlyActiveRoutes : window.routesJsonSection,
+
         subViews : {
             general : 'general',
             plugins : 'plugins',
@@ -52,6 +54,8 @@ function init() {
     bindView();
 
     addNamedElementsToObject(view.elements, document.querySelector('#settings'));
+
+    console.log(view.currentlyActiveRoutes);
 
     initDragula();
 }

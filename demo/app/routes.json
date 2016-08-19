@@ -7,13 +7,6 @@
         ]
     ],
     [
-        "GET",
-        "/admin/settings",
-        [
-            "admin/settings/get"
-        ]
-    ],
-    [
         "use",
         "/admin",
         [

@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+'use strict';
+
+var childProcess = require('child_process'),
+    path = require('path');
+
+console.log('----- RUNNING BROWSERIFY NO OPTIMIZE ------');
+
+childProcess.execSync(`browserify ${path.join(__dirname, '..', 'client.js')} -o ${path.join(__dirname, '..', 'assets', 'bundle.js')} -dv`);
+
+console.log('----- FINISHED RUNNING BROWSERIFY NO OPTIMIZE ------');

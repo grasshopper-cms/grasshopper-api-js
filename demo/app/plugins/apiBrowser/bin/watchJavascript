@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var globWatcher = require('glob-watcher'),
+    childProcess = require('child_process'),
+    path = require('path');
+
+console.log('----- WATCHING JAVASCRIPT ------');
+
+globWatcher([
+    path.join(__dirname, '..', 'client.js'),
+], function(done) {
+    console.log('Recompiling Javascript');
+    childProcess.execSync(path.join(__dirname, '..', 'bin/browserify'), { stdio : 'inherit' });
+    console.log('Javascript Recompiled');
+    done();
+});

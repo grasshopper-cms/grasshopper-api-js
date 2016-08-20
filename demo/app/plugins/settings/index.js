@@ -10,7 +10,6 @@ var fs = require('fs'),
     nestChildTabsTransform = require('./api/tabs/_nestChildTabsTransform'),
     applySort = require('./api/tabs/_applySort'),
     runThisPluginsActivateSequense = require('./api/plugins/runPluginsActivateSequence'),
-    getActiveRoutes = require('./api/routes/getRoutesFromGrasshopper'),
     pluginsContentTypeId = null,
     tabsContentTypeId = null,
     possiblePlugins = fs
@@ -55,8 +54,8 @@ function getPossiblePlugins() {
 }
 
 function get(request, response) {
-    BB.join(_getActivePlugins(), _getTabs(), getActiveRoutes(),
-        function(theseActivePlugins, tabs, activeRoutes) {
+    BB.join(_getActivePlugins(), _getTabs(),
+        function(theseActivePlugins, tabs) {
             response.render(require.resolve('./template.pug'),
                 defaultsDeep(response.locals, {
                     plugins : possiblePlugins
@@ -68,8 +67,7 @@ function get(request, response) {
 
                             return possiblePlugin;
                         }),
-                    tabs : tabs,
-                    activeRoutes : activeRoutes
+                    tabs : tabs
                 }));
         });
 }

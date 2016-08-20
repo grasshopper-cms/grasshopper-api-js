@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if ! command -v browserify >/dev/null 2>&1
+    then
+        npm install -g browserify
+    fi
+
+if ! command -v uglifyjs >/dev/null 2>&1
+    then
+        npm install -g uglify-js
+    fi

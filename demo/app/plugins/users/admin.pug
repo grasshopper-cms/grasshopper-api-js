@@ -10,10 +10,16 @@ html
         base(href='/admin/')
         meta(name='viewport', content='width=device-width')
         title Grasshopper
+        //- old admin styles
         link(rel='stylesheet', href='/admin/themes/main.c5896048.css')
+        //- New Admin Styls (headerbar etc.)
+        link(rel='stylesheet', href='/admin/main.css')
+        style(type='riot')
+        block head
     body
         #siteContainter
-            #header
+            #header(style='display : none !important;')
+            #headerbar(riot-tag='tabs-bar')
             #masthead
             #loading-overlay-header
             #loading-overlay
@@ -24,4 +30,7 @@ html
             #footer
             #modal
         +addConfigs
+        script(src='/admin/manifest.js')
+        script(src='/admin/core.js')
+        script(src='/admin/components.js')
         script(src='/admin/main.67f7ee85.js')

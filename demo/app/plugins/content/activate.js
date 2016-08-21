@@ -2,16 +2,13 @@
 
 var path = require('path'),
     grasshopperInstance = require('../../grasshopper/instance'),
-    express = require('express'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
 module.exports = function activate() {
     console.log('Called activate on the content plugin');
 
-    grasshopperInstance.admin.use('/plugins/content/', express.static(path.join(__dirname, 'assets')));
     grasshopperInstance.admin.get('/items', require('./index').get);
     grasshopperInstance.admin.get('/', require('./index').get);
-
 
     return _queryForContentTab()
         .then(_insertContentTab);

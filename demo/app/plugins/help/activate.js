@@ -2,13 +2,11 @@
 
 var path = require('path'),
     grasshopperInstance = require('../../grasshopper/instance'),
-    express = require('express'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
 module.exports = function activate() {
     console.log('Called activate on the Help plugin');
 
-    grasshopperInstance.admin.use('/plugins/help/', express.static(path.join(__dirname, 'assets')));
     grasshopperInstance.admin.get('/help', require('./index').get);
 
     return _queryForTab()

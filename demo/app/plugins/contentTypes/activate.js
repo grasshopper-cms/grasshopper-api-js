@@ -2,13 +2,11 @@
 
 var path = require('path'),
     grasshopperInstance = require('../../grasshopper/instance'),
-    express = require('express'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
 module.exports = function activate() {
     console.log('Called activate on the content types plugin');
 
-    grasshopperInstance.admin.use('/plugins/content-types/', express.static(path.join(__dirname, 'assets')));
     grasshopperInstance.admin.get('/content-types', require('./index').get);
 
     return _queryForContentTypeTab()

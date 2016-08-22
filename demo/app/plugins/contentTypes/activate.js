@@ -7,7 +7,7 @@ var path = require('path'),
 module.exports = function activate() {
     console.log('Called activate on the content types plugin');
 
-    grasshopperInstance.admin.get('/content-types', require('./index').get);
+    grasshopperInstance.admin.get('/content-types/*', require('./index').get);
 
     return _queryForContentTypeTab()
         .then(_insertContentTypesTab);

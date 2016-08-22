@@ -7,7 +7,7 @@ var path = require('path'),
 module.exports = function activate() {
     console.log('Called activate on the users plugin');
 
-    grasshopperInstance.admin.get('/users', require('./index').get);
+    grasshopperInstance.admin.get('/users/*', require('./index').get);
 
     return _queryForTab()
         .then(_insertTab);

@@ -7,7 +7,7 @@ var path = require('path'),
 module.exports = function activate() {
     console.log('Called activate on the content plugin');
 
-    grasshopperInstance.admin.get('/items', require('./index').get);
+    grasshopperInstance.admin.get('/items/*', require('./index').get);
     grasshopperInstance.admin.get('/', require('./index').get);
 
     return _queryForContentTab()

@@ -2627,6 +2627,7 @@ a.tabnav-extra:hover {
 .tooltipped-s::after,
 .tooltipped-n::after {
   -webkit-transform: translateX(50%);
+      -ms-transform: translateX(50%);
           transform: translateX(50%); }
 
 .tooltipped-w::after {
@@ -2634,6 +2635,7 @@ a.tabnav-extra:hover {
   bottom: 50%;
   margin-right: 5px;
   -webkit-transform: translateY(50%);
+      -ms-transform: translateY(50%);
           transform: translateY(50%); }
 
 .tooltipped-w::before {
@@ -2648,6 +2650,7 @@ a.tabnav-extra:hover {
   left: 100%;
   margin-left: 5px;
   -webkit-transform: translateY(50%);
+      -ms-transform: translateY(50%);
           transform: translateY(50%); }
 
 .tooltipped-e::before {
@@ -2671,6 +2674,7 @@ a.tabnav-extra:hover {
   right: auto;
   left: 50%;
   -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
           transform: translateX(-50%); }
 
 .tooltipped-multiline.tooltipped-w::after, .tooltipped-multiline.tooltipped-e::after {
@@ -3172,26 +3176,31 @@ a.tabnav-extra:hover {
 .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
   transform: rotate(90deg); }
 
 .fa-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
   -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
   transform: rotate(180deg); }
 
 .fa-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   -webkit-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
   transform: rotate(270deg); }
 
 .fa-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
   -webkit-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
   transform: scale(-1, 1); }
 
 .fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
   transform: scale(1, -1); }
 
 :root .fa-rotate-90,

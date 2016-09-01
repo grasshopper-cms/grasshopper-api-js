@@ -18,6 +18,7 @@ module.exports = function start() {
     ghInstance.router = apiInitializationResults.router;
     ghInstance.waitFor = new BB(function(resolve, reject) {
 
+        console.log('!!! about to start gh');
         ghInstance
             .core.event.channel('/system/db')
             .on('start', function(payload, next) {
@@ -46,9 +47,5 @@ module.exports = function start() {
             .on('save', function(kontx, next) {
                 next();
             });
-    })
-    .then(function() {
-        const settingsPlugin = require('../plugins/settings/');
-        return settingsPlugin.onAppInit();
     });
 };

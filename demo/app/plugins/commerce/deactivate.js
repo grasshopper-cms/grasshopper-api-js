@@ -29,7 +29,7 @@ module.exports = function deactivate(grasshopperInstance) {
 };
 
 function _queryForThisPluginsTab() {
-    return this.grasshopperInstance
+    return this.grasshopper
             .request
             .content
             .query({
@@ -49,7 +49,7 @@ function _queryForThisPluginsTab() {
 }
 
 function _queryForThisPluginsChildren() {
-    return this.grasshopperInstance
+    return this.grasshopper
             .request
             .content
             .query({
@@ -72,7 +72,7 @@ function _queryForThisPluginsChildren() {
 }
 
 function _deleteTheParent() {
-    return this.grasshopperInstance
+    return this.grasshopper
             .request
             .content
             .deleteById(this.parentId.toString());

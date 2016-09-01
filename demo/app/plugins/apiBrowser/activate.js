@@ -2,21 +2,20 @@
 
 var path = require('path'),
     express = require('express'),
-    grasshopperInstance = require('../../grasshopper/instance'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
-module.exports = function activate() {
+module.exports = function activate(grasshopperInstance) {
     console.log(`Called activate on the ${require('./config').title} plugin`);
 
     console.log('Adding GET admin/example route to api routes.');
     grasshopperInstance.admin.use('/plugins/apiBrowser/', express.static(path.join(__dirname, 'assets')));
     grasshopperInstance.admin.get('/api-browser', require('./index').get);
 
-    return _queryForTab()
-        .then(_insertTab);
+    return _queryForTab(grasshopperInstance)
+        .then(_insertTab.bind(null, grasshopperInstance));
 };
 
-function _queryForTab() {
+function _queryForTab(grasshopperInstance) {
     return grasshopperInstance
         .request
         .content
@@ -36,7 +35,7 @@ function _queryForTab() {
         });
 }
 
-function _insertTab(queryResults) {
+function _insertTab(grasshopperInstance, queryResults) {
     if(!queryResults.results.length) {
         return grasshopperInstance
                 .request

@@ -1,10 +1,9 @@
 'use strict';
 
 var path = require('path'),
-    grasshopperInstance = require('../../grasshopper/instance'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
-module.exports = function activate() {
+module.exports = function activate(grasshopperInstance) {
     console.log('Called activate on the example plugin');
 
     console.log('Adding GET admin/example route to api routes.');

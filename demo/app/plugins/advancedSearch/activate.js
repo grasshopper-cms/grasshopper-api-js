@@ -1,19 +1,18 @@
 'use strict';
 
 var path = require('path'),
-    grasshopperInstance = require('../../grasshopper/instance'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
-module.exports = function activate() {
+module.exports = function activate(grasshopperInstance) {
     console.log('Called activate on the Advanced Search plugin');
 
-    return _insertTab()
+    return _insertTab(grasshopperInstance)
         .then(function() {
             return  { 'state' : 'good to go' };
         });
 };
 
-function _insertTab() {
+function _insertTab(grasshopperInstance) {
     return grasshopperInstance
             .request
             .content

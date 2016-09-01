@@ -1,16 +1,15 @@
 'use strict';
 
-var grasshopperInstance = require('../../grasshopper/instance'),
-    getTabsContentTypeId = require('../settings').getTabsContentTypeId;
+var getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
-module.exports = function deactivate() {
+module.exports = function deactivate(grasshopperInstance) {
     console.log(`Called deactivate on the ${require('./config').title} plugin`);
 
-    return _queryForThisPluginsTab()
-            .then(_deleteThisPluginsTab);
+    return _queryForThisPluginsTab(grasshopperInstance)
+            .then(_deleteThisPluginsTab.bind(null, grasshopperInstance));
 };
 
-function _queryForThisPluginsTab() {
+function _queryForThisPluginsTab(grasshopperInstance) {
     return grasshopperInstance
             .request
             .content
@@ -30,7 +29,7 @@ function _queryForThisPluginsTab() {
             });
 }
 
-function _deleteThisPluginsTab(queryResults) {
+function _deleteThisPluginsTab(grasshopperInstance, queryResults) {
     var found = queryResults.results.find(function(result) { return result.fields.title === require('./config').title; });
 
     if(found) {

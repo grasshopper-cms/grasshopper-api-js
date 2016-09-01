@@ -3,11 +3,13 @@
 const api = require('../../../lib/grasshopper-api');
 const BB = require('bluebird');
 const configs = require('expressively').configs;
+const path = require('path');
 
 // This could technically be a const, but conceptually is a var
 var ghInstance = require('./instance');
 
 module.exports = function start() {
+    configs.grasshopper.projectRootPath = path.join(__dirname, '..');
     const apiInitializationResults = api(configs.grasshopper);
 
     ghInstance.admin = apiInitializationResults.admin;

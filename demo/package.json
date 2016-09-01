@@ -11,8 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0",
-    "expressively": "^0.6.2",
-    "lodash": "^4.15.0"
+    "expressively": "^0.6.2"
   },
   "devDependencies": {
     "node-shell-runner": "0.0.2",

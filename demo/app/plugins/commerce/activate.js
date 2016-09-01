@@ -1,28 +1,27 @@
 'use strict';
 
 var path = require('path'),
-    grasshopperInstance = require('../../grasshopper/instance'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId,
     parentContentId = null;
 
-module.exports = function activate() {
+module.exports = function activate(grasshopperInstance) {
     console.log('Called activate on the Commerce plugin');
 
     // add routes for commerce to grasshopper.
     // add types.
 
-    return _queryForParentTab()
-        .then(_insertParentTab)
-        .then(_queryForOrdersTab)
-        .then(_insertOrdersTab)
-        .then(_queryForReportsTab)
-        .then(_insertReportsTab)
+    return _queryForParentTab(grasshopperInstance)
+        .then(_insertParentTab.bind(null, grasshopperInstance))
+        .then(_queryForOrdersTab.bind(null, grasshopperInstance))
+        .then(_insertOrdersTab.bind(null, grasshopperInstance))
+        .then(_queryForReportsTab.bind(null, grasshopperInstance))
+        .then(_insertReportsTab.bind(null, grasshopperInstance))
         .catch(function(err) {
             console.log(err);
         });
 };
 
-function _queryForParentTab() {
+function _queryForParentTab(grasshopperInstance) {
     return grasshopperInstance
         .request
         .content
@@ -43,7 +42,7 @@ function _queryForParentTab() {
 }
 
 
-function _insertParentTab(queryResults) {
+function _insertParentTab(grasshopperInstance, queryResults) {
     if(!queryResults.results.length) {
         return grasshopperInstance
                 .request
@@ -71,7 +70,7 @@ function _insertParentTab(queryResults) {
     }
 }
 
-function _queryForOrdersTab() {
+function _queryForOrdersTab(grasshopperInstance) {
     return grasshopperInstance
         .request
         .content
@@ -91,7 +90,7 @@ function _queryForOrdersTab() {
         });
 }
 
-function _insertOrdersTab(queryResults) {
+function _insertOrdersTab(grasshopperInstance, queryResults) {
     if(!queryResults.results.length) {
         return grasshopperInstance
                 .request
@@ -115,7 +114,7 @@ function _insertOrdersTab(queryResults) {
     }
 }
 
-function _queryForReportsTab() {
+function _queryForReportsTab(grasshopperInstance) {
     return grasshopperInstance
         .request
         .content
@@ -135,7 +134,7 @@ function _queryForReportsTab() {
         });
 }
 
-function _insertReportsTab(queryResults) {
+function _insertReportsTab(grasshopperInstance, queryResults) {
     if(!queryResults.results.length) {
         return grasshopperInstance
                 .request

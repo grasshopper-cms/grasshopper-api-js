@@ -1,16 +1,16 @@
 'use strict';
 
-var grasshopperInstance = require('../../grasshopper/instance'),
-    getTabsContentTypeId = require('../settings').getTabsContentTypeId,
+var getTabsContentTypeId = require('../settings').getTabsContentTypeId,
     BB = require('bluebird'),
     config = require('./config');
 
-module.exports = function deactivate() {
+module.exports = function deactivate(grasshopperInstance) {
     console.log('called deactivate on the Commerce plugin');
 
     return BB.bind({
         parentId : null,
-        childrenIds : []
+        childrenIds : [],
+        grasshopperInstance : grasshopperInstance
     })
         .then(_queryForThisPluginsTab)
         .then(function(queryResults) {
@@ -29,7 +29,7 @@ module.exports = function deactivate() {
 };
 
 function _queryForThisPluginsTab() {
-    return grasshopperInstance
+    return this.grasshopperInstance
             .request
             .content
             .query({
@@ -49,7 +49,7 @@ function _queryForThisPluginsTab() {
 }
 
 function _queryForThisPluginsChildren() {
-    return grasshopperInstance
+    return this.grasshopperInstance
             .request
             .content
             .query({
@@ -72,15 +72,16 @@ function _queryForThisPluginsChildren() {
 }
 
 function _deleteTheParent() {
-    return grasshopperInstance
+    return this.grasshopperInstance
             .request
             .content
             .deleteById(this.parentId.toString());
 }
 
 function _deleteTheChildren() {
+    var self = this;
     return BB.all(this.childrenIds.map(function(childId) {
-        return grasshopperInstance
+        return self.grasshopperInstance
                 .request
                 .content
                 .deleteById(childId.toString());

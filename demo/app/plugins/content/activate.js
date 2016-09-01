@@ -1,20 +1,19 @@
 'use strict';
 
 var path = require('path'),
-    grasshopperInstance = require('../../grasshopper/instance'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 
-module.exports = function activate() {
+module.exports = function activate(grasshopperInstance) {
     console.log('Called activate on the content plugin');
 
     grasshopperInstance.admin.get('/items/*', require('./index').get);
     grasshopperInstance.admin.get('/', require('./index').get);
 
-    return _queryForContentTab()
-        .then(_insertContentTab);
+    return _queryForContentTab(grasshopperInstance)
+        .then(_insertContentTab.bind(null, grasshopperInstance));
 };
 
-function _queryForContentTab() {
+function _queryForContentTab(grasshopperInstance) {
     return grasshopperInstance
         .request
         .content
@@ -34,7 +33,7 @@ function _queryForContentTab() {
         });
 }
 
-function _insertContentTab(queryResults) {
+function _insertContentTab(grasshopperInstance, queryResults) {
     if(!queryResults.results.length) {
         return grasshopperInstance
                 .request

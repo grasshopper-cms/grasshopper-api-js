@@ -96,8 +96,8 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * 0.8.1 - 2014-03-11 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.1_2014-03-11.md)
 * 0.8.2 - 2014-03-24 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.8.2_2014-03-24.md)
 * 0.9.0 - 2014-03-24 - [minor](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.0_2014-03-24.md)
-* 0.9.1 - 2014-03-24 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-24.md)
 * 0.9.1 - 2014-03-28 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-28.md)
+* 0.9.1 - 2014-03-24 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.1_2014-03-24.md)
 * 0.9.3 - 2014-03-24 - [](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.9.3_2014-03-24.md)
 * 0.10.0 - 2014-04-03 - [minor](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.10.0_2014-04-03.md)
 * 0.10.3 - 2014-04-03 - [](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.10.3_2014-04-03.md)
@@ -186,6 +186,7 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 * 0.18.11 - 2016-03-04 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.18.11_2016-03-04.md)
 * 0.18.12 - 2016-03-10 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.18.12_2016-03-10.md)
 * 0.18.13 - 2016-03-12 - [patch](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/0.18.13_2016-03-12.md)
+* 1.0.0-beta.2 - 2016-09-01 - [major](https://github.com/Solid-Interactive/grasshopper-api-js/tree/master/release_notes/1.0.0-beta.2_2016-09-01.md)
 
 
 ## Contributors (`git shortlog -s -n`)
@@ -209,4 +210,4 @@ Grasshopper API JS is released under a [MIT license](https://github.com/Solid-In
 To create the readme, update the release notes dir and package.json.version at a minimum. If needed update README.template.md.
 Then run `grunt readme`.
 
-_Compiled file. Do not modify directly. Created: 2016-03-12 11:15:13_
+_Compiled file. Do not modify directly. Created: 2016-09-01 02:41:51_

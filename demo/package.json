@@ -10,10 +10,10 @@
   "author": "SOLID Interactive",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.14.0",
-    "expressively": "^0.6.2"
   },
   "devDependencies": {
+    "express": "^4.14.0",
+    "expressively": "^0.6.2",
     "node-shell-runner": "0.0.2",
     "primer-css": "^4.1.0"
   }

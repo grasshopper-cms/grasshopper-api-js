@@ -1,8 +1,6 @@
 'use strict';
 
-console.log('------------------- content activate required --------------------------');
-var path = require('path'),
-    getTabsContentTypeId = require('../settings').getTabsContentTypeId;
+var path = require('path');
 
 module.exports = function activate(grasshopperInstance) {
     console.log('Called activate on the content plugin');
@@ -23,7 +21,7 @@ function _queryForContentTab(grasshopperInstance) {
                 {
                     key : 'meta.type',
                     cmp : '=',
-                    value : getTabsContentTypeId()
+                    value : grasshopperInstance.state.tabsContentTypeId
                 },
                 {
                     key : 'fields.title',
@@ -41,7 +39,7 @@ function _insertContentTab(grasshopperInstance, queryResults) {
                 .content
                 .insert({
                     meta : {
-                        type : getTabsContentTypeId(),
+                        type : grasshopperInstance.state.tabsContentTypeId,
                         hidden : true
                     },
                     fields : {

@@ -1,7 +1,9 @@
 'use strict';
 
-module.exports = function(grasshopperInstance) {
-    return grasshopperInstance.admin.stack
+var grasshopper = require('./grasshopper');
+
+module.exports = function() {
+    return grasshopper.instance.admin.stack
         .filter(function(route) {
             // take out all the middleware
             return route.route;

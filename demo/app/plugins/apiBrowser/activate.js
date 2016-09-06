@@ -2,10 +2,12 @@
 
 var path = require('path'),
     express = require('express'),
-    getTabsContentTypeId = require('../settings').getTabsContentTypeId;
+    grasshopper = require('./grasshopper');
 
 module.exports = function activate(grasshopperInstance) {
     console.log(`Called activate on the ${require('./config').title} plugin`);
+
+    grasshopper.instance = grasshopperInstance;
 
     console.log('Adding GET admin/example route to api routes.');
     grasshopperInstance.admin.use('/plugins/apiBrowser/', express.static(path.join(__dirname, 'assets')));
@@ -24,7 +26,7 @@ function _queryForTab(grasshopperInstance) {
                 {
                     key : 'meta.type',
                     cmp : '=',
-                    value : getTabsContentTypeId()
+                    value : grasshopperInstance.state.tabsContentTypeId
                 },
                 {
                     key : 'fields.title',
@@ -42,7 +44,7 @@ function _insertTab(grasshopperInstance, queryResults) {
                 .content
                 .insert({
                     meta : {
-                        type : getTabsContentTypeId(),
+                        type : grasshopperInstance.state.tabsContentTypeId,
                         hidden : true
                     },
                     fields : {

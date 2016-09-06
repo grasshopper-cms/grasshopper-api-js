@@ -1,7 +1,5 @@
 'use strict';
 
-var getTabsContentTypeId = require('../settings').getTabsContentTypeId;
-
 module.exports = function deactivate(grasshopperInstance) {
     console.log('called deactivate on the Advanced Search plugin');
 
@@ -18,7 +16,7 @@ function _queryForThisPluginsTab(grasshopperInstance) {
                     {
                         key : 'meta.type',
                         cmp : '=',
-                        value : getTabsContentTypeId()
+                        value : grasshopperInstance.state.tabsContentTypeId
                     },
                     {
                         key : 'fields.title',

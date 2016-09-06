@@ -1,5 +1,6 @@
 'use strict';
 
+console.log('------------------- content activate required --------------------------');
 var path = require('path'),
     getTabsContentTypeId = require('../settings').getTabsContentTypeId;
 

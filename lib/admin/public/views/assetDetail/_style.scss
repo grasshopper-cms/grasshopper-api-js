@@ -1,0 +1,19 @@
+.assetDetailRow {
+  cursor: pointer;
+  &:hover {
+    background-color: $assetDetailTableRowHover;
+  }
+
+  #uploadProgressMeter {
+
+  }
+
+  #uploadError {
+    text-align: center;
+
+    a {
+      margin-bottom: 0;
+    }
+  }
+
+}

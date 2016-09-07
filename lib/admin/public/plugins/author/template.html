@@ -1,0 +1,13 @@
+ <div class="row">
+    <div class="large-12 small-centered columns">
+    	<select>
+            <option disabled selected>{{model:resources->plugins->author->selectUser}}</option>
+            <option data-rv-each-user="model:users:" data-rv-value="user:_id">
+                {{user:displayname}}
+            </option>
+        </select>
+        <div class="author_no_permissions" data-rv-show="model:no_permissions">
+            {{model:resources->plugins->author->noPermissions}}
+        </div>
+	</div>
+</div>

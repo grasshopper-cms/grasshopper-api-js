@@ -1,0 +1,46 @@
+<div class="info_page">
+    <h1>Grasshopper Information</h1>
+
+    <div>
+        Grasshopper is released under the
+        <a data-bypass href="https://github.com/Solid-Interactive/grasshopper-core-nodejs/blob/master/LICENSE" target="_blank">MIT license</a>
+        and has been sponsored by <a data-bypass href="http://www.thinksolid.com/" target="_blank">Solid Interactive</a>. Further
+        <a data-bypass href="http://solid-interactive.github.io/grasshopper-core-nodejs/documentation.html" target="_blank">documentation</a>
+        is available on the <a data-bypass href="http://grasshopper.ws/" target="_blank">Grasshopper website</a>.<br/><br/>
+    </div>
+    <div class="info_versions">
+        <table>
+            <thead>
+            <tr>
+                <th width="50%">Package</th>
+                <th width="50%">Version</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>grasshopper-admin</td>
+                <td>{{model:constants->version}}</td>
+            </tr>
+            <tr data-rv-each-component="model:apiVersions->components">
+                <td>{{component.name}}</td>
+                <td>{{component.version}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <h2>Components:</h2>
+        <table>
+            <thead>
+            <tr>
+                <th width="50%">Package</th>
+                <th width="50%">Version</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-rv-each-lib="model:libraryVersions">
+                <td>{{lib.name}}</td>
+                <td>{{lib.version}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

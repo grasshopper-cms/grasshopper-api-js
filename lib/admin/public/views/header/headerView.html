@@ -1,0 +1,60 @@
+<div>
+
+    <div id="topbar" class="contain-to-grid sticky">
+        <div id="top-nav">
+            <ul class="pull-right">
+                <li>
+                    <a data-rv-href="model:userModel->href">
+                        <img data-rv-src="model:userModel->email | gravatarUrl 24" class="gravatar-img">
+                        <span data-rv-text="model:resources->user->loggedInAs | spaceAfter"></span>
+                        <span>{{model:userModel->displayname | spaceAfter}}</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="logOutButton" data-rv-href="model:constants->internalRoutes->logout" data-rv-show="model:userModel->loggedIn">
+                        {{model:resources->log_out}}
+                    </a>
+                </li>
+                <li>
+                    <a id="logInButton" data-rv-href="model:constants->internalRoutes->login" data-rv-hide="model:userModel->loggedIn">
+                        {{model:resources->log_in}}
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div id="headerbar">
+        <div class="container">
+
+            <div class="row">
+                <div class="large-12 columns">
+                    <a data-rv-href="model:constants->internalRoutes->content" class="brand">{{model:resources->siteName}}</a>
+
+                    <a class="btn-navbar" data-toggle="collapse" data-target=".nav-collapse" data-rv-on-click="view.toggleNavigation | stopImmediatePropagation">
+                        <i class="fa fa-align-justify"></i>
+                    </a>
+
+                    <div class="nav-collapse">
+                        <ul id="main-nav" class="nav pull-right">
+
+                            <li class='nav-item' data-rv-each-item='model:constants->menuItems' data-rv-hide-if-user-role-does-not-include='item.showWhenUserRoleIncludes'>
+                                <a data-rv-unless='item.isSpacer' data-rv-id='item.name | toCamelCase' class="nav-item-link" data-rv-href="item.href" data-rv-data-bypass='item.isExternalLink'>
+                                    <i data-rv-add-classes="item.iconClasses"></i>
+                                    <span>{{item.name}}</span>
+                                </a>
+
+                                <span data-rv-if='item.isSpacer'>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

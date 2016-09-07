@@ -1,0 +1,110 @@
+<div id="advancedContentSearch" class="small-12 columns">
+
+    <div class="row">
+
+        <div class="large-3 small-6 columns">
+            <select id="selectContentTypes" class="noMarginBottom" data-rv-data-placeholder="model:resources->contentTypes" data-rv-multiple-select="model:contentTypeCollection" multiple filter="true">
+
+                <option data-rv-each-contenttype="model:contentTypeCollection:" data-rv-value="contenttype:_id">
+                    {{contenttype:label}}
+                </option>
+
+            </select>
+        </div>
+
+        <div class="large-3 small-6 columns">
+            <select id="selectNodes" class="noMarginBottom" data-rv-data-placeholder="model:resources->nodes" data-rv-multiple-select="model:nodesCollection" multiple filter="true">
+
+                <option data-rv-each-node="model:nodesCollection:" data-rv-value="node:_id">
+                    {{node:label}}
+                </option>
+
+            </select>
+        </div>
+
+        <div class="newFilterSection large-6 small-12 columns">
+
+            {{model:resources->filters}}
+
+            <a href="#" id="addNewFilterButton" data-bypass data-dropdown="filterCreator">
+                <i class="fa fa-plus"></i>
+            </a>
+
+            <div id="filterCreator" data-dropdown-content class="f-dropdown small content">
+
+                <select id="newFilterKeys" data-rv-data-placeholder="model:resources->key" data-rv-value="model:newFilterModel.attributes.key" data-rv-select2="model:filteredContentTypeCollection">
+                    <option></option>
+
+                    <optgroup data-rv-each-contenttype="model:filteredContentTypeCollection:" data-rv-label="contenttype:label">
+                        <option data-rv-each-field="contenttype:fields" data-rv-value="field._id | prepend fields.">
+                            {{field.label}}
+                        </option>
+                    </optgroup>
+
+                </select>
+
+                <select id="newFilterComparator" data-rv-data-placeholder="model:resources->comparator" data-rv-value="model:newFilterModel.attributes.cmp" data-rv-select2>
+                    <option></option>
+
+                    <option data-rv-each-comparator="model:possibleQueryComparators" data-rv-value="comparator">
+                        {{comparator}}
+                    </option>
+
+                </select>
+
+                <input type="text" id="newFilterValue" class="noMarginBottom" data-rv-placeholder="model:resources->value" data-rv-on-enter-key-press="addFilterToFiltersCollection" data-rv-value="model:newFilterModel->value">
+
+                <div class="text-right newFilterButtons">
+                    <button class="button tiny radius noMarginBottom" data-rv-on-click="view.resetNewFilter">{{model:resources->reset}}</button>
+                    <button class="button tiny radius noMarginBottom" data-rv-on-click="view.addFilterToFiltersCollection">{{model:resources->add}}</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <section class="activeFiltersSection">
+
+        <div class="panel left" data-rv-each-filter="model:filtersCollection:">
+            <span>
+                {{model:resources->where | spaceAfter}} '{{filter:key}}' {{filter:cmp}} '{{filter:value}}'
+            </span>
+
+            <a data-bypass data-rv-on-click="view.removeFilterFromFiltersCollection">
+                <i class="fa fa-trash-o right"></i>
+            </a>
+        </div>
+
+    </section>
+
+    <section class="resultsSection">
+
+        <div class="small-12 columns text-center" data-rv-show="model:loadingResults">
+            <span>Loading...</span>
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+
+        <table data-rv-hide="model:loadingResults">
+            <thead>
+                <tr>
+                    <th>{{model:resources->label}}</th>
+                    <th>{{model:resources->type}}</th>
+                    <th>{{model:resources->contentBrowse->modified}}</th>
+                    <th style="text-align: center; width: 10%;">{{model:resources->actions}}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr data-rv-unless="model:resultsCollection.length | greaterThan 0">
+                    <td colspan="4">
+                        No Results
+                    </td>
+                </tr>
+
+                <tr class="contentDetailRow" data-rv-each-content="model:resultsCollection.models" data-rv-data-id="content.id" data-rv-new-content-detail-row="content"></tr>
+            </tbody>
+        </table>
+
+    </section>
+
+</div>

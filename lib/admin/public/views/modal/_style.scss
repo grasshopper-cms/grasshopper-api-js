@@ -1,0 +1,174 @@
+#modalContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: $modal-background-color;
+  height: 100%;
+  width: 100%;
+  z-index: $modalContainerZIndex;
+
+  $modalPadding : 20px;
+
+  #modalContents {
+    display: flex;
+    flex-direction: column;
+    z-index: $modalContentsZIndex;
+    width: 35%;
+    min-width:280px;
+    background-color: $modal-contents-background-color;
+    box-shadow: 0 0 10px $modal-background-color;
+    max-height:75%;
+
+    #modalHeader {
+      padding: $modalPadding;
+      min-height: 40px;
+      text-align: left;
+      font-weight: normal;
+      font-size: 20px;
+
+      .modalHeader-title {
+        margin: 0 0 15px;
+        padding: 0 0 5px;
+        font-size: 1.4rem;
+        border-bottom: 1px solid #ccc;
+      }
+      .modalHeader-nav {
+        margin: 0 0 10px;
+      }
+
+      #contentTypeSearch {
+        position: relative;
+        width: 100%;
+        margin: 0;
+
+        .contentTypeSearchInput {
+          margin: 0;
+          padding-right: 2rem;
+          font-style: italic;
+        }
+
+        .contentTypeSearchInput:focus {
+          font-style: normal;
+        }
+
+        .contentTypeSearchIcon {
+          position: absolute;
+          right: 0.5rem;
+          top: 0;
+          margin: 0;
+          font-size: 1.3rem;
+          line-height: 2.3125rem;
+          color: $borderGray;
+        }
+      }
+    }
+
+    #modalBody {
+      padding: 0 $modalPadding 0 $modalPadding;
+      overflow: hidden;
+
+      .modalEmptySearch {
+        margin: 0;
+      }
+    }
+
+    .modalPadding { // utility class for things outside the inputContainer
+      padding: 0 $modalPadding 0 $modalPadding;
+    }
+
+    .inputContainer {
+      max-height: 444px;
+      overflow: scroll;
+      border: 1px solid $modalInputContainerBorder;
+
+      .nowrapRow{
+        white-space: nowrap;
+      }
+    }
+
+    ol {
+      font-size: 12px;
+      word-wrap: break-word;
+      padding-left: 0px;
+
+      li {
+        list-style-position: inside;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+
+    #buttonContainer {
+      padding: $modalPadding;
+    }
+
+    .imageContainer { // only used by the image modal
+      max-height: 500px;
+      overflow: scroll;
+      border: 1px solid $modalInputContainerBorder;
+      img {
+        max-height: 75%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .imageModalUrl {
+      input {
+        margin-top: $modalPadding;
+        width: 100%;
+      }
+      a {
+        font-size: 11px;
+        line-height: 27px;
+        height: 26px;
+      }
+    }
+
+    .fileExtension { // only used by the thumbnail modal
+      text-align: center;
+      &.hide {
+        display: none;
+      }
+      &+.imageContainer {
+        display: none;
+      }
+      .fileExtensionIcon {
+        font-size: 8rem;
+      }
+    }
+
+    .button {
+      &.hide {
+        display: none;
+      }
+    }
+
+    #dropZone { // only used by the upload modal
+      height: 60px;
+      border: 2px dashed $modalDropzoneFaceColor;
+      border-radius: 5px;
+      padding: 25px;
+      text-align: center;
+      color: $modalDropzoneFaceColor;
+      &:hover {
+        border-color: $modalDropzoneHover;
+      }
+      &.active {
+        border-color: $modalDropzoneActive;
+      }
+    }
+
+    #uploadFileInput { // only used by the upload modal
+      visibility: hidden;
+      height: 0;
+      width: 0;
+    }
+  }
+}

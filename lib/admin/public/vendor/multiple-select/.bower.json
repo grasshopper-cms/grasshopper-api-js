@@ -1,0 +1,20 @@
+{
+  "name": "multiple-select",
+  "homepage": "https://github.com/wenzhixin/multiple-select",
+  "authors": [
+    "文翼 <wenzhixin2010@gmail.com>"
+  ],
+  "description": "A jQuery plugin to select multiple elements with checkboxes",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": ">=1.7.0"
+  },
+  "_release": "f2402d9209",
+  "_resolution": {
+    "type": "commit",
+    "commit": "f2402d9209b48693b3093962173ecb5495026193"
+  },
+  "_source": "git://github.com/wenzhixin/multiple-select.git",
+  "_target": "f2402d9209b48693b3093962173ecb5495026193",
+  "_originalSource": "multiple-select"
+}

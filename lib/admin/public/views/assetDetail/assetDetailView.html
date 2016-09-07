@@ -1,0 +1,42 @@
+<td data-rv-on-click="view.handleRowClick" class="clipboardTargetName"><a>{{model:fileName}}</a></td>
+<td data-rv-on-click="view.handleRowClick">{{model:size | prettyFileSize}}</td>
+<td data-rv-hide="model:fileData" data-rv-on-click="view.handleRowClick">{{model:lastmodified | prettyDate}}</td>
+<td data-rv-hide="model:fileData" align="center" data-rv-on-click="view.handleRowClick">
+    <a data-rv-on-click="view.editAsset">
+        <i class="fa fa-edit"></i>
+    </a>
+    <a data-rv-href="model:url" download data-rv-stop-propagation>
+        <i class="fa fa-download"></i>
+    </a>
+    <a data-rv-on-click="view.prepareToDeleteAsset">
+        <i class="fa fa-trash-o"></i>
+    </a>
+</td>
+
+
+<td data-rv-hide="model:uploadError" data-rv-show="model:fileData" colspan="2">
+    <div class="progress">
+        <span id="uploadProgressMeter" class="meter" data-rv-width="model:progressWidth"></span>
+    </div>
+</td>
+
+<td data-rv-show="model:uploadError" align="left">
+    {{model:resources->asset->uploadAssetError | spaceAfter}}
+</td>
+
+<td data-rv-show="model:uploadError" id="uploadError">
+
+    <ul class="button-group radius" style="display: inline-block;">
+        <li>
+            <a data-rv-on-click="view.postNewAsset" class="button alert tiny">
+                {{model:resources->retry}}
+            </a>
+        </li>
+        <li>
+            <a data-rv-on-click="view.cancelUpload" class="button alert tiny">
+                {{model:resources->cancel}}
+            </a>
+        </li>
+    </ul>
+
+</td>

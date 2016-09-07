@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="large-12 small-centered columns">
+        <select data-rv-value="model:value">
+            <option disabled selected>{{model:resources->plugins->dropdown->selectOption}}</option>
+            <option data-rv-each-option="model:options" data-rv-value="option._id">{{option.label}}</option>
+        </select>
+    </div>
+</div>

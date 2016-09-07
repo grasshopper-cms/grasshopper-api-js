@@ -1,0 +1,37 @@
+<div id="modalContainer">
+    <div id="modalContents">
+
+        <div id="modalHeader" class="row">
+            {{model:header}}
+        </div>
+
+        <div id="modalBody" class="row">
+            <div data-rv-checkfileextension="model:data" class="hide">
+                <div class="fileExtensionIcon fa"></div>
+            </div>
+            <img data-rv-src="model:data" class="imageContainer">
+            <div class="row collapse imageModalUrl">
+                <input id="imageURL" data-rv-value="model:data" readonly>
+            </div>
+        </div>
+
+        <div id="buttonContainer" class="row">
+            <div class="right">
+                <a data-rv-href="model:data" class="button hide tiny radius noMarginBottom" target="_blank" data-rv-on-click="view.confirmModal" data-rv-checkfileextensionbutton="model:data">
+                    <i class="fa fa-external-link"></i>
+                    {{model:resources->open | spaceBefore}}
+                </a>
+
+                <a download data-rv-href="model:data" class="button tiny radius noMarginBottom" data-rv-on-click="view.confirmModal">
+                    <i class="fa fa-download"></i>
+                    {{model:resources->download | spaceBefore}}
+                </a>
+
+                <button class="button tiny radius noMarginBottom" data-rv-on-click="view.cancelModal">
+                    {{model:resources->close}}
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

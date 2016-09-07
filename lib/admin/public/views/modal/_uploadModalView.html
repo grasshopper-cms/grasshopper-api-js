@@ -1,0 +1,49 @@
+<div id="modalContainer">
+    <div id="modalContents">
+
+        <div id="modalHeader" class="row">
+            {{model:header}}
+        </div>
+
+        <div id="modalBody">
+
+            <div id="dropZone"
+                 data-rv-on-click="view.fireClickOnUploadFileInput"
+                 data-rv-on-dragover="view.handleDragOver"
+                 data-rv-on-drop="view.handleFileDrop"
+                 data-rv-on-dragleave="view.handleDragLeave">
+
+                {{model:resources->asset->dragFilesHere}}
+            </div>
+
+            <input type="file" id="uploadFileInput" name="files" multiple="multiple"/>
+
+            <div class="row">
+                <div class="left small-12">
+                    <span data-rv-show="model:files">Selected Files:</span>
+
+                </div>
+                <hr/>
+            </div>
+
+            <ol class="noMarginBottom">
+                <li data-rv-each-file="model:files">{{file.name | withColon}}{{file.size | prettyFileSize |
+                    withColon}}{{file.type}}
+                </li>
+            </ol>
+        </div>
+
+        <div id="buttonContainer" class="row">
+            <div class="right">
+                <button class="button tiny radius noMarginBottom" data-rv-on-click="view.confirmModal">
+                    {{model:resources->confirm}}
+                </button>
+
+                <button class="button tiny radius noMarginBottom" data-rv-on-click="view.cancelModal">
+                    {{model:resources->cancel}}
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

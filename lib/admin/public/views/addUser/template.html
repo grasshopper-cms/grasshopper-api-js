@@ -1,0 +1,102 @@
+<div id="addUser" class="row">
+    <div class="small-12 columns">
+
+        <fieldset>
+            <legend>
+                <h3>
+                    {{model:resources->user->addNewUser}}
+                </h3>
+            </legend>
+
+            <div class="row">
+                <div class="large-12 small-centered columns">
+
+                    <div class="row">
+                        <div class="large-3 columns">
+                            <label for="firstName" class="right inline">{{model:resources->user->attributeTitles->firstName | withColon}}</label>
+                        </div>
+                        <div class="large-9 columns">
+                            <input id="firstName" type="text" data-rv-value="model:firstname" data-rv-placeholder="model:resources->user->attributeTitles->firstName"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="large-3 columns">
+                            <label for="lastName" class="right inline">{{model:resources->user->attributeTitles->lastName | withColon}}</label>
+                        </div>
+                        <div class="large-9 columns">
+                            <input id="lastName" type="text" data-rv-value="model:lastname" data-rv-placeholder="model:resources->user->attributeTitles->lastName"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="large-3 columns">
+                            <label for="displayname" class="right inline">{{model:resources->user->attributeTitles->displayname | withColon}}</label>
+                        </div>
+                        <div class="large-9 columns">
+                            <input id="displayname" type="text" data-rv-value="model:displayname" data-rv-placeholder="model:resources->user->attributeTitles->displayname"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="large-3 columns">
+                            <label for="role" class="right inline">{{model:resources->user->attributeTitles->role | withColon}}</label>
+                        </div>
+                        <div class="large-9 columns">
+                            <select id="role" data-rv-value="model:role | humanize">
+                                <option data-rv-each-role="model:resources->user->roles" data-rv-text="role | humanize"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="large-3 columns">
+                            <label for="email" class="right inline">{{model:resources->user->attributeTitles->email | withColon}}</label>
+                        </div>
+                        <div class="large-9 columns">
+                            <input id="email" type="text" data-rv-value="model:email" data-rv-placeholder="model:resources->user->attributeTitles->email"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="large-3 columns">
+                            <label for="username" class="right inline">{{model:resources->user->attributeTitles->username | withColon}}</label>
+                        </div>
+                        <div class="large-9 columns">
+                            <input id="username" type="text" data-rv-value="model:identities->basic->username" data-rv-placeholder="model:resources->user->attributeTitles->username"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="large-3 columns">
+                            <label for="password" class="right inline">{{model:resources->user->attributeTitles->password | withColon}}</label>
+                        </div>
+                        <div class="large-9 columns">
+                            <input id="password" type="password" data-rv-value="model:identities->basic->password" data-rv-placeholder="model:resources->user->attributeTitles->password"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="large-12 small-centered columns">
+                    <button data-rv-on-click="view.saveUser" class="button tiny radius right">{{model:resources->save}}</button>
+                </div>
+            </div>
+
+        </fieldset>
+
+    </div>
+
+    <section data-rv-move-to="view.mastheadButtonsSelector">
+        <ul class="button-group radius right">
+
+            <li>
+                <a data-rv-on-click="view.addNewUser" class="button tiny">
+                    {{model:resources->mastheadButtons->addNewUser}}
+                </a>
+            </li>
+
+        </ul>
+    </section>
+</div>

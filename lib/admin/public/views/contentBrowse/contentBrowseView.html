@@ -1,0 +1,183 @@
+<div class="row contentBrowse">
+    <div class="large-12 columns">
+        <dl class="tabs" data-tab>
+            <dd class="active" id="contentTab">
+                <a data-bypass href="#contentPanel">
+                    <p class="title">
+                        <i class="fa fa-list-alt"></i>
+                        {{model:resources->content | spaceBefore}}
+                    </p>
+                </a>
+            </dd>
+            <dd data-rv-hide="model:inRoot" id="filesTab">
+                <a data-bypass href="#filesPanel">
+                    <p class="title">
+                        <i class="fa fa-paperclip"></i>
+                        {{model:resources->fileIndex->files | spaceBefore}}
+                    </p>
+                </a>
+            </dd>
+        </dl>
+
+        <div id="contentSearch" data-rv-unless="model:inRoot">
+            <input class="contentSearchInput" type="text" placeholder="Search by content label " data-rv-value="model:contentSearchValue" data-rv-on-keyup="view.searchContent"/>
+            <span class="contentSearchIcon fa fa-search"></span>
+        </div>
+
+        <div class="tabs-content">
+            <div class="content active table-wrapper" id="contentPanel">
+                <div id="table-loading-overlay">
+                    <img class="loading-overlay-image" src="themes/img/loading-spinner-horizontal.gif">
+                </div>
+                <table class="content-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                {{model:resources->label}}
+                                <a class='sort-arrow' data-rv-on-click='view.toggleSortContentByLabel' data-rv-class-active-up='model:currentContentSort | equals label-ascending' data-rv-class-active-down='model:currentContentSort | equals label-descending'>
+                                    <i class='fa fa-chevron-up'></i>
+                                </a>
+                            </th>
+                            <th>
+                                {{model:resources->type}}
+                                <a class='sort-arrow' data-rv-on-click='view.toggleSortContentByType' data-rv-class-active-up='model:currentContentSort | equals type-ascending' data-rv-class-active-down='model:currentContentSort | equals type-descending'>
+                                    <i class='fa fa-chevron-up'></i>
+                                </a>
+                            </th>
+                            <th>
+                                {{model:resources->contentBrowse->modified}}
+                                <a class='sort-arrow' data-rv-on-click='view.toggleSortByLastModified' data-rv-class-active-up='model:currentContentSort | equals modified-ascending' data-rv-class-active-down='model:currentContentSort | equals modified-descending'>
+                                    <i class='fa fa-chevron-up'></i>
+                                </a>
+                            </th>
+                            <th data-rv-if="model:constants->archivedContentFieldName">
+                                {{model:resources->contentBrowse->archived}}
+                            </th>
+                            <th style="text-align: center; width: 10%;">{{model:resources->actions}}</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contentBrowseTable">
+                        <!--Nodes Come First-->
+                        <tr class="nodeDetailRow clipboardTargetRow" data-rv-each-node="model:childNodes.models"
+                            data-rv-data-id="node.id" data-rv-new-node-detail-row="node"></tr>
+
+                        <!--Then Content-->
+                        <tr data-rv-unless="model:childContent.length | greaterThan 0">
+                            <td colspan="4" data-rv-unless="model:inRoot">
+                                {{model:resources->node->emptyContent}}
+                                <span>
+                                    <a data-rv-on-click="view.createContent">
+                                        {{model:resources->node->clickToAdd}}
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="contentDetailRow clipboardTargetRow" data-rv-each-content="model:childContent.models" data-rv-data-id="content.id" data-rv-new-content-detail-row="content"></tr>
+                    </tbody>
+                </table>
+
+                <section data-rv-if="model:childContent.total | isGreaterThan 25" data-rv-new-pagination-view="model:childContent"></section>
+
+            </div>
+            <div class="content" id="filesPanel" data-rv-hide="model:inRoot">
+                <div id="assetIndex">
+
+                    <table class="content-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    {{model:resources->fileIndex->fileName}}
+                                    <a class='sort-arrow' data-rv-on-click='view.toggleSortAssetsByLabel' data-rv-class-active-up='model:currentAssetsSort | equals label-ascending' data-rv-class-active-down='model:currentAssetsSort | equals label-descending'>
+                                        <i class='fa fa-chevron-up'></i>
+                                    </a>
+                                </th>
+                                <th>
+                                    {{model:resources->fileIndex->size}}
+                                    <a class='sort-arrow' data-rv-on-click='view.toggleSortAssetsBySize' data-rv-class-active-up='model:currentAssetsSort | equals size-ascending' data-rv-class-active-down='model:currentAssetsSort | equals size-descending'>
+                                        <i class='fa fa-chevron-up'></i>
+                                    </a>
+                                </th>
+                                <th>
+                                    {{model:resources->fileIndex->modified}}
+                                    <a class='sort-arrow' data-rv-on-click='view.toggleSortAssetsByModified' data-rv-class-active-up='model:currentAssetsSort | equals modified-ascending' data-rv-class-active-down='model:currentAssetsSort | equals modified-descending'>
+                                        <i class='fa fa-chevron-up'></i>
+                                    </a>
+                                </th>
+                                <th style="text-align: center; width: 15%;">{{model:resources->actions}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr data-rv-unless="model:childAssets.length | greaterThan 0">
+                                <td colspan="4">
+                                    {{model:resources->asset->emptyNode}}
+                                    <span>
+                                        <a data-rv-on-click="view.createAssets">
+                                            {{model:resources->asset->clickToAdd}}
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr class="assetDetailRow clipboardTargetRow" data-rv-new-asset-detail-row="asset"
+                                data-rv-each-asset="model:childAssets.models" data-rv-data-id="asset.id"></tr>
+
+                        </tbody>
+                    </table>
+                    <!--Built from assetIndex-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section data-rv-move-to="view.mastheadButtonsSelector">
+        <ul class="button-group radius right">
+
+            <li data-rv-unless="model:inRoot">
+                <a data-rv-on-click="view.createContent" class="button tiny">
+                    {{model:resources->mastheadButtons->createContent}}
+                </a>
+            </li>
+
+            <li data-rv-unless="model:inRoot">
+                <a data-rv-on-click="view.createAssets" class="button tiny">
+                    {{model:resources->mastheadButtons->uploadFile}}
+                </a>
+            </li>
+
+            <li>
+                <a data-rv-on-click="view.createFolder" class="button tiny"
+                   data-rv-show="view.hasCreateFolderPermission">
+                    {{model:resources->mastheadButtons->createFolder}}
+                </a>
+            </li>
+
+            <li data-rv-unless="model:inRoot">
+                <a class="button tiny dropdown" id="actionsDropdown" data-dropdown="drop">
+                    {{model:resources->mastheadButtons->actions}}
+                </a>
+
+                <ul id="drop" class="f-dropdown" data-dropdown-content>
+                    <li data-rv-on-click="view.editNodeName">
+                        <a>
+                            {{model:resources->mastheadButtons->editNodeName}}
+                        </a>
+                    </li>
+
+                    <li data-rv-on-click="view.editNodeContentTypes">
+                        <a>
+                            {{model:resources->mastheadButtons->editNodeContentTypes}}
+                        </a>
+                    </li>
+
+                    <li data-rv-on-click="view.deleteNode">
+                        <a>
+                            {{model:resources->mastheadButtons->deleteNode}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </section>
+</div>

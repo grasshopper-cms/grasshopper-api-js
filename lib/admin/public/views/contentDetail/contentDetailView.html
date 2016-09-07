@@ -1,0 +1,51 @@
+<div id="contentEdit">
+    <div class="row">
+        <div class="large-12 columns">
+            <fieldset>
+                <legend class="legendLabel">{{model:label}} <small data-rv-show="model:schema->label">( {{model:schema->label}} )</small></legend>
+
+                <div data-rv-each-field="model:schema->fields">
+                    <div data-rv-fieldwrapper="field"></div>
+                </div>
+
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 small-centered columns">
+            <ul class="button-group radius right">
+                <li>
+                    <a class="button tiny" data-rv-on-click="view.saveContent | preventDefault" data-rv-disabled="model:saving" data-swap-html="<i class='fa fa-refresh fa-spin'></i>" data-rv-swap-text-while="model:saving">
+                        {{model:resources->save}}
+                    </a>
+                </li>
+
+                <li>
+                    <a class="button tiny" data-rv-on-click="view.saveAndClose | preventDefault" data-rv-disabled="model:saving" data-swap-html="<i class='fa fa-refresh fa-spin'></i>" data-rv-swap-text-while="model:saving">
+                        {{model:resources->saveAndClose}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <section data-rv-move-to="view.mastheadButtonsSelector">
+        <ul class="button-group radius right">
+
+            <li>
+                <a class="button tiny" data-rv-on-click="view.saveContent | preventDefault" data-rv-disabled="model:saving" data-swap-html="<i class='fa fa-refresh fa-spin'></i>" data-rv-swap-text-while="model:saving">
+                    {{model:resources->save}}
+                </a>
+            </li>
+
+            <li>
+                <a class="button tiny" data-rv-on-click="view.saveAndClose | preventDefault" data-rv-disabled="model:saving" data-swap-html="<i class='fa fa-refresh fa-spin'></i>" data-rv-swap-text-while="model:saving">
+                    {{model:resources->saveAndClose}}
+                </a>
+            </li>
+
+        </ul>
+    </section>
+</div>

@@ -7,6 +7,7 @@ pages:
     - 'Api': 'user-guide/api.md'
     - 'Configs': 'user-guide/configs.md'
     - 'Core': 'user-guide/core.md'
+    - 'Queries': 'user-guide/queries.md'
 - Developer Guide:
     - 'Generating Docs': 'developer-guide/generating-docs.md'
     - 'Dev Workflow': 'developer-guide/dev-workflow.md'

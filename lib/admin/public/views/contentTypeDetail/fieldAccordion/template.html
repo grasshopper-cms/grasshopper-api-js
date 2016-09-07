@@ -1,0 +1,182 @@
+<div class="row accordionHeader fieldAccordion" data-rv-modelid="model.cid">
+    <div class="small-12 columns">
+        <table style="margin-bottom: 0; table-layout: fixed;">
+            <tbody>
+                <tr>
+                    <td style="width: 30%;"><i class="fa fa-sort"></i>{{model:label | existsOr -- | spaceBefore}}</td>
+                    <td data-rv-readable-type-name="model"></td>
+                    <td>{{model:min}}min / {{model:max}}max</td>
+                    <td style="text-align: center;">
+                        <span data-rv-on-click="view.removeThisField">
+                           <i class="fa fa-trash-o"></i>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div data-rv-id="model.cid" class="accordionContent">
+
+    <div class="row">
+        <div class="large-12 small-centered columns">
+
+            <div class="row">
+                <div class="small-2 columns">
+                    <label for="_id" class="right inline">{{model:resources->id}}</label>
+                </div>
+                <div class="small-10 columns">
+                    <input type="text" id="_id" placeholder="_id" data-rv-value="model:_id">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-2 columns">
+                    <label for="label" class="right inline">{{model:resources->name}}</label>
+                </div>
+                <div class="small-10 columns">
+                    <input type="text" id="label" data-rv-placeholder="model:resources->name" data-rv-value="model:label">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-2 columns">
+                    <label data-rv-for="model.cid  | prepend type" class="right inline">{{model:resources->type}}</label>
+                </div>
+                <div class="small-10 columns">
+                    <select data-rv-id="model.cid  | prepend type" data-rv-value="model:type" >
+                        <option data-rv-each-plugin="model:plugins" data-rv-value="plugin.type" data-rv-text="plugin.name"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-2 columns">
+                    <label data-rv-for="model.cid  | prepend helpText" class="right inline">{{model:resources->helpText}}</label>
+                </div>
+                <div class="small-10 columns">
+                    <textarea data-rv-id="model.cid  | prepend helpText" data-rv-value="model:helpText" style="max-width: 100%;"></textarea>
+                </div>
+            </div>
+
+            <div class="row" data-rv-if="model:dataType | equals string">
+                <div class="small-2 columns">
+                    <label data-rv-for="model.cid  | prepend defaultValue" class="right inline">{{model:resources->defaultValue}}</label>
+                </div>
+                <div class="small-10 columns">
+                    <input data-rv-type="model:defaultValueType | existsOr text" data-rv-id="model.cid  | prepend defaultValue" data-rv-checked="model:defaultValue" data-rv-value="model:defaultValue">
+                </div>
+            </div>
+
+            <div class="row" data-rv-if="model:allowMultiple | hasAllowMultiple">
+                <div class="small-2 columns">
+                    <label data-rv-for="model.cid  | prepend multi" class="right inline">{{model:resources->showMultipleSettings}}</label>
+                </div>
+                <div class="small-10 columns">
+                    <input data-rv-id="model.cid  | prepend multi" type="checkbox" data-rv-checked="model:multi" class="align-10px">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-2 columns">
+                    <label data-rv-for="model.cid  | prepend validation" class="right inline">Validation</label>
+                </div>
+                <div class="small-10 columns">
+                    <input data-rv-id="model.cid  | prepend validation" type="checkbox" data-rv-checked="model:hasValidation" class="align-10px">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" data-rv-show="model:multi">
+        <fieldset>
+            <legend>
+                {{model:resources->allowMultipleSettings}}
+            </legend>
+            <div class="row">
+                <div class="small-2 columns">
+                    <label data-rv-for="model.cid  | prepend min" class="right inline">{{model:resources->minimum}}</label>
+                </div>
+                <div class="small-10 columns">
+                    <input data-rv-id="model.cid  | prepend min" min="0" type="number" data-rv-value="model:min | asNumber">
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-2 columns">
+                    <label data-rv-for="model.cid  | prepend max" class="right inline">{{model:resources->maximum}}</label>
+                </div>
+                <div class="small-10 columns">
+                    <input data-rv-id="model.cid  | prepend max" min="1" type="number" data-rv-value="model:max | asNumber">
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="row" data-rv-show="model:hasValidation">
+        <fieldset>
+            <legend>
+                Validation
+            </legend>
+            <div class="row">
+
+                <div class="small-2 columns">
+                    <label data-rv-for="model.cid  | prepend possibleValidations" class="right inline">{{model:resources->contentType->addValidationType | withColon}}</label>
+                </div>
+                <div class="small-10 columns">
+                    <select data-rv-id="model.cid  | prepend possibleValidations" data-rv-value="model:selectedValidation" >
+                        <option disabled selected>{{model:resources->contentType->selectOption}}</option>
+                        <option data-rv-each-validationtype="model:validationTypes" data-rv-value="validationtype" data-rv-text="validationtype"></option>
+                    </select>
+                </div>
+
+
+
+                <table width="100%" style="margin-bottom: 0; table-layout: fixed;">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">{{model:resources->type}}</th>
+                            <th style="width: 70%;">{{model:resources->options}}</th>
+                            <th style="text-align: center;">{{model:resources->actions}}</th>
+                        </tr>
+                    </thead>
+                    <tbody data-rv-hide="model:validationCollection: | collectionHasLength">
+                        <tr>
+                            <td colspan="3">
+                                {{model:resources->contentType->thisFieldHasNoValidation}}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr data-rv-each-validationmodel="model:validationCollection:">
+                            <td style="width: 15%;">
+                                {{validationmodel:type | humanize | spaceBefore}}
+                            </td>
+                            <td data-rv-validationform="validationmodel" style="width: 70%;">
+                                <!--Built Dynamically from the validation views-->
+                            </td>
+                            <td style="text-align: center;">
+                                <span data-rv-on-click="view.removeValidationRule">
+                                   <i class="fa fa-trash-o"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="row" data-rv-show="model:options">
+        <fieldset>
+            <legend>
+                <span data-rv-readable-type-name="model"></span>
+                <span>{{model:resources->options}}</span>
+            </legend>
+            <div data-rv-fieldform="model"></div>
+        </fieldset>
+    </div>
+
+</div>

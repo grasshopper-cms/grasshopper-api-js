@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+bin/ensureDeps
+bin/browserify
+bin/scss
+(bin/watchJavascript) & (bin/watchScss)

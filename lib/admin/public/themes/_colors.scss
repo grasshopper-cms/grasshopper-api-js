@@ -1,0 +1,110 @@
+//-------------  Definition  -------------
+$black: black;
+$black45Percent: rgba(0,0,0,0.45);
+
+$gray: #f8f8f8;
+$lightGray: lightgray;
+$darkerGray: #E4E1E1;
+$darkGray: #B1B1B1;
+$borderGray: #ccc;
+
+$green: #43ac6a;
+
+$red : #AF4434;
+
+$yellow: #B69201;
+
+$blue: #1d354d;
+$lightBlue: #007DA6;
+$mediumBlue: #28496b;
+
+$white: #FFFFFF;
+$offWhite: #f9f9f9;
+
+$lightDark: #333;
+
+//-------------  Implementation  -------------
+
+// Header View
+$topBarBorderBottom: $black;
+$headerBackgroundColor : $blue;
+$menuBGBlue: #1f3852;
+$menuBGBlueHover: #1b3148;
+$menuTopGradient: #24415f;
+$menuTopGradientHover: #1e3751;
+$menuBottomGradient: #172b3e;
+$menuBottomGradientHover: #16283a;
+$menuBorder: #080f15;
+$menuShadow: #325b85;
+$menuResponsiveIcon: #F1F1F1;
+$menuResponsiveIconHover: #cfd1cf;
+
+// Login View
+$buttonText: $offWhite;
+$buttonOkay: $green;
+$loginBackground: $offWhite;
+$loginBorder: $lightGray;
+$accountContainerBackground : $gray;
+$loginFieldsBackground : $gray;
+$accountContainerTextColor : $mediumBlue;
+
+// Modal View
+$modal-background-color: $black45Percent;
+$modal-contents-background-color: $white;
+$modalInputContainerBorder: $darkGray;
+$modalDropzoneColor: $offWhite;
+$modalDropzoneFaceColor: $darkGray;
+$modalDropzoneHover: $lightBlue;
+$modalDropzoneActive: $lightBlue;
+
+// Content Browse
+$tabBorderColor: $lightGray;
+$activeTabBorderColor: $white;
+
+// Alert Box View
+$alertBoxBackgroundColor: $white;
+$alertBoxNormal: $lightBlue;
+$alertBoxSuccess: $green;
+$alertBoxError: $red;
+$alertBoxWarning: $yellow;
+
+// Asset Detail View
+$assetDetailTableRowHover : $darkerGray;
+
+// Content Detail View
+$contentDetailTableRowHover : $darkerGray;
+$paginationActiveItem : #e6e6e6;
+
+// Content Type Detail View
+$accordionHeaderTableRowHover: $darkerGray;
+$accordionContentBackground: $lightGray;
+$accordionContentBorder: $darkGray;
+$fieldsetBorder: $darkGray;
+
+// Content Type Index View
+$contentTypeIndexTableRowHover: $darkerGray;
+
+// Footer View
+$footerContainerBackground: #1d354d;
+$footerContainerText: $white;
+
+// Masthead View
+$mastheadContainerTextShadow: $white;
+
+// Node Detail View
+$nodeDetailRowHover: $darkerGray;
+
+// Users Index View
+$userIndexTableRowHover: $darkerGray;
+
+// Users Details View
+$userDetailLockColor: #AF8636;
+$userDetailLockBackgroundColor: #FBF7E2;
+$userDetailLockBorderColor: #F9EFD8;
+
+$userDetailRemoveColor: #B9645E;
+$userDetailRemoveBackgroundColor: #F0DEDE;
+$userDetailRemoveBorderColor: #ECD5D8;
+
+// Embedded Type Plugin
+$accordionHeaderBackgroundColor: $darkerGray;

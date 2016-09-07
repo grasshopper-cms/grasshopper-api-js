@@ -1,0 +1,19 @@
+#contentEdit {
+
+  .legendLabel {
+    font-weight: normal;
+    font-size: 20px;
+  }
+
+  .accordionHeader {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+}
+
+.contentDetailRow {
+  cursor: pointer;
+  &:hover {
+    background-color: $contentDetailTableRowHover;
+  }
+}

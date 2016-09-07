@@ -1,0 +1,22 @@
+{
+  "name": "Context.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jakiestfu/Context.js",
+  "authors": [
+    "Jacob Kelley <jakie8@gmail.com>"
+  ],
+  "description": "ContextJS is a lightweight solution for contextual menus. Currently, there are two versions.",
+  "main": "context.js",
+  "keywords": [
+    "context",
+    "context menu",
+    "menu",
+    "popup"
+  ],
+  "license": "http://www.wtfpl.net/",
+  "ignore": [
+    "**/.*",
+    "demo.*",
+    "README.md"
+  ]
+}

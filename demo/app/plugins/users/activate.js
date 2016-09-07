@@ -1,41 +1,60 @@
 'use strict';
 
-var path = require('path'),
-    grasshopperInstance = require('../../grasshopper/instance'),
-    getTabsContentTypeId = require('../settings').getTabsContentTypeId;
+var path = require('path');
 
-module.exports = function activate() {
+module.exports = function activate(grasshopperInstance) {
     console.log('Called activate on the users plugin');
 
-    return _insertTab()
-        .then(function() {
-            return  { 'state' : 'good to go' };
-        });
+    grasshopperInstance.admin.get('/users/*', require('./index').get);
+
+    return _queryForTab(grasshopperInstance)
+        .then(_insertTab.bind(null, grasshopperInstance));
 };
 
-function _insertTab() {
+function _queryForTab(grasshopperInstance) {
     return grasshopperInstance
-            .request
-            .content
-            .insert({
-                meta : {
-                    type : getTabsContentTypeId(),
-                    hidden : true
+        .request
+        .content
+        .query({
+            filters : [
+                {
+                    key : 'meta.type',
+                    cmp : '=',
+                    value : grasshopperInstance.state.tabsContentTypeId
                 },
-                fields : {
-                    title : require('./config').title,
-                    active : true,
-                    href : '/admin/users',
-                    iconclasses : 'fa fa-user',
-                    roles : 'admin',
-                    addedby : 'Users Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
-                    sort : 0
+                {
+                    key : 'fields.title',
+                    cmp : '=',
+                    value : require('./config').title
                 }
-            })
-            .then(function() {
-                return { 'state' : 'good to go' };
-            })
-            .catch(function(err) {
-                console.log(err);
-            });
+            ]
+        });
+}
+
+function _insertTab(grasshopperInstance, queryResults) {
+    if(!queryResults.results.length) {
+        return grasshopperInstance
+                .request
+                .content
+                .insert({
+                    meta : {
+                        type : grasshopperInstance.state.tabsContentTypeId,
+                        hidden : true
+                    },
+                    fields : {
+                        title : require('./config').title,
+                        active : true,
+                        href : '/admin/users',
+                        iconclasses : 'fa fa-user',
+                        roles : 'admin',
+                        addedby : 'Users Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
+                        sort : 0
+                    }
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+    } else {
+        return queryResults.results[0];
+    }
 }

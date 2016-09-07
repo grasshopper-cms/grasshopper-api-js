@@ -1,0 +1,30 @@
+{
+  "name": "Context.js",
+  "homepage": "https://github.com/jakiestfu/Context.js",
+  "authors": [
+    "Jacob Kelley <jakie8@gmail.com>"
+  ],
+  "description": "ContextJS is a lightweight solution for contextual menus. Currently, there are two versions.",
+  "main": "context.js",
+  "keywords": [
+    "context",
+    "context menu",
+    "menu",
+    "popup"
+  ],
+  "license": "http://www.wtfpl.net/",
+  "ignore": [
+    "**/.*",
+    "demo.*",
+    "README.md"
+  ],
+  "_release": "74a638864f",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "74a638864fa6e4d5c54f8c1f7555aead26faa636"
+  },
+  "_source": "git://github.com/altmind/Context.js.git",
+  "_target": "*",
+  "_originalSource": "altmind/Context.js"
+}

@@ -1,41 +1,61 @@
 'use strict';
 
-var path = require('path'),
-    grasshopperInstance = require('../../grasshopper/instance'),
-    getTabsContentTypeId = require('../settings').getTabsContentTypeId;
+var path = require('path');
 
-module.exports = function activate() {
+module.exports = function activate(grasshopperInstance) {
     console.log('Called activate on the content plugin');
 
-    return _insertContentTab()
-        .then(function() {
-            return  { 'state' : 'good to go' };
-        });
+    grasshopperInstance.admin.get('/items/*', require('./index').get);
+    grasshopperInstance.admin.get('/', require('./index').get);
+
+    return _queryForContentTab(grasshopperInstance)
+        .then(_insertContentTab.bind(null, grasshopperInstance));
 };
 
-function _insertContentTab() {
+function _queryForContentTab(grasshopperInstance) {
     return grasshopperInstance
-            .request
-            .content
-            .insert({
-                meta : {
-                    type : getTabsContentTypeId(),
-                    hidden : true
+        .request
+        .content
+        .query({
+            filters : [
+                {
+                    key : 'meta.type',
+                    cmp : '=',
+                    value : grasshopperInstance.state.tabsContentTypeId
                 },
-                fields : {
-                    title : require('./config').title,
-                    active : true,
-                    href : '/admin/items',
-                    iconclasses : 'fa fa-th',
-                    roles : 'admin reader editor',
-                    addedby : 'Content Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
-                    sort : 0
+                {
+                    key : 'fields.title',
+                    cmp : '=',
+                    value : require('./config').title
                 }
-            })
-            .then(function() {
-                return { 'state' : 'good to go' };
-            })
-            .catch(function(err) {
-                console.log(err);
-            });
+            ]
+        });
+}
+
+function _insertContentTab(grasshopperInstance, queryResults) {
+    if(!queryResults.results.length) {
+        return grasshopperInstance
+                .request
+                .content
+                .insert({
+                    meta : {
+                        type : grasshopperInstance.state.tabsContentTypeId,
+                        hidden : true
+                    },
+                    fields : {
+                        title : require('./config').title,
+                        active : true,
+                        href : '/admin/items',
+                        iconclasses : 'fa fa-th',
+                        roles : 'admin reader editor',
+                        addedby : 'Content Plugin : Version '+ require(path.join(__dirname, 'package.json')).version,
+                        sort : 0
+                    }
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+    } else {
+        return queryResults.results[0];
+    }
 }

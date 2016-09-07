@@ -1,0 +1,23 @@
+extends ../../../../lib/admin/server/layout
+
+block stage
+    #apiBrowserPlugin
+        h1 API Information
+
+        h2 Admin Routes
+
+        pre
+            code(rv-html='view.adminRoutes')
+
+        hr
+
+        h2 Grasshopper Routes
+
+        pre
+            code(rv-html='view.grasshopperRoutes')
+
+block script
+    script.
+        window.adminRoutes = JSON.parse('!{JSON.stringify(adminRoutes)}');
+        window.grasshopperRoutes = JSON.parse('!{JSON.stringify(grasshopperRoutes)}');
+    script(type='text/javascript' src='/admin/plugins/apiBrowser/bundle.js')

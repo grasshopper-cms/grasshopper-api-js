@@ -1,0 +1,323 @@
+{
+    "libraries" : {
+        "jquery" : "vendor/jquery/dist/jquery",
+        "jqueryui" : "vendor/jquery.ui/ui/jquery.ui.core",
+        "select2" : "vendor/select2/select2",
+        "backbone" : "vendor/backbone-amd/backbone",
+        "text" : "vendor/requirejs-text/text",
+        "rivets" : "vendor/rivets/dist/rivets",
+        "base64" : "vendor/js-base64/base64",
+        "foundation" : "vendor/foundation/js/foundation/foundation",
+        "modernizr" : "vendor/modernizr/modernizr",
+        "ckeditor" : "vendor/ckeditor/ckeditor",
+        "ckeditorAdapter" : "vendor/ckeditor/adapters/jquery",
+        "ace" : "vendor/ace/lib/ace",
+        "moment" : "vendor/moment/moment",
+        "momentTimezoneWithData" : "vendor/moment-timezone/builds/moment-timezone-with-data",
+        "scrollToFixed" : "vendor/ScrollToFixed/jquery-scrolltofixed",
+        "datetimepicker" : "vendor/datetimepicker/jquery.datetimepicker",
+        "sparkmd5" : "vendor/SparkMD5/spark-md5",
+        "JSONEditor" : "vendor/jsoneditor/jsoneditor",
+        "contextjs" : "vendor/contextjs/context",
+        "velocity" : "vendor/velocity/jquery.velocity",
+        "mousetrap" : "vendor/mousetrap/mousetrap",
+        "multipleSelect" : "vendor/multiple-select/jquery.multiple.select",
+        "commaSeparatedValues" : "vendor/comma-separated-values/csv",
+        "underscoreDeep" : "vendor/underscore.deep/main"
+    },
+
+    "routers" : {
+        "router" : "router"
+    },
+
+    "foundationDependencies" : {
+        "alerts" : "vendor/foundation/js/foundation/foundation.alert",
+        "dropdown" : "vendor/foundation/js/foundation/foundation.dropdown",
+        "accordion" : "vendor/foundation/js/foundation/foundation.accordion",
+        "tabs" : "vendor/foundation/js/foundation/foundation.tab",
+        "tooltip" : "vendor/foundation/js/foundation/foundation.tooltip",
+        "abide" : "vendor/foundation/js/foundation/foundation.abide"
+    },
+
+    "jqueryUIDependencies" : {
+        "widgetFactory" : "vendor/jquery.ui/ui/jquery.ui.widget",
+        "mouseInteraction" : "vendor/jquery.ui/ui/jquery.ui.mouse",
+        "sortable" : "vendor/jquery.ui/ui/jquery.ui.sortable",
+        "accordion" : "vendor/jquery.ui/ui/jquery.ui.accordion"
+    },
+
+    "validation+" : {
+        "Library" : "validation/validationLibrary",
+        "Types" : "validation/validationTypes",
+
+        "validationAlpha+" : {
+            "" : "validation/views/alpha/view",
+            "Config" : "validation/views/alpha/config",
+            "Model" : "validation/views/alpha/model"
+        },
+
+        "validationNumber+" : {
+            "" : "validation/views/number/view",
+            "Config" : "validation/views/number/config",
+            "Model" : "validation/views/number/model"
+        },
+
+        "validationAlphaNumeric+" : {
+            "" : "validation/views/alphaNumeric/view",
+            "Config" : "validation/views/alphaNumeric/config",
+            "Model" : "validation/views/alphaNumeric/model"
+        },
+
+        "validationDate+" : {
+            "" : "validation/views/date/view",
+            "Config" : "validation/views/date/config",
+            "Model" : "validation/views/date/model",
+            "Formatters" : "validation/views/date/formatters"
+        },
+
+        "validationDatetime+" : {
+            "" : "validation/views/datetime/view",
+            "Config" : "validation/views/datetime/config",
+            "Model" : "validation/views/datetime/model",
+            "Formatters" : "validation/views/datetime/formatters"
+        },
+
+        "validationEmail+" : {
+            "" : "validation/views/email/view",
+            "Config" : "validation/views/email/config",
+            "Model" : "validation/views/email/model"
+        },
+
+        "validationRegex+" : {
+            "" : "validation/views/regex/view",
+            "Config" : "validation/views/regex/config",
+            "Model" : "validation/views/regex/model"
+        },
+
+        "validationUrl+" : {
+            "" : "validation/views/url/view",
+            "Config" : "validation/views/url/config",
+            "Model" : "validation/views/url/model"
+        },
+
+        "validationRequired+" : {
+            "" : "validation/views/required/view",
+            "Config" : "validation/views/required/config",
+            "Model" : "validation/views/required/model"
+        }
+    },
+
+    "mixins" : "mixins",
+
+    "views" : {
+        "grasshopperBaseView" : "views/grasshopperBaseView",
+
+        "pluginBaseView" : "views/pluginBaseView",
+
+        "advancedSearch" : "views/advancedSearch",
+
+        "addAssetsView+" : {
+            "" : "views/addAssets/addAssetsView",
+            "Config" : "views/addAssets/addAssetsViewConfig",
+            "Model" : "views/addAssets/addAssetsViewModel"
+        },
+
+        "addContentView+" : {
+            "" : "views/addContent/addContentView",
+            "Config" : "views/addContent/addContentViewConfig",
+            "Model" : "views/addContent/addContentViewModel"
+        },
+
+        "addFolderView+" : {
+            "" : "views/addFolder/addFolderView",
+            "Config" : "views/addFolder/addFolderViewConfig",
+            "Model" : "views/addFolder/addFolderViewModel"
+        },
+
+        "addUser" : "views/addUser",
+
+        "alertBoxView+" : {
+            "" : "views/alertBox/alertBoxView",
+            "Config" : "views/alertBox/alertBoxViewConfig",
+            "Model" : "views/alertBox/alertBoxViewModel"
+        },
+
+        "assetDetailView+" : {
+            "" : "views/assetDetail/assetDetailView",
+            "Config" : "views/assetDetail/assetDetailViewConfig",
+            "Model" : "views/assetDetail/assetDetailViewModel"
+        },
+
+        "contentBrowseView+" : {
+            "" : "views/contentBrowse/contentBrowseView",
+            "Config" : "views/contentBrowse/contentBrowseViewConfig",
+            "Model" : "views/contentBrowse/contentBrowseViewModel",
+            "ChildNodesCollection" : "views/contentBrowse/childNodesCollection",
+            "ChildContentCollection" : "views/contentBrowse/childContentCollection",
+            "ChildAssetsCollection" : "views/contentBrowse/childAssetsCollection"
+        },
+
+        "contentDetailView+" : {
+            "" : "views/contentDetail/contentDetailView",
+            "Config" : "views/contentDetail/contentDetailViewConfig",
+            "Model" : "views/contentDetail/contentDetailViewModel",
+            "contentDetailRowView+" : {
+                "" : "views/contentDetail/contentDetailRow/view",
+                "Config" : "views/contentDetail/contentDetailRow/config",
+                "Model" : "views/contentDetail/contentDetailRow/model"
+            }
+
+        },
+
+        "contentTypeDetailView+" : {
+            "" : "views/contentTypeDetail/contentTypeDetailView",
+            "Config" : "views/contentTypeDetail/contentTypeDetailViewConfig",
+            "Model" : "views/contentTypeDetail/contentTypeDetailViewModel",
+            "FieldsCollection" : "views/contentTypeDetail/contentTypeDetailViewFieldsCollection",
+            "contentTypeDetailRow+" : {
+                "" : "views/contentTypeDetail/contentTypeDetailRow/view",
+                "Config" : "views/contentTypeDetail/contentTypeDetailRow/config",
+                "Model" : "views/contentTypeDetail/contentTypeDetailRow/model"
+            }
+        },
+
+        "contentTypeIndexView+" : {
+            "" : "views/contentTypeIndex/contentTypeIndexView",
+            "Config" : "views/contentTypeIndex/contentTypeIndexViewConfig",
+            "Model" : "views/contentTypeIndex/contentTypeIndexViewModel",
+            "ContentTypesCollection" : "views/contentTypeIndex/contentTypesCollection"
+        },
+
+        "fieldAccordion+" : {
+            "View" : "views/contentTypeDetail/fieldAccordion/view",
+            "Config" : "views/contentTypeDetail/fieldAccordion/config",
+            "Model" : "views/contentTypeDetail/fieldAccordion/model",
+            "Binders" : "views/contentTypeDetail/fieldAccordion/binders",
+            "ValidationCollection" : "views/contentTypeDetail/fieldAccordion/validationCollection"
+        },
+
+        "fileBrowserView+" : {
+            "" : "views/fileBrowser/fileBrowserView",
+            "Config" : "views/fileBrowser/fileBrowserViewConfig",
+            "Model" : "views/fileBrowser/fileBrowserViewModel"
+        },
+
+        "headerView+" : {
+            "" : "views/header/headerView",
+            "Config" : "views/header/headerViewConfig",
+            "Model" : "views/header/headerViewModel"
+        },
+
+        "itemSelectModal" : "views/itemSelectModal",
+        "login" : "views/login",
+
+        "mastheadView+" : {
+            "" : "views/masthead/mastheadView",
+            "Config" : "views/masthead/mastheadViewConfig",
+            "Model" : "views/masthead/mastheadViewModel",
+            "Binders" : "views/masthead/binders"
+        },
+
+        "modalView+" : {
+            "" : "views/modal/modalView",
+            "Config" : "views/modal/modalViewConfig",
+            "Model" : "views/modal/modalViewModel",
+            "Binders" : "views/modal/binders",
+            "Formatters" : "views/modal/formatters"
+        },
+
+        "nodeDetailView+" : {
+            "" : "views/nodeDetail/nodeDetailView",
+            "Config" : "views/nodeDetail/nodeDetailViewConfig",
+            "Model" : "views/nodeDetail/nodeDetailViewModel"
+        },
+
+        "pagination" : "views/pagination",
+
+        "pluginWrapperView+" : {
+            "" : "views/pluginWrapper/pluginWrapperView",
+            "Config" : "views/pluginWrapper/pluginWrapperViewConfig",
+            "Model" : "views/pluginWrapper/pluginWrapperViewModel",
+            "Collection" : "views/pluginWrapper/pluginCollection"
+        },
+
+        "userDetail" : "views/userDetail",
+
+        "userDetailRow" : "views/userDetail/userDetailRow",
+
+        "userIndexView+" : {
+            "" : "views/userIndex/userIndexView",
+            "Config" : "views/userIndex/userIndexViewConfig",
+            "Model" : "views/userIndex/userIndexViewModel",
+            "UsersCollection" : "views/userIndex/usersCollection"
+        },
+
+        "forbiddenView+" : {
+            "" : "views/forbidden/forbiddenView",
+            "Config" : "views/forbidden/forbiddenViewConfig"
+        },
+
+        "notFoundView+" : {
+            "" : "views/notFound/notFoundView",
+            "Config" : "views/notFound/notFoundViewConfig"
+        },
+
+        "infoView+" : {
+            "" : "views/info/infoView",
+            "Config" : "views/info/infoViewConfig"
+        },
+
+        "helpView" : "views/help"
+    },
+
+    "models" : {
+        "UserModel" : "models/userModel",
+        "grasshopperModel" : "models/grasshopperModel",
+        "pluginSetupModel" : "views/contentTypeDetail/pluginSetupModel",
+        "currentUserInstance" : "models/currentUserInstance"
+    },
+
+    "workers" : {
+        "loginWorker" : "workers/loginWorker",
+        "logoutWorker" : "workers/logoutWorker",
+        "contentTypeWorker" : "workers/contentTypeWorker",
+        "ajaxCounterWorker" : "workers/ajaxCounterWorker",
+        "clipboardWorker" : "workers/clipboardWorker",
+        "assetWorker" : "workers/assetWorker",
+        "breadcrumbWorker" : "workers/breadcrumbWorker",
+        "nodeWorker" : "workers/nodeWorker",
+        "urlWorker" : "workers/urlWorker",
+        "paginationWorker" : "workers/paginationWorker",
+        "searchWorker" : "workers/searchWorker"
+    },
+
+    "collections" : {
+        "grasshopperCollection" : "collections/grasshopperCollection",
+        "paginatedCollection" : "collections/paginatedCollection",
+        "searchCollection" : "collections/searchCollection"
+    },
+
+    "api" : {
+        "api" : "api/api"
+    },
+
+    "plugins" : {
+        "plugins" : "plugins"
+    },
+
+    "binders" : {
+        "appBinders" : "appBinders",
+        "pluginWrapperBinders" : "views/pluginWrapper/pluginWrapperBinders",
+        "contentTypeDetailBinders" : "views/contentTypeDetail/contentTypeDetailBinders"
+    },
+
+    "formatters" : {
+        "formatters" : "formatters",
+        "contentTypeDetailFormatters" : "views/contentTypeDetail/contentTypeDetailFormatters"
+    },
+
+    "resourceFiles" : {
+        "resources" : "resources",
+        "constants" : "constants"
+    }
+}

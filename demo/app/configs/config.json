@@ -35,7 +35,9 @@
         },
         "server" : {
             "proxy" : true
-        }
+        },
+        "grasshopperAdminPassword" : "<%= grasshopperAdminPassword %>",
+        "grasshopperAdminUsername" : "<%= grasshopperAdminUsername %>"
     },
     "grasshopperAdminPassword" : "<%= grasshopperAdminPassword %>",
     "grasshopperAdminUsername" : "<%= grasshopperAdminUsername %>",

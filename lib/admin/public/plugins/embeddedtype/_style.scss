@@ -1,0 +1,28 @@
+#embeddedTypeAccordion {
+  cursor: pointer;
+
+  .accordionHeader {
+    min-height: 35px;
+    background-color: $accordionHeaderBackgroundColor;
+    padding-top: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    outline: none;
+    margin-bottom: 20px;
+  }
+  .accordionContent {
+    padding-top: 20px;
+  }
+}
+
+.button {
+  outline: none;
+}
+
+.accordionError {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 0 1rem 0;
+  padding: 0.625rem 0;
+  color: $userDetailRemoveColor;
+}

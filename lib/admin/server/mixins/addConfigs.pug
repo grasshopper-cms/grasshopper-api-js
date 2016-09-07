@@ -6,6 +6,10 @@ mixin addConfigs(locals)
                 buildDirectory : 'app/public/admin',
                 base : '/admin/',
                 homeString : '!{homeString || 'Grasshopper' }',
-                menuItems : !{ menuItems ? JSON.stringify(menuItems, null, 4) : JSON.stringify([]) }
+                menuItems : !{ menuItems ? JSON.stringify(menuItems, null, 4) : JSON.stringify([]) },
+                version : 'FROZEN SINCE 0.40.2 OLD ADMIN',
+                libraryVersions : [],
+                archivedContentFieldName : 'whentoshow',
+                timeZone : 'America/Vancouver'
             }
         };

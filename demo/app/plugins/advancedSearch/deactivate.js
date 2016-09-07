@@ -1,16 +1,13 @@
 'use strict';
 
-var grasshopperInstance = require('../../grasshopper/instance'),
-    getTabsContentTypeId = require('../settings').getTabsContentTypeId;
-
-module.exports = function deactivate() {
+module.exports = function deactivate(grasshopperInstance) {
     console.log('called deactivate on the Advanced Search plugin');
 
-    return _queryForThisPluginsTab()
-            .then(_deleteThisPluginsTab);
+    return _queryForThisPluginsTab(grasshopperInstance)
+            .then(_deleteThisPluginsTab.bind(null, grasshopperInstance));
 };
 
-function _queryForThisPluginsTab() {
+function _queryForThisPluginsTab(grasshopperInstance) {
     return grasshopperInstance
             .request
             .content
@@ -19,7 +16,7 @@ function _queryForThisPluginsTab() {
                     {
                         key : 'meta.type',
                         cmp : '=',
-                        value : getTabsContentTypeId()
+                        value : grasshopperInstance.state.tabsContentTypeId
                     },
                     {
                         key : 'fields.title',
@@ -30,7 +27,7 @@ function _queryForThisPluginsTab() {
             });
 }
 
-function _deleteThisPluginsTab(queryResults) {
+function _deleteThisPluginsTab(grasshopperInstance, queryResults) {
     var found = queryResults.results.find(function(result) { return result.fields.title === require('./config').title; });
 
     return grasshopperInstance

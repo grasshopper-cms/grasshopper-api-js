@@ -16,8 +16,13 @@ cd demo
 npm install
 
 bin/loadData
+
+cd ../
 bin/start
 ```
+
+Admin Username and Password :
+    admin : TestPassword
 
 ## Hacking on
 

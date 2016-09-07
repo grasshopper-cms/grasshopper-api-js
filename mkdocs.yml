@@ -3,11 +3,12 @@ site_name: Grasshopper Docs
 #theme: cinder
 pages:
 - Home: 'index.md'
-- User Guide:
-    - 'Api': 'user-guide/api.md'
-    - 'Configs': 'user-guide/configs.md'
-    - 'Core': 'user-guide/core.md'
-    - 'Queries': 'user-guide/queries.md'
-- Developer Guide:
-    - 'Generating Docs': 'developer-guide/generating-docs.md'
-    - 'Dev Workflow': 'developer-guide/dev-workflow.md'
+- Installation: 'installation.md'
+- 'Basic Concepts':
+  - 'App authentication': 'concepts/app-auth.md'
+  - 'The Admin UI': 'concepts/admin-ui.md'
+  - 'Creating Content / Content Types': 'concepts/content.md'
+  - 'Managing Assets': 'concepts/assets.md'
+- 'While Programming':
+  - 'The User Object': 'usage/user.md'
+  - 'Making Queries': 'usage/queries.md'

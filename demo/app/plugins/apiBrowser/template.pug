@@ -1,4 +1,9 @@
-extends ../../../../lib/admin/server/layout
+extends ./node_modules/grasshopper-admin-plugin-base-template/gh-admin-base-template.pug
+
+block head
+    link(rel='stylesheet', href='/admin/main.css')
+    style(type='riot')
+    link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
 
 block stage
     #apiBrowserPlugin
@@ -20,4 +25,7 @@ block script
     script.
         window.adminRoutes = JSON.parse('!{JSON.stringify(adminRoutes)}');
         window.grasshopperRoutes = JSON.parse('!{JSON.stringify(grasshopperRoutes)}');
+    script(src='/admin/manifest.js')
+    script(src='/admin/core.js')
+    script(src='/admin/components.js')
     script(type='text/javascript' src='/admin/plugins/apiBrowser/bundle.js')

@@ -1,12 +1,14 @@
-extends ../../../../lib/admin/server/layout
+extends ./node_modules/grasshopper-admin-plugin-base-template/gh-admin-base-template.pug
 
 include fontAwesomeListOptions.pug
 
 block head
+    link(rel='stylesheet', href='/admin/main.css')
+    style(type='riot')
     link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
 
 block stage
-    #settings
+    #settings.container.markdown-body
         h1 SETTINGS
 
         .columns
@@ -18,7 +20,7 @@ block stage
             .four-fifths.column
                 #generalView(rv-class-active='view.activeSection | equals view.subViews.general')
                     h2.sub-view-title General Settings
-                    
+
                 #pluginsView(rv-class-active='view.activeSection | equals view.subViews.plugins')
                     h2.sub-view-title Plugins
 
@@ -39,13 +41,13 @@ block stage
                                         .text(rv-text='plugin.workingType')
                                         i.icon.fa.fa-spin.fa-refresh
                                     input(type='checkbox' rv-on-change='view.handlePluginCheck' rv-checked='plugin.active')
-                                    
+
                 #tabsView(rv-class-active='view.activeSection | equals view.subViews.tabs')
                     .title-container
                         h2.sub-view-title Tabs
                         .save-tab-sort-container(rv-class-has-changed='view.tabsSortHasChanged')
                             button.btn(type='button' rv-on-click='view.saveSortedTabs' rv-disabled='view.isSavingTabSort')
-                                .normal(rv-hide='view.isSavingTabSort') Save Tab Sort 
+                                .normal(rv-hide='view.isSavingTabSort') Save Tab Sort
                                 .is-working(rv-show='view.isSavingTabSort')
                                     span Working
                                     i.fa.fa-refresh.fa-spin
@@ -85,7 +87,7 @@ block stage
                                         .nested
                     .add-new-tab-container
                         h2.sub-view-title Add New Tab
-                        
+
                         form.add-new-tab-form
                             dl.form-group
                                 dt
@@ -103,15 +105,15 @@ block stage
                                 dd
                                     .form-checkbox
                                         label
-                                            input(name='newTabRoleAdmin' type='checkbox') 
+                                            input(name='newTabRoleAdmin' type='checkbox')
                                             span Admin
                                     .form-checkbox
                                         label
-                                            input(name='newTabRoleEditor' type='checkbox') 
+                                            input(name='newTabRoleEditor' type='checkbox')
                                             span Editor
                                     .form-checkbox
                                         label
-                                            input(name='newTabRoleReader' type='checkbox') 
+                                            input(name='newTabRoleReader' type='checkbox')
                                             span Reader
                             dl.form-group
                                 dt
@@ -127,10 +129,12 @@ block stage
                                         span Working
                                         i.fa.fa-refresh.fa-spin
                                 button.btn(type='button' rv-on-click='view.cancelTabAddClearForm') Cancel
-        
-block script
+
+block scripts
     script.
         window.plugins = JSON.parse('!{JSON.stringify(plugins)}');
         window.tabs = JSON.parse('!{JSON.stringify(tabs)}');
+    script(src='/admin/manifest.js')
+    script(src='/admin/core.js')
+    script(src='/admin/components.js')
     script(type='text/javascript' src='/admin/plugins/settings/bundle.js')
-    

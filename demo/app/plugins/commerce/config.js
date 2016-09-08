@@ -18,30 +18,26 @@ module.exports = {
             iconclasses : 'fa fa-gift',
             roles : 'admin reader editor',
             addedby : `Commerce Plugin : Version ${version}`,
-            sort : 0
-        },
-        {
-            title : 'Orders',
-            active : true,
-            href : '/admin/commerce/orders',
-            iconclasses : 'fa fa-gift',
-            roles : 'admin reader editor',
-            addedby : `Commerce Plugin : Version ${version}`,
             sort : 0,
-            ancestors : [
-                // parentContentId
-            ]
-        },
-        {
-            title : 'Reports',
-            active : true,
-            href : '/admin/commerce/reports',
-            iconclasses : 'fa fa-table',
-            roles : 'admin reader editor',
-            addedby : `Commerce Plugin : Version ${version}`,
-            sort : 0,
-            ancestors : [
-                // parentContentId
+            subtabs: [
+                {
+                    title : 'Orders',
+                    active : true,
+                    href : '/admin/commerce/orders',
+                    iconclasses : 'fa fa-gift',
+                    roles : 'admin reader editor',
+                    addedby : `Commerce Plugin : Version ${version}`,
+                    sort : 0
+                },
+                {
+                    title : 'Reports',
+                    active : true,
+                    href : '/admin/commerce/reports',
+                    iconclasses : 'fa fa-table',
+                    roles : 'admin reader editor',
+                    addedby : `Commerce Plugin : Version ${version}`,
+                    sort : 0
+                }
             ]
         }
     ]

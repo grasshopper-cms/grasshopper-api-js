@@ -7,7 +7,7 @@ pages:
 - 'Basic Concepts':
   - 'App authentication': 'concepts/app-auth.md'
   - 'The Admin UI': 'concepts/admin-ui.md'
-  - 'Creating Content / Content Types': 'concepts/content.md'
+  - 'Content / Content Types': 'concepts/content.md'
   - 'Managing Assets': 'concepts/assets.md'
 - 'While Programming':
   - 'The User Object': 'usage/user.md'

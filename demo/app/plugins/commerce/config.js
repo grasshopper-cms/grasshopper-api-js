@@ -19,7 +19,7 @@ module.exports = {
             roles : 'admin reader editor',
             addedby : `Commerce Plugin : Version ${version}`,
             sort : 0,
-            subtabs: [
+            subTabs: [
                 {
                     title : 'Orders',
                     active : true,

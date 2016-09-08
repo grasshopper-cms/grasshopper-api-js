@@ -6,7 +6,7 @@ block head
     link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
 
 block stage
-    #apiBrowserPlugin
+    #apiBrowserPlugin.container.markdown-body
         h1 API Information
 
         h2 Admin Routes
@@ -21,7 +21,7 @@ block stage
         pre
             code(rv-html='view.grasshopperRoutes')
 
-block script
+block scripts
     script.
         window.adminRoutes = JSON.parse('!{JSON.stringify(adminRoutes)}');
         window.grasshopperRoutes = JSON.parse('!{JSON.stringify(grasshopperRoutes)}');

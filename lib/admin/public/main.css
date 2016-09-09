@@ -7018,22 +7018,3 @@ html {
           margin-bottom: 2px; }
           #headerbar .nav-items .user-information-section .user-information-dropdown .logout:hover {
             background-color: #ccc; }
-
-#modal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: none; }
-  #modal.active {
-    display: block; }
-  #modal .modal-background-overlay {
-    background-color: lime; }
-  #modal .modal-contents {
-    position: absolute;
-    top: 80px;
-    left: 80px;
-    right: 80px;
-    bottom: 80px;
-    background-color: blue; }

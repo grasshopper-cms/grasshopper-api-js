@@ -18,7 +18,13 @@ module.exports = {
             iconclasses : 'fa fa-user',
             roles : 'admin',
             addedby : `Users Plugin : Version ${version}`,
-            sort : 0
+            sort : 0,
+            highlightedWhenRouteMatches : [ // Backbone style only
+                'users(/limit/:limit/skip/:skip)',
+                'users(/limit/:limit/skip/:skip/query/:query)',
+                'user/:id',
+                'add-user'
+            ]
         }
     ]
 };

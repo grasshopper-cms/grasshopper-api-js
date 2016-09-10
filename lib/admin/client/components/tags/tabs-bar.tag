@@ -90,17 +90,41 @@ tabs-bar
         }
 
         function markActiveItems(menuItems) {
-            return menuItems.map(function(item) {
+            function _routeMatchesPath(route, path) {
+                // NOTE Will only match Backbone Router Style Routes.
+                // From Backbone Source: http://backbonejs.org/docs/backbone.html#section-195
+                var optionalParam = /\((.*?)\)/g,
+                    namedParam    = /(\(\?)?:\w+/g,
+                    splatParam    = /\*\w+/g,
+                    escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#\s]/g,
+                    route;
 
-                item.childTabs.forEach(function(item) {
-                    if (item.fields.href === window.location.pathname) {
-                        item.active = true;
-                    }
+                route = route.replace(escapeRegExp, '\\$&')
+                    .replace(optionalParam, '(?:$1)?')
+                    .replace(namedParam, function(match, optional) {
+                        return optional ? match : '([^/?]+)';
+                    })
+                    .replace(splatParam, '([^?]*?)');
+
+               return new RegExp('^' + route + '(?:\\?([\\s\\S]*))?$').test(path);
+            }
+
+            function _markActiveItem(menuItem) {
+                var found;
+
+                menuItem.childTabs.forEach(_markActiveItem);
+
+                found = menuItem.fields.highlightedWhenRouteMatches.find(function(route) {
+                    return _routeMatchesPath(window.gh.configs.base + route, window.location.pathname)
                 });
 
-                if (item.fields.href === window.location.pathname) {
-                    item.active = true;
+                if(found) {
+                    menuItem.active = true;
                 }
+            }
+
+            return menuItems.map(function(item) {
+                _markActiveItem(item);
                 return item;
             });
         }

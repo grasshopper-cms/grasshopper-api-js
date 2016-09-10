@@ -18,7 +18,10 @@ module.exports = {
             iconclasses : 'fa fa-question',
             roles : 'admin reader editor',
             addedby : `Help Plugin : Version ${version}`,
-            sort : 0
+            sort : 0,
+            highlightedWhenRouteMatches : [ // Backbone style only,
+                'help'
+            ]
         }
     ]
 };

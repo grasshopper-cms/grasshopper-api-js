@@ -18,7 +18,10 @@ module.exports = {
             iconclasses : 'fa fa-paper-plane',
             roles : 'admin reader editor',
             addedby : `Example Plugin : Version ${version}`,
-            sort : 0
+            sort : 0,
+            highlightedWhenRouteMatches : [ // Backbone style only
+                'api-browser'
+            ]
         }
     ]
 };

@@ -19,6 +19,9 @@ module.exports = {
             roles : 'admin reader editor',
             addedby : `Commerce Plugin : Version ${version}`,
             sort : 0,
+            highlightedWhenRouteMatches : [ // Backbone style only
+                '/commerce'
+            ],
             subTabs: [
                 {
                     title : 'Orders',
@@ -27,7 +30,10 @@ module.exports = {
                     iconclasses : 'fa fa-gift',
                     roles : 'admin reader editor',
                     addedby : `Commerce Plugin : Version ${version}`,
-                    sort : 0
+                    sort : 0,
+                    highlightedWhenRouteMatches : [ // Backbone style only
+                        'commerce/orders'
+                    ]
                 },
                 {
                     title : 'Reports',
@@ -36,7 +42,10 @@ module.exports = {
                     iconclasses : 'fa fa-table',
                     roles : 'admin reader editor',
                     addedby : `Commerce Plugin : Version ${version}`,
-                    sort : 0
+                    sort : 0,
+                    highlightedWhenRouteMatches : [ // Backbone style only
+                        'commerce/reports'
+                    ]
                 }
             ]
         }

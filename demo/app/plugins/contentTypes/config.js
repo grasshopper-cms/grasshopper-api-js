@@ -18,7 +18,12 @@ module.exports = {
             iconclasses : 'fa fa-cogs',
             roles : 'admin',
             addedby : `Content Types Plugin : Version ${version}`,
-            sort : 0
+            sort : 0,
+            highlightedWhenRouteMatches : [ // Backbone style only
+                'content-types',
+                'content-types/new',
+                'content-types(/:id)'
+            ]
         }
     ]
 };

@@ -14,7 +14,7 @@ module.exports = {
         {
             title : 'Commerce',
             active : true,
-            href : '/admin/commerce',
+            href : 'commerce',
             iconclasses : 'fa fa-gift',
             roles : 'admin reader editor',
             addedby : `Commerce Plugin : Version ${version}`,
@@ -26,7 +26,7 @@ module.exports = {
                 {
                     title : 'Orders',
                     active : true,
-                    href : '/admin/commerce/orders',
+                    href : 'commerce/orders',
                     iconclasses : 'fa fa-gift',
                     roles : 'admin reader editor',
                     addedby : `Commerce Plugin : Version ${version}`,
@@ -38,7 +38,7 @@ module.exports = {
                 {
                     title : 'Reports',
                     active : true,
-                    href : '/admin/commerce/reports',
+                    href : 'commerce/reports',
                     iconclasses : 'fa fa-table',
                     roles : 'admin reader editor',
                     addedby : `Commerce Plugin : Version ${version}`,

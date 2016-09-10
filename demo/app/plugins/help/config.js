@@ -14,7 +14,7 @@ module.exports = {
         {
             title : 'Help',
             active : true,
-            href : '/admin/help',
+            href : 'help',
             iconclasses : 'fa fa-question',
             roles : 'admin reader editor',
             addedby : `Help Plugin : Version ${version}`,

@@ -14,7 +14,7 @@ module.exports = {
         {
             title : 'Api',
             active : true,
-            href : '/admin/api-browser',
+            href : 'api-browser',
             iconclasses : 'fa fa-paper-plane',
             roles : 'admin reader editor',
             addedby : `Example Plugin : Version ${version}`,

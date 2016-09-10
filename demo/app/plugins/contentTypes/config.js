@@ -14,7 +14,7 @@ module.exports = {
         {
             title : 'Content Types',
             active : true,
-            href : '/admin/content-types',
+            href : 'content-types',
             iconclasses : 'fa fa-cogs',
             roles : 'admin',
             addedby : `Content Types Plugin : Version ${version}`,

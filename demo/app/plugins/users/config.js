@@ -14,7 +14,7 @@ module.exports = {
         {
             title : 'Users',
             active : true,
-            href : '/admin/users',
+            href : 'users',
             iconclasses : 'fa fa-user',
             roles : 'admin',
             addedby : `Users Plugin : Version ${version}`,

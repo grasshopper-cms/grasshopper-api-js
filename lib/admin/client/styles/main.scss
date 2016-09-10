@@ -1,12 +1,15 @@
 @import 'primer-css/index.scss';
 
+@import 'mixins';
+
 $fa-font-path: 'fonts/font-awesome/';
 @import 'font-awesome/scss/font-awesome.scss';
 
-@import 'variables';
+@import 'breakpoints';
 @import 'colors';
 @import 'image-paths';
-
+@import 'z-index';
+@import 'sizes';
 
 html {
     height: 100%;

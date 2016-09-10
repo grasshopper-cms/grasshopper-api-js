@@ -6861,20 +6861,100 @@ html {
   line-height: 50px;
   background-color: #1d354d;
   color: #fff;
-  padding-left: 40px;
-  padding-right: 40px; }
+  width: 100%;
+  border-left: 40px solid #1d354d;
+  border-right: 40px solid #1d354d; }
   #headerbar .brand {
     display: inline-block;
     height: 50px;
-    width: 23%;
+    width: 215px;
     background-image: url("images/grasshopper-logo.png");
     background-repeat: no-repeat;
-    background-position: left center; }
+    background-position: right center; }
+  #headerbar .collapsed-menu-toggle {
+    display: none;
+    float: right;
+    width: 50px;
+    height: 50px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 12.5px;
+    padding-right: 12.5px;
+    text-align: center;
+    vertical-align: top;
+    cursor: pointer; }
+    @media only screen and (max-width: 1100px) {
+      #headerbar .collapsed-menu-toggle {
+        display: block; } }
+    #headerbar .collapsed-menu-toggle .bars {
+      position: relative;
+      height: 2px;
+      top: -1.5px;
+      width: 25px;
+      background-color: #fff;
+      -webkit-transition: background-color 0.4s ease-out;
+      transition: background-color 0.4s ease-out; }
+      #headerbar .collapsed-menu-toggle .bars.active {
+        background-color: transparent; }
+        #headerbar .collapsed-menu-toggle .bars.active:before {
+          -webkit-transform: translateY(10px) rotate(45deg);
+                  transform: translateY(10px) rotate(45deg); }
+        #headerbar .collapsed-menu-toggle .bars.active:after {
+          -webkit-transform: translateY(-10px) rotate(-45deg);
+                  transform: translateY(-10px) rotate(-45deg); }
+      #headerbar .collapsed-menu-toggle .bars:before {
+        position: absolute;
+        left: 0;
+        top: -10px;
+        content: ' ';
+        height: 2px;
+        width: 25px;
+        background-color: #fff;
+        -webkit-transition: -webkit-transform 0.4s ease-out;
+        transition: -webkit-transform 0.4s ease-out;
+        transition: transform 0.4s ease-out;
+        transition: transform 0.4s ease-out, -webkit-transform 0.4s ease-out;
+        will-change: transform; }
+      #headerbar .collapsed-menu-toggle .bars:after {
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        content: ' ';
+        height: 2px;
+        width: 25px;
+        background-color: #fff;
+        -webkit-transition: -webkit-transform 0.4s ease-out;
+        transition: -webkit-transform 0.4s ease-out;
+        transition: transform 0.4s ease-out;
+        transition: transform 0.4s ease-out, -webkit-transform 0.4s ease-out;
+        will-change: transform; }
   #headerbar .nav-items {
     display: inline-block;
     height: 50px;
     float: right;
     text-align: right; }
+    @media only screen and (max-width: 1100px) {
+      #headerbar .nav-items {
+        display: block;
+        float: none;
+        position: absolute;
+        right: -40px;
+        top: 50px;
+        bottom: 0;
+        background-color: #1d354d;
+        height: 100vh;
+        width: 30vw;
+        -webkit-transform: translate3d(30vw, 0, 0);
+                transform: translate3d(30vw, 0, 0);
+        -webkit-transition: -webkit-transform 0.3s ease-out;
+        transition: -webkit-transform 0.3s ease-out;
+        transition: transform 0.3s ease-out;
+        transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+        will-change: transform;
+        z-index: 100; }
+        #headerbar .nav-items.open {
+          -webkit-transform: translate3d(0, 0, 0);
+                  transform: translate3d(0, 0, 0); } }
     #headerbar .nav-items .nav-item {
       display: inline-block;
       vertical-align: bottom;
@@ -6887,6 +6967,16 @@ html {
       border-bottom: 0;
       border-radius: 3px 3px 0 0;
       cursor: pointer; }
+      @media only screen and (max-width: 1100px) {
+        #headerbar .nav-items .nav-item {
+          display: block;
+          width: 100%;
+          border-radius: 0;
+          text-align: left;
+          border-bottom: 1px solid #ccc;
+          border-top: 0px; }
+          #headerbar .nav-items .nav-item:first-child {
+            border-top: 1px solid #ccc; } }
       #headerbar .nav-items .nav-item i {
         width: 16px;
         margin-right: 5px;
@@ -6952,6 +7042,12 @@ html {
       color: #fff;
       border-radius: 3px 3px 0 0;
       cursor: pointer; }
+      @media only screen and (max-width: 1100px) {
+        #headerbar .nav-items .user-information-section {
+          display: block;
+          width: 100%;
+          border-radius: 0;
+          text-align: left; } }
       #headerbar .nav-items .user-information-section.active {
         background-color: #ccc; }
         #headerbar .nav-items .user-information-section.active .user-information-dropdown {

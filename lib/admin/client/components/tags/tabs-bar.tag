@@ -1,6 +1,8 @@
 tabs-bar
-    a.brand(href='/items')
-    .nav-items
+    a.brand(name='brandElement' href='/items')
+    .collapsed-menu-toggle(onclick='{ toggleCollaseMenu }')
+        .bars(class='{ active : isShowingCollapseMenu }')
+    .nav-items(name='navItemsElement' class='{ open : isShowingCollapseMenu }')
         virtual(each='{ menuItem in menuItems }')
             a.nav-item.no-sub-items(if='{ menuItem.fields.active && !menuItem.childTabs.length }' href='{ menuItem.fields.href }' class='{ active : menuItem.active }')
                 i(class='{ menuItem.fields.iconclasses }')
@@ -22,7 +24,8 @@ tabs-bar
                 a.logout(href='/admin/logout') Log Out
     script.
         var crypto = require('crypto'),
-            listenOnce = require('listen-once');
+            listenOnce = require('listen-once'),
+            throttle = require('lodash/throttle');
 
         this.menuItems = markActiveItems(this.opts.appState('configs.menuItems'));
         this.user = this.opts.appState('user');
@@ -75,6 +78,10 @@ tabs-bar
         this.closeUserInformationDropdown = function() {
             this.userInformationDropdownIsOpen = false;
             this.update();
+        };
+
+        this.toggleCollaseMenu = function() {
+            this.isShowingCollapseMenu = !this.isShowingCollapseMenu;
         };
 
         function gravatarUrl(email, args) {

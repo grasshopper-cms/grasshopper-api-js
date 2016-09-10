@@ -1,4 +1,3 @@
-
 #headerbar {
     position: relative;
     height: $header-height;
@@ -8,16 +7,88 @@
 
     color: $white;
 
-    padding-left: $site-gutter;
-    padding-right: $site-gutter;
+    width: 100%;
+
+    border-left: $site-gutter solid $dark-blue;
+    border-right: $site-gutter solid $dark-blue;
 
     .brand {
         display: inline-block;
         height: $header-height;
-        width: 23%;
+        width: 215px;
         background-image: $grasshopper-logo;
         background-repeat: no-repeat;
-        background-position: left center;
+        background-position: right center;
+    }
+
+    .collapsed-menu-toggle {
+        display: none;
+
+        float: right;
+
+        width: $header-height;
+        height: $header-height;
+
+        padding-top: $header-height / 2;
+        padding-bottom: $header-height / 2;
+        padding-left: $header-height / 4;
+        padding-right: $header-height / 4;
+
+        text-align: center;
+
+        vertical-align: top;
+
+        cursor: pointer;
+
+        @include breakpoint($header-inline-to-mobile-breakpoint) {
+            display: block;
+        }
+
+        .bars {
+            position: relative;
+            height: 2px;
+            top: -1.5px;
+            width: $header-height / 2;
+
+            background-color: $white;
+
+            transition: background-color 0.4s ease-out;
+
+            &.active {
+                background-color: transparent;
+
+                &:before {
+                    transform: translateY(10px) rotate(45deg);
+                }
+                &:after {
+                    transform: translateY(-10px) rotate(-45deg);
+                }
+            }
+
+            &:before {
+                position: absolute;
+                left: 0;
+                top: -10px;
+                content: ' ';
+                height: 2px;
+                width: $header-height / 2;
+                background-color: $white;
+                transition: transform 0.4s ease-out;
+                will-change: transform;
+            }
+
+            &:after {
+                position: absolute;
+                left: 0;
+                bottom: -10px;
+                content: ' ';
+                height: 2px;
+                width: $header-height / 2;
+                background-color: $white;
+                transition: transform 0.4s ease-out;
+                will-change: transform;
+            }
+        }
     }
 
     .nav-items {
@@ -26,6 +97,31 @@
 
         float: right;
         text-align: right;
+
+        @include breakpoint($header-inline-to-mobile-breakpoint) {
+            display: block;
+            float: none;
+
+            position: absolute;
+            right: $site-gutter * -1;
+            top: $header-height-mobile;
+            bottom: 0;
+            background-color: $dark-blue;
+            height: 100vh;
+
+            width: 30vw;
+
+            transform: translate3d(30vw, 0, 0);
+
+            transition: transform 0.3s ease-out;
+            will-change: transform;
+
+            z-index: $header-bar-off-canvas-nav-z-index;
+
+            &.open {
+                transform: translate3d(0, 0, 0);
+            }
+        }
 
         .nav-item {
             display: inline-block;
@@ -44,6 +140,22 @@
             border-radius: 3px 3px 0 0;
 
             cursor: pointer;
+
+            @include breakpoint($header-inline-to-mobile-breakpoint) {
+                display: block;
+                width: 100%;
+
+                border-radius: 0;
+
+                text-align: left;
+
+                border-bottom: 1px solid $almost-white;
+                border-top: 0px;
+
+                &:first-child {
+                    border-top: 1px solid $almost-white;
+                }
+            }
 
             i {
                 width: 16px;
@@ -159,6 +271,15 @@
             border-radius: 3px 3px 0 0;
 
             cursor: pointer;
+
+            @include breakpoint($header-inline-to-mobile-breakpoint) {
+                display: block;
+                width: 100%;
+
+                border-radius: 0;
+
+                text-align: left;
+            }
 
             &.active {
                 background-color: $almost-white;

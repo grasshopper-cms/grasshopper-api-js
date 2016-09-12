@@ -24,6 +24,10 @@ html {
 
             @import 'tables';
         }
+
+        &.modal-is-showing {
+            overflow: hidden;
+        }
     }
 }
 

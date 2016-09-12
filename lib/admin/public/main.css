@@ -6854,6 +6854,8 @@ html {
           line-height: 1.125rem; }
           html body #stage table tbody td input {
             cursor: pointer; }
+    html body.modal-is-showing {
+      overflow: hidden; }
 
 #headerbar {
   position: relative;

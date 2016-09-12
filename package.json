@@ -71,7 +71,7 @@
     "eslint-plugin-riot": "^0.1.6",
     "font-awesome": "^4.6.3",
     "glob-watcher": "^3.0.0",
-    "grasshopper-admin-plugin-base-template": "1.0.2",
+    "grasshopper-admin-plugin-base-template": "1.0.3",
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-watch": "~0.5.3",

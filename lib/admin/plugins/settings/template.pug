@@ -3,8 +3,6 @@ extends ./node_modules/grasshopper-admin-plugin-base-template/gh-admin-base-temp
 include fontAwesomeListOptions.pug
 
 block head
-    link(rel='stylesheet', href='/admin/main.css')
-    style(type='riot')
     link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
 
 block stage
@@ -134,7 +132,4 @@ block scripts
     script.
         window.plugins = JSON.parse('!{JSON.stringify(plugins)}');
         window.tabs = JSON.parse('!{JSON.stringify(tabs)}');
-    script(src='/admin/manifest.js')
-    script(src='/admin/core.js')
-    script(src='/admin/components.js')
     script(type='text/javascript' src='/admin/plugins/settings/bundle.js')

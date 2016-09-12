@@ -11,6 +11,6 @@
   "devDependencies": {
     "domready": "^1.0.8",
     "rivets": "^0.9.4",
-    "grasshopper-admin-plugin-base-template": "1.0.2"
+    "grasshopper-admin-plugin-base-template": "1.0.3"
   }
 }

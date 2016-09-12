@@ -20,9 +20,33 @@ module.exports = {
             addedby : `Commerce Plugin : Version ${version}`,
             sort : 0,
             highlightedWhenRouteMatches : [ // Backbone style only
-                '/commerce'
+                'commerce'
             ],
             subTabs: [
+                {
+                    title : 'Options',
+                    active : true,
+                    href : 'commerce/options',
+                    iconclasses : 'fa fa-cog',
+                    roles : 'admin reader editor',
+                    addedby : `Commerce Plugin : Version ${version}`,
+                    sort : 0,
+                    highlightedWhenRouteMatches : [ // Backbone style only
+                        'commerce/options'
+                    ]
+                },
+                {
+                    title : 'Products',
+                    active : true,
+                    href : 'commerce/products',
+                    iconclasses : 'fa fa-list',
+                    roles : 'admin reader editor',
+                    addedby : `Commerce Plugin : Version ${version}`,
+                    sort : 0,
+                    highlightedWhenRouteMatches : [ // Backbone style only
+                        'commerce/products'
+                    ]
+                },
                 {
                     title : 'Orders',
                     active : true,

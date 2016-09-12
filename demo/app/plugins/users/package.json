@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "grasshopper-admin-plugin-base-template": "1.0.2"
+    "grasshopper-admin-plugin-base-template": "1.0.3"
   }
 }

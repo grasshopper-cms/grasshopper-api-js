@@ -38,6 +38,7 @@ tabs-bar
         }.bind(this));
 
         this.opts.appState.subscribe('configs.menuItems', function (menuItems) {
+            this.hydrateMenuItemsWithBaseHref(menuItems);
             this.menuItems = markActiveItems(menuItems);
             this.update();
         }.bind(this));
@@ -49,6 +50,7 @@ tabs-bar
                 this.openThisTabsDropdown(event.item.menuItem);
                 listenOnce(document.body, 'click', this.closeThisTabsDropdown.bind(this, event.item.menuItem), true);
             }
+            return true; // RIOT will prevent default by default.
         };
 
         this.closeThisTabsDropdown = function(tab) {
@@ -84,6 +86,14 @@ tabs-bar
             this.isShowingCollapseMenu = !this.isShowingCollapseMenu;
         };
 
+        this.hydrateMenuItemsWithBaseHref = function(menuItems) {
+            function _fixMenuItemHref(menuItem) {
+                menuItem.childTabs && menuItem.childTabs.forEach(_fixMenuItemHref);
+                return menuItem.fields.href = window.gh.configs.base + menuItem.fields.href;
+            }
+            menuItems.forEach(_fixMenuItemHref);
+        };
+
         function gravatarUrl(email, args) {
             var md5value = email ? crypto.createHash('md5').update(email.toLowerCase()).digest("hex") : '';
             return 'http://www.gravatar.com/avatar/' + md5value + '?s=' + args + '&d=mm';
@@ -112,7 +122,7 @@ tabs-bar
             function _markActiveItem(menuItem) {
                 var found;
 
-                menuItem.childTabs.forEach(_markActiveItem);
+                menuItem.childTabs && menuItem.childTabs.forEach(_markActiveItem);
 
                 found = menuItem.fields.highlightedWhenRouteMatches.find(function(route) {
                     return _routeMatchesPath(window.gh.configs.base + route, window.location.pathname)

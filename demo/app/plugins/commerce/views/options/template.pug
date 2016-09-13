@@ -6,6 +6,16 @@ block stage
     #commercePlugin.container.markdown-body
         h1 Options
 
+        h2 Product Content Types
+        .columns
+            .one-fourth.column
+            .three-fourths.column
+        .columns
+            .three-fifths.column
+            .one-fifth.column
+                button.btn(type='button') Add Product Type
+
 block scripts
     script.
-        console.log('YEAH BUDDY')
+        window.contentTypes = JSON.parse('!{JSON.stringify(allContentTypes)}');
+        window.commerceOptions = JSON.parse('!{JSON.stringify(commerceOptions)}');

@@ -3,5 +3,6 @@
 module.exports = {
     grasshopper : null,
     commerceProductTypeId : null,
-    commerceOptionsTypeId : null
+    commerceOptionsTypeId : null,
+    commerceOptionsContentId : null
 };

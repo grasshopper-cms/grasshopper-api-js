@@ -30,7 +30,7 @@ module.exports = {
                     iconclasses : 'fa fa-cog',
                     roles : 'admin reader editor',
                     addedby : `Commerce Plugin : Version ${version}`,
-                    sort : 0,
+                    sort : 1,
                     highlightedWhenRouteMatches : [ // Backbone style only
                         'commerce/options'
                     ]

@@ -26,6 +26,10 @@ module.exports = function activate(grasshopperInstance) {
         .then(_ensureCommerceOptionsType)
         .then(function(commerceOptionsTypeId) {
             commerceSingleton.commerceOptionsTypeId = commerceOptionsTypeId;
+        })
+        .then(_ensureCommerceOptionsContent)
+        .then(function(commerceOptionsContentId) {
+            commerceSingleton.commerceOptionsContentId = commerceOptionsContentId;
         });
 };
 
@@ -90,6 +94,48 @@ function _ensureCommerceOptionsType() {
                     .then(function(newContentType) {
                         console.log('Finished inserting Commerce Options Content Type');
                         return newContentType._id.toString();
+                    });
+            }
+        });
+}
+
+function _ensureCommerceOptionsContent() {
+    return commerceSingleton.grasshopper
+        .request
+        .content
+        .query({
+            filters :[
+                {
+                    key : 'meta.type',
+                    cmp : '=',
+                    value : commerceSingleton.commerceOptionsTypeId
+                }
+            ]
+        })
+        .then(function(queryResults) {
+            var found = queryResults.results[0];
+
+            if(found) {
+                console.log('Found Commerce Options Content. No Need to add it.');
+                return found._id.toString();
+            } else {
+                console.log('Could not find Commerce Options Content, inserting now');
+
+                return commerceSingleton.grasshopper
+                    .request
+                    .content
+                    .insert({
+                        meta : {
+                            type : commerceSingleton.commerceOptionsTypeId
+                        },
+                        fields : {
+                            title : 'Commerce Options',
+                            products : []
+                        }
+                    })
+                    .then(function(newContent) {
+                        console.log('Finished inserting Commerce Options Content');
+                        return newContent._id.toString();
                     });
             }
         });

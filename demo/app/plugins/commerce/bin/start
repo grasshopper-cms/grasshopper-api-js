@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+npm install
+bin/ensureDeps
+bin/browserify
+# bin/scss
+(bin/watchJavascript) #& (bin/watchScss)

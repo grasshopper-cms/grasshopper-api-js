@@ -7,15 +7,10 @@ block stage
         h1 Options
 
         h2 Product Content Types
-        .columns
-            .one-fourth.column
-            .three-fourths.column
-        .columns
-            .three-fifths.column
-            .one-fifth.column
-                button.btn(type='button') Add Product Type
+        product-content-types
 
 block scripts
     script.
         window.contentTypes = JSON.parse('!{JSON.stringify(allContentTypes)}');
         window.commerceOptions = JSON.parse('!{JSON.stringify(commerceOptions)}');
+    script(src='/admin/plugins/commerce/options.js')

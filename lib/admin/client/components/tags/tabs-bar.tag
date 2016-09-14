@@ -87,12 +87,13 @@ tabs-bar
         };
 
         this.hydrateMenuItemsWithBaseHref = function(menuItems) {
-            function _fixMenuItemHref(menuItem) {
-                menuItem.childTabs && menuItem.childTabs.forEach(_fixMenuItemHref);
-                return menuItem.fields.href = window.gh.configs.base + menuItem.fields.href;
-            }
             menuItems.forEach(_fixMenuItemHref);
         };
+
+        function _fixMenuItemHref(menuItem) {
+            menuItem.childTabs && menuItem.childTabs.forEach(_fixMenuItemHref);
+            return menuItem.fields.href = window.gh.configs.base + menuItem.fields.href;
+        }
 
         function gravatarUrl(email, args) {
             var md5value = email ? crypto.createHash('md5').update(email.toLowerCase()).digest("hex") : '';
@@ -100,41 +101,41 @@ tabs-bar
         }
 
         function markActiveItems(menuItems) {
-            function _routeMatchesPath(route, path) {
-                // NOTE Will only match Backbone Router Style Routes.
-                // From Backbone Source: http://backbonejs.org/docs/backbone.html#section-195
-                var optionalParam = /\((.*?)\)/g,
-                    namedParam    = /(\(\?)?:\w+/g,
-                    splatParam    = /\*\w+/g,
-                    escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#\s]/g,
-                    route;
-
-                route = route.replace(escapeRegExp, '\\$&')
-                    .replace(optionalParam, '(?:$1)?')
-                    .replace(namedParam, function(match, optional) {
-                        return optional ? match : '([^/?]+)';
-                    })
-                    .replace(splatParam, '([^?]*?)');
-
-               return new RegExp('^' + route + '(?:\\?([\\s\\S]*))?$').test(path);
-            }
-
-            function _markActiveItem(menuItem) {
-                var found;
-
-                menuItem.childTabs && menuItem.childTabs.forEach(_markActiveItem);
-
-                found = menuItem.fields.highlightedWhenRouteMatches.find(function(route) {
-                    return _routeMatchesPath(window.gh.configs.base + route, window.location.pathname)
-                });
-
-                if(found) {
-                    menuItem.active = true;
-                }
-            }
-
             return menuItems.map(function(item) {
                 _markActiveItem(item);
                 return item;
             });
+        }
+
+        function _routeMatchesPath(route, path) {
+            // NOTE Will only match Backbone Router Style Routes.
+            // From Backbone Source: http://backbonejs.org/docs/backbone.html#section-195
+            var optionalParam = /\((.*?)\)/g,
+                namedParam    = /(\(\?)?:\w+/g,
+                splatParam    = /\*\w+/g,
+                escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#\s]/g,
+                route;
+
+            route = route.replace(escapeRegExp, '\\$&')
+                .replace(optionalParam, '(?:$1)?')
+                .replace(namedParam, function(match, optional) {
+                    return optional ? match : '([^/?]+)';
+                })
+                .replace(splatParam, '([^?]*?)');
+
+           return new RegExp('^' + route + '(?:\\?([\\s\\S]*))?$').test(path);
+        }
+
+        function _markActiveItem(menuItem) {
+            var found;
+
+            menuItem.childTabs && menuItem.childTabs.forEach(_markActiveItem);
+
+            found = menuItem.fields.highlightedWhenRouteMatches.find(function(route) {
+                return _routeMatchesPath(window.gh.configs.base + route, window.location.pathname)
+            });
+
+            if(found) {
+                menuItem.active = true;
+            }
         }

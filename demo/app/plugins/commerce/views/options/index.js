@@ -44,6 +44,6 @@ function _getCommerceOptions() {
             ]
         })
         .then(function(queryResults) {
-            return queryResults.results;
+            return queryResults.results[0];
         });
 }

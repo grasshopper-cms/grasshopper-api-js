@@ -52,6 +52,16 @@ module.exports = {
                 "validation" : [],
                 "_id" : "typeId",
                 "dataType" : "string"
+            },
+            {
+                "label" : "Pertinant Keypaths",
+                "max" : 10,
+                "min" : 0,
+                "options" : "", // Set while Adding. The Content Type ID of the Commerce Product
+                "type" : "array",
+                "validation" : [],
+                "_id" : "keypaths",
+                "dataType" : "array"
             }
         ]
     }

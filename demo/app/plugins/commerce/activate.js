@@ -10,13 +10,14 @@ module.exports = function activate(grasshopperInstance) {
 
     commerceSingleton.grasshopper = grasshopperInstance;
 
-    console.log('Adding GET admin/example route to api routes.');
     commerceSingleton.grasshopper.admin.use('/plugins/commerce/', express.static(path.join(__dirname, 'assets')));
 
     commerceSingleton.grasshopper.admin.get('/commerce/products', require('./views/products').get);
     commerceSingleton.grasshopper.admin.get('/commerce/reports', require('./views/reports').get);
     commerceSingleton.grasshopper.admin.get('/commerce/orders', require('./views/orders').get);
     commerceSingleton.grasshopper.admin.get('/commerce/options', require('./views/options').get);
+
+    commerceSingleton.grasshopper.router.post('/admin/commerce/options/add-commerce-product', require('./api/options').addCommerceProduct);
 
     // Add the Commerce Product Type.
     return _ensureCommerceProductType()

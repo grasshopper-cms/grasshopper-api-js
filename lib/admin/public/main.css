@@ -6857,6 +6857,9 @@ html {
     html body.modal-is-showing {
       overflow: hidden; }
 
+.right {
+  float: right; }
+
 #headerbar {
   position: relative;
   height: 50px;

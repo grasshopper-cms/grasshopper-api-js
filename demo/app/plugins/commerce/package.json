@@ -9,6 +9,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "grasshopper-admin-plugin-base-template": "^1.0.3"
+    "grasshopper-admin-plugin-base-template": "^1.0.3",
+    "riotify": "^1.0.1"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "riotify",
+        {
+          "template": "jade"
+        }
+      ]
+    ]
   }
 }

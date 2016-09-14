@@ -5,5 +5,5 @@ const path = require('path');
 
 runner.run([
     [`npm install`, 'Installing dependencies'],
-    [`nodemon ${path.join(__dirname, '..', 'app')}`, 'Starting app with nodemon']
+    [`nodemon --ignore ${path.join(__dirname, '..', 'app', 'plugins')} ${path.join(__dirname, '..', 'app')}`, 'Starting app with nodemon']
 ]);

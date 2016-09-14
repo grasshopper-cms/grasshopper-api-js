@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var scss = require('node-sass'),
+    fs = require('fs'),
+    childProcess = require('child_process'),
+    path = require('path'),
+    finalCssPath = path.join(__dirname, '..', 'assets', 'settings.css');
+
+console.log('----- RUNNING SCSS ------');
+
+var nodeSassResult = scss.renderSync({
+    file : path.join(__dirname, '..', 'styles.scss'),
+    includePaths : [],
+    outFile : finalCssPath,
+    sourceMap : true,
+    outputStyle : 'nested'
+});
+
+fs.writeFileSync(finalCssPath + '.map', nodeSassResult.map);
+fs.writeFileSync(finalCssPath, nodeSassResult.css);
+
+childProcess.execSync(`postcss --use autoprefixer --autoprefixer.browsers "> 1%" -o ${finalCssPath} ${finalCssPath} `, { stdio : 'inherit' });
+
+console.log('----- FINISHED RUNNING SCSS ------');

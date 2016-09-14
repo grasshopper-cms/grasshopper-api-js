@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
+bin/installDependencies
 bin/build
 (bin/watchScss) & (bin/watchAdminFiles) & (demo/bin/start)

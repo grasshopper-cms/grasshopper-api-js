@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if ! command -v postcss >/dev/null 2>&1
+    then
+        npm install -g watchify
+    fi
+
+if ! command -v webpack >/dev/null 2>&1
+    then
+        npm install -g webpack
+    fi

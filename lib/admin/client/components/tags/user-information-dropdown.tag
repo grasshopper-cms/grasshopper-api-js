@@ -4,14 +4,16 @@ user-information-dropdown
         i.fa.fa-caret-down.expand-icon
         .user-information-dropdown
             .logged-in-as-text Logged in as { user.displayName }
-            a.profile(href='/admin/user/{ user._id }') Profile
-            a.logout(href='/admin/logout') Log Out
+            a.profile(href='{ base }user/{ user._id }') Profile
+            a.logout(href='{ base }logout') Log Out
+        .close-dropdown-overlay(show='{ userInformationDropdownIsOpen }')
     script.
-        var crypto = require('crypto'),
-            listenOnce = require('listen-once');
+        var crypto = require('crypto');
 
         this.user = this.opts.appState('user');
         this.userInformationDropdownIsOpen = false;
+        
+        this.base = this.opts.appState('configs.base');
 
         this.opts.appState.subscribe('user', function(user) {
             this.user = user;
@@ -24,8 +26,8 @@ user-information-dropdown
                 this.closeUserInformationDropdown();
             } else {
                 this.openUserInformationDropdown();
-                listenOnce(document.body, 'click', this.closeUserInformationDropdown.bind(this), true);
             }
+            return true;
         };
 
         this.openUserInformationDropdown = function() {

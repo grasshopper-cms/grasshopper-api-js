@@ -6894,13 +6894,20 @@ html {
       padding-bottom: 8px;
       padding-left: 12px;
       color: #fff;
-      cursor: pointer; }
+      cursor: pointer;
+      z-index: 102; }
+      #headerbar .top-menu-container .user-information-section:hover {
+        background-color: #ccc; }
+        #headerbar .top-menu-container .user-information-section:hover .expand-icon {
+          -webkit-transform: rotate(45deg);
+                  transform: rotate(45deg); }
       #headerbar .top-menu-container .user-information-section.active {
         background-color: #ccc; }
         #headerbar .top-menu-container .user-information-section.active .user-information-dropdown {
           display: block; }
-      #headerbar .top-menu-container .user-information-section:hover {
-        background-color: #ccc; }
+        #headerbar .top-menu-container .user-information-section.active .expand-icon {
+          -webkit-transform: rotate(0);
+                  transform: rotate(0); }
       #headerbar .top-menu-container .user-information-section .gravatar-img {
         display: inline-block;
         vertical-align: middle;
@@ -6912,10 +6919,17 @@ html {
       #headerbar .top-menu-container .user-information-section .expand-icon {
         color: #fff;
         display: inline-block;
-        vertical-align: middle; }
+        vertical-align: middle;
+        -webkit-transition: -webkit-transform 0.4s ease;
+        transition: -webkit-transform 0.4s ease;
+        transition: transform 0.4s ease;
+        transition: transform 0.4s ease, -webkit-transform 0.4s ease;
+        -webkit-transform: rotate(90deg);
+                transform: rotate(90deg); }
       #headerbar .top-menu-container .user-information-section .user-information-dropdown {
         position: absolute;
         display: none;
+        z-index: 104;
         top: 100%;
         right: 0;
         max-width: 300px;
@@ -6961,6 +6975,13 @@ html {
           margin-bottom: 2px; }
           #headerbar .top-menu-container .user-information-section .user-information-dropdown .logout:hover {
             background-color: #ccc; }
+      #headerbar .top-menu-container .user-information-section .close-dropdown-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 103; }
     #headerbar .top-menu-container .collapsed-menu-toggle {
       display: inline-block;
       vertical-align: top;

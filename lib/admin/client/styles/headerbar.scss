@@ -44,15 +44,23 @@
 
             cursor: pointer;
 
+            z-index: $userInformationDropdownSection;
+
+            &:hover {
+                background-color: $almost-white;
+                .expand-icon {
+                    transform: rotate(45deg);
+                }
+            }
+
             &.active {
                 background-color: $almost-white;
                 .user-information-dropdown {
                     display: block;
                 }
-            }
-
-            &:hover {
-                background-color: $almost-white;
+                .expand-icon {
+                    transform: rotate(0);
+                }
             }
 
             .gravatar-img {
@@ -69,11 +77,16 @@
                 color: $white;
                 display: inline-block;
                 vertical-align: middle;
+
+                transition: transform 0.4s ease;
+                transform: rotate(90deg);
             }
 
             .user-information-dropdown {
                 position: absolute;
                 display: none;
+
+                z-index: $userInformationDropdownZIndex;
 
                 top: 100%;
                 right: 0;
@@ -150,6 +163,16 @@
                         background-color: $almost-white;
                     }
                 }
+            }
+
+            .close-dropdown-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                z-index : $userInformationDropdownCloseToClickRegionZIndex;
             }
         }
 

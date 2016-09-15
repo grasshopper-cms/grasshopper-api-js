@@ -11,7 +11,7 @@ var scss = require('node-sass'),
 console.log('----- RUNNING SCSS ------');
 
 var nodeSassResult = scss.renderSync({
-    file : path.join(__dirname, '..', 'styles.scss'),
+    file : path.join(__dirname, '..', 'client', 'styles.scss'),
     includePaths : [],
     outFile : finalCssPath,
     sourceMap : true,

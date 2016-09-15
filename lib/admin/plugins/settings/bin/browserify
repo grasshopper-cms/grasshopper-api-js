@@ -6,6 +6,6 @@ var childProcess = require('child_process'),
 
 console.log('----- RUNNING BROWSERIFY NO OPTIMIZE ------');
 
-childProcess.execSync(`browserify ${path.join(__dirname, '..', 'client.js')} -o ${path.join(__dirname, '..', 'assets', 'bundle.js')} -dv`);
+childProcess.execSync(`browserify ${path.join(__dirname, '..', 'client', 'client.js')} -o ${path.join(__dirname, '..', 'assets', 'bundle.js')} -dv`);
 
 console.log('----- FINISHED RUNNING BROWSERIFY NO OPTIMIZE ------');

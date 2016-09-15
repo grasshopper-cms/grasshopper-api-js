@@ -2,7 +2,9 @@
   .container {
     @include lightGradient;
     width: 100%;
-    padding: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 40px;
     min-height: 53px;
     text-shadow: 1px 1px 2px $mastheadContainerTextShadow;
 

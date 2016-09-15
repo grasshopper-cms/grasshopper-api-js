@@ -14,7 +14,7 @@ tabs-bar
                 span { menuItem.fields.title }
                 i.fa.fa-caret-down.expand-icon
             .nav-item-dropdown(if='{ menuItem.fields.active && menuItem.childTabs.length }' class='{ navItemDropdownClasses(menuItem) }')
-                a.nav-item(name='navItem' focusable dynamic-position each='{ childTab in menuItem.childTabs }' if='{ childTab.fields.active }' href='{ childTab.fields.href }' class='{ active : childTab.active }')
+                a.nav-item(name='navItem' focusable='{ menuItem.expanded }' dynamic-position each='{ childTab in menuItem.childTabs }' if='{ childTab.fields.active }' href='{ childTab.fields.href }' class='{ active : childTab.active }')
                     i(class='{ childTab.fields.iconclasses }')
                     span { childTab.fields.title }
 
@@ -26,6 +26,17 @@ tabs-bar
         this.menuItems = markActiveItems(this.opts.appState('configs.menuItems'));
 
         this.mffInstance;
+
+        this.on('updated', function() {
+            setTimeout(function() {
+                var currentlyFocused;
+                if(this.mffInstance) {
+                    currentlyFocused = this.mffInstance.getCurrent();
+                    this.mffInstance.refresh();
+                    this.mffInstance.setCurrent(currentlyFocused);
+                }
+            }.bind(this), 300);
+        });
 
         this.mouseTrapInstance = Mousetrap.bind('option', function() {
             this.toggleCollapseMenu();
@@ -81,20 +92,24 @@ tabs-bar
         };
 
         this.initFocusFinder = function() {
-            this.mffInstance = magicFocusFinder
-                .configure({
-                    container : this.root,
-                    useRealFocus : true,
-                    azimuthWeight : 0,
-                    distanceWeight : 2
-                })
-                .start();
+            if(!this.mffInstance) {
+                this.mffInstance = magicFocusFinder
+                    .configure({
+                        container : this.root,
+                        useRealFocus : true,
+                        azimuthWeight : 0,
+                        distanceWeight : 2
+                    })
+                    .start();
 
-            window.mff = this.mffInstance;
+                window.mff = this.mffInstance;
+            } else {
+                this.mffInstance.unlock();
+            }
         };
 
         this.disableFocusFinder = function() {
-            this.mffInstance.destroy();
+            this.mffInstance.lock();
             this.navItem.forEach(function(navItem) {
                 navItem.classList.remove('focused');
             });

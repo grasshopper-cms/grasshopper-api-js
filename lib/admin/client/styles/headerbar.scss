@@ -384,7 +384,7 @@
             &.has-sub-items {
                 position: relative;
 
-                &:hover {
+                &:hover, &.focused {
                     .expand-icon {
                         transform: rotate(45deg);
                     }

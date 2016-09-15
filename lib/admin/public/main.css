@@ -6817,7 +6817,8 @@ html {
     width: 100%;
     overflow-x: hidden; }
     html body #stage {
-      padding-top: 16px; }
+      padding-top: 16px;
+      padding-right: 40px; }
       html body #stage table {
         display: table;
         background: #fff;
@@ -7108,7 +7109,7 @@ html {
           color: #333; }
       #headerbar .nav-items .nav-item.has-sub-items {
         position: relative; }
-        #headerbar .nav-items .nav-item.has-sub-items:hover .expand-icon {
+        #headerbar .nav-items .nav-item.has-sub-items:hover .expand-icon, #headerbar .nav-items .nav-item.has-sub-items.focused .expand-icon {
           -webkit-transform: rotate(45deg);
                   transform: rotate(45deg); }
         #headerbar .nav-items .nav-item.has-sub-items.expanded .expand-icon {

@@ -9901,6 +9901,9 @@ body, html {
       font-size: 1.3rem;
       line-height: 2.3125rem;
       color: #ccc; }
+  body .columns, html .columns {
+    margin-right: 0;
+    margin-left: 0; }
   body .advancedSearch .tabs, html .advancedSearch .tabs {
     border-bottom: 1px solid lightgray; }
     body .advancedSearch .tabs dd, html .advancedSearch .tabs dd {
@@ -10308,7 +10311,9 @@ body, html {
     border-bottom: 1px solid #c9c9c9;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
     width: 100%;
-    padding: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 40px;
     min-height: 53px;
     text-shadow: 1px 1px 2px #FFFFFF; }
     body #masthead .container #breadcrumbs, html #masthead .container #breadcrumbs {

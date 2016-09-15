@@ -194,6 +194,11 @@ body, html {
     }
   }
 
+  .columns {
+      margin-right: 0;
+      margin-left: 0;
+  }
+
   // VIEWS
   @import "../views/advancedSearch/_style.scss"; // Advanced Search
   @import "../views/advancedSearch/content/_style.scss"; // Advanced Content Search

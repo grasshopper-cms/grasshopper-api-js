@@ -1,7 +1,7 @@
 'use strict';
 
 var commerceSingleton = require('../../commerceSingleton'),
-    BB = require('bluebird'),
+    commerceContentTypes = require('../../commerceContentTypes'),
     defaultsDeep = require('lodash/defaultsDeep');
 
 module.exports = {
@@ -21,43 +21,68 @@ module.exports = {
 
 function _handleAddCommerceProduct(request, response) {
     var contentTypeIdInQuestion = request.body.id,
-        keyPaths = request.body.keyPaths;
+        contantTypeName = request.body.name;
 
-    if(!contentTypeIdInQuestion) {
-        new commerceSingleton.grasshopper.bridgetown.Response(response).writeError({ message : 'You must send a contentType ID.', code : 400 });
-    } else if(!keyPaths) {
-        new commerceSingleton.grasshopper.bridgetown.Response(response).writeError({ message : 'You must send pertinant keyPaths.', code : 400 });
+    if(!contentTypeIdInQuestion && !contantTypeName) {
+        new commerceSingleton.grasshopper.bridgetown.Response(response).writeError({ message : 'You must send a contentType ID or a name for a new template type.', code : 400 });
     } else {
-        BB.join(_getCommerceOptionsContent(), _getContentTypeFromDb(commerceSingleton.commerceOptionsTypeId), function(commerceOptionsContent, contentTypeFromDb) {
-                console.log(commerceOptionsContent.fields.products);
-                var products = commerceOptionsContent.fields.products
-                        .filter(function(product) {
-                            return product.typeId !== contentTypeIdInQuestion;
-                        });
-
-                products.push({
-                    typeId : contentTypeIdInQuestion,
-                    title : contentTypeFromDb.label,
-                    keypaths : keyPaths
+        if(!contentTypeIdInQuestion) {
+            // Going to add a new one.
+            _addNewProductTemplate(contantTypeName)
+                .then(function(addedProductTypeId) {
+                    return _updateCommerceOptions(addedProductTypeId);
+                })
+                .then(function(latest) {
+                    new commerceSingleton.grasshopper.bridgetown.Response(response).writeSuccess(latest);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    new commerceSingleton.grasshopper.bridgetown.Response(response).writeError({ message : 'Error Updating Commerce Products', code : 400 });
                 });
-
-                return commerceSingleton.grasshopper
-                    .request
-                    .content
-                    .update(defaultsDeep({
-                        fields : {
-                            products : products
-                        }
-                    }, commerceOptionsContent));
-            })
-            .then(function(latest) {
-                new commerceSingleton.grasshopper.bridgetown.Response(response).writeSuccess(latest);
-            })
-            .catch(function(err) {
-                console.log(err);
-                new commerceSingleton.grasshopper.bridgetown.Response(response).writeError({ message : 'Error Updating Commerce Products', code : 400 });
-            });
+        } else {
+            _updateCommerceOptions(contentTypeIdInQuestion)
+                .then(function(latest) {
+                    new commerceSingleton.grasshopper.bridgetown.Response(response).writeSuccess(latest);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    new commerceSingleton.grasshopper.bridgetown.Response(response).writeError({ message : 'Error Updating Commerce Products', code : 400 });
+                });
+        }
     }
+}
+
+function _addNewProductTemplate(name) {
+    commerceContentTypes.productContentTypeTemplate.label = name;
+
+    return commerceSingleton.grasshopper
+        .request
+        .contentTypes
+        .insert(commerceContentTypes.productContentTypeTemplate)
+        .then(function(newContentType) {
+            return newContentType._id.toString();
+        });
+}
+
+function _updateCommerceOptions(contentTypeIdInQuestion) {
+    return _getCommerceOptionsContent()
+        .then(function(commerceOptionsContent) {
+            var products = commerceOptionsContent.fields.products
+                    .filter(function(product) {
+                        return product !== contentTypeIdInQuestion;
+                    });
+
+            products.push(contentTypeIdInQuestion);
+
+            return commerceSingleton.grasshopper
+                .request
+                .content
+                .update(defaultsDeep({
+                    fields : {
+                        products : products
+                    }
+                }, commerceOptionsContent));
+        });
 }
 
 function _getCommerceOptionsContent() {
@@ -65,20 +90,4 @@ function _getCommerceOptionsContent() {
         .request
         .content
         .getById(commerceSingleton.commerceOptionsContentId);
-}
-
-function _getContentTypeFromDb(commerceOptionsTypeId) {
-    return commerceSingleton.grasshopper
-        .request
-        .contentTypes
-        .list() // Cannot query content types yet.
-        .then(function(queryResults) {
-            var found = queryResults
-                .results
-                .find(function(contentType) {
-                    return contentType._id.toString() === commerceOptionsTypeId;
-                });
-
-            return found;
-        });
 }

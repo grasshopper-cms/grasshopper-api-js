@@ -20,15 +20,15 @@ module.exports = {
                 "label" : "Products",
                 "max" : 10,
                 "min" : 0,
-                "options" : "", // Set while Adding. The Content Type ID of the Commerce Product
-                "type" : "embeddedtype",
+                "options" : "",
+                "type" : "array",
                 "validation" : [],
                 "_id" : "products",
-                "dataType" : "ref"
+                "dataType" : "array"
             }
         ]
     },
-    commerceProduct : {
+    productContentTypeTemplate : {
         label: 'Commerce Product',
         helpText: 'A commerce product.',
         fields:  [
@@ -44,24 +44,14 @@ module.exports = {
                 "dataType" : "string"
             },
             {
-                "label" : "Product Content Type Id",
+                "label" : "Sku",
                 "max" : 10,
                 "min" : 0,
-                "options" : "", // Set while Adding. The Content Type ID of the Commerce Product
+                "options" : "",
                 "type" : "string",
                 "validation" : [],
-                "_id" : "typeId",
+                "_id" : "sku",
                 "dataType" : "string"
-            },
-            {
-                "label" : "Pertinant Keypaths",
-                "max" : 10,
-                "min" : 0,
-                "options" : "", // Set while Adding. The Content Type ID of the Commerce Product
-                "type" : "array",
-                "validation" : [],
-                "_id" : "keypaths",
-                "dataType" : "array"
             }
         ]
     }

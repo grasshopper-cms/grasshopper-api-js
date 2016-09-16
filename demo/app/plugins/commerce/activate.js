@@ -20,11 +20,7 @@ module.exports = function activate(grasshopperInstance) {
     commerceSingleton.grasshopper.router.post('/admin/commerce/options/add-commerce-product', require('./api/options').addCommerceProduct);
 
     // Add the Commerce Product Type.
-    return _ensureCommerceProductType()
-        .then(function(commerceProductTypeId) {
-            commerceSingleton.commerceProductTypeId = commerceProductTypeId;
-        })
-        .then(_ensureCommerceOptionsType)
+    return _ensureCommerceOptionsType()
         .then(function(commerceOptionsTypeId) {
             commerceSingleton.commerceOptionsTypeId = commerceOptionsTypeId;
         })
@@ -33,36 +29,6 @@ module.exports = function activate(grasshopperInstance) {
             commerceSingleton.commerceOptionsContentId = commerceOptionsContentId;
         });
 };
-
-
-function _ensureCommerceProductType() {
-    return commerceSingleton.grasshopper
-        .request
-        .contentTypes
-        .list() // Cannot query content types yet.
-        .then(function(queryResults) {
-            var found = queryResults
-                    .results
-                    .find(function(contentType) {
-                        return contentType.label === commerceContentTypes.commerceProduct.label;
-                    });
-
-            if(found) {
-                console.log('Found Commerce Product Type. No Need to add it.');
-                return found._id.toString();
-            } else {
-                console.log('Could not find Commerce Product Content Type, inserting now');
-                return commerceSingleton.grasshopper
-                    .request
-                    .contentTypes
-                    .insert(commerceContentTypes.commerceProduct)
-                    .then(function(newContentType) {
-                        console.log('Finished inserting Commerce Product Content Type');
-                        return newContentType._id.toString();
-                    });
-            }
-        });
-}
 
 function _ensureCommerceOptionsType() {
     return commerceSingleton.grasshopper
@@ -81,12 +47,6 @@ function _ensureCommerceOptionsType() {
                 return found._id.toString();
             } else {
                 console.log('Could not find Commerce Options Content Type, inserting now');
-
-                commerceContentTypes.options.fields.forEach(function(field) {
-                    if(field._id === 'products') {
-                        field.options = commerceSingleton.commerceProductTypeId.toString();
-                    }
-                });
 
                 return commerceSingleton.grasshopper
                     .request

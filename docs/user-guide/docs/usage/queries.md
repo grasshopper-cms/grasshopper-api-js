@@ -54,62 +54,157 @@ In the following examples, "request" is the configured grasshopper request objec
 
 1. Get a User with ID = {a valid ID}
 
-        request
-                .get()
-                .users
-                .query({
-                    filters: [
-                        {
-                            key:'id',
-                            cmp:'=',
-                            value: {a valid ID}
-                        }
-                    ]
-                })
+```javascript
+request
+        .get()
+        .users
+        .query({
+            filters: [
+                {
+                    key:'id',
+                    cmp:'=',
+                    value: {a valid ID}
+                }
+            ]
+        })
+```
 
 2. Get a list of users with the first name "Bob" and were created after 01-01-2016
 
-         request
-                .get()
-                .users
-                .query({
-                    filters: [
-                         {
-                             key:'firstname',
-                             cmp:'=',
-                             value: 'Bob'
-                         },
-                         {
-                             key: 'dateCreated',
-                             cmp: '>=',
-                             value: new Date(2016,0,1,0,0,0,0)
-                         }
-                     ]
-                })
+```javascript
+ request
+        .get()
+        .users
+        .query({
+            filters: [
+                 {
+                     key:'firstname',
+                     cmp:'=',
+                     value: 'Bob'
+                 },
+                 {
+                     key: 'dateCreated',
+                     cmp: '>=',
+                     value: new Date(2016,0,1,0,0,0,0)
+                 }
+             ]
+        })
+```
 
 3. Get a list of content items with node id {NODE-ID} and sort by meta.created in descending order and limit returned results to 100
          
-         request
-                .get()
-                .content
-                .query({
-                     nodes : [{NODE-ID}],
-                     options : {
-                         sort : {'meta.created': -1},
-                         limit : 100
-                     }
-                })
+```javascript
+ request
+        .get()
+        .content
+        .query({
+             nodes : [{NODE-ID}],
+             options : {
+                 sort : {'meta.created': -1},
+                 limit : 100
+             }
+        })
+```
 
 4. Get a list of content items with node id {NODE-ID} with filters
 
-         request
-                .get()
-                .content
-                .query({
-                    nodes: [{NODE-ID}],
-                    filters: [{
-                        key: 'contentField1',
-                        cmp: '=',
-                        value: ''
-                    }]
+```javascript
+ request
+        .get()
+        .content
+        .query({
+            nodes: [{NODE-ID}],
+            filters: [{
+                key: 'contentField1',
+                cmp: '=',
+                value: ''
+            }]
                 })
+```
+
+5. Get all pieces of content within a content type
+
+```javascript
+request.get()
+       .content
+       .query({
+           types : [constants.servicePageContentTypeId]
+       });
+```
+
+6. Filter active blog posts, sort newest first, and paginate
+
+```javascript
+{
+    types: [
+        'blog-post-content-type-id'
+    ],
+    filters:[
+        {
+            key : 'fields.date',
+            cmp : '<',
+            value : new Date()
+        }
+    ],
+    options: {
+        limit: 4,
+        skip: 8,
+        sortBy: {
+            'fields.date': -1
+        }
+    }
+}
+```
+
+7. Optionally add year and category filters
+
+```javascript
+{
+    key : 'fields.category',
+    cmp : '=',
+    value : 'business'
+}
+{
+    key: 'fields.date',
+    cmp: 'between',
+    value: [
+        new Date(2015, 0, 1, 0, 0, 0, 0),
+        new Date(2015, 11, 31, 23, 59, 59, 999)
+    ]
+}
+```
+
+8. Find all events in the future that are not featured and are not assigned to any of my teams, sorted by start date ascending. Don’t include a bunch of the document fields in the response.
+
+```javascript
+app.ghCore.request(token.get()).content.query({
+       nodes: ['551eb85bde9a59304b5164e0'],
+       types: ['551eb735de9a59304b5164de'],
+       filters: [
+           { key: 'fields.dates.validTo', cmp: 'gte', value: new Date()},
+           { key: 'fields.featured.value', cmp: 'eq', value: false},
+           { key: 'fields.team', cmp: '!in', value: _.pluck(req.bridgetown.identity.profile.teams.concat(req.bridgetown.identity.profile.erns || []), 'id')}
+       ],
+       options: {
+           skip: req.param('skip'),
+           limit: req.param('limit'),
+           sort: 'fields.dates.validFrom',
+           exclude: [
+               'fields.additioninformation',
+               'fields.category',
+               'fields.location',
+               'fields.attendees',
+               'fields.organizer',
+               'fields.volunteeredhours',
+               'fields.approved',
+               'fields.eventfull',
+               'fields.providetshirts',
+               'fields.desiredvolunteers',
+               'fields.isongoing',
+               'fields.totalvolunteers'
+           ],
+       }
+   });
+
+
+```

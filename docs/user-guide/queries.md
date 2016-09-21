@@ -68,7 +68,7 @@ In the following examples, "request" is the configured grasshopper request objec
                 })
 
 2. Get a list of users with the first name "Bob" and were created after 01-01-2016
-                
+
          request
                 .get()
                 .users
@@ -98,4 +98,18 @@ In the following examples, "request" is the configured grasshopper request objec
                          sort : {'meta.created': -1},
                          limit : 100
                      }
-                })       
+                })
+
+4. Get a list of content items with node id {NODE-ID} with filters
+
+         request
+                .get()
+                .content
+                .query({
+                    nodes: [{NODE-ID}],
+                    filters: [{
+                        key: 'contentField1',
+                        cmp: '=',
+                        value: ''
+                    }]
+                })

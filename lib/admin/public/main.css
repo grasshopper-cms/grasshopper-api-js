@@ -6818,7 +6818,7 @@ html {
     overflow-x: hidden; }
     html body #stage {
       padding-top: 16px;
-      padding-right: 40px; }
+      padding-left: 40px; }
       html body #stage table {
         display: table;
         background: #fff;
@@ -7039,14 +7039,14 @@ html {
     display: block;
     float: none;
     position: absolute;
-    right: -40px;
+    left: -40px;
     top: 50px;
     bottom: 0;
     background-color: #1d354d;
     height: calc(100vh - 50px);
     width: 300px;
-    -webkit-transform: translate3d(260px, 0, 0);
-            transform: translate3d(260px, 0, 0);
+    -webkit-transform: translate3d(-260px, 0, 0);
+            transform: translate3d(-260px, 0, 0);
     -webkit-transition: -webkit-transform 0.3s ease-out;
     transition: -webkit-transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
@@ -7098,6 +7098,8 @@ html {
           max-height: 703px; }
         #headerbar .nav-items.open .nav-item-dropdown.expanded.height-20 {
           max-height: 740px; }
+      #headerbar .nav-items.open .nav-item .right-icon {
+        opacity: 0; }
     #headerbar .nav-items .nav-item {
       display: block;
       width: 100%;
@@ -7114,7 +7116,7 @@ html {
       text-align: left; }
       #headerbar .nav-items .nav-item:first-child {
         border-top: 1px solid #ccc; }
-      #headerbar .nav-items .nav-item i {
+      #headerbar .nav-items .nav-item .left-icon {
         width: 40px;
         margin-right: 5px;
         text-align: center; }
@@ -7146,6 +7148,16 @@ html {
           transition: transform 0.4s ease, -webkit-transform 0.4s ease;
           -webkit-transform: rotate(90deg);
                   transform: rotate(90deg); }
+      #headerbar .nav-items .nav-item .right-icon {
+        float: right;
+        line-height: 20px;
+        opacity: 1;
+        -webkit-transition: opacity 0.3s ease-out;
+        transition: opacity 0.3s ease-out;
+        -webkit-transform: translateX(calc(100% - 40px));
+                transform: translateX(calc(100% - 40px));
+        width: 40px;
+        text-align: center; }
     #headerbar .nav-items .nav-item-dropdown {
       max-height: 0px;
       overflow: hidden;

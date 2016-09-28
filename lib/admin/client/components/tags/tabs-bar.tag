@@ -7,16 +7,19 @@ tabs-bar
     .nav-items(name='navItemsElement' class='{ open : isShowingCollapseMenu }')
         virtual(each='{ menuItem, index in menuItems }')
             a.nav-item.no-sub-items(name='navItem' focusable dynamic-position capture-focus='{ index === 0 }' if='{ menuItem.fields.active && !menuItem.childTabs.length }' href='{ menuItem.fields.href }' class='{ active : menuItem.active }')
-                i(class='{ menuItem.fields.iconclasses }')
+                i.left-icon(class='{ menuItem.fields.iconclasses }')
                 span { menuItem.fields.title }
+                i.right-icon(class='{ menuItem.fields.iconclasses }')
             .nav-item.has-sub-items(name='navItem' focusable dynamic-position if='{ menuItem.fields.active && menuItem.childTabs.length }' class='{ active : menuItem.active, expanded : menuItem.expanded }' onclick='{ toggleThisTabsDropdown }')
-                i(class='{ menuItem.fields.iconclasses }')
+                i.left-icon(class='{ menuItem.fields.iconclasses }')
                 span { menuItem.fields.title }
                 i.fa.fa-caret-down.expand-icon
+                i.right-icon(class='{ menuItem.fields.iconclasses }')
             .nav-item-dropdown(if='{ menuItem.fields.active && menuItem.childTabs.length }' class='{ navItemDropdownClasses(menuItem) }')
                 a.nav-item(name='navItem' focusable='{ menuItem.expanded }' dynamic-position each='{ childTab in menuItem.childTabs }' if='{ childTab.fields.active }' href='{ childTab.fields.href }' class='{ active : childTab.active }')
-                    i(class='{ childTab.fields.iconclasses }')
+                    i.left-icon(class='{ childTab.fields.iconclasses }')
                     span { childTab.fields.title }
+                    i.right-icon(class='{ menuItem.fields.iconclasses }')
 
     script.
         var throttle = require('lodash/throttle'),

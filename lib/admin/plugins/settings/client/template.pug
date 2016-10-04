@@ -1,135 +1,135 @@
-extends ../node_modules/grasshopper-admin-plugin-base-template/gh-admin-base-template.pug
+//- extends ../node_modules/grasshopper-admin-plugin-base-template/gh-admin-base-template.pug
 
 include fontAwesomeListOptions.pug
 
-block head
-    link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
+//- block head
+link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
 
-block stage
-    #settings.container.markdown-body
-        h1 SETTINGS
+//- block stage
+#settings.container.markdown-body
+    h1 SETTINGS
 
-        .columns
-            .one-fifth.column
-                nav.menu
-                    a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-class-selected='view.activeSection | equals view.subViews.general' rv-section-name='view.subViews.general') General
-                    a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-class-selected='view.activeSection | equals view.subViews.plugins' rv-section-name='view.subViews.plugins') Plugins
-                    a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-class-selected='view.activeSection | equals view.subViews.tabs' rv-section-name='view.subViews.tabs') Tabs
-            .four-fifths.column
-                #generalView(rv-class-active='view.activeSection | equals view.subViews.general')
-                    h2.sub-view-title General Settings
+    .columns
+        .one-fifth.column
+            nav.menu
+                a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-class-selected='view.activeSection | equals view.subViews.general' rv-section-name='view.subViews.general') General
+                a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-class-selected='view.activeSection | equals view.subViews.plugins' rv-section-name='view.subViews.plugins') Plugins
+                a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-class-selected='view.activeSection | equals view.subViews.tabs' rv-section-name='view.subViews.tabs') Tabs
+        .four-fifths.column
+            #generalView(rv-class-active='view.activeSection | equals view.subViews.general')
+                h2.sub-view-title General Settings
 
-                #pluginsView(rv-class-active='view.activeSection | equals view.subViews.plugins')
-                    h2.sub-view-title Plugins
+            #pluginsView(rv-class-active='view.activeSection | equals view.subViews.plugins')
+                h2.sub-view-title Plugins
 
-                    table
-                        thead
-                            tr
-                                th Title
-                                th Description
-                                th Version
-                                th.text-center Activate
-                        tbody
-                            tr(rv-each-plugin='view.plugins')
-                                td(rv-text='plugin.title')
-                                td(rv-text='plugin.description')
-                                td(rv-text='plugin.version')
-                                td.activation-cell.text-center(rv-class-is-working='plugin.isWorking')
-                                    span.working
-                                        .text(rv-text='plugin.workingType')
-                                        i.icon.fa.fa-spin.fa-refresh
-                                    input(type='checkbox' rv-on-change='view.handlePluginCheck' rv-checked='plugin.active')
+                table
+                    thead
+                        tr
+                            th Title
+                            th Description
+                            th Version
+                            th.text-center Activate
+                    tbody
+                        tr(rv-each-plugin='view.plugins')
+                            td(rv-text='plugin.title')
+                            td(rv-text='plugin.description')
+                            td(rv-text='plugin.version')
+                            td.activation-cell.text-center(rv-class-is-working='plugin.isWorking')
+                                span.working
+                                    .text(rv-text='plugin.workingType')
+                                    i.icon.fa.fa-spin.fa-refresh
+                                input(type='checkbox' rv-on-change='view.handlePluginCheck' rv-checked='plugin.active')
 
-                #tabsView(rv-class-active='view.activeSection | equals view.subViews.tabs')
-                    .title-container
-                        h2.sub-view-title Tabs
-                        .save-tab-sort-container(rv-class-has-changed='view.tabsSortHasChanged')
-                            button.btn(type='button' rv-on-click='view.saveSortedTabs' rv-disabled='view.isSavingTabSort')
-                                .normal(rv-hide='view.isSavingTabSort') Save Tab Sort
-                                .is-working(rv-show='view.isSavingTabSort')
+            #tabsView(rv-class-active='view.activeSection | equals view.subViews.tabs')
+                .title-container
+                    h2.sub-view-title Tabs
+                    .save-tab-sort-container(rv-class-has-changed='view.tabsSortHasChanged')
+                        button.btn(type='button' rv-on-click='view.saveSortedTabs' rv-disabled='view.isSavingTabSort')
+                            .normal(rv-hide='view.isSavingTabSort') Save Tab Sort
+                            .is-working(rv-show='view.isSavingTabSort')
+                                span Working
+                                i.fa.fa-refresh.fa-spin
+
+                .tabs-sort-header
+                    .title Title
+                    //- .href Href
+                    //- .icons Icon Classes
+                    //- .allowed Allowed Roles
+                    //- .added Added By
+                    .activation Active
+                .tabs-sort-container(name='tabsSortContainer')
+                    .nested.top-level-parent(name='tabsSortDragulaHandle')
+                        .item.parent.border(rv-each-tab='view.tabs' rv-tab-id='tab._id')
+                            span.title(rv-text='tab.fields.title')
+                            //- span.href(rv-text='tab.fields.href')
+                            //- span.icons(rv-text='tab.fields.iconclasses')
+                            //- span.roles(rv-text='tab.fields.roles')
+                            //- span.added(rv-text='tab.fields.addedby')
+                            .activation.text-center(rv-class-is-working='tab.isWorking' rv-class-cant-deactivate='tab.fields.href | equals "/admin/settings"')
+                                span.working
+                                    .text(rv-text='tab.workingType')
+                                    i.icon.fa.fa-spin.fa-refresh
+                                input(type='checkbox' rv-on-change='view.handleTabToggled' tab-key='tab' rv-checked='tab.fields.active' rv-disabled='view.tabsSortHasChanged')
+                            .nested(name='tabsSortDragulaHandle' rv-if='tab.childTabs')
+                                .item.child.border(rv-each-child='tab.childTabs' rv-tab-id='child._id')
+                                    span.title(rv-text='child.fields.title')
+                                    //- span.href(rv-text='child.fields.href')
+                                    //- span.icons(rv-text='child.fields.iconclasses')
+                                    //- span.roles(rv-text='child.fields.roles')
+                                    //- span.added(rv-text='child.fields.addedby')
+                                    .activation.text-center(rv-class-is-working='child.isWorking' rv-class-cant-deactivate='child.fields.href | equals "/admin/settings"')
+                                        span.working
+                                            .text(rv-text='child.workingType')
+                                            i.icon.fa.fa-spin.fa-refresh
+                                        input(type='checkbox' rv-on-change='view.handleTabToggled' tab-key='child' rv-checked='child.fields.active' rv-disabled='view.tabsSortHasChanged')
+                                    .nested
+                .add-new-tab-container
+                    h2.sub-view-title Add New Tab
+
+                    form.add-new-tab-form
+                        dl.form-group
+                            dt
+                                label Title
+                            dd
+                                input.form-control(name='newTabTitle' type='text')
+                        dl.form-group
+                            dt
+                                label Href
+                            dd
+                                input.form-control(name='newTabHref' type='text')
+                        dl.form-group
+                            dt
+                                label Roles
+                            dd
+                                .form-checkbox
+                                    label
+                                        input(name='newTabRoleAdmin' type='checkbox')
+                                        span Admin
+                                .form-checkbox
+                                    label
+                                        input(name='newTabRoleEditor' type='checkbox')
+                                        span Editor
+                                .form-checkbox
+                                    label
+                                        input(name='newTabRoleReader' type='checkbox')
+                                        span Reader
+                        dl.form-group
+                            dt
+                                label Icon
+                            dd
+                                select.form-select(name='newTabIconClass')
+                                    option Choose an option
+                                    +fontAwesomeListOptions()
+                        .form-actions
+                            button.btn.btn-primary(type='button' rv-on-click='view.addNewTabFromTabForm' rv-disabled='view.isAddingTab')
+                                .normal(rv-hide='view.isAddingTab') Add New Tab
+                                .is-working(rv-show='view.isAddingTab')
                                     span Working
                                     i.fa.fa-refresh.fa-spin
+                            button.btn(type='button' rv-on-click='view.cancelTabAddClearForm') Cancel
 
-                    .tabs-sort-header
-                        .title Title
-                        //- .href Href
-                        //- .icons Icon Classes
-                        //- .allowed Allowed Roles
-                        //- .added Added By
-                        .activation Active
-                    .tabs-sort-container(name='tabsSortContainer')
-                        .nested.top-level-parent(name='tabsSortDragulaHandle')
-                            .item.parent.border(rv-each-tab='view.tabs' rv-tab-id='tab._id')
-                                span.title(rv-text='tab.fields.title')
-                                //- span.href(rv-text='tab.fields.href')
-                                //- span.icons(rv-text='tab.fields.iconclasses')
-                                //- span.roles(rv-text='tab.fields.roles')
-                                //- span.added(rv-text='tab.fields.addedby')
-                                .activation.text-center(rv-class-is-working='tab.isWorking' rv-class-cant-deactivate='tab.fields.href | equals "/admin/settings"')
-                                    span.working
-                                        .text(rv-text='tab.workingType')
-                                        i.icon.fa.fa-spin.fa-refresh
-                                    input(type='checkbox' rv-on-change='view.handleTabToggled' tab-key='tab' rv-checked='tab.fields.active' rv-disabled='view.tabsSortHasChanged')
-                                .nested(name='tabsSortDragulaHandle' rv-if='tab.childTabs')
-                                    .item.child.border(rv-each-child='tab.childTabs' rv-tab-id='child._id')
-                                        span.title(rv-text='child.fields.title')
-                                        //- span.href(rv-text='child.fields.href')
-                                        //- span.icons(rv-text='child.fields.iconclasses')
-                                        //- span.roles(rv-text='child.fields.roles')
-                                        //- span.added(rv-text='child.fields.addedby')
-                                        .activation.text-center(rv-class-is-working='child.isWorking' rv-class-cant-deactivate='child.fields.href | equals "/admin/settings"')
-                                            span.working
-                                                .text(rv-text='child.workingType')
-                                                i.icon.fa.fa-spin.fa-refresh
-                                            input(type='checkbox' rv-on-change='view.handleTabToggled' tab-key='child' rv-checked='child.fields.active' rv-disabled='view.tabsSortHasChanged')
-                                        .nested
-                    .add-new-tab-container
-                        h2.sub-view-title Add New Tab
-
-                        form.add-new-tab-form
-                            dl.form-group
-                                dt
-                                    label Title
-                                dd
-                                    input.form-control(name='newTabTitle' type='text')
-                            dl.form-group
-                                dt
-                                    label Href
-                                dd
-                                    input.form-control(name='newTabHref' type='text')
-                            dl.form-group
-                                dt
-                                    label Roles
-                                dd
-                                    .form-checkbox
-                                        label
-                                            input(name='newTabRoleAdmin' type='checkbox')
-                                            span Admin
-                                    .form-checkbox
-                                        label
-                                            input(name='newTabRoleEditor' type='checkbox')
-                                            span Editor
-                                    .form-checkbox
-                                        label
-                                            input(name='newTabRoleReader' type='checkbox')
-                                            span Reader
-                            dl.form-group
-                                dt
-                                    label Icon
-                                dd
-                                    select.form-select(name='newTabIconClass')
-                                        option Choose an option
-                                        +fontAwesomeListOptions()
-                            .form-actions
-                                button.btn.btn-primary(type='button' rv-on-click='view.addNewTabFromTabForm' rv-disabled='view.isAddingTab')
-                                    .normal(rv-hide='view.isAddingTab') Add New Tab
-                                    .is-working(rv-show='view.isAddingTab')
-                                        span Working
-                                        i.fa.fa-refresh.fa-spin
-                                button.btn(type='button' rv-on-click='view.cancelTabAddClearForm') Cancel
-
-block scripts
-    script.
-        window.plugins = JSON.parse('!{JSON.stringify(plugins)}');
-        window.tabs = JSON.parse('!{JSON.stringify(tabs)}');
-    script(type='text/javascript' src='/admin/plugins/settings/bundle.js')
+//- block scripts
+script.
+    window.plugins = JSON.parse('!{JSON.stringify(plugins)}');
+    window.tabs = JSON.parse('!{JSON.stringify(tabs)}');
+script(type='text/javascript' src='/admin/plugins/settings/bundle.js')

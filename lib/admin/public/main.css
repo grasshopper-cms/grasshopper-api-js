@@ -6813,12 +6813,13 @@ html {
   height: 100%;
   width: 100%; }
   html body {
+    display: block;
     height: 100%;
     width: 100%;
     overflow-x: hidden; }
     html body #stage {
       padding-top: 16px;
-      padding-left: 40px; }
+      padding-left: 50px; }
       html body #stage table {
         display: table;
         background: #fff;
@@ -6869,119 +6870,12 @@ html {
   background-color: #1d354d;
   color: #fff;
   width: 100%;
-  border-left: 40px solid #1d354d;
-  border-right: 40px solid #1d354d; }
-  #headerbar .brand {
-    display: inline-block;
-    vertical-align: top;
-    height: 50px;
-    width: 215px;
-    background-image: url("images/grasshopper-logo.png");
-    background-repeat: no-repeat;
-    background-position: right center; }
+  border-right: 50px solid #1d354d; }
   #headerbar .top-menu-container {
-    float: right;
     display: inline-block;
     vertical-align: top;
-    line-height: 100%; }
-    #headerbar .top-menu-container .user-information-section {
-      position: relative;
-      display: inline-block;
-      vertical-align: top;
-      line-height: 34px;
-      padding-top: 8px;
-      padding-right: 12px;
-      padding-bottom: 8px;
-      padding-left: 12px;
-      color: #fff;
-      cursor: pointer;
-      z-index: 102; }
-      #headerbar .top-menu-container .user-information-section:hover {
-        background-color: #ccc; }
-        #headerbar .top-menu-container .user-information-section:hover .expand-icon {
-          -webkit-transform: rotate(45deg);
-                  transform: rotate(45deg); }
-      #headerbar .top-menu-container .user-information-section.active {
-        background-color: #ccc; }
-        #headerbar .top-menu-container .user-information-section.active .user-information-dropdown {
-          display: block; }
-        #headerbar .top-menu-container .user-information-section.active .expand-icon {
-          -webkit-transform: rotate(0);
-                  transform: rotate(0); }
-      #headerbar .top-menu-container .user-information-section .gravatar-img {
-        display: inline-block;
-        vertical-align: middle;
-        max-width: 24px;
-        max-height: 24px;
-        margin-right: 6px;
-        border-radius: 3px;
-        outline: 1px solid transparent; }
-      #headerbar .top-menu-container .user-information-section .expand-icon {
-        color: #fff;
-        display: inline-block;
-        vertical-align: middle;
-        -webkit-transition: -webkit-transform 0.4s ease;
-        transition: -webkit-transform 0.4s ease;
-        transition: transform 0.4s ease;
-        transition: transform 0.4s ease, -webkit-transform 0.4s ease;
-        -webkit-transform: rotate(90deg);
-                transform: rotate(90deg); }
-      #headerbar .top-menu-container .user-information-section .user-information-dropdown {
-        position: absolute;
-        display: none;
-        z-index: 104;
-        top: 100%;
-        right: 0;
-        max-width: 300px;
-        min-width: 160px;
-        white-space: nowrap;
-        text-align: left;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-bottom-left-radius: 3px;
-        border-bottom-right-radius: 3px;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); }
-        #headerbar .top-menu-container .user-information-section .user-information-dropdown .logged-in-as-text {
-          height: 30px;
-          line-height: 29px;
-          padding-left: 10px;
-          padding-right: 10px;
-          color: #333;
-          background-color: #fff;
-          border-bottom: 1px solid #ccc; }
-        #headerbar .top-menu-container .user-information-section .user-information-dropdown .profile {
-          display: block;
-          height: 30px;
-          line-height: 30px;
-          padding-left: 10px;
-          padding-right: 10px;
-          color: #333;
-          background-color: #fff;
-          margin-top: 2px;
-          margin-bottom: 2px;
-          text-decoration: none; }
-          #headerbar .top-menu-container .user-information-section .user-information-dropdown .profile:hover {
-            background-color: #ccc; }
-        #headerbar .top-menu-container .user-information-section .user-information-dropdown .logout {
-          display: block;
-          height: 30px;
-          line-height: 30px;
-          padding-left: 10px;
-          padding-right: 10px;
-          color: #333;
-          background-color: #fff;
-          text-decoration: none;
-          margin-top: 2px;
-          margin-bottom: 2px; }
-          #headerbar .top-menu-container .user-information-section .user-information-dropdown .logout:hover {
-            background-color: #ccc; }
-      #headerbar .top-menu-container .user-information-section .close-dropdown-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 103; }
+    line-height: 100%;
+    margin-right: 25px; }
     #headerbar .top-menu-container .collapsed-menu-toggle {
       display: inline-block;
       vertical-align: top;
@@ -7035,18 +6929,125 @@ html {
           transition: transform 0.4s ease-out;
           transition: transform 0.4s ease-out, -webkit-transform 0.4s ease-out;
           will-change: transform; }
+  #headerbar .brand {
+    display: inline-block;
+    vertical-align: top;
+    height: 50px;
+    width: 215px;
+    background-image: url("images/grasshopper-logo.png");
+    background-repeat: no-repeat;
+    background-position: right center; }
+  #headerbar .user-information-section {
+    float: right;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    line-height: 34px;
+    padding-top: 8px;
+    padding-right: 12px;
+    padding-bottom: 8px;
+    padding-left: 12px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 102; }
+    #headerbar .user-information-section:hover {
+      background-color: #ccc; }
+      #headerbar .user-information-section:hover .expand-icon {
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg); }
+    #headerbar .user-information-section.active {
+      background-color: #ccc; }
+      #headerbar .user-information-section.active .user-information-dropdown {
+        display: block; }
+      #headerbar .user-information-section.active .expand-icon {
+        -webkit-transform: rotate(0);
+                transform: rotate(0); }
+    #headerbar .user-information-section .gravatar-img {
+      display: inline-block;
+      vertical-align: middle;
+      max-width: 24px;
+      max-height: 24px;
+      margin-right: 6px;
+      border-radius: 3px;
+      outline: 1px solid transparent; }
+    #headerbar .user-information-section .expand-icon {
+      color: #fff;
+      display: inline-block;
+      vertical-align: middle;
+      -webkit-transition: -webkit-transform 0.4s ease;
+      transition: -webkit-transform 0.4s ease;
+      transition: transform 0.4s ease;
+      transition: transform 0.4s ease, -webkit-transform 0.4s ease;
+      -webkit-transform: rotate(90deg);
+              transform: rotate(90deg); }
+    #headerbar .user-information-section .user-information-dropdown {
+      position: absolute;
+      display: none;
+      z-index: 104;
+      top: 100%;
+      right: 0;
+      max-width: 300px;
+      min-width: 160px;
+      white-space: nowrap;
+      text-align: left;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); }
+      #headerbar .user-information-section .user-information-dropdown .logged-in-as-text {
+        height: 30px;
+        line-height: 29px;
+        padding-left: 10px;
+        padding-right: 10px;
+        color: #333;
+        background-color: #fff;
+        border-bottom: 1px solid #ccc; }
+      #headerbar .user-information-section .user-information-dropdown .profile {
+        display: block;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
+        color: #333;
+        background-color: #fff;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        text-decoration: none; }
+        #headerbar .user-information-section .user-information-dropdown .profile:hover {
+          background-color: #ccc; }
+      #headerbar .user-information-section .user-information-dropdown .logout {
+        display: block;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
+        color: #333;
+        background-color: #fff;
+        text-decoration: none;
+        margin-top: 2px;
+        margin-bottom: 2px; }
+        #headerbar .user-information-section .user-information-dropdown .logout:hover {
+          background-color: #ccc; }
+    #headerbar .user-information-section .close-dropdown-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 103; }
   #headerbar .nav-items {
     display: block;
     float: none;
     position: absolute;
-    left: -40px;
+    left: 0px;
     top: 50px;
     bottom: 0;
     background-color: #1d354d;
     height: calc(100vh - 50px);
     width: 300px;
-    -webkit-transform: translate3d(-260px, 0, 0);
-            transform: translate3d(-260px, 0, 0);
+    -webkit-transform: translate3d(-250px, 0, 0);
+            transform: translate3d(-250px, 0, 0);
     -webkit-transition: -webkit-transform 0.3s ease-out;
     transition: -webkit-transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
@@ -7117,7 +7118,7 @@ html {
       #headerbar .nav-items .nav-item:first-child {
         border-top: 1px solid #ccc; }
       #headerbar .nav-items .nav-item .left-icon {
-        width: 40px;
+        width: 50px;
         margin-right: 5px;
         text-align: center; }
       #headerbar .nav-items .nav-item:hover:not(.active):not(:active), #headerbar .nav-items .nav-item.focused {
@@ -7154,9 +7155,9 @@ html {
         opacity: 1;
         -webkit-transition: opacity 0.3s ease-out;
         transition: opacity 0.3s ease-out;
-        -webkit-transform: translateX(calc(100% - 40px));
-                transform: translateX(calc(100% - 40px));
-        width: 40px;
+        -webkit-transform: translateX(calc(100% - 50px));
+                transform: translateX(calc(100% - 50px));
+        width: 50px;
         text-align: center; }
     #headerbar .nav-items .nav-item-dropdown {
       max-height: 0px;

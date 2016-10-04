@@ -1,0 +1,46 @@
+<link rel="import" href="/admin/polymer/bower/polymer/polymer.html">
+
+<dom-module id="content-renderer">
+    <template>
+        <style>
+          :host {
+            display: block;
+          }
+        </style>
+    </template>
+    <script>
+        Polymer({
+            is: 'content-renderer',
+            properties : {
+                contentType : {
+                    type : Object
+                },
+                contentId : {
+                    type : String,
+                    reflectToAttribute : true,
+                    notify: true
+                }
+            },
+            hostAttributes : {
+                'contenttype' : true,
+                'content' : true
+            },
+            created : function() {
+                console.log('CREATED');
+            },
+            ready : function() {
+                console.log('READY');
+
+            },
+            attached : function() {
+                console.log('ATTACHED');
+            },
+            detached : function() {
+                console.log('DETACHED');
+            },
+            attributeChanged : function(name, type) {
+                console.log(this.localName + '#' + this.id + ' attribute ' + name + ' was changed to ' + this.getAttribute(name));
+            }
+        });
+    </script>
+</dom-module>

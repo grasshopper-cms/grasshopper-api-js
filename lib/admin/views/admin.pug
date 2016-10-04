@@ -1,0 +1,19 @@
+html
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width')
+        link(rel='stylesheet', href='/admin/main.css')
+        style(type='riot')
+    body
+        #siteContainer
+            #headerbar(riot-tag='tabs-bar')
+            #masthead
+            #stage
+            #alertBox
+            #modal
+        script.
+            window.gh = window.gh || {};
+            window.gh.configs = JSON.parse('!{JSON.stringify(ghAdminConfigs)}');
+        script(src='/admin/manifest.js')
+        script(src='/admin/core.js')
+        script(src='/admin/components.js')

@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var globWatcher = require('glob-watcher'),
+    childProcess = require('child_process'),
+    path = require('path');
+
+console.log('----- WATCHING POLYMER FILES ------');
+
+globWatcher([
+    path.join(__dirname, '..', 'lib', 'admin', 'client', 'components', 'polymer', '**/*.html'),
+], function(done) {
+    console.log('RECOMPILING POLYMER FILES');
+    childProcess.execSync('bin/polymer');
+    console.log('POLYMER FILES RECOMPILED');
+    done();
+});

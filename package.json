@@ -78,6 +78,7 @@
     "grunt-nodemon": "~0.1.1",
     "grunt-release-notes": "~0.1.1",
     "grunt-shell": "~0.4.0",
+    "history": "^4.3.0",
     "listen-once": "^2.2.0",
     "magic-focus-finder": "^2.12.2",
     "matchdep": "~0.1.2",

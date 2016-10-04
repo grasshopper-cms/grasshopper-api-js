@@ -1,0 +1,22 @@
+{
+  "name": "grasshopper-plugin-commerce",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Greg Larrenaga <greg.larrenaga@thinksolid.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Solid-Interactive/grasshopper-api-js",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0",
+    "vaadin-grid": "^1.1.2"
+  }
+}

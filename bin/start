@@ -2,4 +2,4 @@
 
 bin/installDependencies
 bin/build
-(bin/watchScss) & (bin/watchAdminFiles) & (demo/bin/start)
+(bin/watchScss) & (bin/watchAdminFiles) & (bin/watchPolymerComponents) & (demo/bin/start)

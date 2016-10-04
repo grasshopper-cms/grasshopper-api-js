@@ -1,0 +1,22 @@
+{
+  "name": "grasshopper-plugin-settings",
+  "description": "Settings plugin for Grasshopper DMS Admin",
+  "main": "index.js",
+  "authors": [
+    "Greg Larrenaga <greg.larrenaga@thinksolid.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Solid-Interactive/grasshopper-api-js",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib/admin/public/polymer/bower/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "^1.7.0"
+  }
+}

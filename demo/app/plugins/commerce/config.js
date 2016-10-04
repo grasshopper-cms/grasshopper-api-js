@@ -19,7 +19,7 @@ module.exports = {
             roles : 'admin reader editor',
             addedby : `Commerce Plugin : Version ${version}`,
             sort : 0,
-            highlightedWhenRouteMatches : [ // Backbone style only
+            activeWhenRouteMatches : [ // Backbone style only
                 'commerce'
             ],
             subTabs: [
@@ -31,7 +31,7 @@ module.exports = {
                     roles : 'admin reader editor',
                     addedby : `Commerce Plugin : Version ${version}`,
                     sort : 1,
-                    highlightedWhenRouteMatches : [ // Backbone style only
+                    activeWhenRouteMatches : [ // Backbone style only
                         'commerce/options'
                     ]
                 },
@@ -43,7 +43,7 @@ module.exports = {
                     roles : 'admin reader editor',
                     addedby : `Commerce Plugin : Version ${version}`,
                     sort : 0,
-                    highlightedWhenRouteMatches : [ // Backbone style only
+                    activeWhenRouteMatches : [ // Backbone style only
                         'commerce/products'
                     ]
                 },
@@ -55,7 +55,7 @@ module.exports = {
                     roles : 'admin reader editor',
                     addedby : `Commerce Plugin : Version ${version}`,
                     sort : 0,
-                    highlightedWhenRouteMatches : [ // Backbone style only
+                    activeWhenRouteMatches : [ // Backbone style only
                         'commerce/orders'
                     ]
                 },
@@ -67,7 +67,7 @@ module.exports = {
                     roles : 'admin reader editor',
                     addedby : `Commerce Plugin : Version ${version}`,
                     sort : 0,
-                    highlightedWhenRouteMatches : [ // Backbone style only
+                    activeWhenRouteMatches : [ // Backbone style only
                         'commerce/reports'
                     ]
                 }

@@ -16,6 +16,8 @@ html {
     width: 100%;
 
     body {
+        display: block;
+
         height: 100%;
         width: 100%;
 
@@ -24,7 +26,7 @@ html {
         #stage {
             padding-top: 16px;
 
-            padding-left: 40px;
+            padding-left: $site-gutter;
 
             @import 'tables';
         }

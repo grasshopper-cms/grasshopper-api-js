@@ -19,7 +19,7 @@ module.exports = {
             roles : 'admin reader editor',
             addedby : `Example Plugin : Version ${version}`,
             sort : 0,
-            highlightedWhenRouteMatches : [ // Backbone style only
+            activeWhenRouteMatches : [ // Backbone style only
                 'api-browser'
             ]
         }

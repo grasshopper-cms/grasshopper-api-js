@@ -2,10 +2,37 @@ extends ../../node_modules/grasshopper-admin-plugin-base-template/gh-admin-base-
 
 block head
 
+
 block stage
-    #commercePlugin.container.markdown-body
+    #commercePlugin
         h1 Products
 
+        //- button.btn Add New
+
+        content-renderer(content-id='57ed4a09c02406c5109033c5')
+
+        //- vaadin-grid
+        //-     table
+        //-         colgroup
+        //-             col
+        //-             col
+        //-             col
+        //-         thead
+        //-             tr
+        //-                 th Name
+        //-                 th Value
+        //-                 th Progress
+        //-         tbody
+        //-             tr
+        //-                 td Project A
+        //-                 td 10000
+        //-                 td 0.8
+        //-             tr
+        //-                 td Project B
+        //-                 td 999999
+        //-                 td 0.8
+
 block scripts
+    //- link(rel='import' href='/admin/plugins/commerce/bower/vaadin-grid/vaadin-grid.html')
     script.
-        console.log('YEAH BUDDY')
+        console.log('YEAH BUDDY');

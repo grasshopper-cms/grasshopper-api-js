@@ -91,152 +91,157 @@
         background-position: right center;
     }
 
-    .user-information-section {
+    user-information-dropdown {
         float: right;
-        position: relative;
-        display: inline-block;
-        vertical-align: top;
+        height: $header-height;
 
-        line-height: 34px;
-
-        padding-top: 8px;
-        padding-right: 12px;
-        padding-bottom: 8px;
-        padding-left: 12px;
-
-        color: $white;
-
-        cursor: pointer;
-
-        z-index: $userInformationDropdownSection;
-
-        &:hover {
-            background-color: $almost-white;
-            .expand-icon {
-                transform: rotate(45deg);
-            }
-        }
-
-        &.active {
-            background-color: $almost-white;
-            .user-information-dropdown {
-                display: block;
-            }
-            .expand-icon {
-                transform: rotate(0);
-            }
-        }
-
-        .gravatar-img {
+        .user-information-section {
+            position: relative;
             display: inline-block;
-            vertical-align: middle;
-            max-width: 24px;
-            max-height: 24px;
-            margin-right: 6px;
-            border-radius: 3px;
-            outline: 1px solid transparent;
-        }
+            vertical-align: top;
 
-        .expand-icon {
+            line-height: 34px;
+            height: 50px;
+
+            padding-top: 13px;
+            padding-right: 12px;
+            padding-bottom: 13px;
+            padding-left: 12px;
+
             color: $white;
-            display: inline-block;
-            vertical-align: middle;
 
-            transition: transform 0.4s ease;
-            transform: rotate(90deg);
-        }
+            cursor: pointer;
 
-        .user-information-dropdown {
-            position: absolute;
-            display: none;
+            z-index: $userInformationDropdownSection;
 
-            z-index: $userInformationDropdownZIndex;
-
-            top: 100%;
-            right: 0;
-
-            max-width: 300px;
-            min-width: 160px;
-
-            white-space: nowrap;
-
-            text-align: left;
-
-            background-color: $white;
-
-            border: 1px solid $almost-white;
-
-            border-bottom-left-radius: 3px;
-            border-bottom-right-radius: 3px;
-
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-
-            .logged-in-as-text {
-                height: 30px;
-                line-height: 29px;
-
-                padding-left: 10px;
-                padding-right: 10px;
-
-                color: $almost-black;
-                background-color: $white;
-
-                border-bottom: 1px solid $almost-white;
-            }
-
-            .profile {
-                display: block;
-
-                height: 30px;
-                line-height: 30px;
-
-                padding-left: 10px;
-                padding-right: 10px;
-
-                color: $almost-black;
-                background-color: $white;
-
-                margin-top: 2px;
-                margin-bottom: 2px;
-
-                text-decoration: none;
-
-                &:hover {
-                    background-color: $almost-white;
+            &:hover {
+                background-color: $almost-white;
+                .expand-icon {
+                    transform: rotate(45deg);
                 }
             }
 
-            .logout {
-                display: block;
-
-                height: 30px;
-                line-height: 30px;
-
-                padding-left: 10px;
-                padding-right: 10px;
-
-                color: $almost-black;
-                background-color: $white;
-
-                text-decoration: none;
-
-                margin-top: 2px;
-                margin-bottom: 2px;
-
-                &:hover {
-                    background-color: $almost-white;
+            &.active {
+                background-color: $almost-white;
+                .user-information-dropdown {
+                    display: block;
+                }
+                .expand-icon {
+                    transform: rotate(0);
                 }
             }
-        }
 
-        .close-dropdown-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            .gravatar-img {
+                display: inline-block;
+                vertical-align: middle;
+                max-width: 24px;
+                max-height: 24px;
+                margin-right: 6px;
+                border-radius: 3px;
+                outline: 1px solid transparent;
+            }
 
-            z-index : $userInformationDropdownCloseToClickRegionZIndex;
+            .expand-icon {
+                color: $white;
+                display: inline-block;
+                vertical-align: middle;
+
+                transition: transform 0.4s ease;
+                transform: rotate(90deg);
+            }
+
+            .user-information-dropdown {
+                position: absolute;
+                display: none;
+
+                z-index: $userInformationDropdownZIndex;
+
+                top: 100%;
+                right: 0;
+
+                max-width: 300px;
+                min-width: 160px;
+
+                white-space: nowrap;
+
+                text-align: left;
+
+                background-color: $white;
+
+                border: 1px solid $almost-white;
+
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px;
+
+                box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+
+                .logged-in-as-text {
+                    height: 30px;
+                    line-height: 29px;
+
+                    padding-left: 10px;
+                    padding-right: 10px;
+
+                    color: $almost-black;
+                    background-color: $white;
+
+                    border-bottom: 1px solid $almost-white;
+                }
+
+                .profile {
+                    display: block;
+
+                    height: 30px;
+                    line-height: 30px;
+
+                    padding-left: 10px;
+                    padding-right: 10px;
+
+                    color: $almost-black;
+                    background-color: $white;
+
+                    margin-top: 2px;
+                    margin-bottom: 2px;
+
+                    text-decoration: none;
+
+                    &:hover {
+                        background-color: $almost-white;
+                    }
+                }
+
+                .logout {
+                    display: block;
+
+                    height: 30px;
+                    line-height: 30px;
+
+                    padding-left: 10px;
+                    padding-right: 10px;
+
+                    color: $almost-black;
+                    background-color: $white;
+
+                    text-decoration: none;
+
+                    margin-top: 2px;
+                    margin-bottom: 2px;
+
+                    &:hover {
+                        background-color: $almost-white;
+                    }
+                }
+            }
+
+            .close-dropdown-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                z-index : $userInformationDropdownCloseToClickRegionZIndex;
+            }
         }
     }
 

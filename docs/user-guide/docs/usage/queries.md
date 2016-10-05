@@ -208,3 +208,37 @@ app.ghCore.request(token.get()).content.query({
 
 
 ```
+
+9. Get list of users with first or last name, "Flober"
+
+```
+ request
+        .get()
+        .users
+        .query({
+            filters: [
+                 {
+                     key:['firstname', 'lastname'],
+                     cmp:'=',
+                     value: 'Flober'
+                 }
+             ]
+        })
+```
+
+10. Get list of users with first name starting with Fa
+
+```
+ request
+        .get()
+        .users
+        .query({
+            filters: [
+                 {
+                     key:'firstname',
+                     cmp:'%',
+                     value: '^Fa'
+                 }
+             ]
+        })
+```        

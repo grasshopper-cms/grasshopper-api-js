@@ -12,7 +12,7 @@ console.log('----- RUNNING SCSS ------');
 
 var nodeSassResult = scss.renderSync({
     file : path.join(__dirname, '..', 'client', 'styles.scss'),
-    includePaths : [],
+    includePaths : [path.join(__dirname, '..', 'node_modules')],
     outFile : finalCssPath,
     sourceMap : true,
     outputStyle : 'nested'

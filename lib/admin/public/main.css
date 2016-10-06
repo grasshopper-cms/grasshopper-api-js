@@ -169,31 +169,26 @@ table {
 .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
   transform: rotate(90deg); }
 
 .fa-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
   -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
   transform: rotate(180deg); }
 
 .fa-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   -webkit-transform: rotate(270deg);
-  -ms-transform: rotate(270deg);
   transform: rotate(270deg); }
 
 .fa-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
   -webkit-transform: scale(-1, 1);
-  -ms-transform: scale(-1, 1);
   transform: scale(-1, 1); }
 
 .fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(1, -1);
-  -ms-transform: scale(1, -1);
   transform: scale(1, -1); }
 
 :root .fa-rotate-90,
@@ -201,7 +196,8 @@ table {
 :root .fa-rotate-270,
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical {
-  filter: none; }
+  -webkit-filter: none;
+          filter: none; }
 
 .fa-stack {
   position: relative;
@@ -2268,6 +2264,7 @@ html {
           background: #f5f5f5; }
           html body #stage table thead th {
             background-color: #f8f8f8;
+            background-image: -webkit-linear-gradient(top, #fff, #ededed);
             background-image: linear-gradient(to bottom, #fff, #ededed);
             background-repeat: repeat-x;
             border-top: none;
@@ -2291,6 +2288,8 @@ html {
           line-height: 1.125rem; }
           html body #stage table tbody td input {
             cursor: pointer; }
+      html body #stage.is-rendering {
+        display: none; }
     html body.modal-is-showing {
       overflow: hidden; }
 
@@ -2327,13 +2326,16 @@ html {
         top: -1.5px;
         width: 25px;
         background-color: #fff;
+        -webkit-transition: background-color 0.4s ease-out;
         transition: background-color 0.4s ease-out; }
         #headerbar .top-menu-container .collapsed-menu-toggle .bars.active {
           background-color: transparent; }
           #headerbar .top-menu-container .collapsed-menu-toggle .bars.active:before {
-            transform: translateY(10px) rotate(45deg); }
+            -webkit-transform: translateY(10px) rotate(45deg);
+                    transform: translateY(10px) rotate(45deg); }
           #headerbar .top-menu-container .collapsed-menu-toggle .bars.active:after {
-            transform: translateY(-10px) rotate(-45deg); }
+            -webkit-transform: translateY(-10px) rotate(-45deg);
+                    transform: translateY(-10px) rotate(-45deg); }
         #headerbar .top-menu-container .collapsed-menu-toggle .bars:before {
           position: absolute;
           left: 0;
@@ -2342,7 +2344,10 @@ html {
           height: 2px;
           width: 25px;
           background-color: #fff;
+          -webkit-transition: -webkit-transform 0.4s ease-out;
+          transition: -webkit-transform 0.4s ease-out;
           transition: transform 0.4s ease-out;
+          transition: transform 0.4s ease-out, -webkit-transform 0.4s ease-out;
           will-change: transform; }
         #headerbar .top-menu-container .collapsed-menu-toggle .bars:after {
           position: absolute;
@@ -2352,7 +2357,10 @@ html {
           height: 2px;
           width: 25px;
           background-color: #fff;
+          -webkit-transition: -webkit-transform 0.4s ease-out;
+          transition: -webkit-transform 0.4s ease-out;
           transition: transform 0.4s ease-out;
+          transition: transform 0.4s ease-out, -webkit-transform 0.4s ease-out;
           will-change: transform; }
   #headerbar .brand {
     display: inline-block;
@@ -2381,13 +2389,15 @@ html {
       #headerbar user-information-dropdown .user-information-section:hover {
         background-color: #ccc; }
         #headerbar user-information-dropdown .user-information-section:hover .expand-icon {
-          transform: rotate(45deg); }
+          -webkit-transform: rotate(45deg);
+                  transform: rotate(45deg); }
       #headerbar user-information-dropdown .user-information-section.active {
         background-color: #ccc; }
         #headerbar user-information-dropdown .user-information-section.active .user-information-dropdown {
           display: block; }
         #headerbar user-information-dropdown .user-information-section.active .expand-icon {
-          transform: rotate(0); }
+          -webkit-transform: rotate(0);
+                  transform: rotate(0); }
       #headerbar user-information-dropdown .user-information-section .gravatar-img {
         display: inline-block;
         vertical-align: middle;
@@ -2400,8 +2410,12 @@ html {
         color: #fff;
         display: inline-block;
         vertical-align: middle;
+        -webkit-transition: -webkit-transform 0.4s ease;
+        transition: -webkit-transform 0.4s ease;
         transition: transform 0.4s ease;
-        transform: rotate(90deg); }
+        transition: transform 0.4s ease, -webkit-transform 0.4s ease;
+        -webkit-transform: rotate(90deg);
+                transform: rotate(90deg); }
       #headerbar user-information-dropdown .user-information-section .user-information-dropdown {
         position: absolute;
         display: none;
@@ -2468,12 +2482,17 @@ html {
     background-color: #1d354d;
     height: calc(100vh - 50px);
     width: 300px;
-    transform: translate3d(-250px, 0, 0);
+    -webkit-transform: translate3d(-250px, 0, 0);
+            transform: translate3d(-250px, 0, 0);
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    transition: -webkit-transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
+    transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
     will-change: transform;
     z-index: 100; }
     #headerbar .nav-items.open {
-      transform: translate3d(0, 0, 0); }
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0); }
       #headerbar .nav-items.open .nav-item-dropdown.expanded {
         border-bottom: 1px solid #ccc; }
         #headerbar .nav-items.open .nav-item-dropdown.expanded.height-1 {
@@ -2551,26 +2570,35 @@ html {
       #headerbar .nav-items .nav-item.has-sub-items {
         position: relative; }
         #headerbar .nav-items .nav-item.has-sub-items:hover .expand-icon, #headerbar .nav-items .nav-item.has-sub-items.focused .expand-icon {
-          transform: rotate(45deg); }
+          -webkit-transform: rotate(45deg);
+                  transform: rotate(45deg); }
         #headerbar .nav-items .nav-item.has-sub-items.expanded .expand-icon {
-          transform: rotate(0deg); }
+          -webkit-transform: rotate(0deg);
+                  transform: rotate(0deg); }
         #headerbar .nav-items .nav-item.has-sub-items .expand-icon {
           margin-left: 5px;
           display: inline-block;
           vertical-align: middle;
+          -webkit-transition: -webkit-transform 0.4s ease;
+          transition: -webkit-transform 0.4s ease;
           transition: transform 0.4s ease;
-          transform: rotate(90deg); }
+          transition: transform 0.4s ease, -webkit-transform 0.4s ease;
+          -webkit-transform: rotate(90deg);
+                  transform: rotate(90deg); }
       #headerbar .nav-items .nav-item .right-icon {
         float: right;
         line-height: 20px;
         opacity: 1;
+        -webkit-transition: opacity 0.3s ease-out;
         transition: opacity 0.3s ease-out;
-        transform: translateX(calc(100% - 50px));
+        -webkit-transform: translateX(calc(100% - 50px));
+                transform: translateX(calc(100% - 50px));
         width: 50px;
         text-align: center; }
     #headerbar .nav-items .nav-item-dropdown {
       max-height: 0px;
       overflow: hidden;
+      -webkit-transition: max-height 0.3s ease-out;
       transition: max-height 0.3s ease-out;
       padding-left: 40px; }
       #headerbar .nav-items .nav-item-dropdown .nav-item {

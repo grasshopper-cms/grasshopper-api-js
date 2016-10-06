@@ -1,5 +1,21 @@
-@import '../../../../lib/admin/client/styles/colors';
 @import 'node_modules/dragula/dist/dragula';
+@import "foundation-sites/scss/foundation.scss";
+
+@include foundation-everything();
+
+// Colors
+$white : #fff;
+$off-white : #ddd;
+$almost-white : #ccc;
+
+$grey : #eee;
+$darker-grey : #909090;
+
+$dark-blue : #1d354d;
+$light-blue : #008cba;
+
+$black : black;
+$almost-black : #333;
 
 @mixin activation-cell() {
     overflow: hidden;
@@ -81,20 +97,24 @@
 }
 
 #settings {
-    nav.menu {
-        color: $light-blue;
+    .menu {
+        @include tabs-container();
+
+        .menu-item {
+            @include tabs-title();
+        }
 
         .selected {
-            color: $almost-black;
 
             &:before {
-                background-color: $light-blue;
+
             }
         }
     }
 
     #generalView {
         display: none;
+        @include tabs-content();
 
         &.active {
             display: block;
@@ -103,7 +123,7 @@
 
     #pluginsView {
         display: none;
-
+        @include tabs-content();
         &.active {
             display: block;
         }
@@ -111,7 +131,7 @@
 
     #tabsView {
         display: none;
-
+        @include tabs-content();
         &.active {
             display: block;
         }

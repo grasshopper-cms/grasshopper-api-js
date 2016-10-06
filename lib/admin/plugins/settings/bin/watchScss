@@ -8,7 +8,7 @@ var globWatcher = require('glob-watcher'),
 
 console.log('----- WATCHING SCSS ------');
 
-globWatcher([path.join(__dirname, '..', 'styles.scss')], function(done) {
+globWatcher([path.join(__dirname, '..', 'client', 'styles.scss')], function(done) {
     console.log('Recompiling SCSS');
     childProcess.execSync(path.join(__dirname, '..', 'bin/scss'), { stdio : 'inherit' });
     console.log('SCSS Recompiled');

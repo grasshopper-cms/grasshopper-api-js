@@ -9,7 +9,7 @@ var globWatcher = require('glob-watcher'),
 console.log('----- WATCHING JAVASCRIPT ------');
 
 globWatcher([
-    path.join(__dirname, '..', 'client.js'),
+    path.join(__dirname, '..', 'client', 'client.js'),
 ], function(done) {
     console.log('Recompiling Javascript');
     childProcess.execSync(path.join(__dirname, '..', 'bin/browserify'), { stdio : 'inherit' });

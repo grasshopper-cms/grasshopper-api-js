@@ -31,6 +31,10 @@ html {
             padding-left: $site-gutter;
 
             @import 'tables';
+
+            &.is-rendering {
+                display: none;
+            }
         }
 
         &.modal-is-showing {

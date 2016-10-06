@@ -89,6 +89,7 @@
     "mousetrap": "^1.6.0",
     "node-sass": "^3.8.0",
     "nodelint": "~0.6.2",
+    "recreate-elements-script-tags": "^1.0.1",
     "riot": "^2.5.0",
     "riot-views": "0.2.0",
     "riotcontrol": "0.0.3",

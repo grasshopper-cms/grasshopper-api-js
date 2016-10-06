@@ -7,11 +7,11 @@ link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
     .row.column
         ul.menu
             li(rv-class-is-active='view.activeSection | equals view.subViews.general')
-                a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-section-name='view.subViews.general') General
-            li(rv-class-selected='view.activeSection | equals view.subViews.plugins')
-                a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-section-name='view.subViews.plugins') Plugins
-            li(rv-class-selected='view.activeSection | equals view.subViews.tabs')
-                a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-section-name='view.subViews.tabs') Tabs
+                a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-aria-selected='view.activeSection | equals view.subViews.general' rv-section-name='view.subViews.general') General
+            li(rv-class-is-active='view.activeSection | equals view.subViews.plugins')
+                a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-aria-selected='view.activeSection | equals view.subViews.plugins' rv-section-name='view.subViews.plugins') Plugins
+            li(rv-class-is-active='view.activeSection | equals view.subViews.tabs')
+                a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-aria-selected='view.activeSection | equals view.subViews.tabs' rv-section-name='view.subViews.tabs') Tabs
     .row.column
         #generalView(rv-class-active='view.activeSection | equals view.subViews.general')
             h2.sub-view-title General Settings

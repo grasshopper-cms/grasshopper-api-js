@@ -100,15 +100,14 @@ $almost-black : #333;
     .menu {
         @include tabs-container();
 
-        .menu-item {
-            @include tabs-title();
+        li.is-active {
+            .menu-item {
+                background: #e6e6e6;
+            }
         }
 
-        .selected {
-
-            &:before {
-
-            }
+        .menu-item {
+            @include tabs-title();
         }
     }
 

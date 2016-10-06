@@ -3577,6 +3577,8 @@ table.hover tr:nth-of-type(even):hover {
     display: table; }
   #settings .menu::after {
     clear: both; }
+  #settings .menu li.is-active .menu-item {
+    background: #e6e6e6; }
   #settings .menu .menu-item {
     float: left; }
     #settings .menu .menu-item > a {

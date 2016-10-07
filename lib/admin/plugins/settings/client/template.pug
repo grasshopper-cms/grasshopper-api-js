@@ -13,10 +13,10 @@ link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
             li(rv-class-is-active='view.activeSection | equals view.subViews.tabs')
                 a.menu-item(rv-on-click='view.handleSubSectionClicked' rv-aria-selected='view.activeSection | equals view.subViews.tabs' rv-section-name='view.subViews.tabs') Tabs
     .row.column
-        #generalView(rv-class-active='view.activeSection | equals view.subViews.general')
+        #generalView(rv-class-is-active='view.activeSection | equals view.subViews.general')
             h2.sub-view-title General Settings
 
-        #pluginsView(rv-class-active='view.activeSection | equals view.subViews.plugins')
+        #pluginsView(rv-class-is-active='view.activeSection | equals view.subViews.plugins')
             h2.sub-view-title Plugins
 
             table
@@ -37,7 +37,7 @@ link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
                                 i.icon.fa.fa-spin.fa-refresh
                             input(type='checkbox' rv-on-change='view.handlePluginCheck' rv-checked='plugin.active')
 
-        #tabsView(rv-class-active='view.activeSection | equals view.subViews.tabs')
+        #tabsView(rv-class-is-active='view.activeSection | equals view.subViews.tabs')
             .title-container
                 h2.sub-view-title Tabs
                 .save-tab-sort-container(rv-class-has-changed='view.tabsSortHasChanged')

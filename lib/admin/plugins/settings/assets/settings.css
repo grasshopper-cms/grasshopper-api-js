@@ -3593,32 +3593,44 @@ table.hover tr:nth-of-type(even):hover {
 
 #settings #generalView {
   display: none;
+  display: none;
+  padding: 1rem;
   background: #fefefe;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   border: 1px solid #e6e6e6;
   border-top: 0; }
-  #settings #generalView.active {
+  #settings #generalView.is-active {
+    display: block; }
+  #settings #generalView.is-active {
     display: block; }
 
 #settings #pluginsView {
   display: none;
+  display: none;
+  padding: 1rem;
   background: #fefefe;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   border: 1px solid #e6e6e6;
   border-top: 0; }
-  #settings #pluginsView.active {
+  #settings #pluginsView.is-active {
+    display: block; }
+  #settings #pluginsView.is-active {
     display: block; }
 
 #settings #tabsView {
   display: none;
+  display: none;
+  padding: 1rem;
   background: #fefefe;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   border: 1px solid #e6e6e6;
   border-top: 0; }
-  #settings #tabsView.active {
+  #settings #tabsView.is-active {
+    display: block; }
+  #settings #tabsView.is-active {
     display: block; }
   #settings #tabsView .title-container .sub-view-title {
     display: inline-block;

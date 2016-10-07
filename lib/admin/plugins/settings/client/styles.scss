@@ -113,25 +113,30 @@ $almost-black : #333;
 
     #generalView {
         display: none;
+        @include tabs-panel();
         @include tabs-content();
 
-        &.active {
+        &.is-active {
             display: block;
         }
     }
 
     #pluginsView {
         display: none;
+        @include tabs-panel();
         @include tabs-content();
-        &.active {
+
+        &.is-active {
             display: block;
         }
     }
 
     #tabsView {
         display: none;
+        @include tabs-panel();
         @include tabs-content();
-        &.active {
+
+        &.is-active {
             display: block;
         }
 

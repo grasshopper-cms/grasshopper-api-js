@@ -1,5 +1,0 @@
-#!/usr/bin/env node
-
-var childProcess = require('child_process');
-
-childProcess.execSync(`webpack`, { stdio : 'inherit' });

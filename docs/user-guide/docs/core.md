@@ -22,3 +22,17 @@ grasshopper
         next();
     });
 ```
+
+## Pro tip:
+
+To access raw mongo:
+
+```
+// access to mongo driver
+grasshopper.core.db.content.model.collection
+
+// so you can do stuff like
+grasshopper.core.db.content.model.collection.find({
+    $text: {
+        $search: term}}).toArray()
+```

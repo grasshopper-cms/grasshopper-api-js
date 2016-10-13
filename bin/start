@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 bin/installDependencies
-bin/build
-(bin/watchScss) & (bin/watchAdminFiles) & (demo/bin/start)
+(webpack --progress --colors --watch)&
+demo/bin/start

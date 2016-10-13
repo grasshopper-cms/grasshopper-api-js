@@ -1,9 +1,17 @@
 {
   "verbose": true,
   "ignore": [
-      "node_modules/**",
-      "lib/admin/**",
-      "lib/admin/client/**",
-      "bin/**"
+      "node_modules/*",
+      "lib/admin/client/*",
+      "bin/*",
+      "docs/*",
+      "cache/*",
+      "fixtures/*",
+      "grunt/*",
+      "release_notes/*",
+      "tasks/*",
+      "templates/*",
+      "test/*",
+      "tmp/*"
   ]
 }

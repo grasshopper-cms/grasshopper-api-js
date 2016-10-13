@@ -9,3 +9,9 @@ if ! command -v webpack >/dev/null 2>&1
     then
         npm install -g webpack
     fi
+
+if ! command -v postcss >/dev/null 2>&1
+    then
+        npm install -g postcss-cli
+        npm install -g autoprefixer
+    fi

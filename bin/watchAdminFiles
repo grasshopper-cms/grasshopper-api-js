@@ -2,11 +2,12 @@
 
 'use strict';
 
-var globWatcher = require('glob-watcher'),
-    childProcess = require('child_process'),
-    path = require('path');
+const globWatcher = require('glob-watcher');
+const childProcess = require('child_process');
+const path = require('path');
+const chalk = require('chalk');
 
-console.log('----- WATCHING ADMIN FILES ------');
+console.log(chalk.red('\n\n----- WATCHING ADMIN FILES ------'));
 
 globWatcher([
     path.join(__dirname, '..', 'lib', 'admin', 'client', 'components', '**/*.js'),

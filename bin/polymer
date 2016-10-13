@@ -1,8 +1,0 @@
-#!/usr/bin/env node
-
-var childProcess = require('child_process'),
-    path = require('path'),
-    pathToGetPolymerComponents = path.join(__dirname, '..', 'lib', 'admin', 'client', 'components', 'polymer'),
-    pathToPutPolymerComponents = path.join(__dirname, '..', 'lib', 'admin', 'public');
-
-childProcess.execSync(`cp -r ${ pathToGetPolymerComponents } ${ pathToPutPolymerComponents }`, { stdio : 'inherit' });

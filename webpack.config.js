@@ -1,7 +1,7 @@
 'use strict';
 const path = require('path');
 const webpack = require('webpack');
-const SplitByPathPlugin = require('webpack-split-by-path')
+const SplitByPathPlugin = require('webpack-split-by-path');
 
 module.exports = {
     cache: true,
@@ -45,9 +45,16 @@ module.exports = {
 
     module: {
         preLoaders: [
-            { test: /\.tag$/, exclude: /node_modules/, loader: 'riotjs-loader', query: { template: 'pug' } },
+            {
+                test: /\.tag$/,
+                exclude: /node_modules/,
+                loader: 'riotjs-loader',
+                query: { template: 'pug' } },
             // Don't think tag files are really working yet
-            { test: /\.js$|\.tag$/, loader: "eslint-loader", exclude: /node_modules/}
+            {
+                test: /\.js$/,
+                loader: "jshint-loader",
+                exclude: /node_modules/}
         ],
         loaders: [
             {

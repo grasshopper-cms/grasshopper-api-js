@@ -31,6 +31,6 @@
     "noarg": true,
     "maxdepth": 2,
     "devel": false,
-    "debug": false,
+    "debug": true,
     "esversion" : 6
 }

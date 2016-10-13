@@ -11,6 +11,7 @@
         "app/public",
         "app/tmp",
         "app/views",
-        "node_modules"
+        "node_modules",
+        "../lib/admin/client/**"
     ]
 }

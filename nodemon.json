@@ -1,4 +1,9 @@
 {
   "verbose": true,
-  "ignore": ["node_modules/**", "lib/admin/**", "lib/admin/client/**", "bin/**"]
+  "ignore": [
+      "node_modules/**",
+      "lib/admin/**",
+      "lib/admin/client/**",
+      "bin/**"
+  ]
 }

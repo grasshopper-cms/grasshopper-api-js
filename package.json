@@ -81,6 +81,8 @@
     "grunt-shell": "~0.4.0",
     "history": "^4.3.0",
     "jquery": "^2.2.4",
+    "jshint": "^2.9.3",
+    "jshint-loader": "^0.8.3",
     "listen-once": "^2.2.0",
     "magic-focus-finder": "^2.12.2",
     "matchdep": "~0.1.2",

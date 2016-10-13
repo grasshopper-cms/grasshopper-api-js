@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./lib/admin/client/core/testo.js"],"names":[],"mappings":";;;;;AAAA;;AAEA,SAAQ,GAAR,CAAY,MAAZ,E","file":"2.2.js","sourcesContent":["'use strict';\n\nconsole.log('boom');\n\n\n/** WEBPACK FOOTER **\n ** ./lib/admin/client/core/testo.js\n **/"],"sourceRoot":""}

@@ -3,6 +3,7 @@
   "ignore": [
       "node_modules/*",
       "lib/admin/client/*",
+      "lib/admin/plugins/settings/client/*",
       "bin/*",
       "docs/*",
       "cache/*",

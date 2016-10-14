@@ -4,6 +4,5 @@ const runner = require('node-shell-runner');
 const path = require('path');
 
 runner.run([
-    [`npm install`, 'Npm install'],
     [`nodemon -V ${path.join(__dirname, '..', 'app')}`, 'Starting app with nodemon']
 ]);

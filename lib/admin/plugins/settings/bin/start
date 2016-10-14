@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 
-npm install
 bin/ensureDeps
 webpack --progress --colors --watch

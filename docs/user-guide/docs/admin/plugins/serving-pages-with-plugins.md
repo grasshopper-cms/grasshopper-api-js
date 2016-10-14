@@ -1,0 +1,1 @@
+Each plugin gets access to the same HTML, and can inject one script tag.

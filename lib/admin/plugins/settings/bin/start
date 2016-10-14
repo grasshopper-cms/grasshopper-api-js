@@ -2,6 +2,4 @@
 
 npm install
 bin/ensureDeps
-bin/browserify
-bin/scss
-(bin/watchJavascript) & (bin/watchScss)
+webpack --progress --colors --watch

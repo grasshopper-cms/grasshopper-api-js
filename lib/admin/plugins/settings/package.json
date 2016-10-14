@@ -10,10 +10,21 @@
   "license": "ISC",
   "devDependencies": {
     "add-named-elements-to-object": "^1.0.0",
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-preset-es2015": "^6.0.0",
+    "cross-env": "^3.0.0",
+    "css-loader": "^0.25.0",
     "dragula": "^3.7.1",
+    "file-loader": "^0.9.0",
+    "foundation-sites": "^6.2.3",
+    "grasshopper-admin-plugin-base-template": "^1.0.3",
+    "node-sass": "^3.10.1",
     "query-string": "^4.2.3",
     "rivets": "^0.9.4",
-    "grasshopper-admin-plugin-base-template": "^1.0.3",
-    "foundation-sites": "^6.2.3"
+    "sass-loader": "^4.0.2",
+    "vue": "^2.0.3",
+    "vue-loader": "^9.4.0",
+    "webpack": "^1.13.2"
   }
 }

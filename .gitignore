@@ -1,6 +1,6 @@
 /.vscode
 /.idea
-/node_modules
+node_modules
 /dist
 /cache
 /log
@@ -12,3 +12,4 @@ ghapi.json
 /tasks/seedData/*
 npm-debug.log
 .DS_Store
+bundle.js

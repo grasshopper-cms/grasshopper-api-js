@@ -1,6 +1,4 @@
-include fontAwesomeListOptions.pug
-
-link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
+include ../fontAwesomeListOptions.pug
 
 #settings.row.column
     h1 SETTINGS
@@ -124,7 +122,3 @@ link(rel='stylesheet', href='/admin/plugins/settings/settings.css')
                                 span Working
                                 i.fa.fa-refresh.fa-spin
                         button.btn(type='button' rv-on-click='view.cancelTabAddClearForm') Cancel
-script.
-    window.plugins = JSON.parse('!{JSON.stringify(plugins)}');
-    window.tabs = JSON.parse('!{JSON.stringify(tabs)}');
-script(type='text/javascript' src='/admin/plugins/settings/bundle.js')

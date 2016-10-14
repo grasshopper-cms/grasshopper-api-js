@@ -25,7 +25,7 @@ module.exports = {
     output: {
         filename: '[name].js',
         path: path.join(__dirname, 'lib', 'admin', 'public'),
-        publicPath: 'http://localhost:3008/'
+        publicPath: 'http://localhost:3008/admin/'
     },
 
     plugins: [

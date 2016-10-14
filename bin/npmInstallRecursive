@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+'use strict';
+
+const BB = require('bluebird');
+const chalk = require('chalk');
+const glob = BB.promisify(require('glob'));
+const path = require('path');
+const runner = require('node-shell-runner');
+
+glob("*/**/package.json", {ignore: ['**/node_modules/**', '**/vendor/**']})
+    .then(files => {
+        console.log('will be npm installing:', chalk.green(JSON.stringify(files, null, 4)));
+        return files;
+    })
+    .then(files => {
+        return files.map(file => {
+            return [`cd ${path.dirname(file)}; npm install`, `\n\nRunning npm install for ${file}` ];
+        });
+    })
+    .then(commands => {
+        runner.run(commands);
+    })
+    .catch(err => {
+        console.log('err', err);
+    });

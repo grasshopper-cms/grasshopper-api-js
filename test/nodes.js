@@ -14,7 +14,7 @@ describe('api.nodes', function(){
         nodeEditorToken = '',
         restrictedEditorToken = '',
         testNodeId = '5261781556c02c072a000007',
-        testNodeWithNoSubNodes = '5246e73d56c02c0744000001',
+        // testNodeWithNoSubNodes = '5246e73d56c02c0744000001',
         testNodeIdRoot_generated = '',
         testNodeIdSubNode_generated = '',
         testNodeIdSubSub_generated = '',
@@ -850,62 +850,6 @@ describe('api.nodes', function(){
         });
     });
 
-
-    describe('POST: ' + url + '/node/:id/assets/move', function() {
-        it('should move one asset to another node.', function(done) {
-
-            request(url)
-                .post('/node/' + testNodeId + '/assets/move')
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Basic ' + globalEditorToken)
-                .send({
-                    newnodeid: testNodeWithNoSubNodes,
-                    filename: 'testimage.png'
-                })
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(200);
-                    res.body.message.should.equal('Success');
-                    done();
-                });
-        });
-
-        /** Requires node level permissions
-        it('should fail because the user does not have permissions on the new node id.', function(done) {
-            done();
-        });
-
-        it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
-            done();
-        });*/
-    });
-
-
-    describe('DELETE: ' + url + '/node/:id/assets/:name', function() {
-        it('should delete an asset with a specific name', function(done) {
-
-             request(url)
-                 .del('/node/' + testNodeWithNoSubNodes + '/assets/testimage.png')
-                 .set('Accept', 'application/json')
-                 .set('Accept-Language', 'en_US')
-                 .set('authorization', 'Basic ' + globalEditorToken)
-                 .end(function(err, res) {
-                     if (err) { throw err; }
-                     res.status.should.equal(200);
-                     res.body.message.should.equal('Success');
-                     done();
-                 });
-         });
-
-         it('should fail because the user does not have permissions.', function(done) {
-             done();
-         });
-
-         it('should succeed when a user that is a reader but had editor rights on a specific node.', function(done) {
-             done();
-         });
-    });
 
     describe('DELETE: ' + url + '/node/:id/assets', function() {
         it('should delete all files in a node.', function(done) {

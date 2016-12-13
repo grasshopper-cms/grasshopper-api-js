@@ -14,6 +14,7 @@ describe('api.nodes', function(){
         nodeEditorToken = '',
         restrictedEditorToken = '',
         testNodeId = '5261781556c02c072a000007',
+        testNodeSlug = 'node-slug',
         // testNodeWithNoSubNodes = '5246e73d56c02c0744000001',
         testNodeIdRoot_generated = '',
         testNodeIdSubNode_generated = '',
@@ -1037,6 +1038,21 @@ describe('api.nodes', function(){
         xit('Should delete a generated node.', function(done) {
             request(url)
                 .del('/node/' + testNodeIdSubSub_generated)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + globalEditorToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+    });
+
+    describe('GET: ' + url + '/node/slug/:slug',function(){
+        it('should return a node when using a slug', function(done) {
+            request(url)
+                .get('/node/slug/' + testNodeSlug)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Basic ' + globalEditorToken)

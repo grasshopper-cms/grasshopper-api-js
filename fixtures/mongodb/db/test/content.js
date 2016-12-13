@@ -10,6 +10,7 @@ module.exports = function(ObjectID) {
                 node : ObjectID(ids[0]),
                 labelfield: 'testfield'
             },
+            slug: 'content-slug',
             fields: {
                 testfield: 'testvalue'
             }

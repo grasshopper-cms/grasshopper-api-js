@@ -6,6 +6,7 @@ require('chai').should();
 describe('api.contentTypes', function(){
     var url = require('./config/test').url,
         testContentTypeId  = '524362aa56c02c0703000001',
+        testContentTypeSlug = 'contenttype-slug',
         readerToken = '',
         adminToken  = '',
         testCreatedContentTypeId = '',
@@ -602,4 +603,40 @@ describe('api.contentTypes', function(){
                 });
         });
     });
+
+    describe('GET: ' + url + '/contenttype/slug/:slug',function(){
+        it('should return a contenttype when using a slug', function(done) {
+            request(url)
+                .get('/contenttypes/slug/' + testContentTypeSlug)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+    });
+
+    describe('POST: ' + url + '/contenttype/query',function(){
+        it('should return a contenttype when using a GH Query', function(done) {
+            request(url)
+                .post('/contenttypes/query')
+                .send({ filters: {
+                    key: 'label',
+                    value: 'This is my test content type',
+                    cmp:'='
+                }})
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + adminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+    });
+
 });

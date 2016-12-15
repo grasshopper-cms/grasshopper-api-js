@@ -6,6 +6,7 @@ module.exports = function(ObjectID) {
             _id: ObjectID('524362aa56c02c0703000001'),
             label: 'This is my test content type',
             helpText: '',
+            slug: 'contenttype-slug',
             description: '',
             fields: [
                 {

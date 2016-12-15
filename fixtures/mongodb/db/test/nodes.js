@@ -1,6 +1,6 @@
 module.exports = function(ObjectID) {
     return [
-        { _id: ObjectID("5261781556c02c072a000007"), label: "Sample Node",  parent: null },
+        { _id: ObjectID("5261781556c02c072a000007"), label: "Sample Node",  parent: null, slug:'node-slug' },
         { _id: ObjectID("526d5179966a883540000006"), label: "Locked Down Node", parent: null },
         { _id: ObjectID("526417710658fc1f0a00000b"), label: "Sample  Sub-Node", parent: ObjectID("5261781556c02c072a000007"), ancestors: [ObjectID("5261781556c02c072a000007")] },
         { _id: ObjectID("5246e73d56c02c0744000001"), label: "Sample  Sub-Node 2", parent: ObjectID("5261781556c02c072a000007"), ancestors: [ObjectID("5261781556c02c072a000007")] },

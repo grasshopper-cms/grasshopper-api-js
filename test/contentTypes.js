@@ -613,7 +613,6 @@ describe('api.contentTypes', function(){
                 .set('authorization', 'Basic ' + adminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
-                    console.log('----------------',res.body);
                     res.status.should.equal(200);
                     res.body.slug.should.equal(testContentTypeSlug);
                     done();

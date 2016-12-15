@@ -613,27 +613,9 @@ describe('api.contentTypes', function(){
                 .set('authorization', 'Basic ' + adminToken)
                 .end(function(err, res) {
                     if (err) { throw err; }
+                    console.log('----------------',res.body);
                     res.status.should.equal(200);
-                    done();
-                });
-        });
-    });
-
-    describe('POST: ' + url + '/contenttype/query',function(){
-        it('should return a contenttype when using a GH Query', function(done) {
-            request(url)
-                .post('/contenttypes/query')
-                .send({ filters: {
-                    key: 'label',
-                    value: 'This is my test content type',
-                    cmp:'='
-                }})
-                .set('Accept', 'application/json')
-                .set('Accept-Language', 'en_US')
-                .set('authorization', 'Basic ' + adminToken)
-                .end(function(err, res) {
-                    if (err) { throw err; }
-                    res.status.should.equal(200);
+                    res.body.slug.should.equal(testContentTypeSlug);
                     done();
                 });
         });

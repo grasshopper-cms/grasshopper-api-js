@@ -8,6 +8,7 @@ describe('api.content', function(){
         async = require('async'),
         _ = require('lodash'),
         testContentId  = '5261781556c02c072a000007',
+        testContentSlug = 'content-slug',
         restrictedContentId = '5254908d56c02c076e000001',
         sampleContentObject = null,
         tokens = {},
@@ -417,6 +418,21 @@ describe('api.content', function(){
         it('should return 200 because I have the correct permissions.', function(done) {
             request(url)
                 .del('/content/' + restrictedContentId)
+                .set('Accept', 'application/json')
+                .set('Accept-Language', 'en_US')
+                .set('authorization', 'Basic ' + tokens.globalAdminToken)
+                .end(function(err, res) {
+                    if (err) { throw err; }
+                    res.status.should.equal(200);
+                    done();
+                });
+        });
+    });
+
+    describe('GET: ' + url + '/content/slug/:slug',function(){
+        it('should return a node when using a slug', function(done) {
+            request(url)
+                .get('/content/slug/' + testContentSlug)
                 .set('Accept', 'application/json')
                 .set('Accept-Language', 'en_US')
                 .set('authorization', 'Basic ' + tokens.globalAdminToken)

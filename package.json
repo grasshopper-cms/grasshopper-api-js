@@ -44,7 +44,7 @@
     "express": "~4.8.0",
     "express-session": "^1.13.0",
     "grant": "^3.5.5",
-    "grasshopper-core": "0.23.0",
+    "grasshopper-core": "0.24.0",
     "lodash": "^2.4.1",
     "method-override": "~1.0.1",
     "morgan": "~1.1.0",

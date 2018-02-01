@@ -44,7 +44,7 @@
     "express": "~4.8.0",
     "express-session": "^1.13.0",
     "grant": "^3.5.5",
-    "grasshopper-core": "0.24.3",
+    "grasshopper-core": "^0.24.5",
     "lodash": "^2.4.1",
     "method-override": "~1.0.1",
     "morgan": "~1.1.0",
@@ -55,20 +55,20 @@
     "semver": "^5.1.0"
   },
   "devDependencies": {
-    "matchdep": "~0.1.2",
-    "uglify-js": "1.2.x",
-    "nodelint": "~0.6.2",
-    "mocha": "~1.12.1",
-    "mongodb": "^2.1.16",
     "chai": "~1.7.2",
-    "sinon": "~1.7.3",
     "grunt": "~0.4.1",
-    "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-watch": "~0.5.3",
     "grunt-nodemon": "~0.1.1",
-    "supertest": "~0.7.1",
+    "grunt-release-notes": "~0.1.1",
     "grunt-shell": "~0.4.0",
-    "grunt-release-notes": "~0.1.1"
+    "matchdep": "~0.1.2",
+    "mocha": "~1.12.1",
+    "mongodb": "^2.2.34",
+    "nodelint": "~0.6.2",
+    "sinon": "~1.7.3",
+    "supertest": "~0.7.1",
+    "uglify-js": "1.2.x"
   },
   "jam": {
     "main": "lib/grasshopper-api.js",
